@@ -121,7 +121,6 @@ La raíz radica en la falta de infraestructura tecnológica IoT. La mayoría de 
 * Se generan **1.3 kg de CO₂** por cada 10 minutos de búsqueda.
 * El 51% de los limeños reporta pérdida de calidad de vida debido a la congestión.
 
-### 1.2.2 Lean UX Process.
 ## 1.2.2. Lean UX Process
 
 El Lean UX Process es un enfoque ágil centrado en diseñar soluciones que respondan a necesidades reales de los usuarios mediante ciclos cortos de validación, retroalimentación y mejora continua. Para este proyecto, utilizamos este enfoque para analizar los desafíos de la gestión de estacionamientos en centros comerciales de Lima y construir una solución IoT integral que mejore la experiencia del conductor y la eficiencia operativa del estacionamiento.
@@ -245,7 +244,8 @@ Hemos identificado que esta deficiencia operativa tiene un impacto directo en tr
 - **Hypothesis 05:** Creemos que la integración del pago digital (Yape, Culqi) eliminará las colas en las cabinas de cobro y mejorará la experiencia de salida del estacionamiento.  
   Sabremos que hemos tenido éxito cuando al menos el 50% de los pagos se realicen de forma digital en los primeros tres meses de operación, y el tiempo promedio de salida del estacionamiento se reduzca en al menos un 60%.
 #### 1.2.2.4. Lean UX Canvas.
-[Contenido]
+
+[Lean ux](./assets/lean-ux/LeanUX_canvas_v4.png)
 
 ## 1.3. Segmentos objetivo.
 [Contenido]

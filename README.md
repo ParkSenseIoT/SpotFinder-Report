@@ -246,7 +246,27 @@ Este análisis refleja una clara necesidad de modernización en la gestión de e
 [Contenido]
 
 ## 2.5. Ubiquitous Language.
-[Contenido]
+
+| Término            | Equivalente                     | Definición                                                                 |
+|--------------------|--------------------------------|---------------------------------------------------------------------------|
+| Driver             | Conductor                      | Usuario que utiliza el estacionamiento para ubicar, estacionar y pagar.   |
+| Administrator      | Administrador                  | Encargado de supervisar y gestionar el sistema de estacionamiento.        |
+| Parking Space      | Espacio de estacionamiento     | Espacio físico donde un vehículo puede estacionarse.                      |
+| Occupancy          | Estado de ocupación            | Estado de un espacio, indicando si está libre u ocupado.                  |
+| Vehicle            | Vehículo                       | Medio de transporte registrado dentro del sistema.                        |
+| License Plate      | Placa del vehículo             | Identificador único asociado a cada vehículo.                             |
+| Parking Session    | Sesión de estacionamiento      | Periodo de tiempo en el que un vehículo permanece estacionado.            |
+| Payment            | Pago del estacionamiento       | Proceso mediante el cual el usuario paga por el tiempo de estacionamiento.|
+| Service            | Servicio adicional             | Servicio solicitado para el vehículo, como lavado u otros.                |
+| Notification       | Notificación                   | Mensaje enviado al usuario con información relevante del sistema.         |
+| IoT Sensor System  | Sistema de sensores IoT        | Dispositivos que detectan la ocupación de los espacios en tiempo real.    |
+| Payment System     | Sistema de pagos               | Plataforma externa que procesa los pagos digitales.                       |
+| Space Detection    | Detección de espacios          | Proceso de identificación de espacios libres u ocupados mediante sensores.|
+| Availability Check | Consulta de disponibilidad     | Acción de verificar los espacios disponibles en el estacionamiento.       |
+| Parking Management | Gestión de estacionamiento     | Proceso completo desde el ingreso hasta la salida del vehículo.           |
+| Notification Handling | Gestión de notificaciones   | Proceso de envío y recepción de alertas dentro del sistema.               |
+| Payment Processing | Procesamiento de pagos         | Gestión de transacciones digitales realizadas por los usuarios.           |
+| Service Management | Gestión de servicios           | Proceso de solicitud y ejecución de servicios adicionales.                |
 
 ---
 

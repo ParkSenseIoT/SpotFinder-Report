@@ -245,7 +245,7 @@ Hemos identificado que esta deficiencia operativa tiene un impacto directo en tr
   Sabremos que hemos tenido éxito cuando al menos el 50% de los pagos se realicen de forma digital en los primeros tres meses de operación, y el tiempo promedio de salida del estacionamiento se reduzca en al menos un 60%.
 #### 1.2.2.4. Lean UX Canvas.
 
-[Lean ux](./assets/lean-ux/LeanUX_canvas_v4.png)
+![Lean UX Canvas](./assets/lean-ux/LeanUX_canvas_v4.png)
 
 ## 1.3. Segmentos objetivo.
 [Contenido]

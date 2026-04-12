@@ -345,18 +345,113 @@ Las entrevistas se realizaron a un total de tres participantes del segmento de c
 **Conclusión general**
 Este análisis refleja una clara necesidad de modernización en la gestión de estacionamientos. La coincidencia del 100% en la frustración por el tiempo de búsqueda y la disposición al uso de soluciones digitales confirma que SpotFinder ataca un punto de dolor crítico. La integración de hardware (LEDs) y software (App de pagos) es la combinación más valorada por los conductores.
 
-## 2.3. Needfinding.
-### 2.3.1. User Personas.
-[Contenido]
+## 2.3. Needfinding
 
-### 2.3.2. User Task Matrix.
-[Contenido]
+En la siguiente sección, analizaremos a nuestros segmentos objetivos para identificar sus necesidades y de acuerdo a ello ofrecer una solución óptima a sus problemas.
 
-### 2.3.3. User Journey Mapping.
-[Contenido]
+### 2.3.1. User Personas
+**Segmento 1: Conductores que visitan centros comerciales**
 
-### 2.3.4. Empathy Mapping.
-[Contenido]
+<img src="/assets/requirements/personas/UserPersona1.png" alt="User persona - segmento 1" width="700"/>
+<br><br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="/assets/requirements/personas/UserPersona2.png" alt="User persona - segmento 2" width="700"/>
+
+
+### 2.3.2. User Task Matrix
+
+Esta sección presenta las tareas que realizan los segmentos objetivo para cumplir sus objetivos dentro del contexto de los estacionamientos en centros comerciales. Las tareas identificadas se basan en el análisis de los User Personas y reflejan la situación actual del mercado. Cada tarea se evalúa según su Frecuencia e Importancia, utilizando las categorías Alta, Media y Baja.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+| **Task Matrix**                                                     | **Frecuencia** | **Importancia** |
+| ------------------------------------------------------------------- | -------------- | --------------- |
+| Supervisar la ocupación de los espacios de estacionamiento          | Alta           | Alta            |
+| Coordinar el ingreso y salida de vehículos                          | Alta           | Alta            |
+| Gestionar al personal de seguridad y orientación                    | Alta           | Alta            |
+| Controlar el uso de tickets y sistemas de cobro                     | Alta           | Alta            |
+| Generar reportes de ingresos y ocupación                            | Alta           | Alta            |
+| Establecer y actualizar tarifas del estacionamiento                 | Media          | Alta            |
+| Supervisar la infraestructura y el mantenimiento de equipos         | Media          | Alta            |
+| Resolver incidencias operativas y reclamos de usuarios              | Alta           | Alta            |
+| Monitorear la congestión vehicular en horas punta                   | Alta           | Alta            |
+| Registrar datos operativos en hojas de cálculo o sistemas básicos   | Media          | Alta            |
+| Coordinar con proveedores de tecnología y mantenimiento             | Media          | Media           |
+| Implementar mejoras para optimizar la operación del estacionamiento | Media          | Alta            |
+| Garantizar el cumplimiento de protocolos de seguridad y emergencia  | Alta           | Alta            |
+| Analizar estadísticas para la toma de decisiones estratégicas       | Media          | Alta            |
+| Evaluar e implementar nuevas soluciones tecnológicas                | Baja           | Alta            |
+
+<br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+| **Task Matrix**                                                              | **Frecuencia** | **Importancia** |
+| ---------------------------------------------------------------------------- | -------------- | --------------- |
+| Coordinar y asignar rutas a los camiones                                     | Alta           | Alta            |
+| Cotizar precios y responder solicitudes de transporte                        | Alta           | Alta            |
+| Gestionar la documentación de envío (guías de remisión, contratos, facturas) | Alta           | Alta            |
+| Supervisar el estado y mantenimiento de los camiones                         | Media          | Alta            |
+| Contactar y negociar con nuevos clientes                                     | Alta           | Alta            |
+| Hacer seguimiento del transporte y ubicación de las unidades en tiempo real  | Alta           | Alta            |
+| Controlar pagos, ingresos y liquidaciones con clientes y transportistas      | Alta           | Alta            |
+| Publicar y responder mensajes en Facebook, WhatsApp y otras plataformas      | Alta           | Media           |
+| Registrar datos de viajes, pagos y clientes en hojas de cálculo o cuadernos  | Media          | Alta            |
+| Capacitarse en nuevas herramientas tecnológicas para optimizar procesos      | Baja           | Alta            |
+
+#### Análisis de la User Task Matrix
+
+##### Tareas más críticas
+
+- Conductores:
+    - Buscar espacios disponibles.
+    - Estacionar el vehículo.
+    - Realizar pagos y salir del estacionamiento.
+    - Recordar la ubicación del automóvil.
+
+- Administradores:
+    - Supervisar la ocupación del estacionamiento.
+    - Controlar accesos e ingresos.
+    - Generar reportes operativos.
+    - Gestionar incidencias y garantizar la seguridad.
+
+##### Principales diferencias
+
+| Conductores                                                                     | Administradores                                                   |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Se enfocan en encontrar estacionamiento rápidamente y pagar sin complicaciones. | Se enfocan en optimizar la operación y maximizar la rentabilidad. |
+| Buscan comodidad y ahorro de tiempo.                                            | Buscan eficiencia operativa y control estratégico.                |
+| Interactúan directamente con la infraestructura física.                         | Supervisan y gestionan el sistema en su totalidad.                |
+
+
+### 2.3.3. User Journey Mapping
+
+A continuación presentamos los User Journey Map que describen las experiencias actuales de nuestros segmentos objetivos. Se presenta el recorrido end-to-end desde la necesidad de visitar el establecimiento hasta la salida del estacionamiento. Este análisis permite identificar puntos críticos, frustraciones y oportunidades de mejora que justifican el desarrollo de SpotFinder.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+<img src="/assets/requirements/maps/JourneyMap1.png" alt="Journey Map - segmento 1" width="750"/>
+<br><br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="/assets/requirements/maps/JourneyMap2.png" alt="Journey Map - segmento 2" width="750"/>
+
+### 2.3.4. Empathy Mapping
+
+En esta sección se presenta el Empathy Map de nuestros segmentos objetivos. Este artefacto permite comprender sus pensamientos, emociones, necesidades y comportamientos. El análisis se basa en la información obtenida de entrevistas, observación del contexto actual y estudio de soluciones existentes en el mercado. Su propósito es identificar los principales pains y gains, los cuales servirán como base para el diseño de la solución SpotFinder.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+<img src="/assets/requirements/maps/EmpathyMap1.png" alt="Empathy Map - segmento 1" width="700"/>
+<br><br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="/assets/requirements/maps/EmpathyMap2.png" alt="Empathy Map - segmento 2" width="700"/>
+
 
 ## 2.4. Big Picture Event Storming  
 

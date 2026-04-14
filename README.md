@@ -429,12 +429,12 @@ En la siguiente sección, analizaremos a nuestros segmentos objetivos para ident
 ### 2.3.1. User Personas
 **Segmento 1: Conductores que visitan centros comerciales**
 
-<img src="/assets/requirements/personas/UserPersona1.png" alt="User persona - segmento 1" width="700"/>
-<br><br>
+<img src="assets/requirements/personas/UserPersona1.png" alt="User persona - segmento 1" width="700"/>
+<br><br>    
 
 **Segmento 2: Administradores de estacionamientos de centros comerciales**
 
-<img src="/assets/requirements/personas/UserPersona2.png" alt="User persona - segmento 2" width="700"/>
+<img src="assets/requirements/personas/UserPersona2.png" alt="User persona - segmento 2" width="700"/>
 
 
 ### 2.3.2. User Task Matrix

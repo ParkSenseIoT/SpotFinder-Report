@@ -509,26 +509,23 @@ A continuación presentamos los User Journey Map que describen las experiencias 
 
 **Segmento 1: Conductores que visitan centros comerciales**
 
-<img src="/assets/requirements/maps/JourneyMap1.png" alt="Journey Map - segmento 1" width="750"/>
+<img src="assets/requirements/maps/JourneyMap1.png" alt="Journey Map - segmento 1" width="750"/>
 <br><br>
-
 **Segmento 2: Administradores de estacionamientos de centros comerciales**
 
-<img src="/assets/requirements/maps/JourneyMap2.png" alt="Journey Map - segmento 2" width="750"/>
-
+<img src="assets/requirements/maps/JourneyMap2.png" alt="Journey Map - segmento 2" width="750"/>  
 ### 2.3.4. Empathy Mapping
 
 En esta sección se presenta el Empathy Map de nuestros segmentos objetivos. Este artefacto permite comprender sus pensamientos, emociones, necesidades y comportamientos. El análisis se basa en la información obtenida de entrevistas, observación del contexto actual y estudio de soluciones existentes en el mercado. Su propósito es identificar los principales pains y gains, los cuales servirán como base para el diseño de la solución SpotFinder.
 
 **Segmento 1: Conductores que visitan centros comerciales**
 
-<img src="/assets/requirements/maps/EmpathyMap1.png" alt="Empathy Map - segmento 1" width="700"/>
+<img src="assets/requirements/maps/EmpathyMap1.png" alt="Empathy Map - segmento 1" width="750"/>
 <br><br>
 
 **Segmento 2: Administradores de estacionamientos de centros comerciales**
 
-<img src="/assets/requirements/maps/EmpathyMap2.png" alt="Empathy Map - segmento 2" width="700"/>
-
+<img src="assets/requirements/maps/EmpathyMap2.png" alt="Empathy Map - segmento 2" width="750"/>
 
 ## 2.4. Big Picture Event Storming  
 

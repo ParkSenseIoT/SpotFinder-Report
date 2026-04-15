@@ -842,45 +842,48 @@ Static Web Stories (SWS): historias relacionadas con la presentación y navegaci
 | 37 | TS25 | Exponer endpoint para activar evacuación | 3 |
 | 38 | TS26 | Exponer endpoint para resolver emergencia | 3 |
 | 39 | US15 | Historial de pagos | 3 |
-| 40 | TS17 | Exponer endpoint para historial de pagos | 2 |
-| 41 | TS14 | Exponer endpoint para historial de sesiones | 2 |
-| 42 | US16 | Generación de pase digital (Google Wallet) | 8 |
-| 43 | TS27 | Exponer endpoint para generar pase digital | 5 |
-| 44 | TS28 | Exponer endpoint para obtener pase digital | 2 |
-| 45 | TS29 | Exponer endpoint para generar pase Google Wallet | 5 |
-| 46 | US17 | Solicitud de servicio de lavado | 5 |
-| 47 | US18 | Registro de usuario conductor | 5 |
-| 48 | US19 | Registro de usuario administrador | 5 |
-| 49 | US20 | Inicio de sesión | 3 |
-| 50 | TS30 | Exponer endpoint para registrar usuario | 3 |
-| 51 | TS31 | Exponer endpoint para autenticación | 3 |
-| 52 | US21 | Recuperación de contraseña | 3 |
-| 53 | US22 | Edición de perfil | 3 |
-| 54 | US23 | Registro de vehículo adicional | 3 |
-| 55 | TS32 | Exponer endpoint para obtener perfil | 2 |
-| 56 | TS33 | Exponer endpoint para actualizar perfil | 3 |
-| 57 | TS34 | Exponer endpoint para recuperación de contraseña | 3 |
-| 58 | TS35 | Exponer endpoint para restablecer contraseña | 3 |
-| 59 | TS36 | Exponer endpoint para registrar vehículo | 3 |
-| 60 | TS37 | Exponer endpoint para listar vehículos | 2 |
-| 61 | TS38 | Exponer endpoint para eliminar vehículo | 2 |
-| 62 | SWS01 | Ver sección Hero | 2 |
-| 63 | SWS02 | Ver sección Features | 2 |
-| 64 | SWS03 | Ver sección How It Works | 2 |
-| 65 | SWS04 | Ver sección About The Product | 3 |
-| 66 | SWS05 | Ver sección Pricing | 3 |
-| 67 | SWS06 | Ver sección Testimonials | 2 |
-| 68 | SWS07 | Ver sección About Us y About The Team | 2 |
-| 69 | SWS08 | Ver sección FAQ | 2 |
-| 70 | SWS09 | Ver sección Contact | 2 |
-| 71 | SWS10 | Ver sección Footer | 2 |
-| 72 | SWS11 | Navegación responsive | 3 |
-| 73 | SS01 | Investigación de integración de Culqi | 8 |
-| 74 | SS02 | Investigación de Plate Recognizer API | 8 |
-| 75 | SS03 | Investigación de Firebase Cloud Messaging | 5 |
-| 76 | SS04 | Investigación de Google Wallet API | 8 |
-| 77 | SS05 | Prueba de bibliotecas MQTT para ESP32 | 5 |
-| 78 | SS06 | Prueba de bibliotecas para generación de PDF | 5 |
+| 40 | US24 | Configuración de preferencias de notificación | 3 |
+| 41 | US39 | Exponer endpoint para marcar notificación como leída | 2 |
+| 42 | US40 | Exponer endpoint para actualizar preferencias de notificación | 3 |
+| 43 | TS17 | Exponer endpoint para historial de pagos | 2 |
+| 44 | TS14 | Exponer endpoint para historial de sesiones | 2 |
+| 45 | US16 | Generación de pase digital (Google Wallet) | 8 |
+| 46 | TS27 | Exponer endpoint para generar pase digital | 5 |
+| 47 | TS28 | Exponer endpoint para obtener pase digital | 2 |
+| 48 | TS29 | Exponer endpoint para generar pase Google Wallet | 5 |
+| 49 | US17 | Solicitud de servicio de lavado | 5 |
+| 50 | US18 | Registro de usuario conductor | 5 |
+| 51 | US19 | Registro de usuario administrador | 5 |
+| 52 | US20 | Inicio de sesión | 3 |
+| 53 | TS30 | Exponer endpoint para registrar usuario | 3 |
+| 54 | TS31 | Exponer endpoint para autenticación | 3 |
+| 55 | US21 | Recuperación de contraseña | 3 |
+| 56 | US22 | Edición de perfil | 3 |
+| 57 | US23 | Registro de vehículo adicional | 3 |
+| 58 | TS32 | Exponer endpoint para obtener perfil | 2 |
+| 59 | TS33 | Exponer endpoint para actualizar perfil | 3 |
+| 60 | TS34 | Exponer endpoint para recuperación de contraseña | 3 |
+| 61 | TS35 | Exponer endpoint para restablecer contraseña | 3 |
+| 62 | TS36 | Exponer endpoint para registrar vehículo | 3 |
+| 63 | TS37 | Exponer endpoint para listar vehículos | 2 |
+| 64 | TS38 | Exponer endpoint para eliminar vehículo | 2 |
+| 65 | SWS01 | Ver sección Hero | 2 |
+| 66 | SWS02 | Ver sección Features | 2 |
+| 67 | SWS03 | Ver sección How It Works | 2 |
+| 68 | SWS04 | Ver sección About The Product | 3 |
+| 69 | SWS05 | Ver sección Pricing | 3 |
+| 70 | SWS06 | Ver sección Testimonials | 2 |
+| 71 | SWS07 | Ver sección About Us y About The Team | 2 |
+| 72 | SWS08 | Ver sección FAQ | 2 |
+| 73 | SWS09 | Ver sección Contact | 2 |
+| 74 | SWS10 | Ver sección Footer | 2 |
+| 75 | SWS11 | Navegación responsive | 3 |
+| 76 | SS01 | Investigación de integración de Culqi | 8 |
+| 77 | SS02 | Investigación de Plate Recognizer API | 8 |
+| 78 | SS03 | Investigación de Firebase Cloud Messaging | 5 |
+| 79 | SS04 | Investigación de Google Wallet API | 8 |
+| 80 | SS05 | Prueba de bibliotecas MQTT para ESP32 | 5 |
+| 81 | SS06 | Prueba de bibliotecas para generación de PDF | 5 |
 ---
 
 # Capítulo IV: Solution Software Design

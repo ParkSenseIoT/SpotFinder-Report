@@ -673,6 +673,86 @@ Finalmente, se delimitaron los bounded contexts a partir de los eventos, agregad
 
 ## 3.3. Product Backlog.
 
+| # Orden | Story ID | Título | Story Points |
+|---|---|---|---|
+| 1 | US01 | Detección de ocupación por sensores | 8 |
+| 2 | US02 | Visualización de espacios en tiempo real | 8 |
+| 3 | TS01 | Exponer endpoint para registrar lectura de sensor | 5 |
+| 4 | TS02 | Exponer endpoint para listar espacios | 3 |
+| 5 | TS03 | Exponer endpoint para consultar espacios disponibles | 3 |
+| 6 | TS04 | Exponer endpoint para actualizar estado de espacio | 3 |
+| 7 | TS05 | Exponer endpoint para obtener detalles de un espacio | 2 |
+| 8 | US03 | Ingreso automático con ALPR | 8 |
+| 9 | US04 | Salida automática con verificación de pago | 8 |
+| 10 | TS07 | Exponer endpoint para registrar ingreso vehicular | 5 |
+| 11 | TS08 | Exponer endpoint para registrar salida vehicular | 5 |
+| 12 | TS09 | Exponer endpoint para reconocimiento de placas | 5 |
+| 13 | TS10 | Exponer endpoint para crear sesión de estacionamiento | 5 |
+| 14 | TS11 | Exponer endpoint para obtener sesión activa | 3 |
+| 15 | TS12 | Exponer endpoint para consultar sesión por ID | 2 |
+| 16 | TS13 | Exponer endpoint para finalizar sesión | 5 |
+| 17 | US05 | Pago digital del estacionamiento | 8 |
+| 18 | TS15 | Exponer endpoint para registrar pago | 5 |
+| 19 | TS16 | Exponer endpoint para consultar pago | 2 |
+| 20 | US06 | Dashboard de monitoreo en tiempo real | 8 |
+| 21 | US07 | Find My Car | 5 |
+| 22 | US08 | Visualización de tiempo y costo estimado | 3 |
+| 23 | US09 | Espacios recomendados | 5 |
+| 24 | TS06 | Exponer endpoint para recomendar espacios | 3 |
+| 25 | US10 | Notificaciones de eventos del vehículo | 5 |
+| 26 | TS18 | Exponer endpoint para enviar notificación push | 3 |
+| 27 | TS19 | Exponer endpoint para listar notificaciones | 2 |
+| 28 | US11 | Gestión de disponibilidad de espacios | 3 |
+| 29 | US12 | Estadísticas de ocupación | 5 |
+| 30 | US13 | Generación de reportes | 5 |
+| 31 | TS20 | Exponer endpoint para métricas de ocupación | 5 |
+| 32 | TS21 | Exponer endpoint para métricas de ingresos | 3 |
+| 33 | TS22 | Exponer endpoint para generar mapa de calor | 3 |
+| 34 | US14 | Detección y alerta de emergencia | 8 |
+| 35 | TS23 | Exponer endpoint para registrar alerta de emergencia | 5 |
+| 36 | TS24 | Exponer endpoint para consultar estado de emergencia | 2 |
+| 37 | TS25 | Exponer endpoint para activar evacuación | 3 |
+| 38 | TS26 | Exponer endpoint para resolver emergencia | 3 |
+| 39 | US15 | Historial de pagos | 3 |
+| 40 | TS17 | Exponer endpoint para historial de pagos | 2 |
+| 41 | TS14 | Exponer endpoint para historial de sesiones | 2 |
+| 42 | US16 | Generación de pase digital (Google Wallet) | 8 |
+| 43 | TS27 | Exponer endpoint para generar pase digital | 5 |
+| 44 | TS28 | Exponer endpoint para obtener pase digital | 2 |
+| 45 | TS29 | Exponer endpoint para generar pase Google Wallet | 5 |
+| 46 | US17 | Solicitud de servicio de lavado | 5 |
+| 47 | US18 | Registro de usuario conductor | 5 |
+| 48 | US19 | Registro de usuario administrador | 5 |
+| 49 | US20 | Inicio de sesión | 3 |
+| 50 | TS30 | Exponer endpoint para registrar usuario | 3 |
+| 51 | TS31 | Exponer endpoint para autenticación | 3 |
+| 52 | US21 | Recuperación de contraseña | 3 |
+| 53 | US22 | Edición de perfil | 3 |
+| 54 | US23 | Registro de vehículo adicional | 3 |
+| 55 | TS32 | Exponer endpoint para obtener perfil | 2 |
+| 56 | TS33 | Exponer endpoint para actualizar perfil | 3 |
+| 57 | TS34 | Exponer endpoint para recuperación de contraseña | 3 |
+| 58 | TS35 | Exponer endpoint para restablecer contraseña | 3 |
+| 59 | TS36 | Exponer endpoint para registrar vehículo | 3 |
+| 60 | TS37 | Exponer endpoint para listar vehículos | 2 |
+| 61 | TS38 | Exponer endpoint para eliminar vehículo | 2 |
+| 62 | SWS01 | Ver sección Hero | 2 |
+| 63 | SWS02 | Ver sección Features | 2 |
+| 64 | SWS03 | Ver sección How It Works | 2 |
+| 65 | SWS04 | Ver sección About The Product | 3 |
+| 66 | SWS05 | Ver sección Pricing | 3 |
+| 67 | SWS06 | Ver sección Testimonials | 2 |
+| 68 | SWS07 | Ver sección About Us y About The Team | 2 |
+| 69 | SWS08 | Ver sección FAQ | 2 |
+| 70 | SWS09 | Ver sección Contact | 2 |
+| 71 | SWS10 | Ver sección Footer | 2 |
+| 72 | SWS11 | Navegación responsive | 3 |
+| 73 | SS01 | Investigación de integración de Culqi | 8 |
+| 74 | SS02 | Investigación de Plate Recognizer API | 8 |
+| 75 | SS03 | Investigación de Firebase Cloud Messaging | 5 |
+| 76 | SS04 | Investigación de Google Wallet API | 8 |
+| 77 | SS05 | Prueba de bibliotecas MQTT para ESP32 | 5 |
+| 78 | SS06 | Prueba de bibliotecas para generación de PDF | 5 |
 ---
 
 # Capítulo IV: Solution Software Design

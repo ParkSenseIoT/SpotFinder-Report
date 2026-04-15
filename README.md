@@ -668,7 +668,15 @@ Finalmente, se delimitaron los bounded contexts a partir de los eventos, agregad
 # Capítulo III: Requirements Specification
 
 ## 3.1. User Stories.
-
+#### Epics :
+ grandes funcionalidades que pueden descomponerse en varias historias más pequeñas.
+ #### User Stories (US) :
+ funcionalidades específicas que aportan valor directo al usuario.
+Static Web Stories (SWS): historias relacionadas con la presentación y navegación en la interfaz web para los diferentes segmentos identificados.
+ #### Technical Stories (TS):
+ historias que abordan aspectos técnicos necesarios para el correcto funcionamiento del sistema, como la integración con servicios externos, seguridad, rendimiento, entre otros.
+  #### Spike Stories (SS):
+ historias que representan tareas de investigación o exploración técnica para resolver incertidumbres o evaluar alternativas antes de la implementación. Nota: Las Spike Stories se presentan aquí de manera resumida. Para un detalle completo, incluyendo criterios de aceptación y escenarios específicos, por favor véase el Anexo F: Detalle de Spike Stories.
 ## 3.2. Impact Mapping.
 
 ## 3.3. Product Backlog.

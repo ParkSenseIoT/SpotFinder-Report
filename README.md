@@ -169,7 +169,7 @@ Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation v
 | **Emergency & Safety** | Gas Level Exceeded, Emergency Alert Triggered, Protocol Activated, Barriers Opened, Emergency Resolved | **Supporting** | Detección de gas/humo mediante sensores MQ-2 y activación automática de protocolos de evacuación. | Funcionalidad diferenciadora (ningún competidor la ofrece) pero no es el core del negocio de estacionamiento. Complejidad baja-media: regla simple de umbral + acciones automáticas. |
 | **Reservation Management** | Reservation Requested, Confirmed, Grace Period Started/Expired, Cancelled | **Supporting** | Reservas de espacios con grace period y cancelación automática. Disponible solo en planes Pro/Premium. | Agrega valor para usuarios premium pero el sistema funciona sin ella. Complejidad media: manejo de estados temporales y concurrencia. |
 | **Identity & Access Management** | Account Created, Vehicle Registered, Logged In, Profile Updated, Password Reset | **Generic** | Registro de usuarios, autenticación JWT, gestión de perfiles y vehículos. | Necesario para operar pero no diferencia a SpotFinder. Existen soluciones estándar (Spring Security, Auth0, Firebase Auth). Baja complejidad relativa. |
-| **Notification Management** | Notification Sent, Push Delivered | **Generic** | Envío de notificaciones push via Firebase Cloud Messaging. | Mecanismo transversal que otros contexts invocan. Sin lógica de dominio propia. Implementable como servicio compartido sin bounded context independiente. |
+| **Notification Management** | Notification Sent, Push Delivered | **Supporting** | Gestiona el envío de notificaciones push (FCM), email y alertas in-app a conductores y administradores. Administra templates de mensajes, preferencias de usuario y registro de notificaciones enviadas. | Aunque las notificaciones son transversales, tienen su propio ciclo de vida, templates específicos por tipo de evento, y preferencias de usuario que requieren persistencia propia. Es más que un simple servicio compartido porque necesita gestionar estado (leída/no leída) y reglas (no enviar si usuario desactivó ese tipo). |
 
 ### Clasificación estratégica en la matriz
 
@@ -184,8 +184,8 @@ Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation v
  
 Se definieron **8 candidate bounded contexts**, de los cuales:
 - **3 Core:** Parking Monitoring, Access Control, Payment Processing
-- **3 Supporting:** Analytics & Reporting, Emergency & Safety, Reservation Management
-- **2 Generic:** Identity & Access Management, Notification Management
+- **4 Supporting:** Analytics & Reporting, Emergency & Safety, Reservation Management, Notification Management
+- **1 Generic:** Identity & Access Management
 
 La aplicación de la técnica Start-with-Value permitió asegurar que la atención principal del diseño táctico se concentre en **Parking Monitoring, Access Control y Payment Processing**, dado que allí reside la propuesta de valor diferenciadora de SpotFinder frente a competidores como Apparka, ParkHelp y Quadra.
 

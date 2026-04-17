@@ -193,7 +193,124 @@ La aplicación de la técnica Start-with-Value permitió asegurar que la atenci�
 **IMAGEN**
 
 
-#### 4.1.1.2 Domain Message Flows Modeling.
+#### 4.1.1.2 Domain Message Flows Modeling
+
+###  **Descripción**
+
+En esta sección se modelan los flujos de mensajes entre los distintos Bounded Contexts del sistema SpotFinder, mostrando cómo colaboran para resolver los principales escenarios del negocio.
+
+A diferencia del Event Storming, que es exploratorio, el Domain Message Flow Modeling define de manera precisa los mensajes que se intercambian entre contextos, incluyendo comandos, eventos y queries, así como los datos transmitidos en cada interacción.
+
+Para la representación visual se utilizó la técnica de Domain Storytelling, la cual permite describir de forma clara y colaborativa la interacción entre actores, sistemas externos y bounded contexts mediante una notación estándar.
+
+
+###  **Escenarios de Integración**
+
+####  **Escenario 1: Vehículo registrado ingresa al estacionamiento**
+
+<img src="assets/diagrams/context-flow/escenario1-ingreso.png" alt="Ingreso de vehículo registrado" width="800
+">
+<br>
+
+**Flujo de Integración:**
+- El Conductor llega a la barrera de entrada, donde la cámara IoT captura la imagen de la placa.
+- El dispositivo ESP32-CAM envía la imagen al Access Control BC.
+- El sistema externo responde con la placa detectada (Plate Recognized).
+- El Access Control BC consulta al IAM BC para verificar si el vehículo está registrado.
+- El IAM BC confirma la existencia del vehículo (Vehicle Found).
+- El Access Control BC envía el comando para abrir la barrera de entrada (Open Entry Barrier).
+- Se genera el evento Vehicle Session Started al crear la sesión de estacionamiento.
+- El Access Control BC envía una notificación al Notification Management BC:
+    - Send Entry Notification {userId, type: ENTRY_CONFIRMED, data}
+    
+    Luego:
+    - Se validan las preferencias del usuario
+    - Se construye el mensaje mediante templates
+    - Se envía vía Firebase Cloud Messaging
+    - Se almacena la notificación (Notification Stored)
+
+
+**Bounded Contexts Involucrados:**
+- Access Control → IAM → Notification Management → Sistema externo: Plate Recognizer API
+
+---
+
+####  **Escenario 2: Sensor detecta vehículo y actualiza disponibilidad**
+
+<img src="assets/diagrams/context-flow/escenario2-sensor.png" alt="Detección de ocupación de espacio" width="800
+">
+<br>
+
+**Flujo de Integración:**
+- El sensor ultrasónico ESP32 detecta un objeto y publica la lectura en el MQTT Broker.
+- El MQTT Broker reenvía la información al Edge Server.
+- El Edge Server aplica una regla de validación (debounce), confirmando la presencia del vehículo (Vehicle Presence Confirmed).
+- Se registra la lectura en el Parking Monitoring BC.
+- El Parking Monitoring BC actualiza el estado del espacio a ocupado (Parking Slot Status Changed).
+- Se envía el comando para cambiar el LED a rojo.
+- Se transmite la actualización en tiempo real mediante WebSocket hacia el dashboard y la app móvil.
+
+
+**Bounded Contexts Involucrados:**
+- Parking Monitoring → Edge Processing (Edge Server) → Infraestructura IoT (MQTT, sensores)
+
+---
+
+####  **Escenario 3: Conductor paga y sale del estacionamiento**
+
+<img src="assets/diagrams/context-flow/escenario3-pago-salida.png" alt="Pago y salida del estacionamiento" width="800
+">
+<br>
+
+**Flujo de Integración:**
+- El Conductor inicia el pago desde la aplicación móvil.
+- La App Móvil solicita el cálculo de la tarifa al Payment Processing BC.
+- El sistema devuelve el monto calculado (Fee Calculated).
+- El conductor confirma el pago.
+- La app envía el comando Process Payment.
+- El Payment Processing BC realiza el cobro mediante Culqi API.
+- Se recibe el evento Payment Succeeded.
+- El estado de la sesión se actualiza como pagado en el Access Control BC.
+- El conductor llega a la salida y la cámara captura la placa.
+- El Access Control BC verifica el estado del pago.
+- Al confirmarse el pago, se abre la barrera (Exit Barrier Opened).
+- Se finaliza la sesión (Vehicle Session Ended).
+- Se libera el espacio en el Parking Monitoring BC (Parking Slot Released).
+
+
+**Bounded Contexts Involucrados:**
+- Payment Processing → Access Control → Parking Monitoring → Sistema externo: Culqi API
+
+---
+
+####  **Escenario 4: Emergencia detectada por sensor de gas**
+
+<img src="assets/diagrams/context-flow/escenario4-emergencia.png" alt="Alerta de emergencia por gas" width="800
+">
+<br>
+
+**Flujo de Integración:**
+- El sensor MQ-2 detecta niveles peligrosos de gas y publica la lectura en el MQTT Broker.
+- El Edge Server evalúa el umbral crítico (Gas Level Exceeded Threshold).
+- Se registra una alerta en el Emergency & Safety BC (Emergency Alert Triggered).
+- Se activa el protocolo de emergencia (Emergency Protocol Activated).
+- Se ordena la apertura de todas las barreras mediante el Access Control BC.
+- Se configuran todos los LEDs en modo evacuación mediante el Parking Monitoring BC.
+- El Emergency & Safety BC envía una alerta masiva al Notification Management BC:
+    - Broadcast Emergency {type, data, recipients}
+    
+    Luego:
+
+    - Se obtiene la lista de usuarios activos desde Access Control BC
+    - Se envían notificaciones masivas vía Firebase Cloud Messaging
+    - Se genera el evento Emergency Notifications Sent
+
+- Se actualiza el dashboard en el Analytics & Reporting BC mostrando la alerta.
+
+
+**Bounded Contexts Involucrados:**
+- Emergency & Safety → Access Control → Parking Monitoring → Notification Management → Analytics & Reporting
+
 
 #### 4.1.1.3 Bounded Context Canvases.
 

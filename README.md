@@ -404,17 +404,18 @@ Estudiante  joven que utiliza el vehículo para movilizarse a reuniones y recado
 
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | [Nombre del entrevistado] |
-| **Edad**                |  |
-| **Sexo**                |  |
-| **Distrito**            |  |
-| **Ocupación**           |  |
-| **Fecha de entrevista** |  |
+| **Nombre**              | Carlos Ramírez |
+| **Edad**                | 42 |
+| **Sexo**                | Masculino |
+| **Distrito**            | [ Surco ] |
+| **Ocupación**           | Jefe de Operaciones de Estacionamiento |
+| **Fecha de entrevista** | [ 12/04/2026 ] |
 | **Timing**              | 19:36-22:56 |
-| **Video**               | [Ver entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
-| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/interview-admin3.png) |
-| **Resumen**             | [Completar resumen de la entrevista] |
+| **Video**               | [Ver entrevista]() |
+| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/seg2entrevista3.png) |
+| **Resumen**             | Jefe de operaciones con aproximadamente 12 años de experiencia en la gestión de estacionamientos y flujo vehicular en centros comerciales. Actualmente administra cerca de 850 espacios distribuidos en tres niveles, utilizando herramientas básicas como Excel, sistemas de tickets y correo electrónico para la gestión diaria.\n\nEl control de ocupación es parcialmente manual, apoyado por sensores en accesos, pero sin visibilidad en tiempo real de los espacios disponibles a nivel interno. Esto genera dependencia del personal (entre 4 y 6 personas en horas punta) para la orientación del tráfico.\n\nEntre los principales problemas destacan la congestión interna, dificultad de los usuarios para encontrar espacios, mala distribución del flujo vehicular y quejas frecuentes en horas pico. Además, la falta de estadísticas detalladas limita la toma de decisiones estratégicas.\n\nEl sistema de cobro se basa en tickets físicos y cajeros automáticos, lo que genera colas en momentos de alta demanda. En situaciones de emergencia, la evacuación depende principalmente del personal, sin sistemas automatizados de apoyo.\n\nValora altamente soluciones tecnológicas como dashboards en tiempo real, reportes automáticos, guiado visual con LEDs y reconocimiento de placas (ALPR), priorizando especialmente la disponibilidad por espacio y la automatización del ingreso y salida. También considera relevante la implementación de sistemas de detección de gases o humo.\n\nEstá dispuesto a implementar una solución IoT siempre que exista un retorno de inversión claro, estimando un presupuesto inicial entre 20,000 y 50,000 dólares. |
 
+---
 
 El video completo de las entrevistas puede ser visualizado en el siguiente link:
 

@@ -145,18 +145,21 @@ La sesión de Candidate Context Discovery debe realizarse inmediatamente despué
 **Paso 1 — Identificación de valor estratégico:**
 Cada miembro del equipo responde en post-its naranjas a la pregunta: **"¿Qué parte del sistema genera directamente valor para los usuarios y diferencia a SpotFinder de otras soluciones?"**
 
-**IMAGEN**
+<img src="assets/diagrams/context-candidate/candidate-context-step1.png" alt="Paso1" width="800
+">
 
 
 **Paso 2 — Agrupación de eventos en torno al valor:**
 Revisar los aggregates del Event Storming y sus eventos asociados. Agrupar por afinidad y preguntar: "¿Este grupo de eventos genera valor directo al negocio o es un soporte necesario?"
 
-**IMAGEN**
+<img src="assets/diagrams/context-candidate/candidate-context-step2.png" alt="Paso2" width="800
+">
 
 **Paso 3 — Clasificación Core, Supporting, Generic:**
 Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation vs Model Complexity).
 
-**IMAGEN**
+<img src="assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso3" width="800
+">
 
 ### Candidate Contexts identificados para SpotFinder
  
@@ -177,7 +180,8 @@ Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation v
 > - **Eje Y:** Model Complexity (Low → High)
 
 
-**IMAGEN**
+<img src="assets/diagrams/context-candidate/candidate-context-discovery.png" alt="Paso3" width="800
+">
 
 
 ### Resultados
@@ -190,7 +194,8 @@ Se definieron **8 candidate bounded contexts**, de los cuales:
 La aplicación de la técnica Start-with-Value permitió asegurar que la atención principal del diseño táctico se concentre en **Parking Monitoring, Access Control y Payment Processing**, dado que allí reside la propuesta de valor diferenciadora de SpotFinder frente a competidores como Apparka, ParkHelp y Quadra.
 
 
-**IMAGEN**
+<img src="assets/diagrams/context-candidate/candidate-context-step2.png" alt="Paso2" width="800
+">
 
 
 #### 4.1.1.2 Domain Message Flows Modeling

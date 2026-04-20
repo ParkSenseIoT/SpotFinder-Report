@@ -319,7 +319,152 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 
 #### 4.1.1.3 Bounded Context Canvases.
 
-### 4.1.2. Context Mapping.
+## 4.1.2. Context Mapping
+
+En esta sección se define el context mapping del sistema SpotFinder, con el propósito de representar las relaciones existentes entre los bounded contexts identificados a partir del Event Storming. Este análisis permite comprender cómo interactúan los distintos dominios del sistema y qué patrones de integración son más adecuados para mantener la independencia y coherencia del modelo.
+
+A partir de la identificación de los contextos —Parking Monitoring, Access Control, Reservation Management, Payment Processing, Emergency & Safety, Identity & Access Management y Notifications— se establecieron relaciones utilizando patrones de Domain-Driven Design como Customer/Supplier, Shared Kernel, Conformist, Open Host Service (OHS) y Anti-Corruption Layer (ACL).
+
+---
+
+### Identificación de relaciones y patrones
+
+**Identity & Access Management → Access Control**  
+**Patrón: Open Host Service (OHS)**  
+**Relación: IAM (U) → Access Control (D)**  
+**Tipo de integración: OHS**  
+El contexto de Identity & Access Management centraliza la autenticación y gestión de usuarios. Access Control consume estos servicios para validar identidad y permisos en los accesos físicos, utilizando interfaces definidas sin depender del modelo interno.
+
+---
+
+**Identity & Access Management → Reservation Management**  
+**Patrón: Open Host Service (OHS)**  
+**Relación: IAM (U) → Reservation Management (D)**  
+**Tipo de integración: OHS**  
+Reservation Management requiere validar usuarios antes de permitir la creación y gestión de reservas. IAM provee estos servicios mediante interfaces desacopladas.
+
+---
+
+**Identity & Access Management → Payment Processing**  
+**Patrón: Open Host Service (OHS)**  
+**Relación: IAM (U) → Payment Processing (D)**  
+**Tipo de integración: OHS**  
+Payment Processing utiliza IAM para autenticar usuarios antes de ejecutar transacciones, evitando dependencias directas con el modelo de identidad.
+
+---
+
+**Identity & Access Management → Notifications**  
+**Patrón: Open Host Service (OHS)**  
+**Relación: IAM (U) → Notifications (D)**  
+**Tipo de integración: OHS**  
+Notifications obtiene información básica del usuario (identidad/contacto) desde IAM para poder enviar mensajes correctamente.
+
+---
+
+**Access Control → Parking Monitoring**  
+**Patrón: Customer/Supplier**  
+**Relación: Access Control (U) → Parking Monitoring (D)**  
+**Tipo de integración: Directo (eventos)**  
+Access Control genera eventos como detección de entrada, lectura de placas o apertura de barreras. Parking Monitoring consume estos eventos para actualizar el estado del estacionamiento.
+
+---
+
+**Parking Monitoring ↔ Reservation Management**  
+**Patrón: Shared Kernel**  
+**Tipo de integración: Modelo compartido**  
+Ambos contextos comparten el concepto de espacio de estacionamiento y disponibilidad, garantizando consistencia en la asignación y reserva de espacios.
+
+---
+
+**Reservation Management → Payment Processing**  
+**Patrón: Customer/Supplier + Anti-Corruption Layer (ACL)**  
+**Relación: Reservation Management (U) → Payment Processing (D)**  
+**Tipo de integración: ACL**  
+Reservation Management genera información de sesiones y reservas que es transformada mediante una ACL antes de ser utilizada por Payment Processing, evitando acoplamiento con el dominio financiero.
+
+---
+
+**Parking Monitoring → Payment Processing**  
+**Patrón: Conformist**  
+**Relación: Parking Monitoring (U) → Payment Processing (D)**  
+**Tipo de integración: Directo (Conformist)**  
+Payment Processing consume directamente información de ocupación y duración de sesiones, adaptándose al modelo de Parking Monitoring.
+
+---
+
+**Parking Monitoring → Emergency & Safety**  
+**Patrón: Anti-Corruption Layer (ACL)**  
+**Relación: Parking Monitoring (U) → Emergency & Safety (D)**  
+**Tipo de integración: ACL**  
+Los datos provenientes de sensores son transformados mediante una ACL para ser interpretados como eventos de seguridad, evitando dependencia del modelo técnico IoT.
+
+---
+
+**Parking Monitoring → Notifications**  
+**Patrón: Customer/Supplier**  
+**Relación: Parking Monitoring (U) → Notifications (D)**  
+**Tipo de integración: Directo (eventos)**  
+Eventos como cambios en la ocupación son enviados al sistema de notificaciones.
+
+---
+
+**Reservation Management → Notifications**  
+**Patrón: Customer/Supplier**  
+**Relación: Reservation Management (U) → Notifications (D)**  
+**Tipo de integración: Directo (eventos)**  
+Eventos de reservas (confirmaciones, cancelaciones, expiraciones) son comunicados al usuario.
+
+---
+
+**Payment Processing → Notifications**  
+**Patrón: Customer/Supplier**  
+**Relación: Payment Processing (U) → Notifications (D)**  
+**Tipo de integración: Directo (eventos)**  
+El estado de las transacciones es enviado al sistema de notificaciones.
+
+---
+
+**Emergency & Safety → Notifications**  
+**Patrón: Customer/Supplier**  
+**Relación: Emergency & Safety (U) → Notifications (D)**  
+**Tipo de integración: Directo (eventos)**  
+Las alertas críticas son enviadas al usuario o administrador mediante el sistema de notificaciones.
+
+---
+
+### Análisis de decisiones
+
+Durante el diseño del context mapping se evaluaron distintas alternativas sobre cómo integrar los contextos y qué nivel de acoplamiento permitir entre ellos.
+
+Se decidió mantener Identity & Access Management como un Open Host Service, permitiendo centralizar la autenticación sin generar dependencias directas entre contextos.
+
+Asimismo, se priorizó el uso de Customer/Supplier y Anti-Corruption Layer en la mayoría de relaciones, asegurando independencia entre dominios.
+
+En el caso de Parking Monitoring y Reservation Management, se utilizó Shared Kernel debido a la necesidad de consistencia en el manejo de espacios.
+
+El contexto de Notifications se definió como un consumidor de eventos, centralizando la comunicación con el usuario sin afectar la lógica de otros contextos.
+
+---
+
+### Decisión final
+
+El equipo adoptó una arquitectura basada en bounded contexts independientes conectados mediante patrones de integración bien definidos.
+
+![Context Mapping](/SpotFinder-Report/assets/diagrams/ddd/context-mapping.png)
+
+Enlace al Miro: https://miro.com/app/board/uXjVGhyZyRg=/ 
+
+Esta decisión permite:
+
+- Reducir el acoplamiento entre dominios  
+- Facilitar la escalabilidad del sistema  
+- Permitir la evolución independiente de cada contexto  
+- Integrar nuevos servicios de manera sencilla  
+
+El uso de un contexto de notificaciones mejora la experiencia del usuario al centralizar la comunicación.
+
+En conjunto, esta arquitectura proporciona una base sólida, flexible y alineada con Domain-Driven Design.
+
 
 ### 4.1.3. Software Architecture.
 #### 4.1.3.1. Software Architecture System Landscape Diagram.

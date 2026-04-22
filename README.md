@@ -450,7 +450,8 @@ El contexto de Notifications se definió como un consumidor de eventos, centrali
 
 El equipo adoptó una arquitectura basada en bounded contexts independientes conectados mediante patrones de integración bien definidos.
 
-![Context Mapping](/SpotFinder-Report/assets/diagrams/ddd/context-mapping.png)
+<img src="/assets/diagrams/ddd/context-mapping.png" width="800">
+
 
 Enlace al Miro: https://miro.com/app/board/uXjVGhyZyRg=/ 
 

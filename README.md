@@ -48,8 +48,23 @@
 # Contenido
 
 ---
-
 # Student Outcome
+
+<div style="page-break-after: always;"></div>
+
+El curso contribuye al cumplimiento del Student Outcome ABET:<br>
+**ABET – EAC - Student Outcome 5**
+
+**Criterio:** La capacidad de funcionar efectivamente en un equipo cuyos miembros juntos proporcionan liderazgo, crean un entorno de colaboración e inclusivo, establecen objetivos, planifican tareas y cumplen objetivos.
+
+En el siguiente cuadro se describe las acciones realizadas y enunciados de conclusiones por parte del grupo, que permiten sustentar el haber alcanzado el logro del ABET – EAC - Student Outcome 5.
+
+| Criterio específico | Acciones realizadas | Conclusiones |
+|---------------------|---------------------|--------------|
+| **Comunica oralmente con efectividad a diferentes rangos de audiencia** | **[Nombre de Integrante]**<br>_**AV1**_<br><br><br>**[Nombre de Integrante]**<br>_**AV1**_<br><br><br>**[Nombre de Integrante]**<br>_**AV1**_<br><br><br>**Vidal Castro, Miguel Angel**<br>_**AV1: Presenté y expliqué los avances del proyecto al equipo utilizando un lenguaje claro y adaptado al contexto, facilitando la comprensión de la problemática, el proceso Lean UX y las decisiones tomadas. Asimismo, comuniqué los resultados de las entrevistas y la definición de los requisitos, permitiendo al equipo alinear criterios y tomar decisiones de manera colaborativa.**_<br> | **Conclusiones AV1:** <br> |
+| **Comunica por escrito con efectividad a diferentes rangos de audiencia** | **[Nombre de Integrante]**<br>_**AV1**_<br><br><br>**[Nombre de Integrante]**<br>_**AV1**_<br><br><br>**Vidal Castro, Miguel Angel**<br>_**AV1: Redacté el reporte del proyecto organizando de manera clara y coherente la información relacionada a la problemática, el proceso Lean UX, los segmentos objetivo, las entrevistas realizadas, la especificación de requisitos mediante user stories y el product backlog, así como el diseño del sistema con context mapping, asegurando una adecuada presentación y comprensión de los avances técnicos.**_<br><br><br>**[Nombre de Integrante]**<br>_**AV1**_<br> | **Conclusiones AV1:** <br> |
+
+<div style="page-break-after: always;"></div>
 
 ---
 

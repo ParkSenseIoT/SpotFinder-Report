@@ -4800,6 +4800,99 @@ En esta sección se presentan las conclusiones y recomendaciones derivadas del d
 
 # Bibliografía
 
----
+Asociación Automotriz del Perú. (2024). *Crisis del parque automotor: impacto en salud y economía*. AAP. https://aap.org.pe/crisis-parque-automotor-salud-economia-salud/
+ 
+Banco Central de Reserva del Perú. (2024). Congestión vehicular en Lima genera pérdidas de S/ 23,300 millones anuales. *Índice.pe*. https://indice.pe/bcr-congestion-vehicular-en-lima-hace-que-economia-pierda-s-23-300-millones-por-ano/
+ 
+BusinessWire. (2025). ParkHelp completes acquisition of Cleverciti. *BusinessWire*. https://www.businesswire.com/news/home/20251103685043/en/
+ 
+Cleverciti. (2024). *Reduce unnecessary emissions with smart parking*. https://www.cleverciti.com/en/why-cleverciti/reduce-unnecessary-emissions
+ 
+El Comercio. (2024). Parqueo vehicular en Lima: apps permiten encontrar y reservar espacios libres. *El Comercio*. https://elcomercio.pe/lima/sucesos/parqueo-vehicular-en-lima-apps-permiten-encontrar-y-reservar-espacios-libres-de-estacionamiento-noticia/
+ 
+Evans, E. (2003). *Domain-Driven Design: Tackling Complexity in the Heart of Software*. Addison-Wesley Professional.
+ 
+Firebase. (2026). *Firebase Cloud Messaging documentation*. Google. https://firebase.google.com/docs/cloud-messaging
+ 
+Gestión. (2024). Parque automotor en Lima creció 40% pero red vial se quedó muy lejos de seguirle el paso. *Gestión*. https://gestion.pe/economia/parque-automotor-en-lima-crecio-40-pero-red-vial-se-quedo-muy-lejos-de-seguirle-el-paso-en-ultimos-10-anos-noticia/
+ 
+Global Growth Insights. (2025). *Who are the top 7 smart parking companies in 2025?* https://www.globalgrowthinsights.com/blog/who-are-the-top-7-smart-parking-companies-in-2025--934
+ 
+Google. (2026). *Google Wallet API — Generic Passes*. https://developers.google.com/wallet/generic
+ 
+Infobae. (2024). Perú pierde S/ 20 mil millones por congestión vehicular en Lima. *Infobae Perú*. https://www.infobae.com/peru/2024/12/26/peru-pierde-s20-mil-millones-por-congestion-vehicular-en-lima-segun-bcr-las-razones-detras-del-caos/
+ 
+Infomarketing. (2023). Jockey Plaza implementa nuevo sistema tecnológico para mejorar la experiencia en sus estacionamientos. *Infomarketing*. https://infomarketing.pe/marketing/noticias/jockey-plaza-implementa-nuevo-sistema-tecnologico-para-mejorar-la-experiencia-en-sus-estacionamientos/
+ 
+Instituto Nacional de Estadística e Informática. (2024). El 91,3% de la población que usa internet accedió a través de un teléfono celular. *INEI*. https://m.inei.gob.pe/prensa/noticias/el-913-de-la-poblacion-de-6-y-mas-anos-de-edad-que-usa-internet-accedio-a-traves-de-un-telefono-celular-14458/
+ 
+Instituto Peruano de Economía. (2024). En los últimos diez años, el parque automotor en Lima creció 40% pero la red vial apenas 7%. *IPE*. https://ipe.org.pe/en-los-ultimos-diez-anos-el-parque-automotor-en-lima-crecio-40-pero-la-red-vial-apenas-7/
+ 
+Lima Cómo Vamos. (2018). *Encuesta Lima Cómo Vamos 2018*. https://www.limacomovamos.org/
+ 
+Los Portales Corporativo. (2020). *Smart Parking Apparka*. https://www.losportalescorporativo.com.pe/enterate/smart-parking-apparka/
+ 
+Los Portales Corporativo. (2023). Apparka se renueva a través de una experiencia de usuario más personalizada. https://www.losportalescorporativo.com.pe/enterate/apparka-se-renueva-a-traves-de-una-experiencia-de-usuario-mas-personalizada/
+ 
+Mercado Negro. (2019). Aplicativo para encontrar estacionamiento de forma inmediata llegó a Perú. *Mercado Negro*. https://www.mercadonegro.pe/marketing/aplicativo-para-encontrar-estacionamiento-de-forma-inmediata-llego-a-peru/
+ 
+ParkHelp. (2025). *Parking guidance technologies*. https://www.parkhelp.com/parking-guidance-technologies/
+ 
+Perú Retail. (2025). Apparka apuesta por tecnología y expansión internacional en 2025. *Perú Retail*. https://www.peru-retail.com/apparka-ex-los-portales-estacionamientos-apuesta-por-tecnologia-y-expansion-internacional-en-2025/
+ 
+Plate Recognizer. (2026). *API documentation — Snapshot API*. https://platerecognizer.com/docs/
+ 
+Quadra. (2026). *Estacionamiento inteligente en Lima*. https://quadra.com.pe/
+
+Tapia, L., et al. (2022). Impacto de la congestión vehicular en la salud y calidad de vida en Lima. *Scielo Colombia*. http://www.scielo.org.co/scielo.php?script=sci_arttext&pid=S1794-44492022000100152
+ 
+TOUCH Consulting. (2023). *Caso de éxito: Jockey Plaza Easy Parking*. https://www.touchconsulting.es/en/caso-de-exito/transformamos-la-experiencia-de-busqueda-y-pago-de-parking-2/
+ 
+Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.com/us/blog/smart-parking-pollution-solution/
+ 
 
 # Anexos
+
+### Anexo A: Código Fuente
+ 
+- **Organización GitHub:** https://github.com/ParkSenseIoT
+- **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
+- **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
+### Anexo B: Videos
+ 
+- **Entrevistas Needfinding:** [Ver video](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe)
+- **Exposición AV1:** [Enlace pendiente]
+### Anexo C: Herramientas utilizadas
+ 
+| Herramienta | Propósito |
+|---|---|
+| Figma | Wireframes, mock-ups, prototipos |
+| UXPressia | User Personas, Journey Maps, Impact Maps |
+| Microsoft Whiteboard | Event Storming |
+| LucidChart | UML, Domain Message Flows, Context Maps |
+| Structurizr | Diagramas C4 |
+| Vertabelo | Database Design Diagrams |
+| PlantUML | Class Diagrams |
+| Trello | Product Backlog, Sprint Planning |
+| GitHub | Control de versiones, GitFlow |
+ 
+### Anexo D: Diagramas
+ 
+Los diagramas están en `assets/diagrams/` del repositorio del reporte, organizados en `c4/`, `uml/`, `ddd/` y `db/`.
+ 
+### Anexo E: Entrevistas
+ 
+El diseño (21 preguntas por segmento), registro y análisis se encuentran en las secciones 2.2.1, 2.2.2 y 2.2.3.
+ 
+### Anexo F: Detalle de Spike Stories
+ 
+| ID | Título | Objetivo |
+|---|---|---|
+| SS01 | Integración de Culqi | Evaluar API de Culqi para pagos con tarjeta y Yape en Spring Boot |
+| SS02 | Plate Recognizer API | Evaluar precisión ALPR con placas peruanas y ESP32-CAM |
+| SS03 | Firebase Cloud Messaging | Implementar notificaciones push desde Spring Boot a Flutter |
+| SS04 | Google Wallet API | Implementar pase digital de estancia para plan Premium |
+| SS05 | Bibliotecas MQTT para ESP32 | Comparar PubSubClient vs AsyncMQTTClient |
+| SS06 | Generación de PDF | Evaluar iText, JasperReports y PDFBox para reportes |
+ 
+---

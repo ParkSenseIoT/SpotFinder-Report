@@ -850,7 +850,8 @@ Servicio que envía actualizaciones de estado en tiempo real vía WebSocket.
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Parking Monitoring. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context.
  
-> **Diagrama a crear en Structurizr DSL:**
+<img src="assets\diagrams\structurizr\Parking_Monitoring_Diagram.png" alt="Pago y salida del estacionamiento" width="800
+">
 
 ### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams
  
@@ -1308,8 +1309,8 @@ Implementación concreta del servicio de reconocimiento de placas usando Plate R
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Access Control. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context, incluyendo la integración con sistemas externos (Plate Recognizer API, ESP32-CAM).
  
-> **Diagrama a crear en Structurizr DSL:**
-
+<img src="assets\diagrams\structurizr\Access_Control_Diagram.png" alt="Pago y salida del estacionamiento" width="800
+">
 ### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams
  
 En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Access Control.
@@ -1318,7 +1319,9 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
  
 El diagrama de clases del Domain Layer del contexto de Access Control ilustra las entidades, objetos de valor y servicios que componen este bounded context.
  
-> **Diagrama a crear en LucidChart o PlantUML:**
+<img src="assets\diagrams\uml\access.png" alt="Pago y salida del estacionamiento" width="800
+">
+<br>
 
 #### 4.2.2.6.2. Bounded Context Database Design Diagram
  
@@ -1678,8 +1681,9 @@ Implementación concreta de PaymentGatewayService usando la API de Culqi como pa
 
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Payment Processing. Se muestra la interacción entre los componentes internos y la integración con la pasarela de pagos Culqi.
 
-> **Diagrama a crear en Structurizr DSL:**
-
+<img src="assets\diagrams\structurizr\Payment_Processing_Diagram.png" alt="" width="800
+">
+<br>
 
 ### 4.2.3.6. Bounded Context Software Architecture Code Level Diagrams
 
@@ -1689,9 +1693,9 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
 
 El diagrama de clases del Domain Layer del contexto de Payment Processing ilustra las entidades, objetos de valor y servicios que componen este bounded context.
 
-> **Diagrama a crear en LucidChart o PlantUML:**
-
-
+<img src="assets\diagrams\uml\payment.png" alt="" width="800
+">
+<br>
 #### 4.2.3.6.2. Bounded Context Database Design Diagram
 
 El diagrama de diseño de base de datos del contexto de Payment Processing muestra la estructura de las tablas y sus relaciones.
@@ -2005,7 +2009,10 @@ Maneja el evento de alerta disparada para activar el protocolo de emergencia en 
 
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Emergency & Safety. Se muestra la interacción entre los componentes internos y la comunicación con los bounded contexts que deben reaccionar ante una emergencia.
 
-> **Diagrama a crear en Structurizr DSL:**
+<img src="assets\diagrams\structurizr\Emergency_Safety_Diagram.png" alt="" width="800
+">
+<br>
+
 
 
 ### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams
@@ -2016,14 +2023,16 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
 
 El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustra las entidades, objetos de valor y servicios que componen este bounded context.
 
-> **Diagrama a crear en LucidChart o PlantUML:**
+<img src="assets\diagrams\uml\emergency.png" alt="Pago y salida del estacionamiento" width="800
+">
+<br>
 
 
 #### 4.2.4.6.2. Bounded Context Database Design Diagram
 
 El diagrama de diseño de base de datos del contexto de Emergency & Safety muestra la estructura de las tablas y sus relaciones.
 
-<img src="assets\diagrams\db\analytics-database-diagram.png" alt="Pago y salida del estacionamiento" width="800
+<img src="assets\diagrams\db\emergency-database-diagram.png" alt="Pago y salida del estacionamiento" width="800
 ">
 <br>
 
@@ -2409,14 +2418,18 @@ Repositorio para acceder a los snapshots históricos de estado de espacios (dato
 
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Analytics & Reporting.
 
-> **Diagrama a crear en Structurizr DSL:**
+<img src="assets\diagrams\structurizr\Analytics_Diagram.png" alt="" width="800
+">
+<br>
 
 
 ### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams
 
 #### 4.2.5.6.1. Bounded Context Domain Layer Class Diagrams
 
-> **Diagrama a crear en LucidChart o PlantUML:**
+<img src="assets\diagrams\uml\Analytics.png" alt="" width="800
+">
+<br>
 #### 4.2.5.6.2. Bounded Context Database Design Diagram
 
 <img src="assets\diagrams\db\analytics-database-diagram.png" alt="Pago y salida del estacionamiento" width="800
@@ -2818,14 +2831,18 @@ Implementación de FcmTokenService que consulta al BC IAM para obtener tokens FC
 
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Notification Management.
 
-> **Diagrama a crear en Structurizr DSL:**
+<img src="assets\diagrams\structurizr\Notification_Diagram.png" alt="" width="800
+">
+<br>
 
 
 ### 4.2.6.6. Bounded Context Software Architecture Code Level Diagrams
 
 #### 4.2.6.6.1. Bounded Context Domain Layer Class Diagrams
 
-> **Diagrama a crear en LucidChart o PlantUML:**
+<img src="assets\diagrams\uml\Notification.png" alt="" width="800
+">
+<br>
 
 
 #### 4.2.6.6.2. Bounded Context Database Design Diagram
@@ -3183,7 +3200,9 @@ Configuración de la documentación OpenAPI/Swagger de la API.
 
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de IAM. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context.
 
-> **Diagrama a crear en Structurizr DSL:**
+<img src="assets\diagrams\structurizr\IAM_Component_Diagram.png" alt="" width="800
+">
+<br>
 
 
 
@@ -3193,8 +3212,9 @@ En esta sección se presentan los diagramas de nivel componente que ilustran la 
 
 El diagrama de clases del Domain Layer del contexto de IAM ilustra las entidades, value objects y servicios que componen este bounded context, reflejando el código ya implementado.
 
-> **Diagrama a crear en LucidChart o PlantUML:**
-
+<img src="assets\diagrams\uml\IAM.png" alt="" width="800
+">
+<br>
 
 #### 4.2.7.6.2. Bounded Context Database Design Diagram
 

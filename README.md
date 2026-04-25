@@ -2017,7 +2017,400 @@ El diagrama de diseño de base de datos del contexto de Emergency & Safety muest
 
 > **Diagrama a crear en Vertabelo:**
 
+## 4.2.5. Bounded Context: Analytics & Reporting
+
+Este bounded context gestiona la generación de métricas, estadísticas y reportes para la toma de decisiones administrativas. Consume datos de otros bounded contexts (Parking Monitoring, Access Control, Payment Processing) para calcular tasas de ocupación, rotación, horas punta, ingresos y mapas de calor. Es un bounded context Supporting de naturaleza predominantemente de lectura, ya que no modifica datos de otros contexts sino que los agrega y transforma en información accionable.
+
+### 4.2.5.1. Domain Layer
+
+En esta sección se describen los elementos del Domain Layer del contexto de Analytics & Reporting, que encapsulan la lógica relacionada con el cálculo de métricas y la generación de reportes.
+
+#### 1. Report (Aggregate Root)
+
+Representa un reporte generado por el sistema, que puede ser descargado en formato PDF por el administrador.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| id | Long | private | Identificador único del reporte. |
+| reportType | ReportType | private | Tipo de reporte (OCCUPANCY, REVENUE, COMBINED). |
+| reportPeriod | ReportPeriod | private | Período cubierto por el reporte (fecha inicio y fin). |
+| generatedAt | LocalDateTime | private | Fecha y hora de generación del reporte. |
+| generatedBy | Long | private | ID del administrador que generó el reporte. |
+| fileUrl | String | private | URL del archivo PDF generado. |
+| status | ReportStatus | private | Estado del reporte (GENERATING, COMPLETED, FAILED). |
+| facilityId | Long | private | ID del estacionamiento al que pertenece el reporte. |
+
+**Métodos principales:**
+
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| Report() | Constructor | protected | Constructor protegido para JPA. |
+| Report(GenerateReportCommand command) | Constructor | public | Crea un reporte a partir de un comando. Inicializa con status=GENERATING, fileUrl=null. |
+| markAsCompleted(String fileUrl) | void | public | Marca el reporte como completado y asigna la URL del archivo PDF generado. |
+| markAsFailed(String errorDetail) | void | public | Marca el reporte como fallido. |
+| isCompleted() | boolean | public | Devuelve true si status es COMPLETED. |
+
+#### 2. GenerateReportCommand (Command)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reportType | String | public | Tipo de reporte ("OCCUPANCY", "REVENUE", "COMBINED"). |
+| startDate | LocalDate | public | Fecha de inicio del período. |
+| endDate | LocalDate | public | Fecha de fin del período. |
+| generatedBy | Long | public | ID del administrador que solicita el reporte. |
+| facilityId | Long | public | ID del estacionamiento. |
+
+#### 3. Queries
+
+| Query | Atributos principales | Descripción |
+|---|---|---|
+| GetOccupancyMetricsQuery | startDate : LocalDate, endDate : LocalDate, facilityId : Long | Obtiene métricas de ocupación para un rango de fechas. |
+| GetRevenueMetricsQuery | startDate : LocalDate, endDate : LocalDate, facilityId : Long | Obtiene métricas de ingresos para un rango de fechas. |
+| GetHeatmapDataQuery | startDate : LocalDate, endDate : LocalDate, facilityId : Long | Obtiene datos para el mapa de calor de uso por espacio. |
+| GetPeakHoursQuery | startDate : LocalDate, endDate : LocalDate, facilityId : Long | Obtiene las horas punta del estacionamiento. |
+| GetReportByIdQuery | reportId : Long | Obtiene un reporte específico por su ID. |
+| GetReportsByFacilityQuery | facilityId : Long | Obtiene todos los reportes de un estacionamiento. |
+
+#### 4. ReportGeneratedEvent (Domain Event)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| source | Object | private | Objeto origen del evento. |
+| reportId | Long | private | ID del reporte generado. |
+| reportType | ReportType | private | Tipo de reporte. |
+| fileUrl | String | private | URL del PDF generado. |
+| generatedBy | Long | private | ID del administrador. |
+
+#### 5. AnalyticsQueryService (Domain Service)
+
+Proporciona métodos para consultar métricas calculadas a partir de datos de otros bounded contexts.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetOccupancyMetricsQuery query) | OccupancyMetrics | public | Calcula y retorna métricas de ocupación: tasa promedio, horas punta, tasa de rotación, datos por hora. |
+| handle(GetRevenueMetricsQuery query) | RevenueMetrics | public | Calcula y retorna métricas de ingresos: total, ticket promedio, pagos por método, datos por día. |
+| handle(GetHeatmapDataQuery query) | List\<HeatmapEntry> | public | Calcula datos del mapa de calor: uso por espacio (cuántas veces fue ocupado y duración promedio). |
+| handle(GetPeakHoursQuery query) | PeakHoursData | public | Identifica las horas con mayor ocupación promedio. |
+
+#### 6. ReportCommandService (Domain Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GenerateReportCommand command) | Optional\<Report> | public | Inicia la generación de un reporte PDF. Crea entidad Report, genera el PDF y lo almacena, actualiza status a COMPLETED. |
+
+#### 7. ReportQueryService (Domain Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetReportByIdQuery query) | Optional\<Report> | public | Obtiene un reporte por su ID. |
+| handle(GetReportsByFacilityQuery query) | List\<Report> | public | Obtiene todos los reportes de un estacionamiento. |
+
+#### 8. OccupancyAnalyticsService (Domain Service)
+
+Servicio de dominio que encapsula la lógica de cálculo de métricas de ocupación.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| calculateAverageOccupancyRate(List\<SlotStatusSnapshot> snapshots) | double | public | Calcula la tasa de ocupación promedio a partir de snapshots históricos. |
+| calculateTurnoverRate(long totalSessions, long totalSlots, int days) | double | public | Calcula la tasa de rotación: sesiones / (espacios × días). |
+| identifyPeakHours(List\<SlotStatusSnapshot> snapshots) | List\<Integer> | public | Identifica las horas del día con mayor ocupación promedio. |
+
+#### 9. RevenueAnalyticsService (Domain Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| calculateTotalRevenue(List\<PaymentSummary> payments) | BigDecimal | public | Suma el monto total de pagos en el período. |
+| calculateAverageTicket(List\<PaymentSummary> payments) | BigDecimal | public | Calcula el ticket promedio (total / cantidad de pagos). |
+| groupByPaymentMethod(List\<PaymentSummary> payments) | Map\<String, BigDecimal> | public | Agrupa ingresos por método de pago (YAPE, CREDIT_CARD, DEBIT_CARD). |
+| groupByDay(List\<PaymentSummary> payments) | Map\<LocalDate, BigDecimal> | public | Agrupa ingresos por día. |
+
+#### 10. OccupancyMetrics (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| averageOccupancyRate | double | private | Tasa de ocupación promedio en porcentaje (0-100). |
+| peakHours | List\<Integer> | private | Horas del día con mayor ocupación (e.g., [12, 13, 18, 19]). |
+| turnoverRate | double | private | Tasa de rotación (sesiones por espacio por día). |
+| dataByHour | Map\<Integer, Double> | private | Ocupación promedio desglosada por hora del día (0-23). |
+| totalSlots | int | private | Total de espacios en el estacionamiento. |
+| periodStart | LocalDate | private | Inicio del período analizado. |
+| periodEnd | LocalDate | private | Fin del período analizado. |
+
+#### 11. RevenueMetrics (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| totalRevenue | BigDecimal | private | Ingresos totales en el período. |
+| averageTicket | BigDecimal | private | Ticket promedio por sesión. |
+| totalTransactions | int | private | Cantidad total de transacciones. |
+| paymentsByMethod | Map\<String, BigDecimal> | private | Ingresos desglosados por método de pago. |
+| dataByDay | Map\<LocalDate, BigDecimal> | private | Ingresos desglosados por día. |
+| currency | String | private | Moneda (PEN). |
+
+#### 12. HeatmapEntry (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| slotId | Long | private | ID del espacio. |
+| slotCode | String | private | Código del espacio (e.g., "A-15"). |
+| usageCount | int | private | Cantidad de veces que fue ocupado en el período. |
+| averageDurationMinutes | double | private | Duración promedio de ocupación en minutos. |
+| totalOccupiedMinutes | long | private | Tiempo total que estuvo ocupado en minutos. |
+
+#### 13. PeakHoursData (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| peakHours | List\<Integer> | private | Horas con mayor ocupación (e.g., [12, 13, 18, 19, 20]). |
+| occupancyByHour | Map\<Integer, Double> | private | Porcentaje de ocupación promedio por hora (0-23). |
+| busiestDay | String | private | Día de la semana con mayor ocupación promedio. |
+
+#### 14. SlotStatusSnapshot (Value Object)
+
+Snapshot del estado de un espacio en un momento dado (usado para cálculos históricos).
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| slotId | Long | private | ID del espacio. |
+| status | String | private | Estado en ese momento (AVAILABLE, OCCUPIED). |
+| timestamp | LocalDateTime | private | Momento del snapshot. |
+
+#### 15. PaymentSummary (Value Object)
+
+Resumen de un pago (proyección de datos del BC Payment Processing).
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| paymentId | Long | private | ID del pago. |
+| amount | BigDecimal | private | Monto del pago. |
+| paymentMethod | String | private | Método de pago utilizado. |
+| paidAt | LocalDateTime | private | Momento del pago. |
+
+#### 16. ReportType (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| OCCUPANCY | Enum | public | Reporte de ocupación. |
+| REVENUE | Enum | public | Reporte de ingresos. |
+| COMBINED | Enum | public | Reporte combinado (ocupación + ingresos). |
+
+#### 17. ReportStatus (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| GENERATING | Enum | public | El reporte se está generando. |
+| COMPLETED | Enum | public | El reporte se generó exitosamente. |
+| FAILED | Enum | public | La generación del reporte falló. |
+
+#### 18. ReportPeriod (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| startDate | LocalDate | private | Fecha de inicio del período. |
+| endDate | LocalDate | private | Fecha de fin del período. |
+
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| ReportPeriod(LocalDate start, LocalDate end) | Constructor | public | Inicializa y valida que startDate sea anterior a endDate. |
+| getDurationInDays() | long | public | Retorna la cantidad de días del período. |
+| includes(LocalDate date) | boolean | public | Verifica si una fecha está dentro del período. |
+
 ---
+
+### 4.2.5.2. Interface Layer
+
+#### 1. AnalyticsController (REST Controller)
+
+Controlador REST que expone endpoints para consultar métricas y estadísticas del estacionamiento.
+
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| getOccupancyMetrics | /api/v1/analytics/occupancy | GET | Obtiene métricas de ocupación (tasa promedio, rotación, horas punta). Parámetros: startDate, endDate. |
+| getRevenueMetrics | /api/v1/analytics/revenue | GET | Obtiene métricas de ingresos (total, ticket promedio, por método). Parámetros: startDate, endDate. |
+| getHeatmapData | /api/v1/analytics/heatmap | GET | Obtiene datos del mapa de calor de uso por espacio. Parámetros: startDate, endDate. |
+| getPeakHours | /api/v1/analytics/peak-hours | GET | Obtiene las horas punta del estacionamiento. Parámetros: startDate, endDate. |
+
+#### 2. ReportsController (REST Controller)
+
+Controlador REST que expone endpoints para generar y consultar reportes.
+
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| generateReport | /api/v1/reports | POST | Genera un nuevo reporte PDF de ocupación o ingresos. |
+| getReportById | /api/v1/reports/{id} | GET | Obtiene un reporte específico por su ID. |
+| getReportsByFacility | /api/v1/reports | GET | Obtiene todos los reportes del estacionamiento. |
+| downloadReport | /api/v1/reports/{id}/download | GET | Descarga el archivo PDF del reporte. |
+
+#### 3. Resources (DTOs)
+
+| Resource | Atributos principales | Descripción |
+|---|---|---|
+| OccupancyMetricsResource | averageOccupancyRate: double, peakHours: List\<Integer>, turnoverRate: double, dataByHour: Map\<Integer, Double>, totalSlots: int, periodStart: String, periodEnd: String | Métricas de ocupación formateadas. |
+| RevenueMetricsResource | totalRevenue: BigDecimal, averageTicket: BigDecimal, totalTransactions: int, paymentsByMethod: Map\<String, BigDecimal>, dataByDay: Map\<String, BigDecimal>, currency: String | Métricas de ingresos formateadas. |
+| HeatmapEntryResource | slotId: Long, slotCode: String, usageCount: int, averageDurationMinutes: double | Entrada del mapa de calor. |
+| PeakHoursResource | peakHours: List\<Integer>, occupancyByHour: Map\<Integer, Double>, busiestDay: String | Datos de horas punta. |
+| ReportResource | id: Long, reportType: String, periodStart: String, periodEnd: String, generatedAt: LocalDateTime, status: String, fileUrl: String | Representación de un reporte. |
+| GenerateReportResource | reportType: String, startDate: String, endDate: String | Datos para solicitar generación de reporte. |
+
+#### 4. Transform (Assemblers)
+
+| Assembler | Entrada | Salida | Descripción |
+|---|---|---|---|
+| OccupancyMetricsResourceFromValueObjectAssembler | OccupancyMetrics | OccupancyMetricsResource | Convierte VO a DTO. |
+| RevenueMetricsResourceFromValueObjectAssembler | RevenueMetrics | RevenueMetricsResource | Convierte VO a DTO. |
+| HeatmapEntryResourceFromValueObjectAssembler | HeatmapEntry | HeatmapEntryResource | Convierte VO a DTO. |
+| ReportResourceFromEntityAssembler | Report | ReportResource | Convierte entidad a DTO. |
+| GenerateReportCommandFromResourceAssembler | GenerateReportResource | GenerateReportCommand | Convierte DTO en comando. |
+
+---
+
+### 4.2.5.3. Application Layer
+
+#### 1. AnalyticsQueryServiceImpl (Query Service Implementation)
+
+Implementación del servicio de consultas que calcula métricas agregando datos de otros bounded contexts.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| occupancyAnalyticsService | OccupancyAnalyticsService | private | Servicio de cálculo de métricas de ocupación. |
+| revenueAnalyticsService | RevenueAnalyticsService | private | Servicio de cálculo de métricas de ingresos. |
+| externalParkingDataService | ExternalParkingDataService | private | Servicio ACL para obtener datos de Parking Monitoring BC. |
+| externalPaymentDataService | ExternalPaymentDataService | private | Servicio ACL para obtener datos de Payment Processing BC. |
+| externalSessionDataService | ExternalSessionDataService | private | Servicio ACL para obtener datos de Access Control BC. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetOccupancyMetricsQuery query) | OccupancyMetrics | public | Obtiene snapshots de estado de espacios via ACL, calcula ocupación promedio, rotación y horas punta usando OccupancyAnalyticsService. |
+| handle(GetRevenueMetricsQuery query) | RevenueMetrics | public | Obtiene datos de pagos via ACL, calcula total, ticket promedio y agrupaciones usando RevenueAnalyticsService. |
+| handle(GetHeatmapDataQuery query) | List\<HeatmapEntry> | public | Obtiene datos de sesiones por espacio via ACL, calcula frecuencia de uso y duración promedio por slot. |
+| handle(GetPeakHoursQuery query) | PeakHoursData | public | Obtiene snapshots de ocupación por hora via ACL, identifica las horas con mayor demanda. |
+
+#### 2. ReportCommandServiceImpl (Command Service Implementation)
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reportRepository | ReportRepository | private | Repositorio para persistencia de reportes. |
+| analyticsQueryService | AnalyticsQueryService | private | Servicio de consulta de métricas (para incluir en el PDF). |
+| pdfGenerationService | PdfGenerationService | private | Servicio de generación de archivos PDF. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GenerateReportCommand command) | Optional\<Report> | public | Genera reporte: (1) crea entidad Report con status GENERATING, (2) obtiene métricas via AnalyticsQueryService, (3) genera PDF via PdfGenerationService, (4) almacena archivo y actualiza fileUrl, (5) marca como COMPLETED. Si falla, marca como FAILED. |
+
+#### 3. ReportQueryServiceImpl (Query Service Implementation)
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reportRepository | ReportRepository | private | Repositorio para acceso de lectura. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetReportByIdQuery query) | Optional\<Report> | public | Obtiene un reporte por su ID. |
+| handle(GetReportsByFacilityQuery query) | List\<Report> | public | Obtiene todos los reportes del estacionamiento, ordenados por generatedAt descendente. |
+
+#### 4. ExternalParkingDataService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| getSlotStatusSnapshots(LocalDate start, LocalDate end, Long facilityId) | List\<SlotStatusSnapshot> | public | Obtiene snapshots históricos de estados de espacios desde Parking Monitoring BC. |
+| getTotalSlots(Long facilityId) | int | public | Obtiene el total de espacios del estacionamiento. |
+
+#### 5. ExternalPaymentDataService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| getPaymentSummaries(LocalDate start, LocalDate end) | List\<PaymentSummary> | public | Obtiene resúmenes de pagos completados desde Payment Processing BC. |
+
+#### 6. ExternalSessionDataService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| getCompletedSessionCount(LocalDate start, LocalDate end) | long | public | Obtiene cantidad de sesiones completadas desde Access Control BC. |
+| getSessionsBySlot(LocalDate start, LocalDate end) | Map\<Long, List\<SessionSummary>> | public | Obtiene sesiones agrupadas por slotId para cálculo de heatmap. |
+
+#### 7. PdfGenerationService (Outbound Service Port)
+
+Interfaz para la generación de archivos PDF. La implementación concreta vive en Infrastructure.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| generateOccupancyReport(OccupancyMetrics metrics, ReportPeriod period) | byte[] | public | Genera PDF de reporte de ocupación con tablas y gráficos. |
+| generateRevenueReport(RevenueMetrics metrics, ReportPeriod period) | byte[] | public | Genera PDF de reporte de ingresos. |
+| generateCombinedReport(OccupancyMetrics occ, RevenueMetrics rev, ReportPeriod period) | byte[] | public | Genera PDF de reporte combinado. |
+
+---
+
+### 4.2.5.4. Infrastructure Layer
+
+#### 1. ReportRepository (Repository Interface)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findById(Long id) | Optional\<Report> | public | Busca un reporte por su ID. |
+| save(Report report) | Report | public | Persiste o actualiza un reporte. |
+| findByFacilityIdOrderByGeneratedAtDesc(Long facilityId) | List\<Report> | public | Obtiene reportes de un estacionamiento ordenados por fecha. |
+| findByReportTypeAndFacilityId(ReportType type, Long facilityId) | List\<Report> | public | Obtiene reportes por tipo. |
+
+#### 2. PdfGenerationServiceImpl (Infrastructure Service)
+
+Implementación concreta del servicio de generación de PDF usando iText o Apache PDFBox.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| fileStoragePath | String | private | Ruta de almacenamiento de archivos PDF generados. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| generateOccupancyReport(OccupancyMetrics metrics, ReportPeriod period) | byte[] | public | Genera PDF con tablas de ocupación por hora, gráfico de barras de horas punta y resumen ejecutivo. |
+| generateRevenueReport(RevenueMetrics metrics, ReportPeriod period) | byte[] | public | Genera PDF con tabla de ingresos por día, gráfico de ingresos por método de pago y totales. |
+| generateCombinedReport(OccupancyMetrics occ, RevenueMetrics rev, ReportPeriod period) | byte[] | public | Genera PDF combinado con ambas secciones. |
+
+#### 3. SlotStatusSnapshotRepository (Repository Interface)
+
+Repositorio para acceder a los snapshots históricos de estado de espacios (datos que se almacenan periódicamente desde Parking Monitoring para análisis histórico).
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findByTimestampBetween(LocalDateTime start, LocalDateTime end) | List\<SlotStatusSnapshot> | public | Obtiene snapshots en un rango de tiempo. |
+| findBySlotIdAndTimestampBetween(Long slotId, LocalDateTime start, LocalDateTime end) | List\<SlotStatusSnapshot> | public | Obtiene snapshots de un espacio específico. |
+
+---
+
+### 4.2.5.5. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Analytics & Reporting.
+
+> **Diagrama a crear en Structurizr DSL:**
+
+
+### 4.2.5.6. Bounded Context Software Architecture Code Level Diagrams
+
+#### 4.2.5.6.1. Bounded Context Domain Layer Class Diagrams
+
+> **Diagrama a crear en LucidChart o PlantUML:**
+#### 4.2.5.6.2. Bounded Context Database Design Diagram
+
+> **Diagrama a crear en Vertabelo:**
+
+
 
 # Capítulo V: Product Implementation, Validation & Deployment
 

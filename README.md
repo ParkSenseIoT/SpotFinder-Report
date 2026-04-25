@@ -57,8 +57,52 @@
 | 1.6.1 | 2026-04-22 | Dueñas Canales, Leonardo Manuel | Capítulo IV: Component Level Diagrams para Bounded Contexts. |
 | 1.6.2 | 2026-04-23 | Cruz Ibarra, Victor Andrés | Capítulo IV: Database Design Diagrams para Bounded Contexts. |
 | 1.7.0 | 2026-04-24 | Esteban Román, Henry Kalet | Integración de Student Outcome, Conclusiones, Bibliografía y Anexos para AV1. |
-**URL del repositorio para el Project Report:** [https://github.com/IoTMedicineProject/report.git](https://github.com/IoTMedicineProject/report.git)
-
+ 
+## Project Report Collaboration Insights
+ 
+**URL del repositorio para el Project Report:** [https://github.com/ParkSenseIoT/SpotFinder-Report](https://github.com/ParkSenseIoT/SpotFinder-Report)
+ 
+Se utilizó GitHub como plataforma de control de versiones y colaboración en equipo. Se siguió el flujo de trabajo **GitFlow** con las ramas principales `main` y `develop`, y ramas de trabajo `feature/<sección>` para cada contribución individual.
+ 
+Los integrantes del equipo y sus nombres de usuario en GitHub son los siguientes:
+ 
+| Integrante | Código | Nombre en GitHub |
+|---|---|---|
+| Esteban Román, Henry Kalet | U202310210 | kalet123-commit |
+| Dueñas Canales, Leonardo Manuel | U202117475 | insonnio |
+| Vidal Castro, Miguel Angel | U202314186 | gossk |
+| Allcca Guerrero, Irving Washington | U202213241 | eviterno17 |
+| Cruz Ibarra, Victor Andrés | U202311053 | elandrehs |
+ 
+### AV1
+ 
+#### Tareas asignadas
+ 
+Para el desarrollo del AV1 (TB1), cada participante del equipo realizó las siguientes tareas:
+ 
+| Integrante | Tareas asignadas |
+|---|---|
+| **Esteban Román, Henry Kalet** | - Capítulo I completo (Startup Profile, Solution Profile, Lean UX, Segmentos Objetivo) - Capítulo II: Big Picture Event Storming (10 pasos), Ubiquitous Language - Capítulo III: User Stories (US, TS, SWS, SS), Impact Mapping, Product Backlog - Capítulo IV: Tactical DDD (Domain Layer, Interface Layer, Application Layer, Infrastructure Layer para 7 BCs), Class Diagrams - Component Level Diagrams (en colaboración con Leonardo) |
+| **Dueñas Canales, Leonardo Manuel** | - Capítulo II: User Journey Mapping, registro de entrevistas Segmento 1 - Capítulo IV: Software Architecture (System Landscape, Context, Container, Deployment diagrams) - Component Level Diagrams para Bounded Contexts (en colaboración con Henry) |
+| **Vidal Castro, Miguel Angel** | - Capítulo II: Análisis competitivo, estrategias frente a competidores - Capítulo III: Technical Stories adicionales (integración con equipo) - Capítulo IV: Context Mapping con patrones DDD y análisis de alternativas |
+| **Allcca Guerrero, Irving Washington** | - Capítulo II: User Personas, User Task Matrix, Empathy Mapping - Capítulo IV: Bounded Context Canvases (Parking Monitoring, Access Control, Payment Processing, Emergency, Analytics, Notification, IAM) |
+| **Cruz Ibarra, Victor Andrés** | - Capítulo II: Diseño de entrevistas, registro y análisis de entrevistas Segmento 2 - Capítulo IV: Candidate Context Discovery, Domain Message Flows Modeling - Capítulo IV: Database Design Diagrams para Bounded Contexts |
+ 
+#### GitHub Collaboration Insights
+ 
+En GitHub se presenta un timeline de las principales ramas creadas por cada integrante del equipo, así como los procesos de merge realizados. Todas las ramas fueron gestionadas siguiendo el flujo de trabajo GitFlow.
+ 
+**Gráfico de commits por integrante:**
+ 
+![Commits Graph](./assets/images/screenshots/commitsgraph.png)
+ 
+**Gráfico de red (network graph) de ramas en el repositorio de GitHub:**
+ 
+![Network Graph](./assets/images/screenshots/networkgraph.png)
+ 
+**Contribuciones de los integrantes:**
+ 
+![Contributors Image](./assets/images/screenshots/contributorsimage.png)
 
 # Contenido
 

@@ -357,41 +357,594 @@ Actualmente, gran parte de los operadores en Perú (como Apparka, que lidera el 
 # Capítulo II: Requirements Elicitation & Analysis
 
 ## 2.1. Competidores.
-### 2.1.1. Análisis competitivo.
-[Contenido]
+### 2.1.1. Análisis competitivo
+#### Competitive Analysis Landscape
 
-### 2.1.2. Estrategias y tácticas frente a competidores.
-[Contenido]
+| ¿Por qué llevar a cabo este análisis? | Evaluar el posicionamiento de SpotFinder frente a soluciones existentes de gestión de estacionamientos, identificar brechas en el mercado peruano y definir nuestro diferencial estratégico basado en tecnología IoT con detección por espacio individual, guiado visual y reconocimiento de placas. |
+| :--- | :--- |
+
+---
+
+| | **SpotFinder (ParkSense)** | **Apparka (Los Portales)** | **ParkHelp** | **Quadra** |
+| :--- | :--- | :--- | :--- | :--- |
+| | <img src="./assets/images/screenshots/SpotFinderlogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Apparkalogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Parkhelplogo.jpg" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Quadralogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> |
+| **Perfil - Overview** | Sistema IoT integral para gestión inteligente de estacionamientos en centros comerciales, que combina sensores ultrasónicos por espacio, ALPR, guiado visual con LEDs, app móvil para conductores y dashboard analítico para administradores. | Operador líder de estacionamientos en Perú (~300 ubicaciones). Su app permite ubicar estacionamientos, ver disponibilidad general, pagar digitalmente y usar apertura automática de barreras por lectura de placas ("En Una"). | Líder global en sistemas de guiado de estacionamiento con más de 600,000 espacios monitoreados en 700+ ubicaciones en 50+ países. Ofrece sensores ultrasónicos, cámaras LPR, señalización digital y software ParkManager. | Marketplace peruano de estacionamientos peer-to-peer que permite a particulares alquilar sus cocheras privadas por horas. Usa IA para pricing dinámico y LPR para acceso. |
+| **Ventaja competitiva** | Solución IoT integral de bajo costo diseñada para el mercado peruano, con detección por espacio individual, guiado visual, ALPR con soporte de placas peruanas e integración con pasarelas de pago locales (Yape, Culqi). | Red de estacionamientos más grande del Perú. Marca establecida con 60+ años de experiencia. App con funcionalidad "En Una" para ingreso/salida sin tickets. Presencia en aeropuertos a nivel nacional. | Tecnología madura con 20+ años de experiencia. Portfolio más amplio de sensores del mercado (ultrasónicos, cámara, wireless, LoRa, LTE-M). Software ParkManager con analytics avanzados. | Modelo innovador peer-to-peer que desbloquea inventario de estacionamiento no utilizado (cocheras privadas). Precio accesible por minuto. |
+| **Perfil de Marketing** | | | | |
+| **Mercado objetivo** | Centros comerciales medianos y grandes en Lima que buscan modernizar sus estacionamientos con IoT. Conductores que visitan estos centros comerciales. | Centros comerciales, aeropuertos, hospitales y edificios corporativos en Perú. Conductores que buscan estacionamiento en la red de Apparka. | Aeropuertos, centros comerciales, hospitales y universidades a nivel global. Operadores de estacionamiento y municipalidades. | Conductores en Lima que buscan cocheras privadas cerca de su destino. Propietarios de cocheras que desean generar ingresos extra. |
+| **Estrategias de marketing** | Demostraciones piloto en centros comerciales, alianzas con operadores, marketing B2B a gerentes de operaciones, contenido técnico sobre IoT y smart parking. | Marketing masivo (TV, digital), alianzas con centros comerciales, presencia en aeropuertos, descarga gratuita de app. | Participación en ferias internacionales (ICSC, IPMI, EPICCA), partners regionales (AccessPark Colombia), cases studies y whitepapers técnicos. | Marketing digital en redes sociales, PR en medios de comunicación (El Comercio, Mercado Negro), alianzas con edificios y condominios. |
+| **Perfil de Producto** | | | | |
+| **Productos y servicios** | Sensores HC-SR04 por espacio, LEDs WS2812B de guiado, ESP32-CAM + Plate Recognizer para ALPR, sensor MQ-2 para emergencias, app móvil (Flutter), dashboard web (Angular), Edge Server (Flask + MQTT), backend (Spring Boot). | App móvil (iOS/Android) con buscador de estacionamientos, pago digital (tarjeta, Apparka Wallet), LPR para entrada/salida automática, gestión de abonados, integración con Google Maps/Waze. | Sensores U2 ultrasónicos indoor, sensores C2 con cámara LPR, sensores G4/G5 wireless outdoor, señalización digital, software ParkManager, iluminación LED inteligente. | App móvil para reservar cocheras por hora/semana/mes, mapa con cocheras disponibles, perfil de anfitrión con calificaciones, pago digital in-app, stickertag para acceso. |
+| **Precios y costos** | Modelo SaaS por espacio monitoreado. Starter: hasta 200 espacios. Business: hasta 1,000 espacios + ALPR + analytics. Enterprise: 1,000+ espacios, solución completa con integraciones. (Precios por definir en validación). | Gratuita para conductores. El centro comercial/operador paga por la integración. Cobro por estacionamiento: S/ 5-20/hora según ubicación. Abonados mensuales disponibles. | Precios enterprise bajo cotización directa. Alto costo de implementación (hardware propietario + instalación + licencia de software). No disponible en modelo self-service. | Gratuita para conductores. Cobro de S/ 0.12/minuto. Los anfitriones reciben un porcentaje del alquiler. Modelo marketplace con comisión por transacción. |
+| **Canales de distribución** | App móvil (iOS/Android), dashboard web, hardware IoT instalado en sitio. | App móvil (iOS/Android), presencia física en estacionamientos propios y operados. | Venta directa B2B, red de distribuidores certificados en 50+ países, partners regionales en LATAM. | App móvil (iOS/Android). |
+| **Análisis SWOT** | | | | |
+| **Fortalezas** | Solución IoT integral de bajo costo. Detección por espacio individual. ALPR con soporte de placas peruanas. Integración con Yape/Culqi. Guiado visual con LEDs. Dashboard analítico. | Red de 300+ estacionamientos. Marca consolidada. App funcional con 50,000+ usuarios. ALPR operativo en ubicaciones selectas. Presencia en aeropuertos nacionales. | Tecnología más madura del mercado (20+ años). Portfolio más amplio de sensores. 600,000+ espacios monitoreados. Presencia global en 50+ países. Software ParkManager robusto. | Modelo peer-to-peer innovador. Precio competitivo (S/ 0.12/min). Desbloquea inventario oculto de estacionamiento. Sin necesidad de infraestructura IoT propia. |
+| **Debilidades** | Startup emergente sin track record comercial. Prototipo en desarrollo. Sin base de clientes instalada. Dependencia de WiFi para sensores. | No ofrece detección por espacio individual. Sin guiado visual interno. Disponibilidad mostrada es general (no por zona/nivel específico). App con reportes de crashes frecuentes. | Costo prohibitivo para el mercado peruano. Sin presencia directa en Perú. Implementación compleja que requiere integrador certificado. No cuenta con app para conductores consumer-facing. | No aplica a estacionamientos de centros comerciales. No tiene sensores IoT. Oferta limitada a cocheras privadas. Dependiente del inventario de anitrones. |
+| **Oportunidades** | Mercado peruano sin solución IoT integral accesible. Creciente interés de centros comerciales en modernización. Alianzas con operadores como Apparka. Datos de BCR/IPE justifican inversión en smart parking. | Expansión tecnológica hacia detección por espacio. Integración con sistemas IoT de terceros. Expansión internacional (ya inició en Ecuador). | Entrada al mercado peruano vía partners locales. Modelo SaaS para mercados emergentes. Integración con apps locales de pago. | Expansión a estacionamientos comerciales. Alianza con centros comerciales para ofrecer cocheras cercanas como alternativa. |
+| **Amenazas** | Entrada de ParkHelp u otros players globales al mercado peruano. Que Apparka desarrolle su propia solución IoT integral. Resistencia al cambio de operadores tradicionales. | Competencia de startups tecnológicas con soluciones IoT más avanzadas. Disrución por modelos peer-to-peer como Quadra. | Competidores locales con soluciones más baratas y adaptadas. Barreras arancelarias para hardware importado. | Regulación de estacionamientos informales. Desconfianza de usuarios en dejar su auto en cocheras privadas. |
+
+### 2.1.2. Estrategias y tácticas frente a competidores
+
+Para competir eficazmente en el mercado de soluciones de gestión inteligente de estacionamientos, ParkSense aplicará las siguientes estrategias y tácticas preliminares:
+
+#### **1. Diferenciación por integración IoT completa a bajo costo**
+* **Estrategia:** Posicionar a SpotFinder como la única solución en el mercado peruano que ofrece detección por espacio individual con guiado visual LED, ALPR y analytics en un solo paquete accesible, frente a Apparka (que no tiene detección por espacio) y ParkHelp (cuyo costo es prohibitivo para el mercado local).
+* **Tácticas:**  Desarrollar un prototipo funcional con componentes de bajo costo que demuestre ROI medible. 
+    * Ofrecer implementación progresiva comenzando con una zona piloto de 50-100 espacios para reducir la barrera de entrada.
+
+#### **2. Alianzas estratégicas con operadores existentes**
+* **Estrategia:** En lugar de competir directamente con Apparka por la operación de estacionamientos, posicionar a SpotFinder como un complemento tecnológico que potencia la oferta del operador existente.
+* **Tácticas:**  Proponer integraciones API con el ecosistema de Apparka. 
+    * Demostrar cómo la detección por espacio individual puede mejorar la experiencia "En Una" de Apparka añadiendo guiado visual hacia el espacio específico. 
+    * Ofrecer un modelo *white-label* para que operadores comercialicen la solución bajo su propia marca.
+
+#### **3. Experiencia del conductor como ventaja competitiva**
+* **Estrategia:** Aprovechar que ParkHelp no ofrece una app *consumer-facing* y que la app de Apparka tiene reportes de crashes, para posicionar SpotFinder como la app de estacionamiento con la mejor experiencia de usuario para conductores en Lima.
+* **Tácticas:**  Diseñar la app con UX enfocada en contexto de conducción (pantallas grandes, acciones mínimas, modo mapa). 
+    * Integrar con Yape y Culqi (que Apparka no ofrece como método de pago nativo). 
+    * Implementar función "Encuentra tu auto" con ubicación exacta del espacio.
+
+#### **4. Modelo de datos como diferenciador frente a Quadra**
+* **Estrategia:** Mientras Quadra resuelve el problema de estacionamiento público en calles con un modelo *peer-to-peer*, **SpotFinder** se diferencia atacando el segmento de centros comerciales con inteligencia basada en datos IoT de sensores propios.
+* **Tácticas:** * Ofrecer dashboard con métricas que Quadra no puede proveer (tasa de rotación por espacio, heatmaps de ocupación, predicción de demanda). 
+    * Generar reportes de impacto ambiental (CO₂ ahorrado por reducción de tiempo de búsqueda) como argumento de responsabilidad social para centros comerciales.
+
+#### **5. Seguridad y respuesta a emergencias como valor agregado**
+* **Estrategia:** Ninguno de los tres competidores ofrece detección de gases/humo integrada al sistema de estacionamiento. Esta funcionalidad diferenciadora responde a una preocupación real de los centros comerciales.
+* **Tácticas:** * Implementar sensores MQ-2 conectados al mismo ecosistema IoT. 
+    * Configurar protocolos automatizados: alerta a administradores, activación de señalización de evacuación vía LEDs, apertura automática de barreras.
 
 ## 2.2. Entrevistas.
+En esta sección se aborda la investigación cualitativa realizada mediante entrevistas a representantes de los dos segmentos objetivo del proyecto: conductores que visitan centros comerciales y administradores de estacionamientos. El objetivo es comprender las herramientas, procesos y problemáticas actuales en la gestión de estacionamientos, así como validar las funcionalidades propuestas para SpotFinder.
 ### 2.2.1. Diseño de entrevistas.
-[Contenido]
+Para diseñar las entrevistas, se elaboraron dos bloques de preguntas diferenciados según el segmento objetivo. Las preguntas buscan obtener tanto información objetiva (frecuencia de uso, herramientas actuales, tiempos) como información subjetiva (percepciones, frustraciones y expectativas). Se incluyen también preguntas para recolectar datos demográficos necesarios para construir los User Personas.
 
-### 2.2.2. Registro de entrevistas.
-[Contenido]
+---
 
-### 2.2.3. Análisis de entrevistas.
-[Contenido]
+### Segmento 1: Conductores que visitan centros comerciales
 
-## 2.3. Needfinding.
-### 2.3.1. User Personas.
-[Contenido]
+#### **Datos demográficos (para construcción de arquetipos)**
+* ¿Cuál es su nombre, edad y distrito de residencia?
+* ¿A qué se dedica profesionalmente?
+* ¿Qué tipo de vehículo conduce (auto, camioneta, moto)?
+* ¿Qué marca de smartphone utiliza? ¿Con qué sistema operativo (Android/iOS)?
+* ¿Qué aplicaciones de servicio usa frecuentemente en su día a día (Yape, Rappi, Uber, Waze, Google Maps, etc.)?
 
-### 2.3.2. User Task Matrix.
-[Contenido]
+#### **Preguntas sobre la problemática**
+* ¿Con qué frecuencia visita centros comerciales en Lima? ¿Cuáles visita más a menudo?
+* Cuando va a un centro comercial, ¿cuánto tiempo aproximado le toma encontrar un espacio de estacionamiento?
+* ¿Ha experimentado situaciones donde baje a un nivel del estacionamiento solo para descubrir que está lleno? ¿Con qué frecuencia le ocurre?
+* ¿Cómo decide en qué zona o nivel del estacionamiento buscar? ¿Sigue alguna estrategia o es aleatorio?
+* ¿Alguna vez ha olvidado dónde estacionó su auto dentro de un centro comercial? ¿Cómo lo resolvió?
+* ¿Cómo paga actualmente el estacionamiento? ¿Usa ticket físico, app, efectivo? ¿Qué tan satisfecho está con ese proceso?
+* ¿Ha tenido algún incidente de seguridad con su vehículo en un estacionamiento (robo de accesorios, rayones, etc.)?
+* ¿Qué es lo que más le frustra de la experiencia de estacionamiento en centros comerciales?
+* En una escala del 1 al 10, ¿qué tan satisfecho está con la experiencia actual de estacionamiento en los centros comerciales que visita?
 
-### 2.3.3. User Journey Mapping.
-[Contenido]
+#### **Preguntas sobre la solución**
+* Si existiera una app que le mostrara en tiempo real los espacios disponibles por zona y nivel antes de entrar al estacionamiento, ¿la usaría? ¿Qué tan útil le parece?
+* ¿Qué tan valioso sería para usted que luces LED (verde/rojo) sobre cada espacio le indicaran visualmente dónde hay lugares libres?
+* ¿Le interesaría poder reservar un espacio de estacionamiento con anticipación desde su celular?
+* Si pudiera pagar el estacionamiento directamente desde su celular con Yape o tarjeta, sin hacer cola en una cabina, ¿lo haría?
+* ¿Qué tan importante sería recibir una notificación si se detecta algún movimiento inusual cerca de su vehículo?
+* ¿Qué funcionalidad le parecería más valiosa: ver disponibilidad en tiempo real, reservar espacio, pagar desde el celular o localizar su auto al regresar?
+* ¿Estaría dispuesto a descargar y usar una nueva app si mejora significativamente su experiencia de estacionamiento?
 
-### 2.3.4. Empathy Mapping.
-[Contenido]
+---
 
-## 2.4. Big Picture Event Storming.
-[Contenido]
+### Segmento 2: Administradores de estacionamientos de centros comerciales
+
+#### **Datos demográficos (para construcción de arquetipos)**
+* ¿Cuál es su nombre, edad y cargo actual?
+* ¿Cuántos años de experiencia tiene en la gestión de estacionamientos o en operaciones de centros comerciales?
+* ¿Cuántos espacios de estacionamiento gestiona actualmente? ¿Cuántos niveles tiene el estacionamiento?
+* ¿Qué herramientas digitales utiliza en su trabajo diario (Excel, software de gestión, email, etc.)?
+
+#### **Preguntas sobre la problemática**
+* ¿Cómo gestionan actualmente la ocupación del estacionamiento? ¿Utilizan algún sistema automatizado o es manual?
+* ¿Tienen visibilidad en tiempo real de cuántos espacios están ocupados y cuántos libres? ¿A nivel general o por zona/nivel?
+* ¿Cuántas personas de su equipo se dedican a orientar el tráfico vehicular dentro del estacionamiento?
+* ¿Qué problemas enfrentan con más frecuencia en la gestión diaria del estacionamiento?
+* ¿Tienen acceso a estadísticas de uso como tasa de ocupación, rotación de espacios, horas punta o ingresos por espacio?
+* ¿Cómo manejan el proceso de cobro actualmente? ¿Qué tan eficiente es?
+* ¿Han tenido situaciones de emergencia (sismo, incendio, fuga de gas) en el estacionamiento? ¿Cómo fue la evacuación? ¿Qué protocolos tienen?
+* ¿Cuáles son los principales costos operativos asociados al estacionamiento?
+* ¿Han recibido quejas de clientes respecto a la experiencia de estacionamiento? ¿Cuáles son las más frecuentes?
+
+#### **Preguntas sobre la solución**
+* ¿Qué tan valioso sería para ustedes contar con un dashboard que muestre la ocupación en tiempo real de cada espacio del estacionamiento?
+* ¿Les interesaría un sistema que genere reportes automáticos de ocupación, rotación e ingresos?
+* ¿Considerarían implementar un sistema de guiado visual con LEDs que dirija a los conductores hacia espacios disponibles?
+* ¿Qué tan importante es para ustedes que el sistema de control de acceso reconozca automáticamente las placas vehiculares?
+* Si un sistema pudiera detectar gases o humo y activar automáticamente protocolos de emergencia (abrir barreras, cambiar LEDs a modo evacuación), ¿lo considerarían un valor agregado significativo?
+* ¿Qué funcionalidad priorizarían: detección de disponibilidad por espacio, ALPR en barreras, pago digital, analytics o seguridad?
+* ¿Estarían dispuestos a implementar una solución IoT si se demuestra un retorno de inversión medible en reducción de costos y mejora de satisfacción del cliente?
+* ¿Qué presupuesto aproximado manejan o manejarían para modernizar el sistema de estacionamiento?
+### 2.2.2. Registro de entrevistas
+
+## Segmento Objetivo 1
+
+#### **Entrevista 1**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Maria Fernanda |
+| **Apellidos** | Esteban Román |
+| **Distrito** | Surco |
+| **Edad** | 21 años |
+| **Fecha de entrevista** | 11/04/2026 |
+| **Timing**              | 00:00-03:05 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
+
+**Evidencia**
+![Captura de la entrevista 1](./assets/images/screenshots/seg1entrevista1.jpeg)
+
+**Resumen**
+Estudiante universitaria que visita centros comerciales como el Jockey Plaza dos veces por semana. Su principal frustración es la pérdida de tiempo (15-20 minutos) buscando estacionamiento y la falta de información real sobre la disponibilidad en los sótanos. Usuario activo de herramientas tecnológicas como Waze y Yape, considera que un sistema de guiado por luces LED y una app con disponibilidad en tiempo real serían determinantes para mejorar su experiencia y reducir el estrés.
+
+---
+
+#### **Entrevista 2**
+|Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Freddy Carlos |
+| **Apellidos** | Alvarez |
+| **Distrito** | Miraflores |
+| **Edad** | 22 años |
+| **Fecha de entrevista** | 11/04/2026 |
+| **Timing**              | 03:05-05:38 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
+
+**Evidencia**
+![Captura de la entrevista 2](./assets/images/screenshots/seg1entrevista2.png)
+  
+**Resumen**
+Usuario frecuente de estacionamientos en centros comerciales que prioriza la seguridad y la eficiencia en el pago. Reporta una alta frustración debido a las largas colas en los cajeros físicos y la dificultad de encontrar espacios en temporadas altas. Valora positivamente la automatización mediante el reconocimiento de placas vehiculares (ALPR) y la posibilidad de realizar pagos digitales a través de la app, lo cual considera una solución necesaria para modernizar el servicio actual.
+
+---
+
+#### **Entrevista 3**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Diego Ignacio |
+| **Apellidos** | Ricra Falla |
+| **Distrito** | San Borja |
+| **Edad** | 24 años |
+| **Fecha de entrevista** | 11/04/2026 |
+| **Timing**              | 05:38-09:32|
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
+
+**Evidencia**
+![Captura de la entrevista 3](./assets/images/screenshots/seg1entrevista3.png)
+
+
+**Resumen**
+Estudiante  joven que utiliza el vehículo para movilizarse a reuniones y recados, visitando malls hasta tres veces por semana. Su mayor problema es la desorientación dentro del estacionamiento (olvida la ubicación del vehículo) y la falta de métodos de pago prácticos cuando no cuenta con efectivo. [Se muestra muy interesado en las funciones de reserva de espacios con anticipación y en recibir notificaciones de seguridad en su smartphone para mayor tranquilidad durante su estancia.
+
+## Segmento Objetivo 2
+
+**Segmento Administradores de estacionamientos: Entrevistado 1**
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | Fabian Oliva |
+| **Edad**                | 26 |
+| **Sexo**                | Masculino |
+| **Distrito**            | Surquillo |
+| **Ocupación**           | Administrador de estacionamiento (Mall Plaza Angamos) |
+| **Fecha de entrevista** | 11/04/2026 |
+| **Timing**              | 09:32-12:51|
+| **Video**               | [Ver entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
+| **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/seg2entrevista1.png) |
+| **Resumen**             | Fabian gestiona un estacionamiento de aproximadamente 850 espacios distribuidos en 5 niveles. Actualmente, la operación depende en gran medida de procesos manuales y herramientas básicas como Excel y sistemas de tickets, lo que limita la precisión y visibilidad en tiempo real. Enfrenta problemas de congestión en horas pico, dificultad de los usuarios para encontrar espacios y dependencia del personal para orientar el tráfico. No cuenta con analítica avanzada ni reportes automatizados. El sistema de cobro es parcialmente eficiente, pero presenta demoras. Considera valioso implementar soluciones como dashboards en tiempo real, guiado con LEDs, reconocimiento de placas (ALPR) y sistemas de seguridad automatizados. Está dispuesto a invertir si se demuestra un retorno claro. |
+
+---
+
+**Segmento Administradores de estacionamientos: Entrevistado 2**
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | Nicole Requena Saiwa |
+| **Edad**                | 28 |
+| **Sexo**                | Femenino |
+| **Distrito**            | Yanahuara, Arequipa |
+| **Ocupación**           | Administradora de Operaciones de Estacionamiento |
+| **Fecha de entrevista** | 9/04/2026 |
+| **Timing**              | 12:51	19:36|
+| **Video**               | [Ver entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
+| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/seg2entrevista2.png) |
+| **Resumen**             | Administradora con aproximadamente 7 a 8 años de experiencia en la gestión de estacionamientos. Supervisa operaciones en espacios que superan los mil estacionamientos distribuidos en varios niveles. Actualmente, la gestión es mixta: cuenta con sistemas de conteo en entradas y salidas, pero el control interno sigue siendo mayormente manual, lo que limita la visibilidad en tiempo real por zonas específicas.\n\nEnfrenta problemas frecuentes como congestión en horas pico, dificultad de los conductores para encontrar espacios, desorden en momentos de alta demanda y reclamos constantes de los usuarios. No cuenta con estadísticas detalladas ni herramientas avanzadas de análisis, lo que dificulta la toma de decisiones.\n\nEl proceso de cobro se realiza mediante tickets físicos, generando colas y demoras en horas de alta afluencia. En situaciones de emergencia, la evacuación depende principalmente del personal, ya que no existe un sistema automatizado de guía.\n\nConsidera muy valiosas soluciones tecnológicas como dashboards en tiempo real, reportes automáticos, guiado visual con LEDs y reconocimiento de placas (ALPR), destacando especialmente su impacto en la eficiencia operativa y experiencia del cliente. Está dispuesta a implementar una solución IoT siempre que se demuestre un retorno claro, con un presupuesto estimado entre 20,000 y 50,000 dólares. |
+
+---
+
+**Segmento Administradores de estacionamientos: Entrevistado 3**
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | Carlos Ramírez |
+| **Edad**                | 42 |
+| **Sexo**                | Masculino |
+| **Distrito**            |  Surco  |
+| **Ocupación**           | Jefe de Operaciones de Estacionamiento |
+| **Fecha de entrevista** |  12/04/2026  |
+| **Timing**              | 19:36-22:56 |
+| **Video**               | [Ver entrevista]() |
+| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/seg2entrevista3.png) |
+| **Resumen**             | Jefe de operaciones con aproximadamente 12 años de experiencia en la gestión de estacionamientos y flujo vehicular en centros comerciales. Actualmente administra cerca de 850 espacios distribuidos en tres niveles, utilizando herramientas básicas como Excel, sistemas de tickets y correo electrónico para la gestión diaria.\n\nEl control de ocupación es parcialmente manual, apoyado por sensores en accesos, pero sin visibilidad en tiempo real de los espacios disponibles a nivel interno. Esto genera dependencia del personal (entre 4 y 6 personas en horas punta) para la orientación del tráfico.\n\nEntre los principales problemas destacan la congestión interna, dificultad de los usuarios para encontrar espacios, mala distribución del flujo vehicular y quejas frecuentes en horas pico. Además, la falta de estadísticas detalladas limita la toma de decisiones estratégicas.\n\nEl sistema de cobro se basa en tickets físicos y cajeros automáticos, lo que genera colas en momentos de alta demanda. En situaciones de emergencia, la evacuación depende principalmente del personal, sin sistemas automatizados de apoyo.\n\nValora altamente soluciones tecnológicas como dashboards en tiempo real, reportes automáticos, guiado visual con LEDs y reconocimiento de placas (ALPR), priorizando especialmente la disponibilidad por espacio y la automatización del ingreso y salida. También considera relevante la implementación de sistemas de detección de gases o humo.\n\nEstá dispuesto a implementar una solución IoT siempre que exista un retorno de inversión claro, estimando un presupuesto inicial entre 20,000 y 50,000 dólares. |
+
+---
+
+
+### 2.2.3. Análisis de entrevistas
+
+Se realizaron un total de **6 entrevistas** distribuidas entre los dos segmentos objetivo del proyecto: 3 entrevistas a conductores que visitan centros comerciales (Segmento 1) y 3 entrevistas a administradores de estacionamientos (Segmento 2). Las entrevistas se llevaron a cabo entre el 9 y 12 de abril de 2026, utilizando el diseño de preguntas definido en la sección 2.2.1.
+
+## Segmento 1: Conductores que visitan centros comerciales
+
+### Perfil demográfico
+
+Los tres entrevistados son jóvenes entre 21 y 24 años, residentes de distritos de Lima con alta densidad de centros comerciales (Surco, Miraflores, San Borja). Son estudiantes universitarios con uso intensivo de tecnología móvil. Utilizan aplicaciones de servicio como Yape, Waze y Google Maps de forma cotidiana, lo que indica una alta predisposición a adoptar nuevas herramientas digitales para resolver problemas de movilidad.
+ 
+### Hallazgos sobre la problemática
+ 
+**Tiempo de búsqueda de estacionamiento:** Los tres entrevistados coinciden en que la búsqueda de estacionamiento representa una fuente significativa de frustración. María Fernanda reporta entre 15 y 20 minutos de búsqueda en el Jockey Plaza, mientras que Diego Ignacio indica que visita centros comerciales hasta tres veces por semana y frecuentemente baja a niveles de estacionamiento solo para encontrarlos llenos. Esto confirma el dato estadístico citado en el Capítulo I sobre los conductores limeños perdiendo en promedio 5 horas semanales buscando estacionamiento.
+ 
+**Desorientación dentro del estacionamiento:** Diego Ignacio destacó como problema principal que olvida dónde estacionó su vehículo y no tiene herramientas para localizarlo. Este hallazgo valida directamente la funcionalidad "Find My Car" (US07) como un diferenciador de alto valor percibido para los conductores.
+ 
+**Métodos de pago insatisfactorios:** Freddy Alvarez expresó una alta frustración con las largas colas en los cajeros físicos de pago y la dificultad cuando no cuenta con efectivo. Este dolor confirma la necesidad del pago digital integrado (US05) como funcionalidad core. La familiaridad de los tres entrevistados con Yape refuerza la decisión de integrar Culqi como pasarela de pagos con soporte para Yape.
+ 
+**Seguridad vehicular:** Freddy Alvarez prioriza la seguridad del vehículo y valora la trazabilidad que ofrece el reconocimiento de placas (ALPR). Aunque ninguno reportó incidentes graves, la preocupación por la seguridad es un tema recurrente que justifica las notificaciones de eventos del vehículo (US10).
+ 
+### Hallazgos sobre la solución propuesta
+ 
+**Funcionalidades más valoradas (por orden de mención):**
+ 
+1. **Disponibilidad en tiempo real** — Los tres entrevistados la consideran la funcionalidad más valiosa. María Fernanda indicó que un mapa en tiempo real con LEDs sería "determinante" para mejorar su experiencia.
+2. **Pago digital** — Freddy Alvarez lo considera una "solución necesaria para modernizar el servicio actual". Los tres están dispuestos a pagar desde el celular si esto elimina las colas.
+3. **Reserva de espacios** — Diego Ignacio mostró alto interés en poder reservar con anticipación, especialmente en temporadas de alta demanda. Esta funcionalidad está vinculada al plan Pro (S/ 9.90/mes).
+4. **Localización del vehículo (Find My Car)** — Diego Ignacio la señaló como una necesidad directa basada en su experiencia de desorientación.
+5. **Notificaciones de seguridad** — Valorada por los tres pero no como primera prioridad. Diego Ignacio mencionó que le daría "mayor tranquilidad durante su estancia".
+**Disposición a adoptar la app:** Los tres entrevistados indicaron que descargarían y usarían una nueva app si mejora significativamente su experiencia de estacionamiento, confirmando la viabilidad de la adopción del producto.
+ 
+### Hallazgos clave para el diseño
+ 
+Los conductores priorizan la inmediatez y la simplicidad. La interfaz debe mostrar la disponibilidad de forma clara y rápida, con mínima interacción necesaria (pantallas grandes, acciones en máximo 2 taps). La integración con Yape es crítica para la adopción en el mercado peruano. La funcionalidad de LEDs (verde/rojo) fue mencionada positivamente por María Fernanda como un complemento visual que reduce la incertidumbre sin depender del celular.
+ 
+---
+ 
+## Segmento 2: Administradores de estacionamientos
+ 
+### Perfil demográfico
+ 
+Los tres entrevistados tienen perfiles profesionales complementarios: Fabián Oliva (26 años, administrador en Mall Plaza Angamos), Nicole Requena (28 años, administradora de operaciones con 7-8 años de experiencia en Arequipa) y Carlos Ramírez (42 años, jefe de operaciones con 12 años de experiencia en Surco). Entre los tres gestionan estacionamientos de entre 850 y más de 1,000 espacios distribuidos en 3 a 5 niveles, lo que representa el perfil exacto de centros comerciales medianos y grandes que SpotFinder busca atender.
+ 
+### Hallazgos sobre la problemática
+ 
+**Gestión predominantemente manual:** Los tres entrevistados reportan una dependencia significativa de procesos manuales. Fabián utiliza Excel y sistemas de tickets, Nicole cuenta con sensores en accesos pero sin visibilidad interna por zonas, y Carlos usa tickets físicos y cajeros automáticos. Ninguno tiene detección de disponibilidad a nivel de espacio individual, confirmando el gap de mercado identificado en el análisis competitivo.
+ 
+**Falta de visibilidad en tiempo real:** Los tres coinciden en que no tienen acceso a información en tiempo real sobre la ocupación por zona o nivel dentro del estacionamiento. Nicole mencionó que el control interno es "mayormente manual", lo que limita la toma de decisiones operativas. Carlos indicó que depende de 4 a 6 personas en horas punta solo para orientar el tráfico vehicular, representando un costo operativo significativo.
+ 
+**Congestión en horas pico:** Es el problema más citado por los tres administradores. La falta de guiado inteligente genera cuellos de botella en rampas y accesos. Carlos reportó "mala distribución del flujo vehicular" como una queja frecuente de los usuarios.
+ 
+**Ausencia de analítica:** Ninguno de los tres tiene acceso a estadísticas detalladas de ocupación, rotación o ingresos por espacio. Fabián indicó que no cuenta con "analítica avanzada ni reportes automatizados". Esta carencia valida el bounded context de Analytics & Reporting y las user stories US12 y US13.
+ 
+**Cobro ineficiente:** Los tres reportan que el sistema de cobro basado en tickets físicos genera colas y demoras, especialmente en horas de alta afluencia. Nicole mencionó que las "colas y demoras en horas de alta afluencia" son un reclamo constante de los usuarios.
+ 
+**Protocolos de emergencia manuales:** Los tres indican que la evacuación en emergencias depende exclusivamente del personal humano, sin sistemas automatizados de apoyo. Este hallazgo valida directamente el bounded context de Emergency & Safety (US14) como diferenciador competitivo, ya que ningún competidor ofrece esta funcionalidad.
+ 
+### Hallazgos sobre la solución propuesta
+ 
+**Funcionalidades priorizadas (por orden de valoración):**
+ 
+1. **Dashboard en tiempo real** — Valorado como "muy valioso" por los tres administradores. La capacidad de ver la ocupación de cada espacio en tiempo real transformaría su capacidad operativa.
+2. **Reconocimiento de placas (ALPR)** — Carlos lo priorizó especialmente para automatizar ingreso y salida, eliminando tickets físicos y reduciendo colas. Nicole también lo destacó por su impacto en la eficiencia operativa.
+3. **Guiado visual con LEDs** — Los tres lo consideran un complemento valioso que reduciría la necesidad de personal de orientación (actualmente 4-6 personas en horas punta).
+4. **Reportes automáticos** — Valorados por su impacto en la toma de decisiones. Fabián mencionó que actualmente no tiene forma de generar reportes de ocupación o ingresos de forma automatizada.
+5. **Detección de gases/humo** — Carlos lo consideró "relevante" y Nicole lo destacó por su potencial de salvar vidas. Los tres lo ven como un valor agregado significativo diferenciador.
+**Presupuesto y disposición a invertir:** Nicole y Carlos coinciden en un presupuesto estimado de USD 20,000 a 50,000 para modernizar sus estacionamientos, condicionado a demostrar un retorno de inversión claro. Fabián indicó que "está dispuesto a invertir si se demuestra un retorno claro". Esto valida la viabilidad económica del modelo B2B de SpotFinder y sugiere que el modelo de implementación progresiva (zona piloto) es la estrategia correcta para reducir la barrera de entrada.
+ 
+### Hallazgos clave para el diseño
+ 
+Los administradores necesitan un dashboard visualmente claro, con métricas accionables y alertas automáticas. La interfaz debe priorizar la visión general del estacionamiento con drill-down por zona/nivel. Los reportes deben ser exportables en PDF para presentar a gerencia. La implementación debe poder hacerse de forma progresiva (empezar con una zona piloto de 50-100 espacios) para demostrar ROI antes de escalar.
+ 
+---
+ 
+## Análisis cruzado: Patrones y convergencias entre segmentos
+ 
+### Convergencias identificadas
+ 
+1. **La frustración con la búsqueda de estacionamiento es universal.** Tanto conductores como administradores reconocen el problema: los conductores lo sufren directamente (15-20 min de búsqueda) y los administradores lo enfrentan como reclamos constantes y congestión operativa.
+2. **El pago digital es una necesidad compartida.** Los conductores quieren eliminar colas y los administradores quieren agilizar el proceso de salida. La integración con Yape es el puente natural para el mercado peruano.
+3. **La seguridad es un diferenciador clave.** Tanto conductores (tranquilidad sobre su vehículo) como administradores (protocolos de emergencia automatizados) valoran las funcionalidades de seguridad. El sistema de detección de gas/humo con evacuación automática no tiene equivalente en el mercado peruano.
+4. **La información en tiempo real es el core del valor.** Los conductores quieren ver espacios disponibles antes de bajar a un nivel. Los administradores quieren ver la ocupación completa desde su oficina. Ambos necesitan que los datos se actualicen en menos de 3 segundos.
+### Validación de hipótesis del Lean UX
+ 
+| Hipótesis | Validación por entrevistas |
+|---|---|
+| H1: 60% de conductores usarán la app activamente | **Validada.** Los 3 conductores indicaron disposición a descargar y usar la app. La familiaridad con apps como Yape y Waze facilita la adopción. |
+| H2: ALPR reducirá tiempo de procesamiento en barrera de 30-45s a < 5s | **Validada indirectamente.** Los administradores confirman que los tickets físicos generan demoras significativas y priorizan el ALPR como solución. |
+| H3: LEDs reducirán congestión interna en 40% | **Validada cualitativamente.** Los 3 administradores confirman que la falta de guiado genera congestión. María Fernanda (conductora) calificó los LEDs como "determinantes". |
+| H4: 80% de administradores consultarán el dashboard diariamente | **Validada.** Los 3 administradores lo consideran "muy valioso" y actualmente carecen de herramientas equivalentes. |
+| H5: 50% de pagos serán digitales en 3 meses | **Validada parcialmente.** Los conductores muestran alta disposición pero la adopción dependerá de la facilidad de uso y la integración con Yape. |
+ 
+### Funcionalidades no consideradas inicialmente (descubiertas en entrevistas)
+ 
+1. **Indicadores de zonas llenas antes de bajar al nivel** — María Fernanda mencionó la frustración de bajar a un nivel solo para encontrarlo lleno. Esto refuerza la necesidad de mostrar la disponibilidad por nivel/zona en la app antes de que el conductor tome la decisión de bajar.
+2. **Reducción medible de personal de orientación** — Carlos mencionó que emplea 4-6 personas solo para orientar tráfico. El guiado con LEDs podría reducir este personal a 1-2 personas, generando un ROI directo y cuantificable para la presentación comercial.
+3. **Integración con protocolos de emergencia existentes** — Nicole mencionó que la evacuación depende del personal actual. El sistema de emergencia debería complementar (no reemplazar) los protocolos existentes del centro comercial.
+
+## Conclusiones del análisis
+ 
+Las entrevistas confirman que SpotFinder aborda un problema real y reconocido por ambos segmentos objetivo. Los conductores valoran principalmente la reducción del tiempo de búsqueda y el pago digital, mientras que los administradores priorizan la visibilidad en tiempo real y la automatización de procesos manuales.
+ 
+El modelo de negocio B2B con presupuestos de USD 20,000-50,000 es viable según las entrevistas con administradores. La estrategia de implementación progresiva (zona piloto) se confirma como el enfoque correcto para superar la resistencia al cambio.
+ 
+El diferenciador competitivo más fuerte de SpotFinder, validado por ambos segmentos, es la combinación de detección por espacio individual con guiado visual LED, ALPR para entrada/salida sin tickets, y detección de emergencias con protocolo automatizado. Ningún competidor en el mercado peruano ofrece esta integración completa.
+ 
+
+## 2.3. Needfinding
+
+En la siguiente sección, analizaremos a nuestros segmentos objetivos para identificar sus necesidades y de acuerdo a ello ofrecer una solución óptima a sus problemas.
+
+### 2.3.1. User Personas
+**Segmento 1: Conductores que visitan centros comerciales**
+
+<img src="assets/requirements/personas/UserPersona1.png" alt="User persona - segmento 1" width="700"/>
+<br><br>    
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="assets/requirements/personas/UserPersona2.png" alt="User persona - segmento 2" width="700"/>
+
+
+### 2.3.2. User Task Matrix
+
+Esta sección presenta las tareas que realizan los segmentos objetivo para cumplir sus objetivos dentro del contexto de los estacionamientos en centros comerciales. Las tareas identificadas se basan en el análisis de los User Personas y reflejan la situación actual del mercado. Cada tarea se evalúa según su Frecuencia e Importancia, utilizando las categorías Alta, Media y Baja.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+| **Task Matrix**                                                     | **Frecuencia** | **Importancia** |
+| ------------------------------------------------------------------- | -------------- | --------------- |
+| Supervisar la ocupación de los espacios de estacionamiento          | Alta           | Alta            |
+| Coordinar el ingreso y salida de vehículos                          | Alta           | Alta            |
+| Gestionar al personal de seguridad y orientación                    | Alta           | Alta            |
+| Controlar el uso de tickets y sistemas de cobro                     | Alta           | Alta            |
+| Generar reportes de ingresos y ocupación                            | Alta           | Alta            |
+| Establecer y actualizar tarifas del estacionamiento                 | Media          | Alta            |
+| Supervisar la infraestructura y el mantenimiento de equipos         | Media          | Alta            |
+| Resolver incidencias operativas y reclamos de usuarios              | Alta           | Alta            |
+| Monitorear la congestión vehicular en horas punta                   | Alta           | Alta            |
+| Registrar datos operativos en hojas de cálculo o sistemas básicos   | Media          | Alta            |
+| Coordinar con proveedores de tecnología y mantenimiento             | Media          | Media           |
+| Implementar mejoras para optimizar la operación del estacionamiento | Media          | Alta            |
+| Garantizar el cumplimiento de protocolos de seguridad y emergencia  | Alta           | Alta            |
+| Analizar estadísticas para la toma de decisiones estratégicas       | Media          | Alta            |
+| Evaluar e implementar nuevas soluciones tecnológicas                | Baja           | Alta            |
+
+<br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+| **Task Matrix**                                                              | **Frecuencia** | **Importancia** |
+| ---------------------------------------------------------------------------- | -------------- | --------------- |
+| Coordinar y asignar rutas a los camiones                                     | Alta           | Alta            |
+| Cotizar precios y responder solicitudes de transporte                        | Alta           | Alta            |
+| Gestionar la documentación de envío (guías de remisión, contratos, facturas) | Alta           | Alta            |
+| Supervisar el estado y mantenimiento de los camiones                         | Media          | Alta            |
+| Contactar y negociar con nuevos clientes                                     | Alta           | Alta            |
+| Hacer seguimiento del transporte y ubicación de las unidades en tiempo real  | Alta           | Alta            |
+| Controlar pagos, ingresos y liquidaciones con clientes y transportistas      | Alta           | Alta            |
+| Publicar y responder mensajes en Facebook, WhatsApp y otras plataformas      | Alta           | Media           |
+| Registrar datos de viajes, pagos y clientes en hojas de cálculo o cuadernos  | Media          | Alta            |
+| Capacitarse en nuevas herramientas tecnológicas para optimizar procesos      | Baja           | Alta            |
+
+#### Análisis de la User Task Matrix
+
+##### Tareas más críticas
+
+- Conductores:
+    - Buscar espacios disponibles.
+    - Estacionar el vehículo.
+    - Realizar pagos y salir del estacionamiento.
+    - Recordar la ubicación del automóvil.
+
+- Administradores:
+    - Supervisar la ocupación del estacionamiento.
+    - Controlar accesos e ingresos.
+    - Generar reportes operativos.
+    - Gestionar incidencias y garantizar la seguridad.
+
+##### Principales diferencias
+
+| Conductores                                                                     | Administradores                                                   |
+| ------------------------------------------------------------------------------- | ----------------------------------------------------------------- |
+| Se enfocan en encontrar estacionamiento rápidamente y pagar sin complicaciones. | Se enfocan en optimizar la operación y maximizar la rentabilidad. |
+| Buscan comodidad y ahorro de tiempo.                                            | Buscan eficiencia operativa y control estratégico.                |
+| Interactúan directamente con la infraestructura física.                         | Supervisan y gestionan el sistema en su totalidad.                |
+
+
+### 2.3.3. User Journey Mapping
+
+A continuación presentamos los User Journey Map que describen las experiencias actuales de nuestros segmentos objetivos. Se presenta el recorrido end-to-end desde la necesidad de visitar el establecimiento hasta la salida del estacionamiento. Este análisis permite identificar puntos críticos, frustraciones y oportunidades de mejora que justifican el desarrollo de SpotFinder.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+<img src="assets/requirements/maps/JourneyMap1.png" alt="Journey Map - segmento 1" width="750"/>
+<br><br>
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="assets/requirements/maps/JourneyMap2.png" alt="Journey Map - segmento 2" width="750"/>  
+### 2.3.4. Empathy Mapping
+
+En esta sección se presenta el Empathy Map de nuestros segmentos objetivos. Este artefacto permite comprender sus pensamientos, emociones, necesidades y comportamientos. El análisis se basa en la información obtenida de entrevistas, observación del contexto actual y estudio de soluciones existentes en el mercado. Su propósito es identificar los principales pains y gains, los cuales servirán como base para el diseño de la solución SpotFinder.
+
+**Segmento 1: Conductores que visitan centros comerciales**
+
+<img src="assets/requirements/maps/EmpathyMap1.png" alt="Empathy Map - segmento 1" width="750"/>
+<br><br>
+
+**Segmento 2: Administradores de estacionamientos de centros comerciales**
+
+<img src="assets/requirements/maps/EmpathyMap2.png" alt="Empathy Map - segmento 2" width="750"/>
+
+## 2.4. Big Picture Event Storming  
+
+El Big Picture Event Storming es una técnica que permite identificar los eventos más relevantes dentro del sistema, los actores involucrados y la relación entre los distintos componentes. Su propósito es comprender de manera integral el flujo del negocio y detectar oportunidades de mejora en la gestión del estacionamiento.
+
+En el contexto del sistema propuesto, se analizaron los eventos que ocurren desde que el usuario consulta la disponibilidad de espacios hasta que finaliza su experiencia dentro del estacionamiento. Asimismo, se incluyeron procesos adicionales como el monitoreo en tiempo real, la reserva de espacios, el pago digital y la solicitud de servicios.
+
+---
+
+## 2.4.1. EventStorming  
+
+La actividad de Event Storming se realizó de forma colaborativa con la participación de los integrantes del equipo, utilizando un mural digital como soporte visual en la plataforma de Whiteboard. Durante la sesión se emplearon notas adhesivas para representar eventos de dominio, acciones del usuario, actores del sistema y otros elementos clave.
+
+El objetivo principal fue construir una visión global del sistema, comprendiendo cómo interactúan sus componentes a lo largo del tiempo. Además, se buscó identificar puntos críticos del proceso y establecer una base para la definición de bounded contexts en etapas posteriores.
+
+---
+
+### Antes de la sesión  
+
+Se habilitó un espacio de trabajo digital en el cual se organizaron los elementos necesarios para la dinámica. Se definieron lineamientos básicos para fomentar la participación activa y se estableció que todas las ideas propuestas serían consideradas. El enfoque estuvo orientado a promover la exploración libre del dominio.
+
+![DDD0](./assets/diagrams/ddd/es-0.png)
+
+---
+
+### Durante la sesión  
+
+#### Unstructured Exploration  
+
+Se inició con una fase de exploración libre, en la que los participantes identificaron eventos relevantes sin seguir un orden específico. Entre los eventos destacados se encuentran la detección de vehículos, la ocupación de espacios, el inicio de sesiones de estacionamiento, la generación de pagos y el envío de notificaciones. Esta etapa permitió obtener una visión amplia del sistema.
+
+![DDD1](./assets/diagrams/ddd/es-1.png)
+
+---
+
+#### Timelines  
+
+Una vez recopilados los eventos, se procedió a organizarlos en una secuencia temporal. Se estructuraron en diferentes etapas del sistema, tales como ingreso, monitoreo de espacios, reserva, pago y salida. Esto permitió visualizar claramente el flujo del proceso y las interacciones entre eventos.
+
+![DDD2.1](./assets/diagrams/ddd/es-2-1.png)
+![DDD2.2](./assets/diagrams/ddd/es-2-2.png)
+
+---
+
+#### Pain Points  
+
+Durante el análisis del flujo, se identificaron puntos problemáticos y áreas de incertidumbre. Entre ellos destacan la dificultad para encontrar espacios disponibles, la falta de información en tiempo real, posibles errores en sensores y limitaciones en el proceso de pago. Estos aspectos fueron señalados para su posterior mejora.
+
+![DDD3.1](./assets/diagrams/ddd/es-3-1.png)
+![DDD3.2](./assets/diagrams/ddd/es-3-2.png)
+
+---
+
+#### Pivotal Points  
+
+Se identificaron eventos clave que representan cambios significativos en el sistema, como el inicio de la sesión de estacionamiento, la confirmación del pago y la liberación de un espacio. Estos eventos son fundamentales para comprender la dinámica del sistema y definir sus límites funcionales.
+
+![DDD4.1](./assets/diagrams/ddd/es-4-1.png)
+![DDD4.2](./assets/diagrams/ddd/es-4-2.png)
+
+---
+
+#### Commands  
+
+Se determinaron las acciones que generan los eventos dentro del sistema. Entre ellas se incluyen consultar disponibilidad, estacionar un vehículo, realizar un pago y solicitar servicios adicionales. Esto permitió entender cómo interactúan los usuarios con la solución.
+
+![DDD5.1](./assets/diagrams/ddd/es-5-1.png)
+![DDD5.2](./assets/diagrams/ddd/es-5-2.png)
+
+---
+
+#### Policies  
+
+Se establecieron reglas que controlan el comportamiento del sistema frente a ciertos eventos. Por ejemplo, el envío automático de notificaciones cuando el tiempo de estacionamiento está por finalizar, la validación de pagos antes de permitir la salida y la actualización del estado de los espacios en función de los sensores.
+
+![DDD6.1](./assets/diagrams/ddd/es-6-1.png)
+![DDD6.2](./assets/diagrams/ddd/es-6-2.png)
+
+
+---
+
+#### Read Models  
+
+Se identificaron las vistas necesarias para mostrar información relevante a los usuarios. Estas incluyen el mapa de estacionamiento en tiempo real, el panel del administrador, el resumen de pagos y la visualización de servicios solicitados.
+
+![DDD7.1](./assets/diagrams/ddd/es-7-1.png)
+![DDD7.2](./assets/diagrams/ddd/es-7-2.png)
+
+---
+
+#### External Systems  
+
+Se reconocieron los sistemas externos que interactúan con la solución, como las plataformas de pago, los sensores IoT y los servicios adicionales. Esto permitió identificar puntos de integración y dependencia.
+
+![DDD8.1](./assets/diagrams/ddd/es-8-1.png)
+![DDD8.2](./assets/diagrams/ddd/es-8-2.png)
+![DDD8.3](./assets/diagrams/ddd/es-8-3.png)
+
+---
+
+#### Aggregates  
+
+Se agruparon los elementos del dominio en entidades principales, tales como usuario, vehículo, espacio de estacionamiento, sesión de estacionamiento, pago y servicio. Estas agrupaciones permiten definir unidades de consistencia dentro del sistema.
+
+![DDD9](./assets/diagrams/ddd/es-9.png)
+
+---
+
+#### Bounded Contexts  
+
+Finalmente, se delimitaron los bounded contexts a partir de los eventos, agregados y relaciones identificadas. Estos contextos representan diferentes áreas del sistema, como ingreso, monitoreo, reserva, pago y gestión administrativa, y servirán como base para el diseño de la arquitectura del software.
+
+![DDD10](./assets/diagrams/ddd/es-10.png)
 
 ## 2.5. Ubiquitous Language.
-[Contenido]
 
+| Término            | Equivalente                     | Definición                                                                 |
+|--------------------|--------------------------------|---------------------------------------------------------------------------|
+| Driver             | Conductor                      | Usuario que utiliza el estacionamiento para ubicar, estacionar y pagar.   |
+| Administrator      | Administrador                  | Encargado de supervisar y gestionar el sistema de estacionamiento.        |
+| Parking Space      | Espacio de estacionamiento     | Espacio físico donde un vehículo puede estacionarse.                      |
+| Occupancy          | Estado de ocupación            | Estado de un espacio, indicando si está libre u ocupado.                  |
+| Vehicle            | Vehículo                       | Medio de transporte registrado dentro del sistema.                        |
+| License Plate      | Placa del vehículo             | Identificador único asociado a cada vehículo.                             |
+| Parking Session    | Sesión de estacionamiento      | Periodo de tiempo en el que un vehículo permanece estacionado.            |
+| Payment            | Pago del estacionamiento       | Proceso mediante el cual el usuario paga por el tiempo de estacionamiento.|
+| Service            | Servicio adicional             | Servicio solicitado para el vehículo, como lavado u otros.                |
+| Notification       | Notificación                   | Mensaje enviado al usuario con información relevante del sistema.         |
+| IoT Sensor System  | Sistema de sensores IoT        | Dispositivos que detectan la ocupación de los espacios en tiempo real.    |
+| Payment System     | Sistema de pagos               | Plataforma externa que procesa los pagos digitales.                       |
+| Space Detection    | Detección de espacios          | Proceso de identificación de espacios libres u ocupados mediante sensores.|
+| Availability Check | Consulta de disponibilidad     | Acción de verificar los espacios disponibles en el estacionamiento.       |
+| Parking Management | Gestión de estacionamiento     | Proceso completo desde el ingreso hasta la salida del vehículo.           |
+| Notification Handling | Gestión de notificaciones   | Proceso de envío y recepción de alertas dentro del sistema.               |
+| Payment Processing | Procesamiento de pagos         | Gestión de transacciones digitales realizadas por los usuarios.           |
+| Service Management | Gestión de servicios           | Proceso de solicitud y ejecución de servicios adicionales.                |
+|Push Notification | Notificación push           | Mensaje enviado al dispositivo móvil del conductor a través de Firebase Cloud Messaging para informar sobre eventos del sistema                |
+|Notification Channel | Canal de notificación          | Medio por el cual se envía una notificación: push (FCM), email, o in-app.                |
+| Notification Template | Plantilla de notificación           | PFormato predefinido de mensaje para cada tipo de evento.                |
+| Notification Preference| Preferencia de notificación          | Proceso de solicitud y ejecución de servicios adicionales.                |
 ---
 
 # Capítulo III: Requirements Specification
@@ -446,35 +999,6 @@ Actualmente, gran parte de los operadores en Perú (como Apparka, que lidera el 
 ##### 4.2.X.6.1. Bounded Context Domain Layer Class Diagrams.
 
 ##### 4.2.X.6.2. Bounded Context Database Design Diagram.
-
-
----
-
-# Capítulo V: Product Implementation, Validation & Deployment
-
-## 5.1. Software Configuration Management.
-### 5.1.1. Software Development Environment Configuration.
-### 5.1.2. Source Code Management.
-### 5.1.3. Source Code Style Guide & Conventions.
-### 5.1.4. Software Deployment Configuration.
-
-## 5.2. Landing Page, Services & Applications Implementation.
-### 5.2.X. Sprint n
-#### 5.2.X.1. Sprint Planning n.
-#### 5.2.X.2. Aspect Leaders and Collaborators.
-#### 5.2.X.3. Sprint Backlog n.
-#### 5.2.X.4. Development Evidence for Sprint Review.
-#### 5.2.X.5. Execution Evidence for Sprint Review.
-#### 5.2.X.6. Services Documentation Evidence for Sprint Review.
-#### 5.2.X.7. Software Deployment Evidence for Sprint Review.
-#### 5.2.X.8. Team Collaboration Insights during Sprint.
-
-## 5.3. Validation Interviews.
-### 5.3.1. Diseño de Entrevistas.
-### 5.3.2. Registro de Entrevistas.
-### 5.3.3. Evaluaciones según heurísticas.
-
-## 5.4. Video About-the-Product.
 
 ---
 

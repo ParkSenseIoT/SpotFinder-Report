@@ -1219,6 +1219,8 @@ Static Web Stories (SWS): historias relacionadas con la presentación y navegaci
 ---
 ## 3.2. Impact Mapping.
 
+![Impact Mapping](./assets/requirements/maps/Impact-Mapping.png)
+
 ## 3.3. Product Backlog.
 
 | # Orden | Story ID | Título | Story Points |

@@ -868,6 +868,461 @@ El diagrama de diseño de base de datos del contexto de Parking Monitoring muest
  
 > **Diagrama a crear en Vertabelo:**
 
+## 4.2.2. Bounded Context: Access Control
+ 
+Este bounded context gestiona el ingreso y salida vehicular mediante ALPR (reconocimiento automático de placas) y control de barreras. Administra el ciclo de vida completo de las sesiones vehiculares desde el ingreso hasta la salida, incluyendo la verificación del estado de pago antes de autorizar la apertura de la barrera de salida.
+ 
+### 4.2.2.1. Domain Layer
+ 
+En esta sección se describen los elementos del Domain Layer del contexto de Access Control, que encapsulan la lógica central relacionada con el control de acceso vehicular y la gestión de sesiones.
+ 
+#### 1. VehicleSession (Aggregate Root)
+ 
+Representa el período completo desde que un vehículo ingresa al estacionamiento hasta que sale. Es la entidad central del bounded context.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| id | Long | private | Identificador único de la sesión. |
+| licensePlate | LicensePlate | private | Placa del vehículo asociado a la sesión. |
+| entryTimestamp | LocalDateTime | private | Fecha y hora de ingreso del vehículo. |
+| exitTimestamp | LocalDateTime | private | Fecha y hora de salida del vehículo (null mientras está activa). |
+| slotId | SlotId | private | Identificador del espacio donde se estacionó el vehículo. |
+| paymentStatus | PaymentStatus | private | Estado del pago de la sesión (PENDING o PAID). |
+| sessionStatus | SessionStatus | private | Estado de la sesión (ACTIVE o COMPLETED). |
+| userId | UserId | private | Identificador del usuario propietario del vehículo (null si no registrado). |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| VehicleSession() | Constructor | protected | Constructor protegido para JPA. |
+| VehicleSession(CreateVehicleSessionCommand command) | Constructor | public | Crea una sesión a partir de un comando de ingreso. Inicializa con sessionStatus=ACTIVE, paymentStatus=PENDING, exitTimestamp=null. |
+| end(LocalDateTime exitTimestamp) | void | public | Finaliza la sesión registrando el timestamp de salida y cambiando sessionStatus a COMPLETED. Lanza excepción si paymentStatus no es PAID. |
+| markAsPaid() | void | public | Cambia paymentStatus a PAID. Lanza excepción si ya está pagada o si la sesión no está activa. |
+| assignSlot(SlotId slotId) | void | public | Asocia un espacio de estacionamiento a la sesión (para Find My Car). |
+| calculateDuration() | Duration | public | Calcula la duración entre entryTimestamp y el momento actual (si activa) o exitTimestamp (si completada). |
+| isActive() | boolean | public | Devuelve true si sessionStatus es ACTIVE. |
+| isPaid() | boolean | public | Devuelve true si paymentStatus es PAID. |
+ 
+#### 2. AccessBarrier (Aggregate Root)
+ 
+Representa una barrera física motorizada ubicada en un punto de entrada o salida del estacionamiento.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| id | Long | private | Identificador único de la barrera. |
+| barrierCode | BarrierCode | private | Código identificador de la barrera (e.g., "ENTRY-01", "EXIT-01"). |
+| position | BarrierPosition | private | Posición de la barrera (ENTRY o EXIT). |
+| status | BarrierStatus | private | Estado actual de la barrera (OPEN o CLOSED). |
+| facilityId | FacilityId | private | Identificador del estacionamiento al que pertenece. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| AccessBarrier() | Constructor | protected | Constructor protegido para JPA. |
+| AccessBarrier(RegisterBarrierCommand command) | Constructor | public | Crea una barrera a partir de un comando. |
+| open() | void | public | Cambia el estado a OPEN. Publica BarrierOpenedEvent. |
+| close() | void | public | Cambia el estado a CLOSED. |
+| forceOpen(String reason) | void | public | Abre la barrera forzosamente (emergencia). Ignora validaciones normales. |
+ 
+#### 3. CreateVehicleSessionCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| licensePlate | String | public | Texto de la placa reconocida por ALPR. |
+| entryTimestamp | LocalDateTime | public | Momento del ingreso. |
+| userId | Long | public | ID del usuario (null si vehículo no registrado). |
+ 
+#### 4. EndVehicleSessionCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| sessionId | Long | public | ID de la sesión a finalizar. |
+| exitTimestamp | LocalDateTime | public | Momento de la salida. |
+ 
+#### 5. RecognizePlateCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| imageData | byte[] | public | Imagen capturada por ESP32-CAM. |
+| cameraPosition | String | public | Posición de la cámara (ENTRY o EXIT). |
+ 
+#### 6. RegisterEntryCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| imageData | byte[] | public | Imagen de la placa capturada. |
+| barrierCode | String | public | Código de la barrera de entrada. |
+ 
+#### 7. RegisterExitCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| imageData | byte[] | public | Imagen de la placa capturada en salida. |
+| barrierCode | String | public | Código de la barrera de salida. |
+ 
+#### 8. OpenAllBarriersCommand (Command)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reason | String | public | Razón de la apertura (e.g., "EMERGENCY"). |
+ 
+#### 9. Queries
+ 
+| Query | Atributos principales | Descripción |
+|---|---|---|
+| GetActiveSessionQuery | userId : Long | Obtiene la sesión activa del usuario autenticado. |
+| GetSessionByIdQuery | sessionId : Long | Obtiene una sesión específica por ID. |
+| GetSessionByPlateQuery | licensePlate : String | Obtiene la sesión activa asociada a una placa. |
+| GetSessionHistoryQuery | userId : Long | Obtiene las sesiones pasadas del usuario. |
+| GetBarrierStatusQuery | barrierCode : String | Obtiene el estado de una barrera. |
+ 
+#### 10. VehicleSessionStartedEvent (Domain Event)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| source | Object | private | Objeto origen del evento. |
+| sessionId | Long | private | ID de la sesión creada. |
+| licensePlate | String | private | Placa del vehículo. |
+| entryTimestamp | LocalDateTime | private | Momento del ingreso. |
+| userId | Long | private | ID del usuario (null si no registrado). |
+ 
+#### 11. VehicleSessionEndedEvent (Domain Event)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| source | Object | private | Objeto origen del evento. |
+| sessionId | Long | private | ID de la sesión finalizada. |
+| licensePlate | String | private | Placa del vehículo. |
+| exitTimestamp | LocalDateTime | private | Momento de la salida. |
+| slotId | Long | private | ID del espacio que se libera. |
+ 
+#### 12. BarrierOpenedEvent (Domain Event)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| barrierCode | String | private | Código de la barrera que se abrió. |
+| position | BarrierPosition | private | Posición (ENTRY o EXIT). |
+| reason | String | private | Razón de apertura (PLATE_RECOGNIZED, PAYMENT_VERIFIED, EMERGENCY). |
+ 
+#### 13. AccessCommandService (Domain Service)
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(RegisterEntryCommand command) | Optional\<VehicleSession> | public | Procesa ingreso: captura placa via ALPR, verifica registro, abre barrera, crea sesión. |
+| handle(RegisterExitCommand command) | void | public | Procesa salida: captura placa, verifica pago, abre barrera, finaliza sesión. |
+| handle(RecognizePlateCommand command) | Optional\<LicensePlate> | public | Envía imagen a Plate Recognizer API y retorna la placa reconocida. |
+| handle(OpenAllBarriersCommand command) | void | public | Abre todas las barreras (emergencia). |
+ 
+#### 14. VehicleSessionCommandService (Domain Service)
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(CreateVehicleSessionCommand command) | Optional\<VehicleSession> | public | Crea una nueva sesión vehicular. Valida que la placa no tenga sesión activa. |
+| handle(EndVehicleSessionCommand command) | void | public | Finaliza una sesión. Valida que el pago esté completado. |
+ 
+#### 15. VehicleSessionQueryService (Domain Service)
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetActiveSessionQuery query) | Optional\<VehicleSession> | public | Obtiene la sesión activa del usuario. |
+| handle(GetSessionByIdQuery query) | Optional\<VehicleSession> | public | Obtiene una sesión por ID. |
+| handle(GetSessionByPlateQuery query) | Optional\<VehicleSession> | public | Obtiene sesión activa por placa. |
+| handle(GetSessionHistoryQuery query) | List\<VehicleSession> | public | Obtiene historial de sesiones del usuario. |
+ 
+#### 16. LicensePlate (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| plateText | String | private | Texto alfanumérico de la placa (formato peruano: A0B-123). |
+| confidence | double | private | Nivel de confianza del reconocimiento ALPR (0.0 a 1.0). |
+ 
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| LicensePlate() | Constructor | public | Constructor requerido por JPA. |
+| LicensePlate(String plateText, double confidence) | Constructor | public | Inicializa y valida formato de placa y confianza > 0. |
+| isHighConfidence() | boolean | public | Devuelve true si confidence > 0.85. |
+ 
+#### 17. SessionStatus (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| ACTIVE | Enum | public | La sesión está en curso. |
+| COMPLETED | Enum | public | La sesión ha finalizado (vehículo salió). |
+ 
+#### 18. PaymentStatus (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| PENDING | Enum | public | El pago está pendiente. |
+| PAID | Enum | public | El pago ha sido completado. |
+ 
+#### 19. BarrierPosition (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| ENTRY | Enum | public | Barrera de entrada. |
+| EXIT | Enum | public | Barrera de salida. |
+ 
+#### 20. BarrierStatus (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| OPEN | Enum | public | La barrera está abierta. |
+| CLOSED | Enum | public | La barrera está cerrada. |
+ 
+#### 21. BarrierCode (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| code | String | private | Código identificador de la barrera (e.g., "ENTRY-01"). |
+ 
+#### 22. SlotId (Value Object)
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| slotId | Long | private | ID del espacio de estacionamiento asociado. |
+ 
+#### 23. PlateRecognitionService (Domain Service Interface)
+ 
+Interfaz del servicio de reconocimiento de placas. La implementación concreta vive en Infrastructure Layer.
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| recognizePlate(byte[] imageData) | Optional\<LicensePlate> | public | Envía imagen a servicio externo y retorna la placa reconocida con nivel de confianza. |
+ 
+---
+ 
+### 4.2.2.2. Interface Layer
+ 
+#### 1. AccessController (REST Controller)
+ 
+Controlador REST que expone endpoints para el control de acceso vehicular (ingreso y salida).
+ 
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| registerEntry | /api/v1/access/entries | POST | Registra el ingreso de un vehículo. Recibe imagen de placa, procesa ALPR, abre barrera y crea sesión. |
+| registerExit | /api/v1/access/exits | POST | Registra la salida de un vehículo. Verifica pago, abre barrera y finaliza sesión. |
+| recognizePlate | /api/v1/access/alpr | POST | Procesa una imagen para reconocimiento de placa (endpoint auxiliar). |
+ 
+#### 2. ParkingSessionsController (REST Controller)
+ 
+Controlador REST que expone endpoints para gestionar y consultar sesiones vehiculares.
+ 
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| createSession | /api/v1/parking-sessions | POST | Crea una nueva sesión vehicular. |
+| getActiveSession | /api/v1/parking-sessions/active | GET | Obtiene la sesión activa del usuario autenticado. |
+| getSessionById | /api/v1/parking-sessions/{id} | GET | Obtiene una sesión específica por su ID. |
+| endSession | /api/v1/parking-sessions/{id}/end | PATCH | Finaliza una sesión vehicular (requiere pago completado). |
+| getSessionHistory | /api/v1/parking-sessions/history | GET | Obtiene el historial de sesiones del usuario. |
+ 
+#### 3. Resources (DTOs)
+ 
+| Resource | Atributos principales | Descripción |
+|---|---|---|
+| EntryRequestResource | imageData: String (base64), barrierCode: String | Solicitud de ingreso con imagen de placa. |
+| ExitRequestResource | imageData: String (base64), barrierCode: String | Solicitud de salida con imagen de placa. |
+| PlateRecognitionResource | imageData: String (base64), cameraPosition: String | Imagen para reconocimiento de placa. |
+| PlateRecognitionResultResource | licensePlate: String, confidence: double, isHighConfidence: boolean | Resultado del reconocimiento de placa. |
+| VehicleSessionResource | id: Long, licensePlate: String, entryTimestamp: LocalDateTime, exitTimestamp: LocalDateTime, slotCode: String, paymentStatus: String, sessionStatus: String, currentDuration: String, estimatedFee: BigDecimal | Representación completa de una sesión. |
+| CreateSessionResource | licensePlate: String | Datos para crear sesión manualmente. |
+ 
+#### 4. Transform (Assemblers)
+ 
+| Assembler | Entrada | Salida | Descripción |
+|---|---|---|---|
+| VehicleSessionResourceFromEntityAssembler | VehicleSession | VehicleSessionResource | Convierte entidad a DTO de respuesta, calcula duración y fee estimado. |
+| RegisterEntryCommandFromResourceAssembler | EntryRequestResource | RegisterEntryCommand | Convierte DTO de ingreso en comando. |
+| RegisterExitCommandFromResourceAssembler | ExitRequestResource | RegisterExitCommand | Convierte DTO de salida en comando. |
+| RecognizePlateCommandFromResourceAssembler | PlateRecognitionResource | RecognizePlateCommand | Convierte imagen en comando de reconocimiento. |
+ 
+---
+ 
+### 4.2.2.3. Application Layer
+ 
+#### 1. AccessCommandServiceImpl (Command Service Implementation)
+ 
+Implementación del servicio de comandos para controlar el acceso vehicular.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| vehicleSessionRepository | VehicleSessionRepository | private | Repositorio para persistencia de sesiones. |
+| accessBarrierRepository | AccessBarrierRepository | private | Repositorio para persistencia de barreras. |
+| plateRecognitionService | PlateRecognitionService | private | Servicio de reconocimiento de placas (Plate Recognizer API). |
+| externalIamService | ExternalIamService | private | Servicio ACL para verificar si la placa está registrada en IAM. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(RegisterEntryCommand command) | Optional\<VehicleSession> | public | Procesa ingreso completo: (1) envía imagen a PlateRecognitionService, (2) verifica si la placa está registrada via IAM, (3) crea VehicleSession, (4) abre barrera de entrada, (5) publica VehicleSessionStartedEvent. Si ALPR falla tras 3 intentos, crea sesión como "unidentified". |
+| handle(RegisterExitCommand command) | void | public | Procesa salida completa: (1) reconoce placa, (2) busca sesión activa por placa, (3) verifica paymentStatus==PAID, (4) si pagado abre barrera y finaliza sesión publicando VehicleSessionEndedEvent; si no pagado devuelve 402. |
+| handle(RecognizePlateCommand command) | Optional\<LicensePlate> | public | Envía imagen al PlateRecognitionService y retorna el resultado. |
+| handle(OpenAllBarriersCommand command) | void | public | Abre todas las barreras del estacionamiento (recibido desde Emergency BC via evento). |
+ 
+#### 2. VehicleSessionCommandServiceImpl (Command Service Implementation)
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| vehicleSessionRepository | VehicleSessionRepository | private | Repositorio para persistencia de sesiones. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(CreateVehicleSessionCommand command) | Optional\<VehicleSession> | public | Crea sesión; valida que la placa no tenga sesión activa (409 Conflict si existe). |
+| handle(EndVehicleSessionCommand command) | void | public | Finaliza sesión; valida pago completado (402 si pendiente). Publica VehicleSessionEndedEvent. |
+ 
+#### 3. VehicleSessionQueryServiceImpl (Query Service Implementation)
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| vehicleSessionRepository | VehicleSessionRepository | private | Repositorio para acceso de lectura. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetActiveSessionQuery query) | Optional\<VehicleSession> | public | Obtiene la sesión activa del usuario por su userId. |
+| handle(GetSessionByIdQuery query) | Optional\<VehicleSession> | public | Obtiene sesión por ID. |
+| handle(GetSessionByPlateQuery query) | Optional\<VehicleSession> | public | Obtiene sesión activa por placa (para el flujo de salida). |
+| handle(GetSessionHistoryQuery query) | List\<VehicleSession> | public | Obtiene sesiones completadas del usuario, ordenadas por fecha descendente. |
+ 
+#### 4. VehicleSessionStartedEventHandler (Domain Event Handler)
+ 
+Maneja el evento de inicio de sesión para notificar al conductor.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| externalNotificationService | ExternalNotificationService | private | Servicio ACL para enviar notificaciones al BC de Notification. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| on(VehicleSessionStartedEvent event) | void | public | Envía notificación push al conductor confirmando el ingreso con hora y placa. Solo envía si userId no es null (vehículo registrado). |
+ 
+#### 5. VehicleSessionEndedEventHandler (Domain Event Handler)
+ 
+Maneja el evento de fin de sesión para liberar el espacio en Parking Monitoring.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| externalParkingMonitoringService | ExternalParkingMonitoringService | private | Servicio ACL para comunicarse con Parking Monitoring BC. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| on(VehicleSessionEndedEvent event) | void | public | Notifica a Parking Monitoring para liberar el espacio (slotId) asociado a la sesión finalizada. |
+ 
+#### 6. ExternalIamService (Outbound ACL Service)
+ 
+Adaptador de salida hacia IAM para verificar si una placa está registrada.
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findUserByLicensePlate(String licensePlate) | Optional\<Long> | public | Busca en IAM si existe un usuario con la placa indicada. Retorna userId si existe. |
+ 
+#### 7. ExternalNotificationService (Outbound ACL Service)
+ 
+Adaptador de salida hacia Notification Management BC.
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| sendEntryNotification(Long userId, String licensePlate, LocalDateTime entryTime) | void | public | Solicita al BC de Notificaciones enviar push de confirmación de ingreso. |
+| sendPaymentReminderNotification(Long userId, Long sessionId) | void | public | Solicita enviar recordatorio de pago pendiente cuando el conductor llega a la salida sin pagar. |
+ 
+#### 8. ExternalParkingMonitoringService (Outbound ACL Service)
+ 
+Adaptador de salida hacia Parking Monitoring BC.
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| releaseSlot(Long slotId) | void | public | Notifica a Parking Monitoring que el espacio debe liberarse tras la salida del vehículo. |
+ 
+---
+ 
+### 4.2.2.4. Infrastructure Layer
+ 
+#### 1. VehicleSessionRepository (Repository Interface)
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findById(Long id) | Optional\<VehicleSession> | public | Busca una sesión por su ID. |
+| save(VehicleSession session) | VehicleSession | public | Persiste o actualiza una sesión. |
+| findByLicensePlate_PlateTextAndSessionStatus(String plateText, SessionStatus status) | Optional\<VehicleSession> | public | Busca sesión activa por texto de placa. |
+| findByUserIdAndSessionStatus(UserId userId, SessionStatus status) | Optional\<VehicleSession> | public | Busca sesión activa por usuario. |
+| findByUserIdOrderByEntryTimestampDesc(UserId userId) | List\<VehicleSession> | public | Obtiene historial de sesiones ordenado por fecha. |
+| existsByLicensePlate_PlateTextAndSessionStatus(String plateText, SessionStatus status) | boolean | public | Verifica si existe sesión activa para una placa. |
+ 
+#### 2. AccessBarrierRepository (Repository Interface)
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findById(Long id) | Optional\<AccessBarrier> | public | Busca una barrera por su ID. |
+| save(AccessBarrier barrier) | AccessBarrier | public | Persiste o actualiza una barrera. |
+| findByBarrierCode(BarrierCode code) | Optional\<AccessBarrier> | public | Busca barrera por código. |
+| findByPosition(BarrierPosition position) | List\<AccessBarrier> | public | Obtiene barreras por posición (ENTRY/EXIT). |
+| findAll() | List\<AccessBarrier> | public | Obtiene todas las barreras (para abrir todas en emergencia). |
+ 
+#### 3. PlateRecognizerClient (Infrastructure Service)
+ 
+Implementación concreta del servicio de reconocimiento de placas usando Plate Recognizer API.
+ 
+**Atributos principales:**
+ 
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| apiUrl | String | private | URL del endpoint de Plate Recognizer API (configurado en application.properties). |
+| apiToken | String | private | Token de autenticación para la API (tier gratuito: 2,500 consultas/mes). |
+| restTemplate | RestTemplate | private | Cliente HTTP para realizar las llamadas a la API. |
+ 
+**Métodos principales:**
+ 
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| recognizePlate(byte[] imageData) | Optional\<LicensePlate> | public | Envía imagen como multipart/form-data a Plate Recognizer API. Parsea la respuesta JSON y retorna LicensePlate con plateText y confidence. Retorna empty si no se detecta placa. |
+ 
+---
+ 
+### 4.2.2.5. Bounded Context Software Architecture Component Level Diagrams
+ 
+En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Access Control. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context, incluyendo la integración con sistemas externos (Plate Recognizer API, ESP32-CAM).
+ 
+> **Diagrama a crear en Structurizr DSL:**
+
+### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams
+ 
+En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Access Control.
+ 
+#### 4.2.2.6.1. Bounded Context Domain Layer Class Diagrams
+ 
+El diagrama de clases del Domain Layer del contexto de Access Control ilustra las entidades, objetos de valor y servicios que componen este bounded context.
+ 
+> **Diagrama a crear en LucidChart o PlantUML:**
+
+#### 4.2.2.6.2. Bounded Context Database Design Diagram
+ 
+El diagrama de diseño de base de datos del contexto de Access Control muestra la estructura de las tablas y sus relaciones.
+ 
+> **Diagrama a crear en Vertabelo:**
 ---
 
 # Capítulo V: Product Implementation, Validation & Deployment

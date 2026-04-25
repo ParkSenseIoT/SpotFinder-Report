@@ -1693,6 +1693,330 @@ El diagrama de diseño de base de datos del contexto de Payment Processing muest
 
 > **Diagrama a crear en Vertabelo:**
 
+## 4.2.4. Bounded Context: Emergency & Safety
+
+Este bounded context gestiona la detección de condiciones peligrosas (fuga de gas, humo) mediante sensores MQ-2 y la activación automática de protocolos de emergencia. Cuando se detecta una condición peligrosa, el sistema abre todas las barreras, cambia todos los LEDs a modo evacuación y notifica a administradores y conductores. Es un bounded context Supporting que, cuando se activa, sobrescribe el comportamiento normal de los bounded contexts Core (Access Control y Parking Monitoring).
+
+### 4.2.4.1. Domain Layer
+
+En esta sección se describen los elementos del Domain Layer del contexto de Emergency & Safety, que encapsulan la lógica central relacionada con la detección de emergencias y la activación de protocolos de evacuación.
+
+#### 1. EmergencyAlert (Aggregate Root)
+
+Representa una alerta de emergencia detectada por los sensores de gas/humo del estacionamiento. Tiene su propio ciclo de vida: TRIGGERED → ACTIVE → RESOLVED.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| id | Long | private | Identificador único de la alerta. |
+| sensorId | EmergencySensorId | private | Identificador del sensor MQ-2 que disparó la alerta. |
+| gasLevel | int | private | Nivel de gas detectado en PPM (partes por millón). |
+| type | EmergencyType | private | Tipo de emergencia (GAS o SMOKE). |
+| status | EmergencyStatus | private | Estado actual de la alerta (ACTIVE o RESOLVED). |
+| triggeredAt | LocalDateTime | private | Fecha y hora en que se disparó la alerta. |
+| resolvedAt | LocalDateTime | private | Fecha y hora de resolución (null mientras está activa). |
+| resolvedBy | Long | private | ID del administrador que resolvió la emergencia (null mientras está activa). |
+| sensorLocation | String | private | Ubicación física del sensor dentro del estacionamiento (e.g., "Nivel B2, Zona A"). |
+
+**Métodos principales:**
+
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| EmergencyAlert() | Constructor | protected | Constructor protegido para JPA. |
+| EmergencyAlert(TriggerEmergencyAlertCommand command) | Constructor | public | Crea una alerta a partir de un comando. Inicializa con status=ACTIVE, resolvedAt=null, resolvedBy=null. Publica EmergencyAlertTriggeredEvent. |
+| resolve(Long adminUserId) | void | public | Marca la emergencia como RESOLVED, registra resolvedAt y resolvedBy. Lanza excepción si ya está resuelta. Publica EmergencyResolvedEvent. |
+| isActive() | boolean | public | Devuelve true si status es ACTIVE. |
+| isResolved() | boolean | public | Devuelve true si status es RESOLVED. |
+| exceedsThreshold() | boolean | public | Devuelve true si gasLevel supera el umbral de peligro (900 PPM por defecto). |
+
+#### 2. TriggerEmergencyAlertCommand (Command)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| sensorId | String | public | ID del sensor MQ-2 que detectó la condición peligrosa. |
+| gasLevel | int | public | Nivel de gas en PPM. |
+| type | String | public | Tipo de emergencia ("GAS" o "SMOKE"). |
+| sensorLocation | String | public | Ubicación del sensor en el estacionamiento. |
+
+#### 3. ResolveEmergencyCommand (Command)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| emergencyId | Long | public | ID de la alerta a resolver. |
+| adminUserId | Long | public | ID del administrador que resuelve la emergencia. |
+
+#### 4. ActivateEvacuationCommand (Command)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| emergencyId | Long | public | ID de la emergencia que justifica la evacuación. |
+
+#### 5. Queries
+
+| Query | Atributos principales | Descripción |
+|---|---|---|
+| GetEmergencyStatusQuery | (sin atributos) | Obtiene el estado actual de emergencia del estacionamiento (NORMAL o detalle de emergencia activa). |
+| GetEmergencyByIdQuery | emergencyId : Long | Obtiene una alerta específica por su ID. |
+| GetActiveEmergenciesQuery | (sin atributos) | Obtiene todas las emergencias activas. |
+| GetEmergencyHistoryQuery | startDate : LocalDate, endDate : LocalDate | Obtiene historial de emergencias en un rango de fechas. |
+
+#### 6. EmergencyAlertTriggeredEvent (Domain Event)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| source | Object | private | Objeto origen del evento. |
+| emergencyId | Long | private | ID de la alerta creada. |
+| type | EmergencyType | private | Tipo de emergencia (GAS o SMOKE). |
+| gasLevel | int | private | Nivel de gas detectado. |
+| sensorLocation | String | private | Ubicación del sensor. |
+| triggeredAt | LocalDateTime | private | Momento de la detección. |
+
+#### 7. EmergencyResolvedEvent (Domain Event)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| source | Object | private | Objeto origen del evento. |
+| emergencyId | Long | private | ID de la alerta resuelta. |
+| resolvedAt | LocalDateTime | private | Momento de la resolución. |
+| resolvedBy | Long | private | ID del administrador que resolvió. |
+
+#### 8. EmergencyCommandService (Domain Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(TriggerEmergencyAlertCommand command) | Optional\<EmergencyAlert> | public | Crea una alerta de emergencia y activa el protocolo de evacuación. Valida que el gasLevel supere el umbral de 900 PPM. |
+| handle(ResolveEmergencyCommand command) | void | public | Resuelve una emergencia activa y restaura la operación normal del estacionamiento. |
+| handle(ActivateEvacuationCommand command) | void | public | Activa manualmente el protocolo de evacuación (requiere emergencia activa). |
+
+#### 9. EmergencyQueryService (Domain Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetEmergencyStatusQuery query) | EmergencyStatusResponse | public | Retorna el estado actual: si hay emergencia activa retorna sus detalles, si no retorna status "NORMAL". |
+| handle(GetEmergencyByIdQuery query) | Optional\<EmergencyAlert> | public | Obtiene una alerta por su ID. |
+| handle(GetActiveEmergenciesQuery query) | List\<EmergencyAlert> | public | Obtiene todas las emergencias activas (normalmente 0 o 1). |
+| handle(GetEmergencyHistoryQuery query) | List\<EmergencyAlert> | public | Obtiene historial de emergencias en un rango de fechas. |
+
+#### 10. EmergencyThresholdService (Domain Service)
+
+Servicio de dominio que encapsula la lógica de evaluación de umbrales de peligro.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| isGasLevelDangerous(int gasPPM) | boolean | public | Evalúa si el nivel de gas supera el umbral de peligro (900 PPM configurable). |
+| isDangerousCondition(int gasPPM, EmergencyType type) | boolean | public | Evalúa según el tipo de emergencia si la condición es peligrosa. |
+| getGasThreshold() | int | public | Retorna el umbral actual de gas en PPM (configurable). |
+
+#### 11. EmergencyType (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| GAS | Enum | public | Emergencia por fuga de gas. |
+| SMOKE | Enum | public | Emergencia por detección de humo. |
+
+#### 12. EmergencyStatus (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| ACTIVE | Enum | public | La emergencia está activa. |
+| RESOLVED | Enum | public | La emergencia ha sido resuelta. |
+
+#### 13. EmergencySensorId (Value Object)
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| sensorId | String | private | Identificador del sensor MQ-2 (e.g., "MQ2-B2-A01"). |
+
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| EmergencySensorId() | Constructor | public | Constructor requerido por JPA. |
+| EmergencySensorId(String sensorId) | Constructor | public | Inicializa y valida que no sea vacío. |
+
+#### 14. EmergencyStatusResponse (Value Object)
+
+Respuesta que encapsula el estado actual de emergencia del estacionamiento.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| isEmergencyActive | boolean | private | Indica si hay una emergencia activa. |
+| emergencyId | Long | private | ID de la emergencia activa (null si no hay). |
+| type | EmergencyType | private | Tipo de emergencia (null si no hay). |
+| gasLevel | int | private | Nivel de gas (0 si no hay emergencia). |
+| sensorLocation | String | private | Ubicación del sensor (null si no hay). |
+| triggeredAt | LocalDateTime | private | Momento de la detección (null si no hay). |
+| overallStatus | String | private | "NORMAL" o "EMERGENCY". |
+
+---
+
+### 4.2.4.2. Interface Layer
+
+#### 1. EmergencyController (REST Controller)
+
+Controlador REST que expone endpoints para gestionar alertas de emergencia.
+
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| triggerAlert | /api/v1/emergency/alerts | POST | Registra una nueva alerta de emergencia disparada por el sensor MQ-2 (llamado desde el edge server). |
+| getEmergencyStatus | /api/v1/emergency/status | GET | Consulta el estado actual de emergencia del estacionamiento. |
+| activateEvacuation | /api/v1/emergency/evacuate | POST | Activa manualmente el protocolo de evacuación (solo admin). |
+| resolveEmergency | /api/v1/emergencies/{id}/resolve | PATCH | Marca una emergencia como resuelta y restaura operación normal (solo admin). |
+| getEmergencyById | /api/v1/emergencies/{id} | GET | Obtiene detalles de una alerta específica. |
+| getEmergencyHistory | /api/v1/emergencies/history | GET | Obtiene historial de emergencias con filtros de fecha. |
+
+#### 2. Resources (DTOs)
+
+| Resource | Atributos principales | Descripción |
+|---|---|---|
+| TriggerAlertResource | sensorId: String, gasLevel: int, type: String, sensorLocation: String | Datos de la alerta recibida del edge server. |
+| EmergencyAlertResource | id: Long, sensorId: String, gasLevel: int, type: String, status: String, triggeredAt: LocalDateTime, resolvedAt: LocalDateTime, resolvedBy: Long, sensorLocation: String | Representación completa de una alerta. |
+| EmergencyStatusResource | isEmergencyActive: boolean, emergencyId: Long, type: String, gasLevel: int, sensorLocation: String, triggeredAt: LocalDateTime, overallStatus: String | Estado actual de emergencia del estacionamiento. |
+| ResolveEmergencyResource | adminUserId: Long | Datos para resolver una emergencia. |
+
+#### 3. Transform (Assemblers)
+
+| Assembler | Entrada | Salida | Descripción |
+|---|---|---|---|
+| EmergencyAlertResourceFromEntityAssembler | EmergencyAlert | EmergencyAlertResource | Convierte entidad a DTO de respuesta. |
+| TriggerEmergencyAlertCommandFromResourceAssembler | TriggerAlertResource | TriggerEmergencyAlertCommand | Convierte DTO del edge server en comando. |
+| ResolveEmergencyCommandFromResourceAssembler | ResolveEmergencyResource, Long id | ResolveEmergencyCommand | Convierte DTO de resolución en comando. |
+| EmergencyStatusResourceFromResponseAssembler | EmergencyStatusResponse | EmergencyStatusResource | Convierte response del dominio a DTO. |
+
+---
+
+### 4.2.4.3. Application Layer
+
+#### 1. EmergencyCommandServiceImpl (Command Service Implementation)
+
+Implementación del servicio de comandos para gestionar alertas de emergencia.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| emergencyAlertRepository | EmergencyAlertRepository | private | Repositorio para persistencia de alertas. |
+| emergencyThresholdService | EmergencyThresholdService | private | Servicio de evaluación de umbrales de peligro. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(TriggerEmergencyAlertCommand command) | Optional\<EmergencyAlert> | public | Procesa alerta: (1) evalúa umbral con EmergencyThresholdService, (2) si es peligroso crea EmergencyAlert, (3) persiste y publica EmergencyAlertTriggeredEvent. Si gasLevel no supera umbral, retorna empty sin crear alerta. |
+| handle(ResolveEmergencyCommand command) | void | public | Resuelve emergencia: (1) busca alerta activa, (2) marca como RESOLVED con adminUserId, (3) persiste y publica EmergencyResolvedEvent. Lanza 404 si no existe o 409 si ya está resuelta. |
+| handle(ActivateEvacuationCommand command) | void | public | Activa evacuación manual: verifica que exista emergencia activa (409 si no existe), luego publica evento de evacuación. |
+
+#### 2. EmergencyQueryServiceImpl (Query Service Implementation)
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| emergencyAlertRepository | EmergencyAlertRepository | private | Repositorio para acceso de lectura. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetEmergencyStatusQuery query) | EmergencyStatusResponse | public | Busca emergencias activas. Si existe al menos una, retorna detalles con overallStatus="EMERGENCY". Si no hay, retorna overallStatus="NORMAL". |
+| handle(GetEmergencyByIdQuery query) | Optional\<EmergencyAlert> | public | Obtiene alerta por ID. |
+| handle(GetActiveEmergenciesQuery query) | List\<EmergencyAlert> | public | Obtiene todas las emergencias con status ACTIVE. |
+| handle(GetEmergencyHistoryQuery query) | List\<EmergencyAlert> | public | Obtiene alertas en un rango de fechas, ordenadas por triggeredAt descendente. |
+
+#### 3. EmergencyAlertTriggeredEventHandler (Domain Event Handler)
+
+Maneja el evento de alerta disparada para activar el protocolo de emergencia en otros bounded contexts.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| externalAccessControlService | ExternalAccessControlService | private | Servicio ACL para abrir todas las barreras. |
+| externalParkingMonitoringService | ExternalParkingMonitoringService | private | Servicio ACL para cambiar LEDs a modo evacuación. |
+| externalNotificationService | ExternalNotificationService | private | Servicio ACL para enviar notificaciones masivas. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| on(EmergencyAlertTriggeredEvent event) | void | public | Ejecuta el protocolo de emergencia en paralelo: (1) envía comando a Access Control para abrir TODAS las barreras, (2) envía comando a Parking Monitoring para cambiar TODOS los LEDs a rojo intermitente (evacuación), (3) envía notificación push a TODOS los conductores con sesión activa via Notification BC, (4) envía alerta al dashboard del administrador. |
+
+#### 4. EmergencyResolvedEventHandler (Domain Event Handler)
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| externalAccessControlService | ExternalAccessControlService | private | Servicio ACL para restaurar barreras. |
+| externalParkingMonitoringService | ExternalParkingMonitoringService | private | Servicio ACL para restaurar LEDs. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| on(EmergencyResolvedEvent event) | void | public | Restaura operación normal: (1) notifica a Access Control para restaurar control normal de barreras, (2) notifica a Parking Monitoring para restaurar LEDs según estado actual de sensores. |
+
+#### 5. ExternalAccessControlService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| openAllBarriers(String reason) | void | public | Envía comando a Access Control BC para abrir todas las barreras del estacionamiento. |
+| restoreBarrierControl() | void | public | Notifica a Access Control que restaure el control normal de barreras. |
+
+#### 6. ExternalParkingMonitoringService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| setAllLedsToEvacuationMode() | void | public | Envía comando a Parking Monitoring para cambiar todos los LEDs a rojo intermitente. |
+| restoreLedsToNormalMode() | void | public | Notifica a Parking Monitoring que restaure los LEDs según el estado actual de los sensores. |
+
+#### 7. ExternalNotificationService (Outbound ACL Service)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| broadcastEmergencyAlert(String message, String sensorLocation) | void | public | Envía notificación push a TODOS los conductores con sesión activa alertando sobre la emergencia. Ignora preferencias de notificación del usuario (regla de negocio: alertas de emergencia siempre se envían). |
+| sendAdminEmergencyAlert(String message, String sensorLocation, int gasLevel) | void | public | Envía alerta al dashboard del administrador con detalles de la emergencia. |
+
+---
+
+### 4.2.4.4. Infrastructure Layer
+
+#### 1. EmergencyAlertRepository (Repository Interface)
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findById(Long id) | Optional\<EmergencyAlert> | public | Busca una alerta por su ID. |
+| save(EmergencyAlert alert) | EmergencyAlert | public | Persiste o actualiza una alerta. |
+| findByStatus(EmergencyStatus status) | List\<EmergencyAlert> | public | Obtiene alertas por estado (ACTIVE o RESOLVED). |
+| findByTriggeredAtBetween(LocalDateTime start, LocalDateTime end) | List\<EmergencyAlert> | public | Obtiene alertas en un rango de fechas. |
+| existsByStatus(EmergencyStatus status) | boolean | public | Verifica si existe alguna emergencia con el estado indicado. |
+| findFirstByStatusOrderByTriggeredAtDesc(EmergencyStatus status) | Optional\<EmergencyAlert> | public | Obtiene la emergencia activa más reciente. |
+
+---
+
+### 4.2.4.5. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Emergency & Safety. Se muestra la interacción entre los componentes internos y la comunicación con los bounded contexts que deben reaccionar ante una emergencia.
+
+> **Diagrama a crear en Structurizr DSL:**
+
+
+### 4.2.4.6. Bounded Context Software Architecture Code Level Diagrams
+
+En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Emergency & Safety.
+
+#### 4.2.4.6.1. Bounded Context Domain Layer Class Diagrams
+
+El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustra las entidades, objetos de valor y servicios que componen este bounded context.
+
+> **Diagrama a crear en LucidChart o PlantUML:**
+
+
+#### 4.2.4.6.2. Bounded Context Database Design Diagram
+
+El diagrama de diseño de base de datos del contexto de Emergency & Safety muestra la estructura de las tablas y sus relaciones.
+
+> **Diagrama a crear en Vertabelo:**
+
 ---
 
 # Capítulo V: Product Implementation, Validation & Deployment

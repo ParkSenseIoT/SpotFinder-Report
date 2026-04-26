@@ -4731,7 +4731,7 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 ### Anexo B: Videos
  
 - **Entrevistas Needfinding:** [Ver video](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe)
-- **Exposición AV1:** [Enlace pendiente]
+- **Exposición AV1:** [https://www.canva.com/design/DAHHz_faBIs/RAaPGfTnPY3Jkz9IVJ5uLA/edit]
 ### Anexo C: Herramientas utilizadas
  
 | Herramienta | Propósito |

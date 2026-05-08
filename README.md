@@ -4648,7 +4648,25 @@ El diagrama de diseño de base de datos del contexto de IAM muestra la estructur
 <br>
 
 ---
+# Capítulo V: Solution UI/UX Design
 
+## 5.1. Style Guidelines
+
+### 5.1.1. General Style Guidelines
+
+### 5.1.2. Web, Mobile and IoT Style Guidelines
+
+## 5.2. Information Architecture
+
+### 5.2.1. Organization Systems
+
+### 5.2.2. Labeling Systems
+
+### 5.2.3. SEO Tags and Meta Tags
+
+#### 5.2.4. Searching Systems & Navigation (Core Flows)
+
+---
 # Conclusiones
 
 En esta sección se presentan las conclusiones y recomendaciones derivadas del desarrollo del proyecto **SpotFinder**.

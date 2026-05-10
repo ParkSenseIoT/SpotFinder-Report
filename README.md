@@ -437,7 +437,7 @@ Metadatos estructurados para el algoritmo de búsqueda de Google Play Store y Ap
 * **App Keywords (Ocultas):** `smart parking, find my car, parking payment, ALPR, IoT parking, contactless payment, SpotFinder, Yape, mall parking.`
 * **App Description:** *SpotFinder revolutionizes your parking experience. Find available spaces in real-time, pay digitally via Culqi or Yape without queues, and never lose your car again with our "Find My Car" locator. Receive instant push notifications for your sessions and enjoy premium services like Google Wallet passes. Built for leading shopping malls powered by advanced IoT technology.*
 
-#### 5.2.4. Searching Systems & Navigation (Core Flows)
+### 5.2.4. Searching Systems & Navigation (Core Flows)
 
 Para garantizar que el usuario encuentre los datos sin esfuerzo, se implementan los siguientes patrones de búsqueda y enrutamiento funcional:
 

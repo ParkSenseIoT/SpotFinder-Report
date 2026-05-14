@@ -4990,157 +4990,190 @@ Asimismo, los prototipos facilitaron la validación de:
 
 ## 5.6. IoT Device Design
 
-### Introducción y Criterios de Diseño
-
-Esta sección presenta la propuesta de diseño físico y de circuito para los **Parking Spot Nodes** (nodos de espacio de parqueo) que componen el hardware de la solución SpotFinder. El objetivo principal de estos dispositivos es la **detección en tiempo real de la ocupación de cada espacio individual de estacionamiento** dentro de los centros comerciales objetivo, complementada con guiado visual mediante LEDs y monitoreo ambiental de gases/humo para protocolos de emergencia.
-
-Los principales criterios para las decisiones de diseño del hardware son:
-
-- **Precisión en la Detección de Ocupación:** Se utiliza un sensor ultrasónico **HC-SR04**, montado a 50–60 cm sobre el piso del espacio (techo del nivel de parqueo). El sensor emite pulsos ultrasónicos de 40 kHz y mide el tiempo de retorno del eco. Una distancia umbral configurable (por ejemplo, < 100 cm sostenido por > 2 segundos) determina el estado **Occupied**; valores superiores y estables determinan el estado **Available**. El filtrado por umbral temporal evita falsos positivos por peatones que cruzan momentáneamente.
-
-- **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, soporte nativo del protocolo MQTT, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de publicar el evento `SensorReading` al MQTT Broker, reduciendo el tráfico de red.
-
-- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra un **LED WS2812B** (Neopixel direccionable) montado en la parte inferior de la carcasa, visible desde el corredor del estacionamiento. El color es controlado vía un único pin de datos por protocolo serial de un solo hilo, lo que permite encadenar varios LEDs en zonas adyacentes con un solo GPIO si se desea optimizar el cableado en una sub-zona.
-
-- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral de 900 PPM, el nodo publica un evento `EmergencyAlertTriggered` que desencadena el cambio coordinado de todos los LEDs del piso a parpadeo rojo estroboscópico.
-
-- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el nodo recibe el comando `BroadcastEvacuationSignal` desde el Edge Server, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
-
-- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar el modo de emparejamiento Wi-Fi (provisioning) y el reseteo del nodo sin necesidad de retirarlo del techo del estacionamiento.
-
-### Relación con la Arquitectura de Información y Guía de Estilos
-
-El diseño de la interfaz física del dispositivo IoT (*IoT Device Physical Interfaces*) es una extensión coherente de la propuesta de experiencia de usuario y arquitectura de información definida en la sección 5.1.2 (*IoT Style Guidelines*) y de los Bounded Contexts de **Parking Monitoring** y **Emergency Management**.
-
-- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento MQTT, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
-
-- **Alerta Cognitiva Estroboscópica:** En estado crítico de emergencia (detección de gas/humo por MQ-2 o broadcast desde el Edge Server), el patrón lumínico de todos los LEDs cambia a **parpadeo estroboscópico rojo a 2 Hz**, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
-
-- **Interacción Invisible (Zero-Friction):** El nodo no expone interfaz gráfica al conductor: la interacción es por presencia (el vehículo entra y el sensor lo detecta) y la retroalimentación es exclusivamente espacial (luz LED). La interfaz gráfica se delega a la app móvil (notificación push de espacio reservado) y al dashboard web (mapa de ocupación en tiempo real), respetando la premisa **Zero-Friction para conductores en movilidad** y **Maximum Observability para operadores**.
-
-- **Consistencia con la Aplicación Móvil:** El estado físico del LED se sincroniza con el color del marker correspondiente en el mapa de ocupación del Bounded Context *Parking Monitoring*, garantizando que un conductor que ve "verde" en su app encuentre "verde" en el espacio físico al llegar.
-
-### Propuesta de Diseño de Circuito (Hardware Schematic)
-
-Para la validación lógica de los componentes electrónicos y sus conexiones, se elaboró un diagrama esquemático utilizando la herramienta **Wokwi**. Este circuito demuestra la viabilidad técnica del Parking Spot Node antes de su implementación en placa de desarrollo y posterior fabricación de carcasa.
-
-Los componentes integrados y sus nodos de conexión son los siguientes:
-
-1. **Microcontrolador ESP32 (DevKit V1):** Actúa como cerebro del sistema, gestor de la lógica de detección y módulo de comunicación Wi-Fi/MQTT. Alimentación a 5 V por USB micro-B o a 3.3 V por pin VIN en despliegue en techo. Mantiene una conexión persistente al broker MQTT del Edge Server publicando en el topic `parksense/floor/{floorId}/spot/{spotId}/status`.
-
-2. **Sensor Ultrasónico HC-SR04:** Componente principal de detección de ocupación. Alimentado a **5 V**. Cuatro conexiones:
-   - **VCC** → 5V del ESP32 (cable **rojo**)
-   - **GND** → GND del ESP32 (cable **negro**)
-   - **Trig** (disparo del pulso) → **GPIO 5** del ESP32 (cable **amarillo**)
-   - **Echo** (retorno del pulso) → **GPIO 18** del ESP32 (cable **azul**)
-
-3. **LED WS2812B (Neopixel direccionable):** Indicador de estado del espacio. Tres conexiones:
-   - **VCC** → 5V (cable **rojo**)
-   - **GND** → GND (cable **negro**)
-   - **DIN** (data in) → **GPIO 4** del ESP32 a través de una resistencia de 330 Ω (cable **verde**)
-
-   Se recomienda un capacitor de 100 µF entre VCC y GND del LED para estabilizar la corriente en transiciones de color. *Nota sobre la simulación:* en Wokwi se puede representar con el componente `neopixel` o, como alternativa equivalente para la lógica de control, con un LED RGB cátodo común a tres resistencias de 220 Ω en GPIO 4 (Rojo), GPIO 2 (Verde) y GPIO 15 (Azul).
-
-4. **Sensor de Gas MQ-2:** Detector de gases combustibles y humo para el protocolo de emergencia (presente solo en nodos cabecera de pasillo). Cuatro conexiones:
-   - **VCC** → 5V (cable **rojo**)
-   - **GND** → GND (cable **negro**)
-   - **AO** (analog output) → **GPIO 34** del ESP32 (entrada ADC1, solo lectura — cable **morado**)
-   - **DO** (digital output, threshold trip) → **GPIO 35** del ESP32 (cable **naranja**)
-
-   *Nota sobre la simulación:* debido a que Wokwi no provee el sensor MQ-2 en su biblioteca de componentes, este sensor se representa en el diagrama mediante un potenciómetro analógico conectado al GPIO 34, que permite simular la variación del nivel de gas (de 0 a 4095 unidades ADC) para validar la lógica de disparo del evento `EmergencyAlertTriggered`. En el ensamblaje físico, el potenciómetro será reemplazado directamente por el sensor MQ-2 sin cambios en el firmware.
-
-5. **Buzzer Pasivo (3.3 V):** Actuador de alerta acústica para emergencias. Dos conexiones:
-   - Pin positivo → **GPIO 25** del ESP32 (cable **marrón**)
-   - Pin negativo → GND (cable **negro**)
-
-   El GPIO 25 soporta DAC, lo que permite generar tonos de frecuencia variable (sirena ascendente/descendente) en vez de un beep monótono.
-
-6. **Botón Pulsador (Provisioning / Reset):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
-   - Un terminal → **GPIO 13** del ESP32, utilizando la resistencia interna Pull-Up del ESP32 (`INPUT_PULLUP`) — cable **blanco**
-   - Otro terminal → GND (cable **negro**)
-
-   Una pulsación corta (< 2 s) fuerza una republicación del estado al broker MQTT. Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
-
-#### Resumen de Conexiones (Pinout Table)
-
-| Componente | Pin del componente | Pin del ESP32 | Color de cable | Notas |
-|---|---|---|---|---|
-| HC-SR04 | VCC | 5V (VIN) | Rojo | Alimentación |
-| HC-SR04 | GND | GND | Negro | Tierra común |
-| HC-SR04 | Trig | GPIO 5 | Amarillo | Salida digital |
-| HC-SR04 | Echo | GPIO 18 | Azul | Entrada digital |
-| WS2812B | VCC | 5V (VIN) | Rojo | Alimentación |
-| WS2812B | GND | GND | Negro | Tierra común |
-| WS2812B | DIN | GPIO 4 | Verde | Datos seriales (con R=330 Ω) |
-| MQ-2 (potenciómetro en sim.) | VCC | 5V (VIN) | Rojo | Alimentación |
-| MQ-2 (potenciómetro en sim.) | GND | GND | Negro | Tierra común |
-| MQ-2 (potenciómetro en sim.) | AO | GPIO 34 | Morado | Solo entrada ADC |
-| MQ-2 | DO | GPIO 35 | Naranja | Trip digital |
-| Buzzer | + | GPIO 25 | Marrón | DAC para tonos |
-| Buzzer | – | GND | Negro | Tierra común |
-| Botón | Pin 1 | GPIO 13 | Blanco | INPUT_PULLUP interno |
-| Botón | Pin 2 | GND | Negro | Tierra común |
-
-> *Convención de colores:* sigue el estándar industrial de prototipado (rojo = +V, negro = GND, amarillo/naranja = señales de salida, azul/verde = señales de entrada o datos, morado/marrón = sensores analógicos/actuadores).
-
-![Desing-IoT](./assets/images/screenshots/Design-IoT.png)
-
-*[Link del wokwi: https://wokwi.com/projects/464031382788279297]*
-
-
-### Flujos de Interacción del Prototipo IoT
-
-El hardware cubre interacciones físicas que se sincronizan con las vistas de la aplicación móvil del conductor, el dashboard web del administrador y el Edge Server, definiendo los siguientes flujos principales de Wireflow físico:
-
-**1. Flujo de Inicialización y Provisioning del Nodo:**
-
-- **Paso 1:** El técnico instala el nodo en el techo del espacio de parqueo y conecta la alimentación.
-- **Paso 2:** El ESP32 arranca y el LED WS2812B parpadea en **Azul `#1A82FF`** indicando estado de provisioning (búsqueda de red Wi-Fi).
-- **Paso 3:** Una vez conectado al broker MQTT del Edge Server, el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
-
-**2. Flujo de Detección de Ocupación (Happy Path):**
-
-- **Paso 1:** Un vehículo entra al espacio y el HC-SR04 detecta una distancia < 100 cm de forma sostenida durante > 2 segundos.
-- **Paso 2:** El ESP32 publica el evento `SensorReadingProcessed` al topic MQTT correspondiente con el estado `Occupied`.
-- **Paso 3:** El LED WS2812B cambia inmediatamente a **Rojo `#EF4444`** fijo.
-- **Paso 4:** El Edge Server consolida la lectura, la reenvía al backend Cloud y el espacio se refleja como ocupado en el mapa de la app móvil y el dashboard web.
-
-**3. Flujo de Liberación del Espacio (Happy Path):**
-
-- **Paso 1:** El vehículo sale del espacio y el HC-SR04 detecta una distancia estable > 100 cm durante > 2 segundos.
-- **Paso 2:** El ESP32 publica el evento con estado `Available`.
-- **Paso 3:** El LED retorna a **Verde `#10B981`** fijo, y la app móvil notifica a conductores que hayan filtrado por espacios cercanos disponibles.
-
-**4. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
-
-- **Paso 1:** El sensor MQ-2 lee una concentración > 900 PPM por más de 3 segundos.
-- **Paso 2:** El ESP32 publica el evento `EmergencyAlertTriggered` en el topic `parksense/emergency/floor/{floorId}`.
-- **Paso 3:** El Edge Server propaga el comando `BroadcastEvacuationSignal` a todos los nodos del piso.
-- **Paso 4:** Todos los LEDs WS2812B del piso cambian a **parpadeo estroboscópico rojo a 2 Hz** y los buzzers emiten una sirena ascendente/descendente, guiando físicamente la evacuación de los conductores presentes.
-- **Paso 5:** El dashboard web del administrador muestra una alerta crítica con la ubicación del sensor que detectó el evento.
-
-**5. Flujo de Mantenimiento Manual (Provisioning Reset):**
-
-- **Paso 1:** El técnico mantiene presionado el botón pulsador durante más de 5 segundos.
-- **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
-- **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
-
-<div style="page-break-after: always;"></div>
-
----
 # Capítulo VI: Product Implementation, Validation \& Deployment
 
 ## 6.1. Software Configuration Management
+## 6.1.1 Software Development Environment Configuration
 
-### 6.1.1. Software Development Environment Configuration
+Utilizaremos principalmente como IDEs: Visual Studio Code y IntelliJ IDEA, cada una con su configuración correspondiente para evitar conflictos entre extensiones, dependencias y carpetas personalizadas de desarrollo. Visual Studio Code será utilizado principalmente para el desarrollo frontend, mobile y landing page, mientras que IntelliJ IDEA será empleado para el desarrollo de las Web APIs y servicios backend con Spring Boot.
+
+Como herramientas de desarrollo se hará uso de la última versión estable de Node.js. Para el frontend web se utilizará Angular como framework SPA, acompañado de Angular Material como biblioteca de componentes UI basada en Material Design. Para el backend se utilizará Java con el framework Spring Boot para la construcción de APIs RESTful.
+
+Como IDE de desarrollo para la aplicación móvil se utilizará Visual Studio Code junto con el SDK más reciente de Flutter y Android Studio como emulador de dispositivos Android. Flutter permitirá el desarrollo multiplataforma de la aplicación móvil utilizando Dart como lenguaje de programación.
+
+Como base de datos principal se utilizará PostgreSQL para el almacenamiento de usuarios, reservas, pagos, ocupación y demás información del sistema.
+
+Como herramientas SaaS y de colaboración se utilizará GitHub para el control de versiones y trabajo colaborativo. Además, se empleará Trello para la gestión del Product Backlog y seguimiento de tareas. Para la elaboración de diagramas y modelado se utilizarán LucidChart y Structurizr.
+
+Como herramienta de diseño UX/UI se utilizará Figma para la creación de wireframes, mockups y prototipos interactivos de la aplicación móvil y dashboard web.
+
+Como herramienta de desarrollo para el componente IoT y Edge Computing se utilizará Visual Studio Code junto con Python/Flask y el protocolo MQTT para la comunicación con sensores y dispositivos IoT.
+
+Para el desarrollo de la landing page se utilizarán HTML5, CSS3 y JavaScript, debido a la facilidad de implementación y compatibilidad con despliegues estáticos modernos.
+
+Las herramientas tecnológicas seleccionadas para el proyecto son las siguientes:
+
+### Visual Studio Code
+Es un editor de código gratuito, moderno y altamente configurable mediante extensiones. Será utilizado para el desarrollo frontend, mobile, landing page e integración IoT.
+
+### IntelliJ IDEA
+IDE especializado para desarrollo backend en Java y Spring Boot. Facilita la gestión de dependencias, debugging y arquitectura de APIs REST.
+
+### Flutter SDK
+Framework multiplataforma utilizado para el desarrollo de la aplicación móvil SpotFinder utilizando Dart.
+
+### Android Studio
+Herramienta utilizada para la ejecución de emuladores Android y pruebas de la aplicación móvil Flutter.
+
+### Git y GitHub
+Se utilizarán para el control de versiones, manejo de ramas, colaboración entre desarrolladores y almacenamiento de repositorios.
+
+### PostgreSQL
+Sistema de gestión de bases de datos relacional utilizado para almacenar la información principal del sistema.
+
+### Spring Boot
+Framework backend utilizado para el desarrollo de servicios RESTful y lógica de negocio del sistema.
+
+### Angular
+Framework frontend utilizado para el desarrollo del dashboard web administrativo.
+
+### Angular Material
+Biblioteca de componentes UI basada en Material Design utilizada para mejorar la experiencia visual de la aplicación web.
+
+### Figma
+Herramienta de diseño UI/UX para la creación de prototipos y mockups del sistema.
+
+### LucidChart
+Herramienta utilizada para la creación de diagramas UML, diagramas de arquitectura y modelados adicionales.
+
+### Structurizr
+Herramienta utilizada para la elaboración de diagramas C4 del sistema.
+
+### Discord
+Herramienta de comunicación utilizada para coordinación y reuniones rápidas entre los integrantes del equipo.
+
+### WhatsApp
+Aplicación de mensajería utilizada para comunicación inmediata y coordinación rápida del equipo.
+
+### Zoom
+Plataforma utilizada para reuniones virtuales, sustentaciones y coordinación remota del proyecto.
+
+### Trello
+Herramienta utilizada para la gestión ágil del proyecto y organización del Product Backlog.
+
+### Miro
+Plataforma colaborativa utilizada para brainstorming, ideación y modelado de flujos del sistema.
+
+### Google Docs
+Herramienta utilizada para documentación colaborativa del proyecto y redacción de entregables.
 
 ### 6.1.2. Source Code Management
+Como mencionamos anteriormente, se utilizará GitHub para llevar un control de las versiones de desarrollo y poder trabajar de forma colaborativa. Para ello, se creó una organización llamada:
 
+Repositorio de Landing Page: https://github.com/ParkSenseIoT/SpotFinder-LandingPage
+
+Repositorio de pruebas de aceptación:
+
+Repositorio frontend: https://github.com/ParkSenseIoT/SpotFinder-Frontend
 ### 6.1.3. Source Code Style Guide \& Conventions
+
+A continuación, se presentan las convenciones, estilos y buenas prácticas utilizadas en los lenguajes y tecnologías empleadas en la solución: HTML, CSS, JavaScript/TypeScript, Java, Dart y Gherkin.
+
+## HTML
+
+Se seguirá la guía **“HTML Style Guide and Coding”** de W3Schools. Las principales convenciones consideradas son:
+
+- Declarar siempre el tipo de documento HTML.
+- Utilizar nombres de etiquetas y atributos en minúscula.
+- Cerrar correctamente todas las etiquetas.
+- Usar comillas en todos los atributos.
+- Definir atributos `alt`, `width` y `height` en imágenes.
+- Mantener correctamente definidos los metadatos y etiquetas SEO.
+
+## CSS
+
+Se utilizará la guía **“Google HTML/CSS Style Guide”**. Las principales recomendaciones consideradas son:
+
+- Utilizar nombres de clases descriptivos y cortos.
+- Separar nombres mediante guiones.
+- Evitar selectores por ID.
+- Utilizar propiedades abreviadas cuando sea posible.
+- Mantener estilos reutilizables y organizados.
+
+## JavaScript / TypeScript
+
+Se seguirán buenas prácticas basadas en la guía de W3C y Angular Style Guide:
+
+- Utilizar nombres claros y legibles.
+- Evitar variables globales innecesarias.
+- Modularizar componentes y servicios.
+- Documentar funciones complejas.
+- Utilizar tipado fuerte mediante TypeScript.
+
+## Java
+
+Para el backend desarrollado en Spring Boot se utilizarán convenciones estándar de Java:
+
+- Uso de CamelCase para clases y métodos.
+- Separación por capas (`Controller`, `Service`, `Repository`).
+- Uso de DTOs para transferencia de datos.
+- Documentación de endpoints REST.
+- Manejo centralizado de excepciones.
+
+## Flutter / Dart
+
+Para el desarrollo mobile con Flutter se seguirán las convenciones oficiales de Dart:
+
+- Uso de widgets reutilizables.
+- Separación de pantallas, servicios y modelos.
+- Uso de nombres descriptivos en clases y variables.
+- Organización modular del proyecto.
+- Aplicación de principios de diseño responsive.
+
+## Gherkin
+
+Se utilizará Gherkin para pruebas de aceptación siguiendo las convenciones:
+
+- Uso correcto de bloques `Given-When-Then`.
+- Uso de indentación adecuada.
+- Separación clara de escenarios.
+- Uso de tablas para datos complejos.
+- Redacción legible y entendible para negocio y desarrollo.
+
+En resumen, las convenciones y estilos de programación seguirán las guías oficiales de Google, Angular, Flutter y Spring Boot para garantizar mantenibilidad, escalabilidad y consistencia del código.
+
+Para el control de versiones se utilizará **GitFlow Workflow** junto con **Conventional Commits** y **Semantic Versioning**.
+
+El lenguaje visual del sistema estará basado en **Material Design**, utilizando Angular Material para el dashboard web y componentes adaptativos en Flutter para la aplicación móvil.
+
+Para el desarrollo de Web Services se utilizará **RESTful API Architectural Style** mediante Spring Boot Framework y Java.
+
+Para el desarrollo de la Mobile App se utilizará **Flutter/Dart** consumiendo las APIs REST del backend.
 
 ### 6.1.4. Software Deployment Configuration
 
+Para el despliegue de la landing page y aplicación web se utilizará **Netlify** y/o **Vercel** como plataformas de hosting frontend.
+
+Para el despliegue del backend API se utilizará **Render**, **Railway** o **Zeabur** mediante contenedores y servicios cloud compatibles con Spring Boot.
+
+Para la base de datos PostgreSQL se utilizará **Railway** o **Supabase** como servicio administrado.
+
+Para el despliegue de la aplicación móvil se utilizará **Android Studio** para generación de builds APK y **Google Play Console** para distribución futura.
+
+Para los servicios IoT y Edge Processing se utilizarán servidores Linux o servicios cloud compatibles con MQTT y Flask.
+
+El despliegue seguirá los siguientes pasos:
+
+1. Iniciar sesión en la plataforma de despliegue utilizando GitHub.
+2. Conectar el repositorio correspondiente.
+3. Configurar variables de entorno necesarias.
+4. Configurar comandos de build y directorios de salida.
+5. Realizar despliegue automático mediante integración continua.
+6. Verificar funcionamiento y disponibilidad del sistema desplegado.
+
 ## 6.2. Landing Page, Services \& Applications Implementation
+
+<div style="page-break-after: always;"></div>
 
 ### 6.2.1. Sprint 1
 

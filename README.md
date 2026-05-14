@@ -4666,19 +4666,344 @@ El diagrama de diseño de base de datos del contexto de IAM muestra la estructur
 
 ## 5.1. Style Guidelines
 
+En esta sección, se establecen los cimientos del **Design System** de SpotFinder. El objetivo es centralizar los *Design Tokens* (variables de diseño) y componentes UI en un repositorio de uso común, garantizando la consistencia visual y de interacción a través de un ecosistema multiplataforma (Web, Mobile y Hardware IoT). Esta estandarización reduce la fricción cognitiva del usuario, acelera el flujo de desarrollo en el frontend y asegura que las decisiones de diseño sean escalables y mantenibles a largo plazo, alineándose con los principios heurísticos de usabilidad y la metodología Lean UX.
+
 ### 5.1.1. General Style Guidelines
+
+Esta subsección documenta las decisiones estructurales fundamentales: color, tipografía, espaciado y *UX Writing*. Las decisiones están sustentadas en la reducción de la carga cognitiva (*cognitive load*) del usuario, especialmente en contextos de alta demanda de atención (como la conducción vehicular).
+
+**A. Branding y Paleta de Colores (Color Tokens)**
+La identidad cromática se ha extraído estrictamente de los valores hexadecimales del imagotipo de SpotFinder. Se ha construido un sistema de colores accesible (cumpliendo con el ratio de contraste WCAG 2.1 AA/AAA) que guía la atención del usuario mediante jerarquía visual.
+
+* **Brand Colors (Identidad Principal):**
+    * **Action Blue (`#1A82FF`):** Color interactivo primario. Aplicado de forma exclusiva a elementos accionables de alta prioridad (*Primary Buttons*, *Floating Action Buttons*, *Active Tabs*) y enlaces. Representa la fiabilidad del flujo de software y guía al usuario hacia la conversión.
+    * **Highlight Orange (`#FF9100`):** Color de acento (*Accent*). Reservado para focalizar la atención en micro-interacciones críticas o datos relevantes que rompen el patrón de lectura, como la ubicación exacta del vehículo en el módulo "Find My Car", notificaciones *push* de pago o *badges* de estado.
+    * **Deep Black (`#000000`):** Color ancla y estructural. Empleado en tipografía de alto énfasis (*Headers*), bordes divisorios y como base absoluta para la superficie del *Dark Mode* de la aplicación móvil (evitando el deslumbramiento y la fatiga visual del conductor en entornos con baja iluminación como estacionamientos techados).
+* **Semantic Colors (Feedback y Hardware):**
+    * **Success/Available (`#10B981`):** Feedback positivo en la UI (pagos procesados, *snackbars* de éxito) e indicador IoT del LED en estado `AVAILABLE`.
+    * **Error/Occupied (`#EF4444`):** Feedback de error en formularios, estados de emergencia y correlación directa con el indicador IoT del LED en estado `OCCUPIED`.
+
+**B. Tipografía (Typographic Scale)**
+Se ha definido un sistema tipográfico basado en la fuente **Inter**, optimizada para interfaces de usuario por su alta legibilidad (altura de la "x" pronunciada y kerning equilibrado) tanto en *displays* móviles como en paneles de datos (Web).
+* **Display & Headings:** Uso en pesos *Bold* (700) y *SemiBold* (600) para lectura rápida de números de espacios, contadores de tiempo y títulos de sección.
+* **Body & UI Text:** Peso *Regular* (400) para lectura prolongada y *Medium* (500) para etiquetas de botones. El tamaño base (*Body 1*) es de 16px (1rem) con un interlineado (*line-height*) del 150% para maximizar la legibilidad en pantallas de alto contraste.
+
+**C. Spacing & Grid System**
+Para asegurar una estructura armónica y modular, se implementa una **grilla espacial basada en 8pt** (*8-point grid system*).
+* Márgenes y *paddings* operan en incrementos de 8 (8px, 16px, 24px, 32px), creando un ritmo visual predecible.
+* Los iconos y elementos modulares se construyen en cajas delimitadas de 24x24px o 32x32px para mantener simetría a nivel de píxel (*pixel-perfect*).
+
+**D. Tone of Communication y UX Writing**
+El lenguaje (*microcopy*) de SpotFinder está diseñado bajo la premisa funcional:
+* **Formal/Casual:** *Casual, directo y conciso.* (Ej. "Espacio A-12 libre" en lugar de "Le informamos que el espacio A-12 se encuentra disponible").
+* **Entusiasta/Sereno:** *Estrictamente Sereno y de Control.* El sistema debe mitigar la ansiedad inherente a la búsqueda de estacionamiento y el procesamiento de pagos, ofreciendo instrucciones unívocas, mensajes de error constructivos y retroalimentación clara de los estados del sistema.
+
 
 ### 5.1.2. Web, Mobile and IoT Style Guidelines
 
-## 5.2. Information Architecture
+Aquí se detalla la aplicación del sistema de diseño en los diferentes puntos de contacto (*touchpoints*) del usuario, adaptando los patrones de interacción a las limitaciones y *affordances* de cada dispositivo.
+
+**A. Web Style Guidelines (Admin Dashboard & Landing Page)**
+* **Grid Responsive:** Se emplea una grilla fluida de 12 columnas. En el área del *Dashboard*, el diseño se optimiza para grandes resoluciones (Desktop), priorizando la visualización de alta densidad de datos.
+* **Data Visualization UI:** El panel de administración utiliza *Data Tables* con interactividad de *hover* (cambio de estado en la fila usando un matiz sutil del Action Blue `#1A82FF` al 10% de opacidad) para no saturar la vista. Las tarjetas de métricas (*Metric Cards*) utilizan elevación (*drop-shadow* de 2dp a 4dp) para generar jerarquía en el eje Z frente a un fondo neutro.
+* **Navegación:** Un *Sidebar Navigation* anclado a la izquierda para cambiar de módulos rápidamente, manteniendo los filtros y herramientas de búsqueda siempre visibles y accesibles en la parte superior (*Top Bar*).
+
+**B. Mobile Style Guidelines (App Conductor)**
+La interfaz móvil está rigurosamente diseñada para escenarios de movilidad (uso a una mano y atención dividida).
+* **Ergonomía Táctil (Thumb Zone):** Todo elemento accionable primario (CTAs) posee un área táctil mínima (*Touch Target*) de **48x48 dp** (estándar de accesibilidad de Apple HIG y Material Design). Las acciones críticas se sitúan en el tercio inferior de la pantalla para fácil acceso del pulgar.
+* **Dark Mode por Defecto:** Al interactuar primariamente dentro del habitáculo del vehículo y en zonas de parqueo, el fondo Negro absoluto (`#000000`) se usa como base, mejorando el contraste de los textos en blanco y los acentos Naranja (`#FF9100`), además de optimizar el consumo de batería en pantallas OLED.
+* **Retroalimentación Háptica (Haptic Feedback):** Las micro-interacciones clave, como la validación de un pago o la confirmación de la apertura de barrera (ALPR), se acompañan de una vibración háptica del dispositivo, confirmando al usuario el éxito de la operación sin depender exclusivamente de la lectura visual.
+
+**C. IoT Style Guidelines (Interfaz Física de Hardware)**
+El diseño en IoT trasciende la pantalla para convertirse en un diseño espacial o "Zero-UI" (interfaz de fricción cero), donde el entorno físico es el que comunica el estado.
+* **Affordance Visual (Sensores y LEDs):** La comunicación es binaria y directa. La luz Verde (`#10B981`) comunica permisibilidad (espacio libre), mientras que la luz Roja (`#EF4444`) comunica restricción (espacio ocupado).
+* **Alertas Cognitivas (Protocolo de Emergencia):** En un estado crítico (detección de gas MQ-2), el patrón lumínico cambia a parpadeo estroboscópico rojo, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación.
+* **Interacción Invisible (ALPR):** En los puntos de acceso, el usuario no interactúa con tótems o botones físicos. La interacción se basa en la presencia física (la cámara detecta la placa y el Edge Server acciona el relé de la barrera). El diseño delega la interfaz gráfica al móvil (notificación *push*) y mantiene la interfaz física orientada puramente al flujo ininterrumpido del vehículo.
+
+### 5.2. Information Architecture
+
+La Arquitectura de Información (IA) de SpotFinder está diseñada para optimizar la carga cognitiva de los usuarios y garantizar la escalabilidad del código. Se estructuró bajo la premisa de *Zero-Friction* para los conductores en movilidad (App Móvil) y *Maximum Observability* para los operadores (App Web). A continuación, se detallan los sistemas que rigen la organización, el etiquetado, el posicionamiento (SEO/ASO) y la navegación del ecosistema.
 
 ### 5.2.1. Organization Systems
 
+La organización del contenido dicta cómo se estructuran los módulos a nivel de desarrollo (Lazy Loading en Angular y GoRouter en Flutter).
+
+**A. Landing Page (Web Estática)**
+* **Jerárquica (Visual Hierarchy):** La estructura es vertical (*Top-Down*), ordenada por relevancia para la conversión B2B: Propuesta de valor (*Hero*) → Funcionalidades (*Features*) → Proceso operativo (*How It Works*) → Ventaja competitiva (*Admin Dashboard*) → Precios (*Pricing*) → Credibilidad (*Testimonials/FAQ*) → Acción (*Contact*).
+* **Secuencial (Step-by-step):** La sección "How It Works" guía al visitante de forma lineal por el *Core Flow*: `1. Detección ALPR` → `2. Guiado LED` → `3. Pago Digital` → `4. Salida Automática`.
+* **Matricial (Bento Grid):** La sección "Features" organiza las capacidades en celdas asimétricas, priorizando visualmente el renderizado del mapa en tiempo real frente a funciones complementarias.
+
+**B. App Web (Dashboard Administrativo - Angular)**
+* **Jerárquica (Shell Pattern):** El *layout* utiliza un patrón *App Shell* de Angular: `Sidebar (Navegación Primaria)` > `Top Bar (Contexto Global/Búsqueda)` > `Router Outlet (Contenido Dinámico)` > `Widgets/Data Tables`. El mapa de ocupación en vivo ocupa el cuadrante superior izquierdo, siendo el primer punto de fijación visual.
+* **Por Tópicos (Feature Modules):** El menú lateral define los módulos de carga diferida (*Lazy-loaded modules*): *Monitoreo*, *Analítica*, *Finanzas*, *Seguridad* (Protocolos de Emergencia) y *Configuración*.
+* **Matricial y Cronológico:** Los paneles de *Analytics* cruzan múltiples KPIs (ingresos vs. ocupación) en cuadrículas simultáneas, mientras que el *Log* de eventos (ingresos/salidas/alertas del sensor MQ-2) se organiza en orden cronológico inverso estricto.
+
+**C. App Móvil (Conductores - Flutter)**
+* **Por Tópicos (Bottom Nav):** La experiencia raíz se divide en 4 pilares de navegación (*IndexedStack* en Flutter para mantener el estado): `Map` (ubicación), `My Stay` (sesión activa), `Pay` (transacciones) y `Profile` (gestión de cuenta y vehículos).
+* **Secuencial (Checkout Flow):** El proceso de pago es un túnel cerrado sin distracciones: `Revisar Estancia` → `Seleccionar Método (Yape/Tarjeta)` → `Validar Gateway (Culqi)` → `Emitir Recibo Digital`.
+* **Por Audiencia:** La arquitectura condicional utiliza *Feature Flags* vinculados al JWT del usuario para habilitar o destruir vistas de servicios Premium (ej. pase Google Wallet).
+
+
 ### 5.2.2. Labeling Systems
+
+El sistema de etiquetado (Microcopy) está centralizado en archivos de internacionalización (i18n) para asegurar consistencia. Las etiquetas son concisas (máximo 2 palabras), descriptivas y evitan la jerga de ingeniería.
+
+**A. Landing Page Labels (Conversión)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **Get Started** | Primary CTA | Inicia el embudo de captación / Formulario de registro B2B. |
+| **Book a Demo** | Secondary CTA | Despliega modal de calendario (ej. Calendly) para agendar pruebas. |
+| **Dashboard** | Nav Link | Ancla explicativa sobre el panel de control administrativo. |
+| **Hardware** | Nav Link | Detalla la infraestructura IoT (Edge Server, ALPR, Sensores). |
+
+**B. App Web Labels (Dashboard Operativo)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **Live Map** | Sidebar Item | Renderizado de ocupación mediante WebSockets (`AVAILABLE`/`OCCUPIED`). |
+| **Occupancy** | Metric Card | KPI porcentual de la Tasa de Ocupación actual e histórica. |
+| **OOS** | Status Badge | "Out of Service" - Etiqueta roja/naranja para espacio inhabilitado manualmente. |
+| **Heatmap** | Tab Link | Representación térmica de las zonas con mayor rotación vehicular. |
+
+**C. App Móvil Labels (Conductor)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **My Stay** | Bottom Nav | Vista del tiempo transcurrido, costo acumulado dinámico y código asignado. |
+| **Find My Car** | Action Button | Localiza el vehículo enlazado a la sesión (evita términos técnicos como *Vehicle Locator*). |
+| **Garage** | Profile Item | CRUD para gestionar múltiples placas vinculadas a una sola cuenta. |
+
 
 ### 5.2.3. SEO Tags and Meta Tags
 
-#### 5.2.4. Searching Systems & Navigation (Core Flows)
+El ecosistema requiere estrategias distintas: indexación agresiva para la Landing Page, ofuscación total para el Dashboard Administrativo y optimización de tienda para la App Móvil.
+
+**A. Web Meta Tags: Landing Page (Public Marketing Site)**
+Orientado a la indexación de motores de búsqueda (SEO) y correcta previsualización en redes sociales (Open Graph / Twitter Cards).
+```html
+<title>SpotFinder | Advanced IoT Parking Systems for Malls</title>
+<meta name="title" content="SpotFinder | Advanced IoT Parking Systems">
+<meta name="description" content="Transform your parking facility with real-time IoT monitoring, ALPR entry automation, and advanced analytics. Reduce congestion and increase revenue up to 15%.">
+<meta name="keywords" content="smart parking, IoT parking system, ALPR, parking management, shopping mall parking, SpotFinder Peru">
+<meta name="author" content="SpotFinder Team">
+<link rel="canonical" href="[https://spotfinder.com](https://spotfinder.com)">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="[https://spotfinder.com/](https://spotfinder.com/)">
+<meta property="og:title" content="SpotFinder | Advanced IoT Parking Systems">
+<meta property="og:description" content="Real-time parking intelligence for shopping malls and commercial facilities.">
+<meta property="og:image" content="[https://spotfinder.com/assets/og-image.png](https://spotfinder.com/assets/og-image.png)">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="[https://spotfinder.com/](https://spotfinder.com/)">
+<meta property="twitter:title" content="SpotFinder | Advanced IoT Parking Systems">
+```
+**B. Web Meta Tags: App Web / Admin Dashboard (Private SPA)**
+
+Orientado a la seguridad y privacidad. Al ser un portal administrativo, los motores de búsqueda no deben indexar estas rutas ni cachear contenido sensible.
+
+```html
+<title>SpotFinder Dashboard</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+```
+
+**C. ASO Elements (Mobile App Store Optimization)**
+
+Metadatos estructurados para el algoritmo de búsqueda de Google Play Store y Apple App Store.
+
+* **App Title:** `SpotFinder – Smart Parking & Find My Car` *(Combina el brand con la función más buscada).*
+* **App Subtitle (iOS):** `IoT Parking, Pay & Locate`
+* **App Keywords (Ocultas):** `smart parking, find my car, parking payment, ALPR, IoT parking, contactless payment, SpotFinder, Yape, mall parking.`
+* **App Description:** *SpotFinder revolutionizes your parking experience. Find available spaces in real-time, pay digitally via Culqi or Yape without queues, and never lose your car again with our "Find My Car" locator. Receive instant push notifications for your sessions and enjoy premium services like Google Wallet passes. Built for leading shopping malls powered by advanced IoT technology.*
+
+### 5.2.4. Searching Systems & Navigation (Core Flows)
+
+Para garantizar que el usuario encuentre los datos sin esfuerzo, se implementan los siguientes patrones de búsqueda y enrutamiento funcional:
+
+* **Búsqueda Global (Dashboard Web):** Uso de un *Omnibox* en el Top Bar que permite al administrador realizar consultas transversales (búsqueda por número de placa `ABC-123`, ID de espacio `A-12` o ID de transacción de pasarela). Los resultados redirigen dinámicamente al módulo correspondiente.
+* **Deep Linking (App Móvil):** La navegación de la app soporta enlaces profundos manejados por Firebase Cloud Messaging (FCM). Al tocar una notificación de "Pago Pendiente", la arquitectura de navegación enruta al usuario saltando el menú principal, llevándolo directamente a la pantalla `Checkout_Screen`.
+
+## 5.2.5. Navigation Systems.
+
+## 5.3. Landing Page UI Design.
+### 5.3.1. Landing Page Wireframe.
+### 5.3.2. Landing Page Mock-up.
+
+## 5.4. Applications UX/UI Design.
+
+El diseño UX/UI de SpotFinder fue desarrollado con el objetivo de ofrecer una experiencia intuitiva, moderna y eficiente tanto para conductores como para administradores del sistema de estacionamiento inteligente. 
+
+La propuesta visual prioriza:
+- Simplicidad de uso.
+- Navegación intuitiva.
+- Acceso rápido a funcionalidades críticas.
+- Consistencia visual entre plataformas.
+- Diseño responsive y mobile-first.
+- Reducción de carga cognitiva del usuario.
+
+El ecosistema UX/UI contempla:
+- Aplicación móvil para conductores.
+- Dashboard web administrativo.
+- Integración visual con dispositivos IoT.
+
+---
+
+### 5.4.1. Applications Wireframes.
+
+Los wireframes fueron desarrollados para definir la estructura funcional y distribución de componentes antes de la implementación visual final. 
+
+Se diseñaron wireframes tanto para:
+- Aplicación móvil.
+- Dashboard web administrativo.
+
+Las vistas consideran:
+- Pantallas de autenticación.
+- Dashboard principal.
+- Visualización de estacionamientos disponibles.
+- Gestión de pagos.
+- Notificaciones.
+- Gestión de perfil.
+- Paneles administrativos y monitoreo IoT.
+
+#### Mobile Application Wireframes
+
+![Mobile Wireframes 1](./assets/ux-ui/mobile/wireframes/wireframes-1.png)
+
+![Mobile Wireframes 2](./assets/ux-ui/mobile/wireframes/wireframes-2.png)
+
+![Mobile Wireframes 3](./assets/ux-ui/mobile/wireframes/wireframes-3.png)
+
+#### Web Dashboard Wireframes
+
+![Web Wireframes 1](./assets/ux-ui/web/wireframes/wireframes-1.png)
+
+![Web Wireframes 2](./assets/ux-ui/web/wireframes/wireframes-2.png)
+
+![Web Wireframes 3](./assets/ux-ui/web/wireframes/wireframes-3.png)
+
+---
+
+### 5.4.2. Applications Wireflow Diagrams.
+
+Los Wireflow Diagrams representan el flujo de navegación y transición entre pantallas dentro del sistema SpotFinder. 
+
+Estos diagramas permiten visualizar:
+- Interacciones del usuario.
+- Rutas de navegación.
+- Flujo de autenticación.
+- Flujo de búsqueda de estacionamiento.
+- Flujo de pagos digitales.
+- Flujo de monitoreo administrativo.
+- Navegación entre módulos principales.
+
+El diseño de navegación fue desarrollado siguiendo principios de:
+- Navegación contextual.
+- Accesibilidad.
+- Reducción de pasos.
+- Optimización de tareas frecuentes.
+
+---
+
+### 5.4.3. Applications Mock-ups.
+
+Los mock-ups representan la versión visual de alta fidelidad del sistema SpotFinder, incorporando el sistema de diseño previamente definido en las Style Guidelines.
+
+Las interfaces fueron desarrolladas manteniendo:
+- Consistencia visual.
+- Componentes reutilizables.
+- Jerarquía visual clara.
+- Diseño moderno y minimalista.
+- Experiencia centrada en el usuario.
+
+#### Mobile Application Mock-ups
+
+![Mobile Mockups 1](./assets/ux-ui/mobile/mockups/mockups-1.png)
+
+![Mobile Mockups 2](./assets/ux-ui/mobile/mockups/mockups-2.png)
+
+![Mobile Mockups 3](./assets/ux-ui/mobile/mockups/mockups-3.png)
+
+#### Web Dashboard Mock-ups
+
+![Web Mockups 1](./assets/ux-ui/web/mockups/mockups-1.png)
+
+![Web Mockups 2](./assets/ux-ui/web/mockups/mockups-2.png)
+
+---
+
+### 5.4.4. Applications User Flow Diagrams.
+
+Los User Flow Diagrams modelan el recorrido completo del usuario dentro de la plataforma SpotFinder, identificando acciones, decisiones y resultados esperados.
+
+Los principales flujos diseñados incluyen:
+
+#### Conductores
+- Registro e inicio de sesión.
+- Visualización de espacios disponibles.
+- Recomendación de estacionamiento.
+- Pago digital.
+- Localización del vehículo.
+- Gestión de notificaciones.
+
+#### Administradores
+- Monitoreo de ocupación.
+- Gestión de espacios.
+- Visualización de métricas.
+- Gestión de alertas y emergencias.
+- Generación de reportes.
+
+Los diagramas permiten validar:
+- Fluidez de interacción.
+- Eficiencia de navegación.
+- Optimización de tareas.
+- Reducción de fricción en la experiencia del usuario.
+
+---
+
+## 5.5. Applications Prototyping.
+
+El prototipado de SpotFinder fue desarrollado con el objetivo de validar tempranamente la experiencia de usuario y comprobar el comportamiento de navegación de la plataforma antes de la implementación final.
+ 
+Los prototipos interactivos permiten simular:
+- Navegación entre pantallas.
+- Interacción con componentes.
+- Flujo de autenticación.
+- Flujo de búsqueda de estacionamiento.
+- Flujo de pagos.
+- Gestión de notificaciones.
+- Navegación administrativa.
+
+El proceso de prototipado permitió:
+- Detectar mejoras de usabilidad.
+- Optimizar tiempos de interacción.
+- Validar jerarquías visuales.
+- Refinar la experiencia mobile-first.
+- Verificar consistencia visual entre plataformas.
+
+Asimismo, los prototipos facilitaron la validación de:
+- Diseño responsive.
+- Navegación intuitiva.
+- Escalabilidad visual del sistema.
+- Integración entre módulos funcionales.
+
+### Prototype Links
+
+#### Mobile Application Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=d5d266e0e79a42eea72522a5cd4632e0
+
+#### Web Application Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=b845ebb0307f4022b9df819e8fad79ab
+
+#### Web Application Wireframe Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=ae88b4b92bf34458b32e6b46efc3cd79
+
+## 5.6. IoT Device Design.
+
 
 ---
 # Conclusiones

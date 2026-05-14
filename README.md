@@ -117,39 +117,109 @@ En GitHub se presenta un timeline de las principales ramas creadas por cada inte
 
 # Contenido
 
-- [COURSE PROJECT](#course-project)
 - [Project Report Collaboration Insights](#project-report-collaboration-insights)
+  - [Project Report Collaboration Insights](#project-report-collaboration-insights-1)
+    - [AV1](#av1)
+      - [Tareas asignadas](#tareas-asignadas)
+      - [GitHub Collaboration Insights](#github-collaboration-insights)
 - [Contenido](#contenido)
 - [Student Outcome](#student-outcome)
+  - [Student Outcome](#student-outcome-1)
 - [Capítulo I: Introducción](#capítulo-i-introducción)
   - [1.1. Startup Profile](#11-startup-profile)
     - [1.1.1. Descripción de la Startup](#111-descripción-de-la-startup)
-    - [1.1.2. Perfiles de integrantes del equipo](#112-perfiles-de-integrantes-del-equipo)
+  - [1.1.2. Perfiles de integrantes del equipo](#112-perfiles-de-integrantes-del-equipo)
   - [1.2. Solution Profile](#12-solution-profile)
-    - [1.2.1 Antecedentes y problemática](#121-antecedentes-y-problemática)
-    - [1.2.2 Lean UX Process.](#122-lean-ux-process)
-      - [1.2.2.1. Lean UX Problem Statements.](#1221-lean-ux-problem-statements)
-      - [1.2.2.2. Lean UX Assumptions.](#1222-lean-ux-assumptions)
-      - [1.2.2.3. Lean UX Hypothesis Statements.](#1223-lean-ux-hypothesis-statements)
+    - [1.2.1. Antecedentes y problemática](#121-antecedentes-y-problemática)
+  - [1.2.2. Lean UX Process](#122-lean-ux-process)
+    - [1.2.2.1. Lean UX Problem Statements](#1221-lean-ux-problem-statements)
+      - [¿Quién es el usuario?](#quién-es-el-usuario)
+      - [¿Dónde encaja nuestro producto en su vida?](#dónde-encaja-nuestro-producto-en-su-vida)
+      - [¿Qué problemas tiene nuestro producto y cómo se pueden resolver?](#qué-problemas-tiene-nuestro-producto-y-cómo-se-pueden-resolver)
+      - [¿Cómo y cuándo es usado nuestro producto?](#cómo-y-cuándo-es-usado-nuestro-producto)
+      - [¿Qué características son importantes?](#qué-características-son-importantes)
+      - [¿Cómo debe verse nuestro producto y cómo comportarse?](#cómo-debe-verse-nuestro-producto-y-cómo-comportarse)
+    - [1.2.2.2. Lean UX Assumptions](#1222-lean-ux-assumptions)
+      - [Business Assumptions](#business-assumptions)
+      - [User Assumptions](#user-assumptions)
+    - [1.2.2.3. Lean UX Hypothesis Statements](#1223-lean-ux-hypothesis-statements)
       - [1.2.2.4. Lean UX Canvas.](#1224-lean-ux-canvas)
   - [1.3. Segmentos objetivo.](#13-segmentos-objetivo)
+      - [Primer segmento Objetivo: Conductores que visitan centros comerciales](#primer-segmento-objetivo-conductores-que-visitan-centros-comerciales)
+        - [Perfil del Usuario (Conductor)](#perfil-del-usuario-conductor)
+      - [Segundo segmento objetivo: Administradores de Estacionamientos](#segundo-segmento-objetivo-administradores-de-estacionamientos)
+        - [Perfil del Cliente (Administrador)](#perfil-del-cliente-administrador)
 - [Capítulo II: Requirements Elicitation \& Analysis](#capítulo-ii-requirements-elicitation--analysis)
   - [2.1. Competidores.](#21-competidores)
-    - [2.1.1. Análisis competitivo.](#211-análisis-competitivo)
-    - [2.1.2. Estrategias y tácticas frente a competidores.](#212-estrategias-y-tácticas-frente-a-competidores)
+    - [2.1.1. Análisis competitivo](#211-análisis-competitivo)
+      - [Competitive Analysis Landscape](#competitive-analysis-landscape)
+    - [2.1.2. Estrategias y tácticas frente a competidores](#212-estrategias-y-tácticas-frente-a-competidores)
+      - [**1. Diferenciación por integración IoT completa a bajo costo**](#1-diferenciación-por-integración-iot-completa-a-bajo-costo)
+      - [**2. Alianzas estratégicas con operadores existentes**](#2-alianzas-estratégicas-con-operadores-existentes)
+      - [**3. Experiencia del conductor como ventaja competitiva**](#3-experiencia-del-conductor-como-ventaja-competitiva)
+      - [**4. Modelo de datos como diferenciador frente a Quadra**](#4-modelo-de-datos-como-diferenciador-frente-a-quadra)
+      - [**5. Seguridad y respuesta a emergencias como valor agregado**](#5-seguridad-y-respuesta-a-emergencias-como-valor-agregado)
   - [2.2. Entrevistas.](#22-entrevistas)
     - [2.2.1. Diseño de entrevistas.](#221-diseño-de-entrevistas)
-    - [2.2.2. Registro de entrevistas.](#222-registro-de-entrevistas)
-    - [2.2.3. Análisis de entrevistas.](#223-análisis-de-entrevistas)
-  - [2.3. Needfinding.](#23-needfinding)
-    - [2.3.1. User Personas.](#231-user-personas)
-    - [2.3.2. User Task Matrix.](#232-user-task-matrix)
-    - [2.3.3. User Journey Mapping.](#233-user-journey-mapping)
-    - [2.3.4. Empathy Mapping.](#234-empathy-mapping)
-  - [2.4. Big Picture Event Storming.](#24-big-picture-event-storming)
+    - [Segmento 1: Conductores que visitan centros comerciales](#segmento-1-conductores-que-visitan-centros-comerciales)
+      - [**Datos demográficos (para construcción de arquetipos)**](#datos-demográficos-para-construcción-de-arquetipos)
+      - [**Preguntas sobre la problemática**](#preguntas-sobre-la-problemática)
+      - [**Preguntas sobre la solución**](#preguntas-sobre-la-solución)
+    - [Segmento 2: Administradores de estacionamientos de centros comerciales](#segmento-2-administradores-de-estacionamientos-de-centros-comerciales)
+      - [**Datos demográficos (para construcción de arquetipos)**](#datos-demográficos-para-construcción-de-arquetipos-1)
+      - [**Preguntas sobre la problemática**](#preguntas-sobre-la-problemática-1)
+      - [**Preguntas sobre la solución**](#preguntas-sobre-la-solución-1)
+    - [2.2.2. Registro de entrevistas](#222-registro-de-entrevistas)
+  - [Segmento Objetivo 1](#segmento-objetivo-1)
+      - [**Entrevista 1**](#entrevista-1)
+      - [**Entrevista 2**](#entrevista-2)
+      - [**Entrevista 3**](#entrevista-3)
+  - [Segmento Objetivo 2](#segmento-objetivo-2)
+    - [2.2.3. Análisis de entrevistas](#223-análisis-de-entrevistas)
+  - [Segmento 1: Conductores que visitan centros comerciales](#segmento-1-conductores-que-visitan-centros-comerciales-1)
+    - [Perfil demográfico](#perfil-demográfico)
+    - [Hallazgos sobre la problemática](#hallazgos-sobre-la-problemática)
+    - [Hallazgos sobre la solución propuesta](#hallazgos-sobre-la-solución-propuesta)
+    - [Hallazgos clave para el diseño](#hallazgos-clave-para-el-diseño)
+  - [Segmento 2: Administradores de estacionamientos](#segmento-2-administradores-de-estacionamientos)
+    - [Perfil demográfico](#perfil-demográfico-1)
+    - [Hallazgos sobre la problemática](#hallazgos-sobre-la-problemática-1)
+    - [Hallazgos sobre la solución propuesta](#hallazgos-sobre-la-solución-propuesta-1)
+    - [Hallazgos clave para el diseño](#hallazgos-clave-para-el-diseño-1)
+  - [Análisis cruzado: Patrones y convergencias entre segmentos](#análisis-cruzado-patrones-y-convergencias-entre-segmentos)
+    - [Convergencias identificadas](#convergencias-identificadas)
+    - [Validación de hipótesis del Lean UX](#validación-de-hipótesis-del-lean-ux)
+    - [Funcionalidades no consideradas inicialmente (descubiertas en entrevistas)](#funcionalidades-no-consideradas-inicialmente-descubiertas-en-entrevistas)
+  - [Conclusiones del análisis](#conclusiones-del-análisis)
+  - [2.3. Needfinding](#23-needfinding)
+    - [2.3.1. User Personas](#231-user-personas)
+    - [2.3.2. User Task Matrix](#232-user-task-matrix)
+      - [Análisis de la User Task Matrix](#análisis-de-la-user-task-matrix)
+        - [Tareas más críticas](#tareas-más-críticas)
+        - [Principales diferencias](#principales-diferencias)
+    - [2.3.3. User Journey Mapping](#233-user-journey-mapping)
+    - [2.3.4. Empathy Mapping](#234-empathy-mapping)
+  - [2.4. Big Picture Event Storming](#24-big-picture-event-storming)
+  - [2.4.1. EventStorming](#241-eventstorming)
+    - [Antes de la sesión](#antes-de-la-sesión)
+    - [Durante la sesión](#durante-la-sesión)
+      - [Unstructured Exploration](#unstructured-exploration)
+      - [Timelines](#timelines)
+      - [Pain Points](#pain-points)
+      - [Pivotal Points](#pivotal-points)
+      - [Commands](#commands)
+      - [Policies](#policies)
+      - [Read Models](#read-models)
+      - [External Systems](#external-systems)
+      - [Aggregates](#aggregates)
+      - [Bounded Contexts](#bounded-contexts)
   - [2.5. Ubiquitous Language.](#25-ubiquitous-language)
 - [Capítulo III: Requirements Specification](#capítulo-iii-requirements-specification)
   - [3.1. User Stories.](#31-user-stories)
+      - [Epics :](#epics-)
+      - [User Stories (US) :](#user-stories-us-)
+      - [Technical Stories (TS):](#technical-stories-ts)
+      - [Spike Stories (SS):](#spike-stories-ss)
   - [3.2. Impact Mapping.](#32-impact-mapping)
   - [3.3. Product Backlog.](#33-product-backlog)
 - [Capítulo IV: Solution Software Design](#capítulo-iv-solution-software-design)
@@ -160,9 +230,18 @@ En GitHub se presenta un timeline de las principales ramas creadas por cada inte
     - [Candidate Contexts identificados para SpotFinder](#candidate-contexts-identificados-para-spotfinder)
     - [Clasificación estratégica en la matriz](#clasificación-estratégica-en-la-matriz)
     - [Resultados](#resultados)
-      - [4.1.1.2 Domain Message Flows Modeling.](#4112-domain-message-flows-modeling)
+      - [4.1.1.2 Domain Message Flows Modeling](#4112-domain-message-flows-modeling)
+    - [**Descripción**](#descripción)
+    - [**Escenarios de Integración**](#escenarios-de-integración)
+      - [**Escenario 1: Vehículo registrado ingresa al estacionamiento**](#escenario-1-vehículo-registrado-ingresa-al-estacionamiento)
+      - [**Escenario 2: Sensor detecta vehículo y actualiza disponibilidad**](#escenario-2-sensor-detecta-vehículo-y-actualiza-disponibilidad)
+      - [**Escenario 3: Conductor paga y sale del estacionamiento**](#escenario-3-conductor-paga-y-sale-del-estacionamiento)
+      - [**Escenario 4: Emergencia detectada por sensor de gas**](#escenario-4-emergencia-detectada-por-sensor-de-gas)
       - [4.1.1.3 Bounded Context Canvases.](#4113-bounded-context-canvases)
-    - [4.1.2. Context Mapping.](#412-context-mapping)
+  - [4.1.2. Context Mapping](#412-context-mapping)
+    - [Identificación de relaciones y patrones](#identificación-de-relaciones-y-patrones)
+    - [Análisis de decisiones](#análisis-de-decisiones)
+    - [Decisión final](#decisión-final)
     - [4.1.3. Software Architecture.](#413-software-architecture)
       - [4.1.3.1. Software Architecture System Landscape Diagram.](#4131-software-architecture-system-landscape-diagram)
       - [4.1.3.2. Software Architecture Context Level Diagrams.](#4132-software-architecture-context-level-diagrams)
@@ -440,45 +519,97 @@ En GitHub se presenta un timeline de las principales ramas creadas por cada inte
       - [4.2.7.6.1. Bounded Context Domain Layer Class Diagrams](#42761-bounded-context-domain-layer-class-diagrams)
       - [4.2.7.6.2. Bounded Context Database Design Diagram](#42762-bounded-context-database-design-diagram)
 - [Capítulo V: Solution UI/UX Design](#capítulo-v-solution-uiux-design)
-  - [5.1. Style Guidelines.](#51-style-guidelines)
-    - [5.1.1. General Style Guidelines.](#511-general-style-guidelines)
-    - [5.1.2. Web, Mobile and IoT Style Guidelines.](#512-web-mobile-and-iot-style-guidelines)
-  - [5.2. Information Architecture.](#52-information-architecture)
-    - [5.2.1. Organization Systems.](#521-organization-systems)
-    - [5.2.2. Labeling Systems.](#522-labeling-systems)
-    - [5.2.3. SEO Tags and Meta Tags.](#523-seo-tags-and-meta-tags)
-    - [5.2.4. Searching Systems.](#524-searching-systems)
-    - [5.2.5. Navigation Systems.](#525-navigation-systems)
+  - [5.1. Style Guidelines](#51-style-guidelines)
+    - [5.1.1. General Style Guidelines](#511-general-style-guidelines)
+    - [5.1.2. Web, Mobile and IoT Style Guidelines](#512-web-mobile-and-iot-style-guidelines)
+    - [5.2. Information Architecture](#52-information-architecture)
+    - [5.2.1. Organization Systems](#521-organization-systems)
+    - [5.2.2. Labeling Systems](#522-labeling-systems)
+    - [5.2.3. SEO Tags and Meta Tags](#523-seo-tags-and-meta-tags)
+    - [5.2.4. Searching Systems \& Navigation (Core Flows)](#524-searching-systems--navigation-core-flows)
+  - [5.2.5. Navigation Systems.](#525-navigation-systems)
   - [5.3. Landing Page UI Design.](#53-landing-page-ui-design)
     - [5.3.1. Landing Page Wireframe.](#531-landing-page-wireframe)
     - [5.3.2. Landing Page Mock-up.](#532-landing-page-mock-up)
   - [5.4. Applications UX/UI Design.](#54-applications-uxui-design)
     - [5.4.1. Applications Wireframes.](#541-applications-wireframes)
+      - [Mobile Application Wireframes](#mobile-application-wireframes)
+      - [Web Dashboard Wireframes](#web-dashboard-wireframes)
     - [5.4.2. Applications Wireflow Diagrams.](#542-applications-wireflow-diagrams)
     - [5.4.3. Applications Mock-ups.](#543-applications-mock-ups)
+      - [Mobile Application Mock-ups](#mobile-application-mock-ups)
+      - [Web Dashboard Mock-ups](#web-dashboard-mock-ups)
     - [5.4.4. Applications User Flow Diagrams.](#544-applications-user-flow-diagrams)
+      - [Conductores](#conductores)
+      - [Administradores](#administradores)
   - [5.5. Applications Prototyping.](#55-applications-prototyping)
-  - [5.6. IoT Device Design.](#56-iot-device-design)
+    - [Prototype Links](#prototype-links)
+      - [Mobile Application Prototype](#mobile-application-prototype)
+      - [Web Application Prototype](#web-application-prototype)
+      - [Web Application Wireframe Prototype](#web-application-wireframe-prototype)
+  - [5.6. IoT Device Design](#56-iot-device-design)
+    - [Introducción y Criterios de Diseño](#introducción-y-criterios-de-diseño)
+    - [Relación con la Arquitectura de Información y Guía de Estilos](#relación-con-la-arquitectura-de-información-y-guía-de-estilos)
+    - [Propuesta de Diseño de Circuito (Hardware Schematic)](#propuesta-de-diseño-de-circuito-hardware-schematic)
+      - [Resumen de Conexiones (Pinout Table)](#resumen-de-conexiones-pinout-table)
+    - [Flujos de Interacción del Prototipo IoT](#flujos-de-interacción-del-prototipo-iot)
 - [Capítulo VI: Product Implementation, Validation \& Deployment](#capítulo-vi-product-implementation-validation--deployment)
-  - [6.1. Software Configuration Management.](#61-software-configuration-management)
-    - [6.1.1. Software Development Environment Configuration.](#611-software-development-environment-configuration)
-    - [6.1.2. Source Code Management.](#612-source-code-management)
-    - [6.1.3. Source Code Style Guide \& Conventions.](#613-source-code-style-guide--conventions)
-    - [6.1.4. Software Deployment Configuration.](#614-software-deployment-configuration)
-  - [6.2. Landing Page, Services \& Applications Implementation.](#62-landing-page-services--applications-implementation)
+  - [6.1. Software Configuration Management](#61-software-configuration-management)
+  - [6.1.1 Software Development Environment Configuration](#611-software-development-environment-configuration)
+    - [Visual Studio Code](#visual-studio-code)
+    - [IntelliJ IDEA](#intellij-idea)
+    - [Flutter SDK](#flutter-sdk)
+    - [Android Studio](#android-studio)
+    - [Git y GitHub](#git-y-github)
+    - [PostgreSQL](#postgresql)
+    - [Spring Boot](#spring-boot)
+    - [Angular](#angular)
+    - [Angular Material](#angular-material)
+    - [Figma](#figma)
+    - [LucidChart](#lucidchart)
+    - [Structurizr](#structurizr)
+    - [Discord](#discord)
+    - [WhatsApp](#whatsapp)
+    - [Zoom](#zoom)
+    - [Trello](#trello)
+    - [Miro](#miro)
+    - [Google Docs](#google-docs)
+    - [6.1.2. Source Code Management](#612-source-code-management)
+    - [6.1.3. Source Code Style Guide \& Conventions](#613-source-code-style-guide--conventions)
+  - [HTML](#html)
+  - [CSS](#css)
+  - [JavaScript / TypeScript](#javascript--typescript)
+  - [Java](#java)
+  - [Flutter / Dart](#flutter--dart)
+  - [Gherkin](#gherkin)
+    - [6.1.4. Software Deployment Configuration](#614-software-deployment-configuration)
+  - [6.2. Landing Page, Services \& Applications Implementation](#62-landing-page-services--applications-implementation)
     - [6.2.1. Sprint 1](#621-sprint-1)
-      - [6.2.1.1. Sprint Planning 1.](#6211-sprint-planning-1)
-      - [6.2.1.2. Aspect Leaders and Collaborators.](#6212-aspect-leaders-and-collaborators)
-      - [6.2.1.3. Sprint Backlog 1.](#6213-sprint-backlog-1)
-      - [6.2.1.4. Development Evidence for Sprint Review.](#6214-development-evidence-for-sprint-review)
-      - [6.2.1.5. Testing Suite Evidence for Sprint Review.](#6215-testing-suite-evidence-for-sprint-review)
-      - [6.2.1.6. Execution Evidence for Sprint Review.](#6216-execution-evidence-for-sprint-review)
-      - [6.2.1.7. Services Documentation Evidence for Sprint Review.](#6217-services-documentation-evidence-for-sprint-review)
-      - [6.2.1.8. Software Deployment Evidence for Sprint Review.](#6218-software-deployment-evidence-for-sprint-review)
-      - [6.2.1.9. Team Collaboration Insights during Sprint.](#6219-team-collaboration-insights-during-sprint)
-- [Conclusiones](#conclusiones)
+      - [6.2.1.1. Sprint Planning 1](#6211-sprint-planning-1)
+      - [6.2.1.2. Aspect Leaders and Collaborators](#6212-aspect-leaders-and-collaborators)
+      - [6.2.1.3. Sprint Backlog 1](#6213-sprint-backlog-1)
+- [6.2.1.4. Development Evidence for Sprint Review](#6214-development-evidence-for-sprint-review)
+- [6.2.1.5. Testing Suite Evidence for Sprint Review](#6215-testing-suite-evidence-for-sprint-review)
+- [6.2.1.6. Execution Evidence for Sprint Review](#6216-execution-evidence-for-sprint-review)
+  - [Landing Page - Pantallas principales](#landing-page---pantallas-principales)
+    - [Figura 6.2.1.6.1. Landing Page — Hero principal y propuesta de valor.](#figura-62161-landing-page--hero-principal-y-propuesta-de-valor)
+    - [Figura 6.2.1.6.2. Landing Page — Funcionalidades principales del sistema.](#figura-62162-landing-page--funcionalidades-principales-del-sistema)
+    - [Figura 6.2.1.6.3. Landing Page — Flujo operativo del sistema.](#figura-62163-landing-page--flujo-operativo-del-sistema)
+    - [Figura 6.2.1.6.7. Landing Page — Preguntas frecuentes.](#figura-62167-landing-page--preguntas-frecuentes)
+    - [Figura 6.2.1.6.8. Landing Page — Formulario de contacto y Footer.](#figura-62168-landing-page--formulario-de-contacto-y-footer)
+- [6.2.1.7. Services Documentation Evidence for Sprint Review](#6217-services-documentation-evidence-for-sprint-review)
+- [6.2.1.8. Software Deployment Evidence for Sprint Review](#6218-software-deployment-evidence-for-sprint-review)
+- [6.2.1.9. Team Collaboration Insights during Sprint](#6219-team-collaboration-insights-during-sprint)
+    - [Conclusiones](#conclusiones)
+    - [Recomendaciones](#recomendaciones)
 - [Bibliografía](#bibliografía)
 - [Anexos](#anexos)
+    - [Anexo A: Código Fuente](#anexo-a-código-fuente)
+    - [Anexo B: Videos](#anexo-b-videos)
+    - [Anexo C: Herramientas utilizadas](#anexo-c-herramientas-utilizadas)
+    - [Anexo D: Diagramas](#anexo-d-diagramas)
+    - [Anexo E: Entrevistas](#anexo-e-entrevistas)
+    - [Anexo F: Detalle de Spike Stories](#anexo-f-detalle-de-spike-stories)
   
 </div>
 
@@ -5813,17 +5944,148 @@ Link Trello: [SpotFinder - Trello]()
   </tbody>
 </table>
 
-#### 6.2.1.4. Development Evidence for Sprint Review
+# 6.2.1.4. Development Evidence for Sprint Review
 
-#### 6.2.1.5. Testing Suite Evidence for Sprint Review
+Durante el Sprint 1 del proyecto SpotFinder se desarrolló la primera versión funcional de la Landing Page institucional del producto, enfocada en presentar la propuesta de valor del sistema y captar potenciales clientes mediante una experiencia visual moderna, responsive e intuitiva.
 
-#### 6.2.1.6. Execution Evidence for Sprint Review
+La Landing Page fue estructurada siguiendo los principios definidos en la Arquitectura de Información del proyecto, utilizando una organización jerárquica, secuencial y matricial para optimizar la navegación y reducir la carga cognitiva de los usuarios.
 
-#### 6.2.1.7. Services Documentation Evidence for Sprint Review
+El desarrollo frontend se realizó utilizando componentes responsive adaptables a dispositivos desktop, tablets y smartphones. Asimismo, se implementó una estructura visual moderna basada en grids, tarjetas informativas y secciones organizadas verticalmente.
 
-#### 6.2.1.8. Software Deployment Evidence for Sprint Review
+Durante este Sprint se desarrollaron las siguientes secciones principales:
 
-#### 6.2.1.9. Team Collaboration Insights during Sprint
+* Hero Section
+* Features
+* How It Works
+* About The Product
+* Pricing
+* Testimonials
+* FAQ
+* Contact
+* Footer
+* Navbar Responsive
+
+La sección Hero fue diseñada para comunicar rápidamente la propuesta principal de SpotFinder mediante llamados a la acción orientados a conversión.
+
+La sección Features implementó una estructura visual tipo Bento Grid para destacar funcionalidades clave como monitoreo en tiempo real, reconocimiento vehicular ALPR y analíticas operativas.
+
+Por otro lado, la sección How It Works fue diseñada siguiendo una estructura secuencial que explica el flujo operativo del sistema desde la detección de ocupación hasta la salida automatizada.
+
+Además, se desarrollaron componentes responsive para navegación adaptable, formularios de contacto, visualización de planes comerciales y presentación del equipo.
+
+Todo el desarrollo frontend fue preparado para despliegue en Netlify como plataforma de hosting del proyecto.
+
+[Enlace al Landing Page: https://venerable-banoffee-0b773a.netlify.app/#](https://venerable-banoffee-0b773a.netlify.app/#)
+
+---
+
+# 6.2.1.5. Testing Suite Evidence for Sprint Review
+
+Durante el Sprint 1 se realizaron pruebas funcionales y visuales sobre la Landing Page de SpotFinder con el objetivo de validar la correcta experiencia de usuario y el comportamiento responsive de los componentes desarrollados.
+
+Las pruebas realizadas incluyeron:
+
+* Validación responsive en desktop, tablets y dispositivos móviles.
+* Verificación del comportamiento del navbar responsive.
+* Validación de navegación mediante anclas.
+* Pruebas de renderizado de componentes visuales.
+* Verificación de formularios de contacto.
+* Validación de distribución visual de grids y cards.
+* Revisión de compatibilidad entre navegadores.
+
+Asimismo, se realizaron pruebas manuales sobre las secciones Hero, Features, Pricing, Testimonials, FAQ y Contact para garantizar consistencia visual y correcta adaptabilidad.
+
+Estas validaciones permitieron asegurar una experiencia de navegación estable y coherente para la primera versión funcional de la Landing Page.
+
+---
+
+# 6.2.1.6. Execution Evidence for Sprint Review
+
+Durante el Sprint 1 del proyecto SpotFinder se desarrolló una primera versión navegable de la Landing Page institucional del producto. La plataforma presenta información relacionada a la automatización inteligente de estacionamientos, monitoreo vehicular en tiempo real, integración IoT y control de acceso automatizado.
+
+La Landing Page fue diseñada con un enfoque moderno y responsive, priorizando la experiencia de usuario y la claridad visual de la información presentada.
+
+A continuación, se presentan las capturas correspondientes a las principales vistas desarrolladas durante este Sprint.
+
+
+## Landing Page - Pantallas principales
+
+### Figura 6.2.1.6.1. Landing Page — Hero principal y propuesta de valor.
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage1.png" />
+
+La sección Hero presenta la propuesta principal de SpotFinder enfocada en la automatización inteligente de estacionamientos mediante sensores IoT, reconocimiento vehicular ALPR y monitoreo en tiempo real.
+
+---
+
+### Figura 6.2.1.6.2. Landing Page — Funcionalidades principales del sistema.
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage2.png" />
+
+La sección Features muestra las funcionalidades principales de la plataforma organizadas mediante una estructura visual tipo Bento Grid, destacando monitoreo en tiempo real, control de acceso y analíticas operativas.
+
+---
+
+### Figura 6.2.1.6.3. Landing Page — Flujo operativo del sistema.
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage3.png" />
+
+La sección “How It Works” explica de forma secuencial el funcionamiento del sistema desde la detección vehicular hasta la salida automatizada.
+
+---
+
+### Figura 6.2.1.6.7. Landing Page — Preguntas frecuentes.
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage4.png" />
+
+La sección FAQ responde preguntas relacionadas al funcionamiento, integración tecnológica y operación general del sistema.
+
+---
+
+### Figura 6.2.1.6.8. Landing Page — Formulario de contacto y Footer.
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage5.png" />
+
+<img alt="Landing Page Hero" src="assets/images/screenshots/landingpage6.png" />
+
+La sección Contact incorpora formularios y canales institucionales para consultas comerciales y solicitudes de demostración del producto, además antes del footer se tiene la instalación de la applicación android.
+
+---
+
+# 6.2.1.7. Services Documentation Evidence for Sprint Review
+
+Durante el Sprint 1 se documentaron los principales componentes y secciones desarrolladas para la Landing Page de SpotFinder.
+
+La documentación incluyó:
+
+* Estructura de navegación.
+* Organización de componentes visuales.
+* Arquitectura responsive.
+* Distribución de secciones.
+* Diseño de experiencia de usuario.
+* Estructura de formularios y navegación.
+
+Asimismo, se definieron los lineamientos visuales utilizados para mantener consistencia entre componentes y facilitar futuras iteraciones del frontend.
+
+La documentación sirvió como referencia para el desarrollo colaborativo y mantenimiento de la Landing Page.
+
+---
+
+# 6.2.1.8. Software Deployment Evidence for Sprint Review
+
+Para el despliegue de la Landing Page se utilizó Netlify como plataforma de hosting frontend.
+
+El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema.
+
+Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint.
+
+La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del frontend.
+
+---
+
+# 6.2.1.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 1 el equipo trabajó colaborativamente utilizando Trello como herramienta principal para la gestión y seguimiento
 
 En esta sección se presentan las conclusiones y recomendaciones derivadas del desarrollo del proyecto **SpotFinder**.
 

@@ -1962,7 +1962,7 @@ Además, SpotFinder se integra con múltiples sistemas externos que complementan
 
 Este diagrama permite entender el sistema como parte de un entorno más amplio, donde diferentes servicios externos enriquecen las capacidades de la plataforma.
 
-<img src="/assets/diagrams/c4/System-Landscape.png" width="800">
+<img src="./assets/diagrams/c4/System-Landscape.png" width="800">
 <br>
 
 #### 4.1.3.2. Software Architecture Context Level Diagrams.
@@ -1996,7 +1996,7 @@ El sistema está compuesto por los siguientes contenedores:
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
 
-<img src="/assets/diagrams/c4/Container-Diagram.png" width="800">
+<img src="./assets/diagrams/c4/Container-Diagram.png" width="800">
 <br>
 
 #### 4.1.3.4. Software Architecture Deployment Diagrams.

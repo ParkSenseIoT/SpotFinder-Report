@@ -1621,7 +1621,7 @@ Revisar los aggregates del Event Storming y sus eventos asociados. Agrupar por a
 **Paso 3 — Clasificación Core, Supporting, Generic:**
 Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation vs Model Complexity).
 
-<img src="assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso3" width="800">
+<img src="/assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso3" width="800">
 
 ### Candidate Contexts identificados para SpotFinder
  
@@ -1932,7 +1932,7 @@ El contexto de Notifications se definió como un consumidor de eventos, centrali
 
 El equipo adoptó una arquitectura basada en bounded contexts independientes conectados mediante patrones de integración bien definidos.
 
-<img src="/assets/diagrams/ddd/context-mapping.png" width="800">
+<img src="./assets/diagrams/ddd/context-mapping.png" width="800">
 
 
 Enlace al Miro: https://miro.com/app/board/uXjVGhyZyRg=/ 

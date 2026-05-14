@@ -159,6 +159,9 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [AV1](#av1)
       - [Tareas asignadas](#tareas-asignadas)
       - [GitHub Collaboration Insights](#github-collaboration-insights)
+    - [TB1](#tb1)
+      - [Tareas asignadas](#tareas-asignadas-1)
+      - [GitHub Collaboration Insights](#github-collaboration-insights-1)
 - [Contenido](#contenido)
 - [Student Outcome](#student-outcome)
   - [Student Outcome](#student-outcome-1)
@@ -565,6 +568,10 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [5.2.3. SEO Tags and Meta Tags](#523-seo-tags-and-meta-tags)
     - [5.2.4. Searching Systems \& Navigation (Core Flows)](#524-searching-systems--navigation-core-flows)
   - [5.2.5. Navigation Systems.](#525-navigation-systems)
+- [Estructura de Navegación del Proyecto](#estructura-de-navegación-del-proyecto)
+  - [Landing Page](#landing-page)
+  - [App Web (Dashboard)](#app-web-dashboard)
+  - [App Móvil](#app-móvil)
   - [5.3. Landing Page UI Design.](#53-landing-page-ui-design)
     - [5.3.1. Landing Page Wireframe.](#531-landing-page-wireframe)
     - [5.3.2. Landing Page Mock-up.](#532-landing-page-mock-up)
@@ -6244,6 +6251,7 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Organización GitHub:** https://github.com/ParkSenseIoT
 - **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
+- [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
 ### Anexo B: Videos
  
 - **Entrevistas Needfinding:** [Ver video](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe)

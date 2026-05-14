@@ -4666,544 +4666,344 @@ El diagrama de diseño de base de datos del contexto de IAM muestra la estructur
 
 ## 5.1. Style Guidelines
 
+En esta sección, se establecen los cimientos del **Design System** de SpotFinder. El objetivo es centralizar los *Design Tokens* (variables de diseño) y componentes UI en un repositorio de uso común, garantizando la consistencia visual y de interacción a través de un ecosistema multiplataforma (Web, Mobile y Hardware IoT). Esta estandarización reduce la fricción cognitiva del usuario, acelera el flujo de desarrollo en el frontend y asegura que las decisiones de diseño sean escalables y mantenibles a largo plazo, alineándose con los principios heurísticos de usabilidad y la metodología Lean UX.
+
 ### 5.1.1. General Style Guidelines
+
+Esta subsección documenta las decisiones estructurales fundamentales: color, tipografía, espaciado y *UX Writing*. Las decisiones están sustentadas en la reducción de la carga cognitiva (*cognitive load*) del usuario, especialmente en contextos de alta demanda de atención (como la conducción vehicular).
+
+**A. Branding y Paleta de Colores (Color Tokens)**
+La identidad cromática se ha extraído estrictamente de los valores hexadecimales del imagotipo de SpotFinder. Se ha construido un sistema de colores accesible (cumpliendo con el ratio de contraste WCAG 2.1 AA/AAA) que guía la atención del usuario mediante jerarquía visual.
+
+* **Brand Colors (Identidad Principal):**
+    * **Action Blue (`#1A82FF`):** Color interactivo primario. Aplicado de forma exclusiva a elementos accionables de alta prioridad (*Primary Buttons*, *Floating Action Buttons*, *Active Tabs*) y enlaces. Representa la fiabilidad del flujo de software y guía al usuario hacia la conversión.
+    * **Highlight Orange (`#FF9100`):** Color de acento (*Accent*). Reservado para focalizar la atención en micro-interacciones críticas o datos relevantes que rompen el patrón de lectura, como la ubicación exacta del vehículo en el módulo "Find My Car", notificaciones *push* de pago o *badges* de estado.
+    * **Deep Black (`#000000`):** Color ancla y estructural. Empleado en tipografía de alto énfasis (*Headers*), bordes divisorios y como base absoluta para la superficie del *Dark Mode* de la aplicación móvil (evitando el deslumbramiento y la fatiga visual del conductor en entornos con baja iluminación como estacionamientos techados).
+* **Semantic Colors (Feedback y Hardware):**
+    * **Success/Available (`#10B981`):** Feedback positivo en la UI (pagos procesados, *snackbars* de éxito) e indicador IoT del LED en estado `AVAILABLE`.
+    * **Error/Occupied (`#EF4444`):** Feedback de error en formularios, estados de emergencia y correlación directa con el indicador IoT del LED en estado `OCCUPIED`.
+
+**B. Tipografía (Typographic Scale)**
+Se ha definido un sistema tipográfico basado en la fuente **Inter**, optimizada para interfaces de usuario por su alta legibilidad (altura de la "x" pronunciada y kerning equilibrado) tanto en *displays* móviles como en paneles de datos (Web).
+* **Display & Headings:** Uso en pesos *Bold* (700) y *SemiBold* (600) para lectura rápida de números de espacios, contadores de tiempo y títulos de sección.
+* **Body & UI Text:** Peso *Regular* (400) para lectura prolongada y *Medium* (500) para etiquetas de botones. El tamaño base (*Body 1*) es de 16px (1rem) con un interlineado (*line-height*) del 150% para maximizar la legibilidad en pantallas de alto contraste.
+
+**C. Spacing & Grid System**
+Para asegurar una estructura armónica y modular, se implementa una **grilla espacial basada en 8pt** (*8-point grid system*).
+* Márgenes y *paddings* operan en incrementos de 8 (8px, 16px, 24px, 32px), creando un ritmo visual predecible.
+* Los iconos y elementos modulares se construyen en cajas delimitadas de 24x24px o 32x32px para mantener simetría a nivel de píxel (*pixel-perfect*).
+
+**D. Tone of Communication y UX Writing**
+El lenguaje (*microcopy*) de SpotFinder está diseñado bajo la premisa funcional:
+* **Formal/Casual:** *Casual, directo y conciso.* (Ej. "Espacio A-12 libre" en lugar de "Le informamos que el espacio A-12 se encuentra disponible").
+* **Entusiasta/Sereno:** *Estrictamente Sereno y de Control.* El sistema debe mitigar la ansiedad inherente a la búsqueda de estacionamiento y el procesamiento de pagos, ofreciendo instrucciones unívocas, mensajes de error constructivos y retroalimentación clara de los estados del sistema.
+
 
 ### 5.1.2. Web, Mobile and IoT Style Guidelines
 
-## 5.2. Information Architecture
+Aquí se detalla la aplicación del sistema de diseño en los diferentes puntos de contacto (*touchpoints*) del usuario, adaptando los patrones de interacción a las limitaciones y *affordances* de cada dispositivo.
+
+**A. Web Style Guidelines (Admin Dashboard & Landing Page)**
+* **Grid Responsive:** Se emplea una grilla fluida de 12 columnas. En el área del *Dashboard*, el diseño se optimiza para grandes resoluciones (Desktop), priorizando la visualización de alta densidad de datos.
+* **Data Visualization UI:** El panel de administración utiliza *Data Tables* con interactividad de *hover* (cambio de estado en la fila usando un matiz sutil del Action Blue `#1A82FF` al 10% de opacidad) para no saturar la vista. Las tarjetas de métricas (*Metric Cards*) utilizan elevación (*drop-shadow* de 2dp a 4dp) para generar jerarquía en el eje Z frente a un fondo neutro.
+* **Navegación:** Un *Sidebar Navigation* anclado a la izquierda para cambiar de módulos rápidamente, manteniendo los filtros y herramientas de búsqueda siempre visibles y accesibles en la parte superior (*Top Bar*).
+
+**B. Mobile Style Guidelines (App Conductor)**
+La interfaz móvil está rigurosamente diseñada para escenarios de movilidad (uso a una mano y atención dividida).
+* **Ergonomía Táctil (Thumb Zone):** Todo elemento accionable primario (CTAs) posee un área táctil mínima (*Touch Target*) de **48x48 dp** (estándar de accesibilidad de Apple HIG y Material Design). Las acciones críticas se sitúan en el tercio inferior de la pantalla para fácil acceso del pulgar.
+* **Dark Mode por Defecto:** Al interactuar primariamente dentro del habitáculo del vehículo y en zonas de parqueo, el fondo Negro absoluto (`#000000`) se usa como base, mejorando el contraste de los textos en blanco y los acentos Naranja (`#FF9100`), además de optimizar el consumo de batería en pantallas OLED.
+* **Retroalimentación Háptica (Haptic Feedback):** Las micro-interacciones clave, como la validación de un pago o la confirmación de la apertura de barrera (ALPR), se acompañan de una vibración háptica del dispositivo, confirmando al usuario el éxito de la operación sin depender exclusivamente de la lectura visual.
+
+**C. IoT Style Guidelines (Interfaz Física de Hardware)**
+El diseño en IoT trasciende la pantalla para convertirse en un diseño espacial o "Zero-UI" (interfaz de fricción cero), donde el entorno físico es el que comunica el estado.
+* **Affordance Visual (Sensores y LEDs):** La comunicación es binaria y directa. La luz Verde (`#10B981`) comunica permisibilidad (espacio libre), mientras que la luz Roja (`#EF4444`) comunica restricción (espacio ocupado).
+* **Alertas Cognitivas (Protocolo de Emergencia):** En un estado crítico (detección de gas MQ-2), el patrón lumínico cambia a parpadeo estroboscópico rojo, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación.
+* **Interacción Invisible (ALPR):** En los puntos de acceso, el usuario no interactúa con tótems o botones físicos. La interacción se basa en la presencia física (la cámara detecta la placa y el Edge Server acciona el relé de la barrera). El diseño delega la interfaz gráfica al móvil (notificación *push*) y mantiene la interfaz física orientada puramente al flujo ininterrumpido del vehículo.
+
+### 5.2. Information Architecture
+
+La Arquitectura de Información (IA) de SpotFinder está diseñada para optimizar la carga cognitiva de los usuarios y garantizar la escalabilidad del código. Se estructuró bajo la premisa de *Zero-Friction* para los conductores en movilidad (App Móvil) y *Maximum Observability* para los operadores (App Web). A continuación, se detallan los sistemas que rigen la organización, el etiquetado, el posicionamiento (SEO/ASO) y la navegación del ecosistema.
 
 ### 5.2.1. Organization Systems
 
+La organización del contenido dicta cómo se estructuran los módulos a nivel de desarrollo (Lazy Loading en Angular y GoRouter en Flutter).
+
+**A. Landing Page (Web Estática)**
+* **Jerárquica (Visual Hierarchy):** La estructura es vertical (*Top-Down*), ordenada por relevancia para la conversión B2B: Propuesta de valor (*Hero*) → Funcionalidades (*Features*) → Proceso operativo (*How It Works*) → Ventaja competitiva (*Admin Dashboard*) → Precios (*Pricing*) → Credibilidad (*Testimonials/FAQ*) → Acción (*Contact*).
+* **Secuencial (Step-by-step):** La sección "How It Works" guía al visitante de forma lineal por el *Core Flow*: `1. Detección ALPR` → `2. Guiado LED` → `3. Pago Digital` → `4. Salida Automática`.
+* **Matricial (Bento Grid):** La sección "Features" organiza las capacidades en celdas asimétricas, priorizando visualmente el renderizado del mapa en tiempo real frente a funciones complementarias.
+
+**B. App Web (Dashboard Administrativo - Angular)**
+* **Jerárquica (Shell Pattern):** El *layout* utiliza un patrón *App Shell* de Angular: `Sidebar (Navegación Primaria)` > `Top Bar (Contexto Global/Búsqueda)` > `Router Outlet (Contenido Dinámico)` > `Widgets/Data Tables`. El mapa de ocupación en vivo ocupa el cuadrante superior izquierdo, siendo el primer punto de fijación visual.
+* **Por Tópicos (Feature Modules):** El menú lateral define los módulos de carga diferida (*Lazy-loaded modules*): *Monitoreo*, *Analítica*, *Finanzas*, *Seguridad* (Protocolos de Emergencia) y *Configuración*.
+* **Matricial y Cronológico:** Los paneles de *Analytics* cruzan múltiples KPIs (ingresos vs. ocupación) en cuadrículas simultáneas, mientras que el *Log* de eventos (ingresos/salidas/alertas del sensor MQ-2) se organiza en orden cronológico inverso estricto.
+
+**C. App Móvil (Conductores - Flutter)**
+* **Por Tópicos (Bottom Nav):** La experiencia raíz se divide en 4 pilares de navegación (*IndexedStack* en Flutter para mantener el estado): `Map` (ubicación), `My Stay` (sesión activa), `Pay` (transacciones) y `Profile` (gestión de cuenta y vehículos).
+* **Secuencial (Checkout Flow):** El proceso de pago es un túnel cerrado sin distracciones: `Revisar Estancia` → `Seleccionar Método (Yape/Tarjeta)` → `Validar Gateway (Culqi)` → `Emitir Recibo Digital`.
+* **Por Audiencia:** La arquitectura condicional utiliza *Feature Flags* vinculados al JWT del usuario para habilitar o destruir vistas de servicios Premium (ej. pase Google Wallet).
+
+
 ### 5.2.2. Labeling Systems
+
+El sistema de etiquetado (Microcopy) está centralizado en archivos de internacionalización (i18n) para asegurar consistencia. Las etiquetas son concisas (máximo 2 palabras), descriptivas y evitan la jerga de ingeniería.
+
+**A. Landing Page Labels (Conversión)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **Get Started** | Primary CTA | Inicia el embudo de captación / Formulario de registro B2B. |
+| **Book a Demo** | Secondary CTA | Despliega modal de calendario (ej. Calendly) para agendar pruebas. |
+| **Dashboard** | Nav Link | Ancla explicativa sobre el panel de control administrativo. |
+| **Hardware** | Nav Link | Detalla la infraestructura IoT (Edge Server, ALPR, Sensores). |
+
+**B. App Web Labels (Dashboard Operativo)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **Live Map** | Sidebar Item | Renderizado de ocupación mediante WebSockets (`AVAILABLE`/`OCCUPIED`). |
+| **Occupancy** | Metric Card | KPI porcentual de la Tasa de Ocupación actual e histórica. |
+| **OOS** | Status Badge | "Out of Service" - Etiqueta roja/naranja para espacio inhabilitado manualmente. |
+| **Heatmap** | Tab Link | Representación térmica de las zonas con mayor rotación vehicular. |
+
+**C. App Móvil Labels (Conductor)**
+| Etiqueta | Componente | Propósito / Destino |
+| :--- | :--- | :--- |
+| **My Stay** | Bottom Nav | Vista del tiempo transcurrido, costo acumulado dinámico y código asignado. |
+| **Find My Car** | Action Button | Localiza el vehículo enlazado a la sesión (evita términos técnicos como *Vehicle Locator*). |
+| **Garage** | Profile Item | CRUD para gestionar múltiples placas vinculadas a una sola cuenta. |
+
 
 ### 5.2.3. SEO Tags and Meta Tags
 
+El ecosistema requiere estrategias distintas: indexación agresiva para la Landing Page, ofuscación total para el Dashboard Administrativo y optimización de tienda para la App Móvil.
+
+**A. Web Meta Tags: Landing Page (Public Marketing Site)**
+Orientado a la indexación de motores de búsqueda (SEO) y correcta previsualización en redes sociales (Open Graph / Twitter Cards).
+```html
+<title>SpotFinder | Advanced IoT Parking Systems for Malls</title>
+<meta name="title" content="SpotFinder | Advanced IoT Parking Systems">
+<meta name="description" content="Transform your parking facility with real-time IoT monitoring, ALPR entry automation, and advanced analytics. Reduce congestion and increase revenue up to 15%.">
+<meta name="keywords" content="smart parking, IoT parking system, ALPR, parking management, shopping mall parking, SpotFinder Peru">
+<meta name="author" content="SpotFinder Team">
+<link rel="canonical" href="[https://spotfinder.com](https://spotfinder.com)">
+
+<meta property="og:type" content="website">
+<meta property="og:url" content="[https://spotfinder.com/](https://spotfinder.com/)">
+<meta property="og:title" content="SpotFinder | Advanced IoT Parking Systems">
+<meta property="og:description" content="Real-time parking intelligence for shopping malls and commercial facilities.">
+<meta property="og:image" content="[https://spotfinder.com/assets/og-image.png](https://spotfinder.com/assets/og-image.png)">
+
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="[https://spotfinder.com/](https://spotfinder.com/)">
+<meta property="twitter:title" content="SpotFinder | Advanced IoT Parking Systems">
+```
+**B. Web Meta Tags: App Web / Admin Dashboard (Private SPA)**
+
+Orientado a la seguridad y privacidad. Al ser un portal administrativo, los motores de búsqueda no deben indexar estas rutas ni cachear contenido sensible.
+
+```html
+<title>SpotFinder Dashboard</title>
+<meta name="robots" content="noindex, nofollow, noarchive, nosnippet">
+<meta name="googlebot" content="noindex, nofollow">
+
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+```
+
+**C. ASO Elements (Mobile App Store Optimization)**
+
+Metadatos estructurados para el algoritmo de búsqueda de Google Play Store y Apple App Store.
+
+* **App Title:** `SpotFinder – Smart Parking & Find My Car` *(Combina el brand con la función más buscada).*
+* **App Subtitle (iOS):** `IoT Parking, Pay & Locate`
+* **App Keywords (Ocultas):** `smart parking, find my car, parking payment, ALPR, IoT parking, contactless payment, SpotFinder, Yape, mall parking.`
+* **App Description:** *SpotFinder revolutionizes your parking experience. Find available spaces in real-time, pay digitally via Culqi or Yape without queues, and never lose your car again with our "Find My Car" locator. Receive instant push notifications for your sessions and enjoy premium services like Google Wallet passes. Built for leading shopping malls powered by advanced IoT technology.*
+
 ### 5.2.4. Searching Systems & Navigation (Core Flows)
 
-# Capítulo VI: Product Implementation, Validation \& Deployment
+Para garantizar que el usuario encuentre los datos sin esfuerzo, se implementan los siguientes patrones de búsqueda y enrutamiento funcional:
 
-## 6.1. Software Configuration Management
+* **Búsqueda Global (Dashboard Web):** Uso de un *Omnibox* en el Top Bar que permite al administrador realizar consultas transversales (búsqueda por número de placa `ABC-123`, ID de espacio `A-12` o ID de transacción de pasarela). Los resultados redirigen dinámicamente al módulo correspondiente.
+* **Deep Linking (App Móvil):** La navegación de la app soporta enlaces profundos manejados por Firebase Cloud Messaging (FCM). Al tocar una notificación de "Pago Pendiente", la arquitectura de navegación enruta al usuario saltando el menú principal, llevándolo directamente a la pantalla `Checkout_Screen`.
 
-### 6.1.1. Software Development Environment Configuration
+## 5.2.5. Navigation Systems.
 
-### 6.1.2. Source Code Management
+## 5.3. Landing Page UI Design.
+### 5.3.1. Landing Page Wireframe.
+### 5.3.2. Landing Page Mock-up.
 
-### 6.1.3. Source Code Style Guide \& Conventions
+## 5.4. Applications UX/UI Design.
 
-### 6.1.4. Software Deployment Configuration
+El diseño UX/UI de SpotFinder fue desarrollado con el objetivo de ofrecer una experiencia intuitiva, moderna y eficiente tanto para conductores como para administradores del sistema de estacionamiento inteligente. 
 
-## 6.2. Landing Page, Services \& Applications Implementation
+La propuesta visual prioriza:
+- Simplicidad de uso.
+- Navegación intuitiva.
+- Acceso rápido a funcionalidades críticas.
+- Consistencia visual entre plataformas.
+- Diseño responsive y mobile-first.
+- Reducción de carga cognitiva del usuario.
 
-### 6.2.1. Sprint 1
+El ecosistema UX/UI contempla:
+- Aplicación móvil para conductores.
+- Dashboard web administrativo.
+- Integración visual con dispositivos IoT.
 
-#### 6.2.1.1. Sprint Planning 1
+---
 
-En esta sección se presentan los aspectos principales abordados durante la reunión de planificación del Sprint 1. Se detallan elementos como la fecha, participantes, objetivo del sprint, velocidad estimada y cantidad de story points comprometidos para esta iteración del proyecto SpotFinder.
+### 5.4.1. Applications Wireframes.
 
-<table>
-  <tr>
-    <th>Sprint #</th>
-    <th>Sprint 1</th>
-  </tr>
+Los wireframes fueron desarrollados para definir la estructura funcional y distribución de componentes antes de la implementación visual final. 
 
-  <tr>
-    <th colspan="2">Sprint Planning Background</th>
-  </tr>
+Se diseñaron wireframes tanto para:
+- Aplicación móvil.
+- Dashboard web administrativo.
 
-  <tr>
-    <td>Date</td>
-    <td>2026-05-05</td>
-  </tr>
+Las vistas consideran:
+- Pantallas de autenticación.
+- Dashboard principal.
+- Visualización de estacionamientos disponibles.
+- Gestión de pagos.
+- Notificaciones.
+- Gestión de perfil.
+- Paneles administrativos y monitoreo IoT.
 
-  <tr>
-    <td>Time</td>
-    <td>10:20 PM</td>
-  </tr>
+#### Mobile Application Wireframes
 
-  <tr>
-    <td>Location</td>
-    <td>Reunión virtual a través de Discord</td>
-  </tr>
+![Mobile Wireframes 1](./assets/ux-ui/mobile/wireframes/wireframes-1.png)
 
-  <tr>
-    <td>Prepared by</td>
-    <td>Cruz Ibarra, Victor Andres</td>
-  </tr>
+![Mobile Wireframes 2](./assets/ux-ui/mobile/wireframes/wireframes-2.png)
 
-  <tr>
-    <td>Attendees (to planning meeting)</td>
-    <td>
-      Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington;
-      Roman Esteban, Henry Kalet
-    </td>
-  </tr>
+![Mobile Wireframes 3](./assets/ux-ui/mobile/wireframes/wireframes-3.png)
 
-  <tr>
-    <td>Sprint n – 1 Review Summary</td>
-    <td>No existe sprint previo</td>
-  </tr>
+#### Web Dashboard Wireframes
 
-  <tr>
-    <th colspan="2">Sprint Goal & User Stories</th>
-  </tr>
+![Web Wireframes 1](./assets/ux-ui/web/wireframes/wireframes-1.png)
 
-<tr>
-  <td><strong>Sprint 1 Goal</strong></td>
-  <td>
-    <strong>Our focus is on</strong> delivering the first integrated version of the SpotFinder ecosystem.<br><br>
-    <strong>We believe it delivers</strong> a faster and more accessible way to locate IoT devices and available spots for users and administrators.<br><br>
-    <strong>This will be confirmed when</strong> users can successfully register, visualize, and interact with available spots through the platform without critical issues.
-  </td>
-</tr>
+![Web Wireframes 2](./assets/ux-ui/web/wireframes/wireframes-2.png)
 
-  <tr>
-    <td>Sprint 1 Velocity</td>
-    <td> 76 story points</td>
-  </tr>
+![Web Wireframes 3](./assets/ux-ui/web/wireframes/wireframes-3.png)
 
-  <tr>
-    <td>Sum of story points</td>
-    <td> 76 story points</td>
-  </tr>
-</table>
+---
 
-#### 6.2.1.2. Aspect Leaders and Collaborators
+### 5.4.2. Applications Wireflow Diagrams.
 
-En esta sección se presenta la matriz de liderazgo y colaboración (Leadership-and-Collaboration Matrix - LACX) correspondiente al Sprint 1 del proyecto SpotFinder. El objetivo de esta matriz es identificar los principales aspectos funcionales y técnicos abordados durante el Sprint, así como definir qué integrantes del equipo asumieron roles de liderazgo y cuáles participaron como colaboradores en cada aspecto. Esta organización permite mejorar la coordinación, distribución de responsabilidades y comunicación interna del equipo durante el desarrollo del Sprint.
+Los Wireflow Diagrams representan el flujo de navegación y transición entre pantallas dentro del sistema SpotFinder. 
 
-Los aspectos considerados para este Sprint incluyen el desarrollo del backend, frontend, modelado de dominio, integración IoT y documentación técnica, debido a que representan las áreas principales necesarias para la construcción de la primera versión integrada del ecosistema SpotFinder.
+Estos diagramas permiten visualizar:
+- Interacciones del usuario.
+- Rutas de navegación.
+- Flujo de autenticación.
+- Flujo de búsqueda de estacionamiento.
+- Flujo de pagos digitales.
+- Flujo de monitoreo administrativo.
+- Navegación entre módulos principales.
 
-| Team Member (Last Name, First Name) | GitHub Username | Backend Development | Frontend Development | Domain Modeling | Documentation |
-|---|---|---|---|---|---|
-| Cruz Ibarra, Victor Andres | Elandrehss | L | C | L | C |
-| Dueñas Canales, Leonardo Manuel | Insonnio | C | C | C | L |
-| Vidal Castro, Miguel Angel | Gossk | C | L | L | C |
-| Allcca Guerrero, Irving Washington | eviterno17 | C | L | C | C |
-| Roman Esteban, Henry Kalet | kalet123-commit | C | C | C | L |
+El diseño de navegación fue desarrollado siguiendo principios de:
+- Navegación contextual.
+- Accesibilidad.
+- Reducción de pasos.
+- Optimización de tareas frecuentes.
 
-**Legend:**  
-- **L** = Leader  
-- **C** = Collaborator
+---
 
-#### 6.2.1.3. Sprint Backlog 1
+### 5.4.3. Applications Mock-ups.
 
-En esta sección se presenta el Sprint Backlog correspondiente al Sprint 1 del proyecto SpotFinder. Durante este Sprint, el equipo se enfocó en desarrollar la primera versión funcional de la arquitectura backend basada en bounded contexts, así como la implementación inicial de la Landing Page institucional del producto. Además, se desarrollaron los primeros endpoints principales relacionados con monitoreo de estacionamiento, sesiones, autenticación, analíticas y gestión vehicular.
+Los mock-ups representan la versión visual de alta fidelidad del sistema SpotFinder, incorporando el sistema de diseño previamente definido en las Style Guidelines.
 
-A continuación, se muestra el tablero de trabajo utilizado para la gestión de tareas del Sprint:
+Las interfaces fueron desarrolladas manteniendo:
+- Consistencia visual.
+- Componentes reutilizables.
+- Jerarquía visual clara.
+- Diseño moderno y minimalista.
+- Experiencia centrada en el usuario.
 
+#### Mobile Application Mock-ups
 
-<img alt="Sprint Backlog 1 in Trello" src="assets\images\screenshots\sprint1_trello.png" />
-<br><br>
+![Mobile Mockups 1](./assets/ux-ui/mobile/mockups/mockups-1.png)
 
-Link Trello: [SpotFinder - Trello]()
+![Mobile Mockups 2](./assets/ux-ui/mobile/mockups/mockups-2.png)
 
-<table border="1" cellpadding="6" cellspacing="0">
-  <thead>
-    <tr>
-      <th>Sprint #</th>
-      <th colspan="8">Sprint 1</th>
-    </tr>
-    <tr>
-      <th colspan="2">User Story</th>
-      <th colspan="7">Work Item / Task</th>
-    </tr>
-    <tr>
-      <th>ID</th>
-      <th>Title</th>
-      <th>ID</th>
-      <th>Title</th>
-      <th>Description</th>
-      <th>Estimation (hours)</th>
-      <th>Assigned To</th>
-      <th>Status</th>
-      <th>Story Points</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-  <td rowspan="2">US01</td>
-  <td rowspan="2">Detección de ocupación por sensores</td>
-  <td>T01</td>
-  <td>Diseño de entidades de Parking Monitoring</td>
-  <td>Modelar entidades y agregados relacionados a espacios y sensores.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">8</td>
-</tr>
-<tr>
-  <td>T02</td>
-  <td>Implementación de endpoints de ocupación</td>
-  <td>Desarrollar endpoints REST para registrar y consultar ocupación.</td>
-  <td>6</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US02</td>
-  <td rowspan="2">Visualización de espacios en tiempo real</td>
+![Mobile Mockups 3](./assets/ux-ui/mobile/mockups/mockups-3.png)
 
-  <td>T03</td>
-  <td>Implementación de consultas de espacios</td>
-  <td>Desarrollar lógica de consulta de espacios disponibles.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">8</td>
-</tr>
-<tr>
-  <td>T04</td>
-  <td>Implementación de actualización de estados</td>
-  <td>Implementar actualización dinámica del estado de espacios.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US03</td>
-  <td rowspan="2">Ingreso automático con ALPR</td>
-  <td>T05</td>
-  <td>Implementación base de Access Control</td>
-  <td>Desarrollar bounded context inicial para control de acceso.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">8</td>
-</tr>
-<tr>
-  <td>T06</td>
-  <td>Implementación de endpoints de ingreso vehicular</td>
-  <td>Desarrollar endpoints REST para registrar ingresos vehiculares.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US04</td>
-  <td rowspan="2">Salida automática con verificación de pago</td>
-  <td>T07</td>
-  <td>Diseño de Parking Sessions</td>
-  <td>Modelar sesiones activas y flujo de salida vehicular.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">8</td>
-</tr>
-<tr>
-  <td>T08</td>
-  <td>Endpoints de sesiones activas</td>
-  <td>Implementar endpoints para gestión y finalización de sesiones.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US06</td>
-  <td rowspan="2">Dashboard de monitoreo en tiempo real</td>
+#### Web Dashboard Mock-ups
 
-  <td>T09</td>
-  <td>Diseño del bounded context Analytics</td>
-  <td>Definir estructura y componentes del módulo Analytics.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">8</td>
-</tr>
-<tr>
-  <td>T10</td>
-  <td>Endpoints de métricas y monitoreo</td>
-  <td>Implementar endpoints REST para métricas de ocupación.</td>
-  <td>4</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US18</td>
-  <td rowspan="2">Registro de usuario conductor</td>
+![Web Mockups 1](./assets/ux-ui/web/mockups/mockups-1.png)
 
-  <td>T11</td>
-  <td>Diseño de entidades IAM</td>
-  <td>Definir entidades y lógica inicial de autenticación.</td>
-  <td>3</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">5</td>
-</tr>
-<tr>
-  <td>T12</td>
-  <td>Endpoints de registro de usuarios</td>
-  <td>Implementar endpoints para registro de usuarios conductores.</td>
-  <td>3</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US20</td>
-  <td rowspan="2">Inicio de sesión</td>
+![Web Mockups 2](./assets/ux-ui/web/mockups/mockups-2.png)
 
-  <td>T13</td>
-  <td>Diseño del flujo de autenticación</td>
-  <td>Definir flujo de login y validación de credenciales para usuarios.</td>
-  <td>2</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">3</td>
-</tr>
+---
 
-<tr>
-  <td>T14</td>
-  <td>Implementación de autenticación JWT</td>
-  <td>Implementar generación y validación de tokens JWT para autenticación.</td>
-  <td>3</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">US23</td>
-  <td rowspan="2">Registro de vehículo adicional</td>
-  <td>T15</td>
-  <td>Diseño de entidades Vehicle</td>
-  <td>Modelar entidades y atributos relacionados a vehículos registrados.</td>
-  <td>2</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-  <td rowspan="2">3</td>
-</tr>
-<tr>
-  <td>T16</td>
-  <td>Implementación de endpoints de vehículos</td>
-  <td>Desarrollar endpoints REST para registrar y gestionar vehículos.</td>
-  <td>3</td>
-  <td>Cruz Ibarra, Victor Andres</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS01</td>
-  <td rowspan="2">Ver sección Hero</td>
-  <td>T13</td>
-  <td>Diseño visual de Hero Section</td>
-  <td>Crear estructura visual y contenido principal del Hero.</td>
-  <td>2</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T14</td>
-  <td>Implementación responsive de Hero</td>
-  <td>Adaptar Hero Section para desktop y dispositivos móviles.</td>
-  <td>1</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS02</td>
-  <td rowspan="2">Ver sección Features</td>
-  <td>T17</td>
-  <td>Diseño visual de sección Features</td>
-  <td>Crear estructura visual para mostrar funcionalidades principales.</td>
-  <td>1</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T18</td>
-  <td>Implementación responsive de Features</td>
-  <td>Adaptar sección Features para desktop y dispositivos móviles.</td>
-  <td>2</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS03</td>
-  <td rowspan="2">Ver sección How It Works</td>
+### 5.4.4. Applications User Flow Diagrams.
 
-  <td>T19</td>
-  <td>Diseño de flujo explicativo</td>
-  <td>Definir estructura visual y contenido explicativo del sistema.</td>
-  <td>1</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T20</td>
-  <td>Implementación sección How It Works</td>
-  <td>Desarrollar componentes visuales y responsive de la sección.</td>
-  <td>2</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS04</td>
-  <td rowspan="2">Ver sección About The Product</td>
-  <td>T21</td>
-  <td>Redacción de contenido institucional</td>
-  <td>Preparar contenido descriptivo e información principal del producto.</td>
-  <td>2</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-  <td rowspan="2">3</td>
-</tr>
-<tr>
-  <td>T22</td>
-  <td>Implementación sección About Product</td>
-  <td>Desarrollar componentes visuales y responsive de la sección.</td>
-  <td>2</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS05</td>
-  <td rowspan="2">Ver sección Pricing</td>
+Los User Flow Diagrams modelan el recorrido completo del usuario dentro de la plataforma SpotFinder, identificando acciones, decisiones y resultados esperados.
 
-  <td>T23</td>
-  <td>Diseño de cards de precios</td>
-  <td>Diseñar estructura visual de planes y beneficios del servicio.</td>
-  <td>2</td>
-  <td>Roman Esteban, Henry Kalet</td>
-  <td>Done</td>
-  <td rowspan="2">3</td>
-</tr>
-<tr>
-  <td>T24</td>
-  <td>Implementación responsive de Pricing</td>
-  <td>Implementar sección de precios adaptable para múltiples dispositivos.</td>
-  <td>2</td>
-  <td>Roman Esteban, Henry Kalet</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS06</td>
-  <td rowspan="2">Ver sección Testimonials</td>
+Los principales flujos diseñados incluyen:
 
-  <td>T25</td>
-  <td>Diseño visual de Testimonials</td>
-  <td>Crear diseño de testimonios y experiencias de usuarios.</td>
-  <td>1</td>
-  <td>Roman Esteban, Henry Kalet</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T26</td>
-  <td>Implementación sección Testimonials</td>
-  <td>Desarrollar estructura responsive de testimonios.</td>
-  <td>2</td>
-  <td>Roman Esteban, Henry Kalet</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS07</td>
-  <td rowspan="2">Ver sección About Us y About The Team</td>
-  <td>T27</td>
-  <td>Diseño sección Team</td>
-  <td>Diseñar estructura visual para presentación del equipo.</td>
-  <td>1</td>
-  <td>Vidal Castro, Miguel Angel</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T28</td>
-  <td>Implementación sección Team</td>
-  <td>Implementar componentes responsive de presentación del equipo.</td>
-  <td>2</td>
-  <td>Vidal Castro, Miguel Angel</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS08</td>
-  <td rowspan="2">Ver sección FAQ</td>
-  <td>T29</td>
-  <td>Redacción de preguntas frecuentes</td>
-  <td>Preparar contenido FAQ relacionado al funcionamiento del sistema.</td>
-  <td>1</td>
-  <td>Vidal Castro, Miguel Angel</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T30</td>
-  <td>Implementación sección FAQ</td>
-  <td>Desarrollar diseño responsive de preguntas frecuentes.</td>
-  <td>2</td>
-  <td>Vidal Castro, Miguel Angel</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS09</td>
-  <td rowspan="2">Ver sección Contact</td>
+#### Conductores
+- Registro e inicio de sesión.
+- Visualización de espacios disponibles.
+- Recomendación de estacionamiento.
+- Pago digital.
+- Localización del vehículo.
+- Gestión de notificaciones.
 
-  <td>T31</td>
-  <td>Diseño formulario de contacto</td>
-  <td>Diseñar formulario y estructura de contacto institucional.</td>
-  <td>1</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T32</td>
-  <td>Implementación sección Contact</td>
-  <td>Desarrollar sección responsive de contacto.</td>
-  <td>2</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS10</td>
-  <td rowspan="2">Ver sección Footer</td>
-  <td>T33</td>
-  <td>Diseño del Footer</td>
-  <td>Definir estructura visual y enlaces principales del footer.</td>
-  <td>1</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-  <td rowspan="2">2</td>
-</tr>
-<tr>
-  <td>T34</td>
-  <td>Implementación responsive del Footer</td>
-  <td>Desarrollar footer adaptable para dispositivos móviles y desktop.</td>
-  <td>1</td>
-  <td>Allcca Guerrero, Irving Washington</td>
-  <td>Done</td>
-</tr>
-<tr>
-  <td rowspan="2">SWS11</td>
-  <td rowspan="2">Navegación responsive</td>
-  <td>T35</td>
-  <td>Diseño de navbar responsive</td>
-  <td>Diseñar navegación adaptable para distintos tamaños de pantalla.</td>
-  <td>2</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-  <td rowspan="2">3</td>
-</tr>
-<tr>
-  <td>T36</td>
-  <td>Implementación de navegación responsive</td>
-  <td>Desarrollar comportamiento responsive de la barra de navegación.</td>
-  <td>2</td>
-  <td>Dueñas Canales, Leonardo Manuel</td>
-  <td>Done</td>
-</tr>
-  </tbody>
-</table>
+#### Administradores
+- Monitoreo de ocupación.
+- Gestión de espacios.
+- Visualización de métricas.
+- Gestión de alertas y emergencias.
+- Generación de reportes.
 
-#### 6.2.1.4. Development Evidence for Sprint Review
+Los diagramas permiten validar:
+- Fluidez de interacción.
+- Eficiencia de navegación.
+- Optimización de tareas.
+- Reducción de fricción en la experiencia del usuario.
 
-#### 6.2.1.5. Testing Suite Evidence for Sprint Review
+---
 
-#### 6.2.1.6. Execution Evidence for Sprint Review
+## 5.5. Applications Prototyping.
 
-#### 6.2.1.7. Services Documentation Evidence for Sprint Review
+El prototipado de SpotFinder fue desarrollado con el objetivo de validar tempranamente la experiencia de usuario y comprobar el comportamiento de navegación de la plataforma antes de la implementación final.
+ 
+Los prototipos interactivos permiten simular:
+- Navegación entre pantallas.
+- Interacción con componentes.
+- Flujo de autenticación.
+- Flujo de búsqueda de estacionamiento.
+- Flujo de pagos.
+- Gestión de notificaciones.
+- Navegación administrativa.
 
-#### 6.2.1.8. Software Deployment Evidence for Sprint Review
+El proceso de prototipado permitió:
+- Detectar mejoras de usabilidad.
+- Optimizar tiempos de interacción.
+- Validar jerarquías visuales.
+- Refinar la experiencia mobile-first.
+- Verificar consistencia visual entre plataformas.
 
-#### 6.2.1.9. Team Collaboration Insights during Sprint
+Asimismo, los prototipos facilitaron la validación de:
+- Diseño responsive.
+- Navegación intuitiva.
+- Escalabilidad visual del sistema.
+- Integración entre módulos funcionales.
+
+### Prototype Links
+
+#### Mobile Application Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=d5d266e0e79a42eea72522a5cd4632e0
+
+#### Web Application Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=b845ebb0307f4022b9df819e8fad79ab
+
+#### Web Application Wireframe Prototype
+- https://stitch.withgoogle.com/preview/4437756468570998234?node-id=ae88b4b92bf34458b32e6b46efc3cd79
+
+## 5.6. IoT Device Design.
+
 
 ---
 # Conclusiones

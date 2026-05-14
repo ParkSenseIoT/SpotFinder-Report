@@ -5175,21 +5175,6 @@ El despliegue seguirá los siguientes pasos:
 
 <div style="page-break-after: always;"></div>
 
----
-# Capítulo VI: Product Implementation, Validation \& Deployment
-
-## 6.1. Software Configuration Management
-
-### 6.1.1. Software Development Environment Configuration
-
-### 6.1.2. Source Code Management
-
-### 6.1.3. Source Code Style Guide \& Conventions
-
-### 6.1.4. Software Deployment Configuration
-
-## 6.2. Landing Page, Services \& Applications Implementation
-
 ### 6.2.1. Sprint 1
 
 #### 6.2.1.1. Sprint Planning 1

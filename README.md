@@ -1978,7 +1978,7 @@ El sistema central SpotFinder actúa como núcleo de interacción, conectándose
 
 En conjunto, este diagrama permite visualizar claramente los límites del sistema y sus dependencias externas.
 
-<img src="/assets/diagrams/c4/Context-Diagram.png" width="800">
+<img src="./assets/diagrams/c4/Context-Diagram.png" width="800">
 <br>
 
 

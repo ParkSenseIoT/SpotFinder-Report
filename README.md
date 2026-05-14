@@ -6253,6 +6253,7 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
 - [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
 - [Enlace Landing Page desplegado: https://venerable-banoffee-0b773a.netlify.app/#features](https://venerable-banoffee-0b773a.netlify.app/#features)
+- [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
 - 
 ### Anexo B: Videos
  

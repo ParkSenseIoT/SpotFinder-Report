@@ -15,7 +15,7 @@
 </p>
 <br>
 <p align="center">
-    <strong>"Informe del Trabajo Final"</strong>
+    <strong>"Informe del Trabajo Parcial"</strong>
 </p>
 <br>
 <p align="center">
@@ -4988,7 +4988,146 @@ Asimismo, los prototipos facilitaron la validación de:
 #### Web Application Wireframe Prototype
 - https://stitch.withgoogle.com/preview/4437756468570998234?node-id=ae88b4b92bf34458b32e6b46efc3cd79
 
-## 5.6. IoT Device Design.
+## 5.6. IoT Device Design
+
+### Introducción y Criterios de Diseño
+
+Esta sección presenta la propuesta de diseño físico y de circuito para los **Parking Spot Nodes** (nodos de espacio de parqueo) que componen el hardware de la solución SpotFinder. El objetivo principal de estos dispositivos es la **detección en tiempo real de la ocupación de cada espacio individual de estacionamiento** dentro de los centros comerciales objetivo, complementada con guiado visual mediante LEDs y monitoreo ambiental de gases/humo para protocolos de emergencia.
+
+Los principales criterios para las decisiones de diseño del hardware son:
+
+- **Precisión en la Detección de Ocupación:** Se utiliza un sensor ultrasónico **HC-SR04**, montado a 50–60 cm sobre el piso del espacio (techo del nivel de parqueo). El sensor emite pulsos ultrasónicos de 40 kHz y mide el tiempo de retorno del eco. Una distancia umbral configurable (por ejemplo, < 100 cm sostenido por > 2 segundos) determina el estado **Occupied**; valores superiores y estables determinan el estado **Available**. El filtrado por umbral temporal evita falsos positivos por peatones que cruzan momentáneamente.
+
+- **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, soporte nativo del protocolo MQTT, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de publicar el evento `SensorReading` al MQTT Broker, reduciendo el tráfico de red.
+
+- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra un **LED WS2812B** (Neopixel direccionable) montado en la parte inferior de la carcasa, visible desde el corredor del estacionamiento. El color es controlado vía un único pin de datos por protocolo serial de un solo hilo, lo que permite encadenar varios LEDs en zonas adyacentes con un solo GPIO si se desea optimizar el cableado en una sub-zona.
+
+- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral de 900 PPM, el nodo publica un evento `EmergencyAlertTriggered` que desencadena el cambio coordinado de todos los LEDs del piso a parpadeo rojo estroboscópico.
+
+- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el nodo recibe el comando `BroadcastEvacuationSignal` desde el Edge Server, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
+
+- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar el modo de emparejamiento Wi-Fi (provisioning) y el reseteo del nodo sin necesidad de retirarlo del techo del estacionamiento.
+
+### Relación con la Arquitectura de Información y Guía de Estilos
+
+El diseño de la interfaz física del dispositivo IoT (*IoT Device Physical Interfaces*) es una extensión coherente de la propuesta de experiencia de usuario y arquitectura de información definida en la sección 5.1.2 (*IoT Style Guidelines*) y de los Bounded Contexts de **Parking Monitoring** y **Emergency Management**.
+
+- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento MQTT, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
+
+- **Alerta Cognitiva Estroboscópica:** En estado crítico de emergencia (detección de gas/humo por MQ-2 o broadcast desde el Edge Server), el patrón lumínico de todos los LEDs cambia a **parpadeo estroboscópico rojo a 2 Hz**, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
+
+- **Interacción Invisible (Zero-Friction):** El nodo no expone interfaz gráfica al conductor: la interacción es por presencia (el vehículo entra y el sensor lo detecta) y la retroalimentación es exclusivamente espacial (luz LED). La interfaz gráfica se delega a la app móvil (notificación push de espacio reservado) y al dashboard web (mapa de ocupación en tiempo real), respetando la premisa **Zero-Friction para conductores en movilidad** y **Maximum Observability para operadores**.
+
+- **Consistencia con la Aplicación Móvil:** El estado físico del LED se sincroniza con el color del marker correspondiente en el mapa de ocupación del Bounded Context *Parking Monitoring*, garantizando que un conductor que ve "verde" en su app encuentre "verde" en el espacio físico al llegar.
+
+### Propuesta de Diseño de Circuito (Hardware Schematic)
+
+Para la validación lógica de los componentes electrónicos y sus conexiones, se elaboró un diagrama esquemático utilizando la herramienta **Wokwi**. Este circuito demuestra la viabilidad técnica del Parking Spot Node antes de su implementación en placa de desarrollo y posterior fabricación de carcasa.
+
+Los componentes integrados y sus nodos de conexión son los siguientes:
+
+1. **Microcontrolador ESP32 (DevKit V1):** Actúa como cerebro del sistema, gestor de la lógica de detección y módulo de comunicación Wi-Fi/MQTT. Alimentación a 5 V por USB micro-B o a 3.3 V por pin VIN en despliegue en techo. Mantiene una conexión persistente al broker MQTT del Edge Server publicando en el topic `parksense/floor/{floorId}/spot/{spotId}/status`.
+
+2. **Sensor Ultrasónico HC-SR04:** Componente principal de detección de ocupación. Alimentado a **5 V**. Cuatro conexiones:
+   - **VCC** → 5V del ESP32 (cable **rojo**)
+   - **GND** → GND del ESP32 (cable **negro**)
+   - **Trig** (disparo del pulso) → **GPIO 5** del ESP32 (cable **amarillo**)
+   - **Echo** (retorno del pulso) → **GPIO 18** del ESP32 (cable **azul**)
+
+3. **LED WS2812B (Neopixel direccionable):** Indicador de estado del espacio. Tres conexiones:
+   - **VCC** → 5V (cable **rojo**)
+   - **GND** → GND (cable **negro**)
+   - **DIN** (data in) → **GPIO 4** del ESP32 a través de una resistencia de 330 Ω (cable **verde**)
+
+   Se recomienda un capacitor de 100 µF entre VCC y GND del LED para estabilizar la corriente en transiciones de color. *Nota sobre la simulación:* en Wokwi se puede representar con el componente `neopixel` o, como alternativa equivalente para la lógica de control, con un LED RGB cátodo común a tres resistencias de 220 Ω en GPIO 4 (Rojo), GPIO 2 (Verde) y GPIO 15 (Azul).
+
+4. **Sensor de Gas MQ-2:** Detector de gases combustibles y humo para el protocolo de emergencia (presente solo en nodos cabecera de pasillo). Cuatro conexiones:
+   - **VCC** → 5V (cable **rojo**)
+   - **GND** → GND (cable **negro**)
+   - **AO** (analog output) → **GPIO 34** del ESP32 (entrada ADC1, solo lectura — cable **morado**)
+   - **DO** (digital output, threshold trip) → **GPIO 35** del ESP32 (cable **naranja**)
+
+   *Nota sobre la simulación:* debido a que Wokwi no provee el sensor MQ-2 en su biblioteca de componentes, este sensor se representa en el diagrama mediante un potenciómetro analógico conectado al GPIO 34, que permite simular la variación del nivel de gas (de 0 a 4095 unidades ADC) para validar la lógica de disparo del evento `EmergencyAlertTriggered`. En el ensamblaje físico, el potenciómetro será reemplazado directamente por el sensor MQ-2 sin cambios en el firmware.
+
+5. **Buzzer Pasivo (3.3 V):** Actuador de alerta acústica para emergencias. Dos conexiones:
+   - Pin positivo → **GPIO 25** del ESP32 (cable **marrón**)
+   - Pin negativo → GND (cable **negro**)
+
+   El GPIO 25 soporta DAC, lo que permite generar tonos de frecuencia variable (sirena ascendente/descendente) en vez de un beep monótono.
+
+6. **Botón Pulsador (Provisioning / Reset):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
+   - Un terminal → **GPIO 13** del ESP32, utilizando la resistencia interna Pull-Up del ESP32 (`INPUT_PULLUP`) — cable **blanco**
+   - Otro terminal → GND (cable **negro**)
+
+   Una pulsación corta (< 2 s) fuerza una republicación del estado al broker MQTT. Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
+
+#### Resumen de Conexiones (Pinout Table)
+
+| Componente | Pin del componente | Pin del ESP32 | Color de cable | Notas |
+|---|---|---|---|---|
+| HC-SR04 | VCC | 5V (VIN) | Rojo | Alimentación |
+| HC-SR04 | GND | GND | Negro | Tierra común |
+| HC-SR04 | Trig | GPIO 5 | Amarillo | Salida digital |
+| HC-SR04 | Echo | GPIO 18 | Azul | Entrada digital |
+| WS2812B | VCC | 5V (VIN) | Rojo | Alimentación |
+| WS2812B | GND | GND | Negro | Tierra común |
+| WS2812B | DIN | GPIO 4 | Verde | Datos seriales (con R=330 Ω) |
+| MQ-2 (potenciómetro en sim.) | VCC | 5V (VIN) | Rojo | Alimentación |
+| MQ-2 (potenciómetro en sim.) | GND | GND | Negro | Tierra común |
+| MQ-2 (potenciómetro en sim.) | AO | GPIO 34 | Morado | Solo entrada ADC |
+| MQ-2 | DO | GPIO 35 | Naranja | Trip digital |
+| Buzzer | + | GPIO 25 | Marrón | DAC para tonos |
+| Buzzer | – | GND | Negro | Tierra común |
+| Botón | Pin 1 | GPIO 13 | Blanco | INPUT_PULLUP interno |
+| Botón | Pin 2 | GND | Negro | Tierra común |
+
+> *Convención de colores:* sigue el estándar industrial de prototipado (rojo = +V, negro = GND, amarillo/naranja = señales de salida, azul/verde = señales de entrada o datos, morado/marrón = sensores analógicos/actuadores).
+
+![Desing-IoT](./assets/images/screenshots/Design-IoT.png)
+
+*[Link del wokwi: https://wokwi.com/projects/464031382788279297]*
+
+
+### Flujos de Interacción del Prototipo IoT
+
+El hardware cubre interacciones físicas que se sincronizan con las vistas de la aplicación móvil del conductor, el dashboard web del administrador y el Edge Server, definiendo los siguientes flujos principales de Wireflow físico:
+
+**1. Flujo de Inicialización y Provisioning del Nodo:**
+
+- **Paso 1:** El técnico instala el nodo en el techo del espacio de parqueo y conecta la alimentación.
+- **Paso 2:** El ESP32 arranca y el LED WS2812B parpadea en **Azul `#1A82FF`** indicando estado de provisioning (búsqueda de red Wi-Fi).
+- **Paso 3:** Una vez conectado al broker MQTT del Edge Server, el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
+
+**2. Flujo de Detección de Ocupación (Happy Path):**
+
+- **Paso 1:** Un vehículo entra al espacio y el HC-SR04 detecta una distancia < 100 cm de forma sostenida durante > 2 segundos.
+- **Paso 2:** El ESP32 publica el evento `SensorReadingProcessed` al topic MQTT correspondiente con el estado `Occupied`.
+- **Paso 3:** El LED WS2812B cambia inmediatamente a **Rojo `#EF4444`** fijo.
+- **Paso 4:** El Edge Server consolida la lectura, la reenvía al backend Cloud y el espacio se refleja como ocupado en el mapa de la app móvil y el dashboard web.
+
+**3. Flujo de Liberación del Espacio (Happy Path):**
+
+- **Paso 1:** El vehículo sale del espacio y el HC-SR04 detecta una distancia estable > 100 cm durante > 2 segundos.
+- **Paso 2:** El ESP32 publica el evento con estado `Available`.
+- **Paso 3:** El LED retorna a **Verde `#10B981`** fijo, y la app móvil notifica a conductores que hayan filtrado por espacios cercanos disponibles.
+
+**4. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
+
+- **Paso 1:** El sensor MQ-2 lee una concentración > 900 PPM por más de 3 segundos.
+- **Paso 2:** El ESP32 publica el evento `EmergencyAlertTriggered` en el topic `parksense/emergency/floor/{floorId}`.
+- **Paso 3:** El Edge Server propaga el comando `BroadcastEvacuationSignal` a todos los nodos del piso.
+- **Paso 4:** Todos los LEDs WS2812B del piso cambian a **parpadeo estroboscópico rojo a 2 Hz** y los buzzers emiten una sirena ascendente/descendente, guiando físicamente la evacuación de los conductores presentes.
+- **Paso 5:** El dashboard web del administrador muestra una alerta crítica con la ubicación del sensor que detectó el evento.
+
+**5. Flujo de Mantenimiento Manual (Provisioning Reset):**
+
+- **Paso 1:** El técnico mantiene presionado el botón pulsador durante más de 5 segundos.
+- **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
+- **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
+
+<div style="page-break-after: always;"></div>
+
+---
 
 # Capítulo VI: Product Implementation, Validation \& Deployment
 

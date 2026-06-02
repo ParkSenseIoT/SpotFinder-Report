@@ -1059,7 +1059,7 @@ Para diseñar las entrevistas, se elaboraron dos bloques de preguntas diferencia
 ![Captura de la entrevista 1](./assets/images/screenshots/seg1entrevista1.jpeg)
 
 **Resumen**
-Estudiante universitaria que visita centros comerciales como el Jockey Plaza dos veces por semana. Su principal frustración es la pérdida de tiempo (15-20 minutos) buscando estacionamiento y la falta de información real sobre la disponibilidad en los sótanos. Usuario activo de herramientas tecnológicas como Waze y Yape, considera que un sistema de guiado por  LED y una app con disponibilidad en tiempo real serían determinantes para mejorar su experiencia y reducir el estrés.
+Estudiante universitaria que visita centros comerciales como el Jockey Plaza dos veces por semana. Su principal frustración es la pérdida de tiempo (15-20 minutos) buscando estacionamiento y la falta de información real sobre la disponibilidad en los sótanos. Usuario activo de herramientas tecnológicas como Waze y Yape, considera que un sistema de guiado por luces  LED y una app con disponibilidad en tiempo real serían determinantes para mejorar su experiencia y reducir el estrés.
 
 ---
 

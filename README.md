@@ -605,7 +605,7 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [Flutter SDK](#flutter-sdk)
     - [Android Studio](#android-studio)
     - [Git y GitHub](#git-y-github)
-    - [PostgreSQL](#postgresql)
+    - [MySQL](#mysql)
     - [Spring Boot](#spring-boot)
     - [Angular](#angular)
     - [Angular Material](#angular-material)
@@ -2129,7 +2129,7 @@ El sistema está compuesto por los siguientes contenedores:
 - Mobile App (Flutter): aplicación móvil utilizada por los conductores para buscar estacionamiento, consultar disponibilidad y realizar pagos.
 - Web Dashboard (Angular): aplicación web orientada a administradores, que permite gestionar el estacionamiento y monitorear métricas en tiempo real.
 - Backend API (Spring Boot): componente central que expone servicios REST y contiene la lógica de negocio del sistema. Actúa como intermediario entre las aplicaciones cliente, los servicios externos y la base de datos.
-- Database (PostgreSQL): almacena la información del sistema, incluyendo usuarios, vehículos, pagos y datos de ocupación.
+- Database (MySQL 8): almacena la información del sistema, incluyendo usuarios, vehículos, pagos y datos de ocupación.
 - IoT Gateway / Edge Server (Flask + MQTT): componente encargado de recibir datos desde sensores IoT (por ejemplo, ocupación de espacios) y enviarlos al backend para su procesamiento.
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
@@ -2147,7 +2147,7 @@ Los principales nodos de despliegue son:
 - Admin Workstation (Browser): dispositivo desde el cual los administradores acceden al sistema mediante un navegador web.
 - Frontend Hosting (CDN): infraestructura encargada de servir la aplicación web (Angular SPA) a los usuarios.
 - API Hosting Platform (Spring Boot Runtime): entorno donde se despliega el Backend API, encargado de procesar las solicitudes del sistema.
-- Database Infrastructure (Managed PostgreSQL Service): servicio gestionado donde se aloja la base de datos del sistema.
+- Database Infrastructure (Managed MySQL Service): servicio gestionado donde se aloja la base de datos del sistema.
 - IoT Processing Layer (Edge Gateway Node): nodo donde se ejecuta el servicio IoT (Flask + MQTT), encargado de procesar datos provenientes de sensores en tiempo real.
 
 Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS para las aplicaciones cliente, MQTT para la comunicación con dispositivos IoT y SQL para el acceso a la base de datos.
@@ -5352,7 +5352,7 @@ Como herramientas de desarrollo se hará uso de la última versión estable de N
 
 Como IDE de desarrollo para la aplicación móvil se utilizará Visual Studio Code junto con el SDK más reciente de Flutter y Android Studio como emulador de dispositivos Android. Flutter permitirá el desarrollo multiplataforma de la aplicación móvil utilizando Dart como lenguaje de programación.
 
-Como base de datos principal se utilizará PostgreSQL para el almacenamiento de usuarios, reservas, pagos, ocupación y demás información del sistema.
+Como base de datos principal se utilizará MySQL 8 (esquema `spotfinder`) para el almacenamiento de usuarios, vehículos, pagos, ocupación y demás información del sistema. El acceso se realiza mediante Spring Data JPA con el dialecto `org.hibernate.dialect.MySQLDialect` y el driver `com.mysql.cj.jdbc.Driver`.
 
 Como herramientas SaaS y de colaboración se utilizará GitHub para el control de versiones y trabajo colaborativo. Además, se empleará Trello para la gestión del Product Backlog y seguimiento de tareas. Para la elaboración de diagramas y modelado se utilizarán LucidChart y Structurizr.
 
@@ -5379,8 +5379,8 @@ Herramienta utilizada para la ejecución de emuladores Android y pruebas de la a
 ### Git y GitHub
 Se utilizarán para el control de versiones, manejo de ramas, colaboración entre desarrolladores y almacenamiento de repositorios.
 
-### PostgreSQL
-Sistema de gestión de bases de datos relacional utilizado para almacenar la información principal del sistema.
+### MySQL
+Sistema de gestión de bases de datos relacional utilizado para almacenar la información principal del sistema. Se utiliza la versión 8.x con motor InnoDB, accedido desde el backend Spring Boot mediante Spring Data JPA. El esquema lógico se denomina `spotfinder`.
 
 ### Spring Boot
 Framework backend utilizado para el desarrollo de servicios RESTful y lógica de negocio del sistema.
@@ -5507,7 +5507,7 @@ Para el despliegue de la landing page y aplicación web se utilizará **Netlify*
 
 Para el despliegue del backend API se utilizará **Render**, **Railway** o **Zeabur** mediante contenedores y servicios cloud compatibles con Spring Boot.
 
-Para la base de datos PostgreSQL se utilizará **Railway** o **Supabase** como servicio administrado.
+Para la base de datos MySQL se utilizará **Railway** o **Aiven for MySQL** como servicio administrado.
 
 Para el despliegue de la aplicación móvil se utilizará **Android Studio** para generación de builds APK y **Google Play Console** para distribución futura.
 

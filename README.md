@@ -1754,12 +1754,10 @@ Cada miembro del equipo responde en post-its naranjas a la pregunta: **"¿Qué p
 **Paso 2 — Agrupación de eventos en torno al valor:**
 Revisar los aggregates del Event Storming y sus eventos asociados. Agrupar por afinidad y preguntar: "¿Este grupo de eventos genera valor directo al negocio o es un soporte necesario?"
 
-<img src="assets/diagrams/context-candidate/candidate-context-step2.png" alt="Paso2" width="800">
-
 **Paso 3 — Clasificación Core, Supporting, Generic:**
 Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation vs Model Complexity).
 
-<img src="/assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso3" width="800">
+<img src="assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso 3 — Clasificación Core / Supporting / Generic" width="800">
 
 ### Candidate Contexts identificados para SpotFinder
  
@@ -1791,9 +1789,6 @@ Se definieron **8 candidate bounded contexts**, de los cuales:
 - **1 Generic:** Identity & Access Management
 
 La aplicación de la técnica Start-with-Value permitió asegurar que la atención principal del diseño táctico se concentre en **Parking Monitoring, Access Control y Payment Processing**, dado que allí reside la propuesta de valor diferenciadora de SpotFinder frente a competidores como Apparka, ParkHelp y Quadra.
-
-
-<img src="assets/diagrams/context-candidate/candidate-context-step2.png" alt="Paso2" width="800">
 
 
 #### 4.1.1.2 Domain Message Flows Modeling
@@ -2134,6 +2129,8 @@ El sistema está compuesto por los siguientes contenedores:
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
 
+> **Nota sobre la persistencia.** El sistema utiliza una **única base de datos MySQL** llamada `spotfinder`. Los siete Database Design Diagrams que se presentan en cada sección 4.2.X.6.2 (uno por Bounded Context: IAM, Parking Monitoring, Access Control, Payment Processing, Emergency & Safety, Analytics & Reporting y Notification Management) no representan siete bases de datos distintas, sino **agrupaciones lógicas de tablas dentro del mismo esquema** `spotfinder`. Esta decisión es coherente con la naturaleza monolítica-modular del backend Spring Boot, donde cada Bounded Context vive como un package independiente dentro de `com.spotfinderbackend` y persiste sus agregados en tablas separadas que comparten el mismo `DataSource` JDBC.
+
 <img src="./assets/diagrams/c4/Container-Diagram.png" width="800">
 <br>
 
@@ -2154,7 +2151,7 @@ Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS 
 
 Este diagrama evidencia una arquitectura distribuida en múltiples capas, combinando dispositivos de usuario, infraestructura en la nube y procesamiento en el borde (edge computing), lo que permite escalabilidad y eficiencia en el manejo de datos en tiempo real.
 
-<img src="/assets/diagrams/c4/Deployment-Diagrams.png" width="800">
+<img src="assets/diagrams/c4/Deployment-Diagrams.png" alt="Deployment Diagram — SpotFinder" width="800">
 <br>
 
 # 4.2. Tactical-Level Domain-Driven Design
@@ -2466,7 +2463,7 @@ Servicio que envía actualizaciones de estado en tiempo real vía WebSocket.
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Parking Monitoring. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context.
  
-<img src="assets/diagrams/structurizr/Parking_Monitoring_Diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/structurizr/Parking_Monitoring_Diagram.png" alt="Component Diagram — Parking Monitoring Bounded Context" width="800">
 
 ### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams
  
@@ -2482,7 +2479,7 @@ El diagrama de clases del Domain Layer del contexto de Parking Monitoring ilustr
  
 El diagrama de diseño de base de datos del contexto de Parking Monitoring muestra la estructura de las tablas y sus relaciones en la base de datos relacional.
  
-<img src="assets/diagrams/db/parking-monitoring-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/parking-monitoring-database-diagram.png" alt="Database Diagram — Parking Monitoring Bounded Context" width="800">
 <br>
 
 ## 4.2.2. Bounded Context: Access Control
@@ -2923,7 +2920,7 @@ Implementación concreta del servicio de reconocimiento de placas usando Plate R
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Access Control. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context, incluyendo la integración con sistemas externos (Plate Recognizer API, ESP32-CAM).
  
-<img src="assets/diagrams/structurizr/Access_Control_Diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/structurizr/Access_Control_Diagram.png" alt="Component Diagram — Access Control Bounded Context" width="800">
 ### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams
  
 En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Access Control.
@@ -2932,14 +2929,14 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
  
 El diagrama de clases del Domain Layer del contexto de Access Control ilustra las entidades, objetos de valor y servicios que componen este bounded context.
  
-<img src="assets/diagrams/uml/access.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/uml/access.png" alt="Domain Layer Class Diagram — Access Control Bounded Context" width="800">
 <br>
 
 #### 4.2.2.6.2. Bounded Context Database Design Diagram
  
 El diagrama de diseño de base de datos del contexto de Access Control muestra la estructura de las tablas y sus relaciones.
  
-<img src="assets/diagrams/db/access-control-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/access-control-database-diagram.png" alt="Database Diagram — Access Control Bounded Context" width="800">
 <br>
 
 
@@ -3309,7 +3306,7 @@ El diagrama de clases del Domain Layer del contexto de Payment Processing ilustr
 
 El diagrama de diseño de base de datos del contexto de Payment Processing muestra la estructura de las tablas y sus relaciones.
 
-<img src="assets/diagrams/db/payment-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/payment-database-diagram.png" alt="Database Diagram — Payment Processing Bounded Context" width="800">
 <br>
 
 
@@ -3630,7 +3627,7 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
 
 El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustra las entidades, objetos de valor y servicios que componen este bounded context.
 
-<img src="assets/diagrams/uml/emergency.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/uml/emergency.png" alt="Domain Layer Class Diagram — Emergency & Safety Bounded Context" width="800">
 <br>
 
 
@@ -3638,7 +3635,7 @@ El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustr
 
 El diagrama de diseño de base de datos del contexto de Emergency & Safety muestra la estructura de las tablas y sus relaciones.
 
-<img src="assets/diagrams/db/emergency-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/emergency-database-diagram.png" alt="Database Diagram — Emergency & Safety Bounded Context" width="800">
 <br>
 
 
@@ -4035,7 +4032,7 @@ En esta sección se presentan los diagramas de nivel componente que ilustran la 
 <br>
 #### 4.2.5.6.2. Bounded Context Database Design Diagram
 
-<img src="assets/diagrams/db/analytics-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/analytics-database-diagram.png" alt="Database Diagram — Analytics & Reporting Bounded Context" width="800">
 <br>
 
 ## 4.2.6. Bounded Context: Notification Management
@@ -4447,7 +4444,7 @@ En esta sección se presentan los diagramas de nivel componente que ilustran la 
 
 #### 4.2.6.6.2. Bounded Context Database Design Diagram
 
-<img src="assets/diagrams/db/notification-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/notification-database-diagram.png" alt="Database Diagram — Notification Management Bounded Context" width="800">
 <br>
 
 ## 4.2.7. Bounded Context: Identity & Access Management
@@ -4817,7 +4814,7 @@ El diagrama de clases del Domain Layer del contexto de IAM ilustra las entidades
 
 El diagrama de diseño de base de datos del contexto de IAM muestra la estructura de las tablas y sus relaciones, generadas automáticamente por JPA/Hibernate a partir de las entidades del dominio.
 
-<img src="assets/diagrams/db/iam-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/iam-database-diagram.png" alt="Database Diagram — Identity & Access Management Bounded Context" width="800">
 <br>
 
 <div style="page-break-after: always;"></div>

@@ -1,0 +1,53 @@
+Card Name,List Name,Description,Labels,Members,Estimation (Hours),Story Points
+US05a - Pago digital | UI,To-do,Pantalla de pago con seleccion de metodo (Yape/tarjeta) confirmacion y recibo en la app movil.,Movil,Leonardo,5,8
+US05b - Pago digital | Integracion con API,To-do,Conectar POST /api/v1/payments con manejo de estados de carga y errores de pasarela.,Movil,Leonardo,4,8
+US07a - Find My Car | UI,To-do,Vista que muestra el codigo del espacio y referencia de ubicacion del vehiculo.,Movil,Leonardo,3,5
+US07b - Find My Car | Integracion con API,To-do,Consumir GET /api/v1/parking-sessions/active y manejar el caso sin sesion activa.,Movil,Leonardo,2,5
+US08a - Tiempo y costo estimado | UI,To-do,Mostrar hora de ingreso duracion y monto acumulado de la sesion activa.,Movil,Leonardo,2,3
+US08b - Tiempo y costo estimado | Integracion con API,To-do,Consumir detalles de sesion y refrescar dinamicamente el monto estimado.,Movil,Leonardo,2,3
+US10a - Notificaciones de eventos | UI,To-do,Listado y detalle de notificaciones push (ingreso pago pendiente emergencia) en la app movil.,Movil,Kalet,3,5
+US10b - Notificaciones de eventos | Integracion con FCM,To-do,Recepcion y manejo de notificaciones push mediante Firebase Cloud Messaging.,Movil,Kalet,3,5
+US15a - Historial de pagos | UI,To-do,Lista de pagos con fecha duracion monto y metodo; manejo de historial vacio.,Movil,Kalet,2,3
+US15b - Historial de pagos | Integracion con API,To-do,Consumir GET /api/v1/payments/history con orden por fecha descendente.,Movil,Kalet,2,3
+US24a - Preferencias de notificacion | UI,To-do,Pantalla con toggles para activar/desactivar tipos de notificacion.,Movil,Kalet,2,3
+US24b - Preferencias de notificacion | Integracion con API,To-do,Conectar PUT /api/v1/users/{id}/notification-preferences y reflejar preferencias.,Movil,Kalet,2,3
+US11a - Gestion de disponibilidad | UI,To-do,Habilitar/deshabilitar espacios y marcar Out of Service desde el dashboard web.,Web,Miguel,2,3
+US11b - Gestion de disponibilidad | Integracion con API,To-do,Conectar PATCH /api/v1/parking-slots/{id}/status y refrescar el plano.,Web,Miguel,2,3
+US12a - Estadisticas de ocupacion | UI,To-do,Graficos de ocupacion horas punta y rotacion con filtros por rango de fechas.,Web,Miguel,3,5
+US12b - Estadisticas de ocupacion | Integracion con API,To-do,Consumir GET /api/v1/analytics/occupancy con validacion de rango de fechas.,Web,Miguel,3,5
+US13a - Generacion de reportes | UI,To-do,Seleccion de periodo y boton de exportacion; manejo de periodo sin datos.,Web,Miguel,3,5
+US13b - Generacion de reportes | Integracion con API,To-do,Consumir endpoint de reportes y descargar el PDF generado.,Web,Miguel,3,5
+US14a - Deteccion y alerta de emergencia | UI,To-do,Panel con alertas de gas/humo en vivo indicadores visuales y accion de resolucion.,Web,Irving,5,8
+US14b - Deteccion y alerta de emergencia | Integracion con API,To-do,Consumir GET /api/v1/emergency/status y PATCH /api/v1/emergencies/{id}/resolve.,Web,Irving,4,8
+US19a - Registro de administrador | UI,To-do,Formulario de registro de administrador con validaciones y feedback de errores.,Web,Irving,3,5
+US19b - Registro de administrador | Integracion con API,To-do,Conectar POST /api/v1/auth/register con rol admin y manejo de correo duplicado.,Web,Irving,2,5
+US21a - Recuperacion de contrasena | UI,To-do,Flujo de solicitud de enlace y restablecimiento de contrasena con validaciones.,Auth,Miguel,2,3
+US21b - Recuperacion de contrasena | Integracion con API,To-do,Conectar POST /api/v1/auth/forgot-password y /api/v1/auth/reset-password.,Auth,Miguel,2,3
+US22a - Edicion de perfil | UI,To-do,Formulario de edicion de datos personales con validaciones y estados.,Auth,Kalet,2,3
+US22b - Edicion de perfil | Integracion con API,To-do,Conectar PUT /api/v1/users/{id} y reflejar los datos actualizados.,Auth,Kalet,2,3
+TS06a - Recomendar espacios | Query Handler,To-do,Implementar logica de recomendacion de espacios cercanos priorizados por proximidad.,Backend,Andres,2,3
+TS06b - Recomendar espacios | Controller & Tests,To-do,GET /api/v1/parking-slots/recommendations DTOs y pruebas.,Backend,Andres,2,3
+TS15a - Registrar pago | App/Domain Handler,To-do,InitiatePaymentCommandHandler con integracion de pasarela Culqi y manejo de estados.,Backend,Andres,4,5
+TS15b - Registrar pago | Controller & Tests,To-do,POST /api/v1/payments DTOs/Assembler y pruebas de integracion.,Backend,Andres,3,5
+TS16a - Consultar pago | Query Handler,To-do,GetPaymentByIdQueryHandler con manejo de inexistencia.,Backend,Andres,2,2
+TS16b - Consultar pago | Controller & Mapping,To-do,GET /api/v1/payments/{id} con assembler a resource.,Backend,Andres,1,2
+TS17a - Historial de pagos | Query Handler,To-do,GetPaymentHistoryQueryHandler ordenado por fecha descendente.,Backend,Andres,2,2
+TS17b - Historial de pagos | Controller & Mapping,To-do,GET /api/v1/payments/history con validacion de parametros.,Backend,Andres,1,2
+TS18a - Enviar notificacion push | App/Domain Handler,To-do,SendNotificationCommandHandler con integracion a Firebase Cloud Messaging.,Backend,Kalet,3,3
+TS18b - Enviar notificacion push | Controller & Tests,To-do,POST /api/v1/notifications DTOs y pruebas.,Backend,Kalet,2,3
+TS19a - Listar notificaciones | Query Handler,To-do,GetNotificationsByUserQueryHandler ordenado por fecha.,Backend,Kalet,2,2
+TS19b - Listar notificaciones | Controller & Mapping,To-do,GET /api/v1/notifications/user/{id} con manejo de lista vacia.,Backend,Kalet,1,2
+TS20a - Metricas de ocupacion | Query Handler,To-do,OccupancyAnalyticsService con calculo de occupancyRate peakHours y turnoverRate.,Backend,Andres,3,5
+TS20b - Metricas de ocupacion | Controller & Tests,To-do,GET /api/v1/analytics/occupancy con validacion de fechas y pruebas.,Backend,Andres,3,5
+TS21a - Metricas de ingresos | Query Handler,To-do,RevenueAnalyticsService con totalRevenue averageTicket y paymentsByMethod.,Backend,Andres,3,3
+TS21b - Metricas de ingresos | Controller & Mapping,To-do,GET /api/v1/analytics/revenue con rango de fechas.,Backend,Andres,2,3
+TS23a - Registrar alerta de emergencia | App/Domain Handler,To-do,TriggerEmergencyAlertCommandHandler que activa el protocolo de emergencia.,Backend,Irving,4,5
+TS23b - Registrar alerta de emergencia | Controller & Tests,To-do,POST /api/v1/emergency/alerts con validaciones y pruebas.,Backend,Irving,3,5
+TS24a - Consultar estado de emergencia | Query Handler,To-do,GetEmergencyStatusQueryHandler que devuelve emergencia activa o estado NORMAL.,Backend,Irving,2,2
+TS24b - Consultar estado de emergencia | Controller & Mapping,To-do,GET /api/v1/emergency/status con assembler a resource.,Backend,Irving,1,2
+TS26a - Resolver emergencia | App/Domain Handler,To-do,ResolveEmergencyCommandHandler que restaura la operacion normal.,Backend,Irving,2,3
+TS26b - Resolver emergencia | Controller & Tests,To-do,PATCH /api/v1/emergencies/{id}/resolve y pruebas de integracion.,Backend,Irving,2,3
+TS32a - Obtener perfil | Query Handler,To-do,GetUserByIdQueryHandler con manejo de inexistencia.,Backend,Leonardo,2,2
+TS32b - Obtener perfil | Controller & Mapping,To-do,GET /api/v1/users/{id} con assembler a resource.,Backend,Leonardo,1,2
+TS33a - Actualizar perfil | App/Domain Handler,To-do,UpdateUserCommandHandler con validaciones de datos.,Backend,Leonardo,2,3
+TS33b - Actualizar perfil | Controller & Tests,To-do,PUT /api/v1/users/{id} con manejo de errores y pruebas.,Backend,Leonardo,2,3

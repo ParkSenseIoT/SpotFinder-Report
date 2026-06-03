@@ -605,7 +605,7 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [Flutter SDK](#flutter-sdk)
     - [Android Studio](#android-studio)
     - [Git y GitHub](#git-y-github)
-    - [PostgreSQL](#postgresql)
+    - [MySQL](#mysql)
     - [Spring Boot](#spring-boot)
     - [Angular](#angular)
     - [Angular Material](#angular-material)
@@ -1754,12 +1754,12 @@ Cada miembro del equipo responde en post-its naranjas a la pregunta: **"¿Qué p
 **Paso 2 — Agrupación de eventos en torno al valor:**
 Revisar los aggregates del Event Storming y sus eventos asociados. Agrupar por afinidad y preguntar: "¿Este grupo de eventos genera valor directo al negocio o es un soporte necesario?"
 
-<img src="./assets/diagrams/ddd/es-2-2.png" alt="Paso2" width="800">
+<img src="assets/diagrams/ddd/es-2-2.png" alt="Paso 2 — Agrupación de eventos en torno al valor" width="800">
 
 **Paso 3 — Clasificación Core, Supporting, Generic:**
 Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation vs Model Complexity).
 
-<img src="./assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso3" width="800">
+<img src="assets/diagrams/context-candidate/candidate-context-step3.jpg" alt="Paso 3 — Clasificación Core / Supporting / Generic" width="800">
 
 ### Candidate Contexts identificados para SpotFinder
  
@@ -1791,9 +1791,6 @@ Se definieron **8 candidate bounded contexts**, de los cuales:
 - **1 Generic:** Identity & Access Management
 
 La aplicación de la técnica Start-with-Value permitió asegurar que la atención principal del diseño táctico se concentre en **Parking Monitoring, Access Control y Payment Processing**, dado que allí reside la propuesta de valor diferenciadora de SpotFinder frente a competidores como Apparka, ParkHelp y Quadra.
-
-
-<img src="assets/diagrams/ddd/es-2-1.pngalt="Paso2" width="800">
 
 
 #### 4.1.1.2 Domain Message Flows Modeling
@@ -2129,10 +2126,12 @@ El sistema está compuesto por los siguientes contenedores:
 - Mobile App (Flutter): aplicación móvil utilizada por los conductores para buscar estacionamiento, consultar disponibilidad y realizar pagos.
 - Web Dashboard (Angular): aplicación web orientada a administradores, que permite gestionar el estacionamiento y monitorear métricas en tiempo real.
 - Backend API (Spring Boot): componente central que expone servicios REST y contiene la lógica de negocio del sistema. Actúa como intermediario entre las aplicaciones cliente, los servicios externos y la base de datos.
-- Database (PostgreSQL): almacena la información del sistema, incluyendo usuarios, vehículos, pagos y datos de ocupación.
+- Database (MySQL 8): almacena la información del sistema, incluyendo usuarios, vehículos, pagos y datos de ocupación.
 - IoT Gateway / Edge Server (Flask + MQTT): componente encargado de recibir datos desde sensores IoT (por ejemplo, ocupación de espacios) y enviarlos al backend para su procesamiento.
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
+
+> **Nota sobre la persistencia.** El sistema utiliza una **única base de datos MySQL** llamada `spotfinder`. Los siete Database Design Diagrams que se presentan en cada sección 4.2.X.6.2 (uno por Bounded Context: IAM, Parking Monitoring, Access Control, Payment Processing, Emergency & Safety, Analytics & Reporting y Notification Management) no representan siete bases de datos distintas, sino **agrupaciones lógicas de tablas dentro del mismo esquema** `spotfinder`. Esta decisión es coherente con la naturaleza monolítica-modular del backend Spring Boot, donde cada Bounded Context vive como un package independiente dentro de `com.spotfinderbackend` y persiste sus agregados en tablas separadas que comparten el mismo `DataSource` JDBC.
 
 <img src="./assets/diagrams/c4/Container-Diagram.png" width="800">
 <br>
@@ -2147,14 +2146,14 @@ Los principales nodos de despliegue son:
 - Admin Workstation (Browser): dispositivo desde el cual los administradores acceden al sistema mediante un navegador web.
 - Frontend Hosting (CDN): infraestructura encargada de servir la aplicación web (Angular SPA) a los usuarios.
 - API Hosting Platform (Spring Boot Runtime): entorno donde se despliega el Backend API, encargado de procesar las solicitudes del sistema.
-- Database Infrastructure (Managed PostgreSQL Service): servicio gestionado donde se aloja la base de datos del sistema.
+- Database Infrastructure (Managed MySQL Service): servicio gestionado donde se aloja la base de datos del sistema.
 - IoT Processing Layer (Edge Gateway Node): nodo donde se ejecuta el servicio IoT (Flask + MQTT), encargado de procesar datos provenientes de sensores en tiempo real.
 
 Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS para las aplicaciones cliente, MQTT para la comunicación con dispositivos IoT y SQL para el acceso a la base de datos.
 
 Este diagrama evidencia una arquitectura distribuida en múltiples capas, combinando dispositivos de usuario, infraestructura en la nube y procesamiento en el borde (edge computing), lo que permite escalabilidad y eficiencia en el manejo de datos en tiempo real.
 
-<img src="./assets/diagrams/c4/Deployment-Diagrams.png" width="800">
+<img src="assets/diagrams/c4/Deployment-Diagrams.png" alt="Deployment Diagram — SpotFinder" width="800">
 <br>
 
 # 4.2. Tactical-Level Domain-Driven Design
@@ -2466,7 +2465,7 @@ Servicio que envía actualizaciones de estado en tiempo real vía WebSocket.
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Parking Monitoring. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context.
  
-<img src="assets/diagrams/structurizr/Parking_Monitoring_Diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/structurizr/Parking_Monitoring_Diagram.png" alt="Component Diagram — Parking Monitoring Bounded Context" width="800">
 
 ### 4.2.1.6. Bounded Context Software Architecture Code Level Diagrams
  
@@ -2482,7 +2481,7 @@ El diagrama de clases del Domain Layer del contexto de Parking Monitoring ilustr
  
 El diagrama de diseño de base de datos del contexto de Parking Monitoring muestra la estructura de las tablas y sus relaciones en la base de datos relacional.
  
-<img src="assets/diagrams/db/parking-monitoring-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/parking-monitoring-database-diagram.png" alt="Database Diagram — Parking Monitoring Bounded Context" width="800">
 <br>
 
 ## 4.2.2. Bounded Context: Access Control
@@ -2923,7 +2922,7 @@ Implementación concreta del servicio de reconocimiento de placas usando Plate R
  
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Access Control. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context, incluyendo la integración con sistemas externos (Plate Recognizer API, ESP32-CAM).
  
-<img src="assets/diagrams/structurizr/Access_Control_Diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/structurizr/Access_Control_Diagram.png" alt="Component Diagram — Access Control Bounded Context" width="800">
 ### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams
  
 En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Access Control.
@@ -2932,14 +2931,14 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
  
 El diagrama de clases del Domain Layer del contexto de Access Control ilustra las entidades, objetos de valor y servicios que componen este bounded context.
  
-<img src="assets/diagrams/uml/access.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/uml/access.png" alt="Domain Layer Class Diagram — Access Control Bounded Context" width="800">
 <br>
 
 #### 4.2.2.6.2. Bounded Context Database Design Diagram
  
 El diagrama de diseño de base de datos del contexto de Access Control muestra la estructura de las tablas y sus relaciones.
  
-<img src="assets/diagrams/db/access-control-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/access-control-database-diagram.png" alt="Database Diagram — Access Control Bounded Context" width="800">
 <br>
 
 
@@ -3309,7 +3308,7 @@ El diagrama de clases del Domain Layer del contexto de Payment Processing ilustr
 
 El diagrama de diseño de base de datos del contexto de Payment Processing muestra la estructura de las tablas y sus relaciones.
 
-<img src="assets/diagrams/db/payment-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/payment-database-diagram.png" alt="Database Diagram — Payment Processing Bounded Context" width="800">
 <br>
 
 
@@ -3630,7 +3629,7 @@ En esta sección se presentan los diagramas de nivel código que detallan la est
 
 El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustra las entidades, objetos de valor y servicios que componen este bounded context.
 
-<img src="assets/diagrams/uml/emergency.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/uml/emergency.png" alt="Domain Layer Class Diagram — Emergency & Safety Bounded Context" width="800">
 <br>
 
 
@@ -3638,7 +3637,7 @@ El diagrama de clases del Domain Layer del contexto de Emergency & Safety ilustr
 
 El diagrama de diseño de base de datos del contexto de Emergency & Safety muestra la estructura de las tablas y sus relaciones.
 
-<img src="assets/diagrams/db/emergency-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/emergency-database-diagram.png" alt="Database Diagram — Emergency & Safety Bounded Context" width="800">
 <br>
 
 
@@ -4035,7 +4034,7 @@ En esta sección se presentan los diagramas de nivel componente que ilustran la 
 <br>
 #### 4.2.5.6.2. Bounded Context Database Design Diagram
 
-<img src="assets/diagrams/db/analytics-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/analytics-database-diagram.png" alt="Database Diagram — Analytics & Reporting Bounded Context" width="800">
 <br>
 
 ## 4.2.6. Bounded Context: Notification Management
@@ -4447,7 +4446,7 @@ En esta sección se presentan los diagramas de nivel componente que ilustran la 
 
 #### 4.2.6.6.2. Bounded Context Database Design Diagram
 
-<img src="assets/diagrams/db/notification-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/notification-database-diagram.png" alt="Database Diagram — Notification Management Bounded Context" width="800">
 <br>
 
 ## 4.2.7. Bounded Context: Identity & Access Management
@@ -4817,7 +4816,7 @@ El diagrama de clases del Domain Layer del contexto de IAM ilustra las entidades
 
 El diagrama de diseño de base de datos del contexto de IAM muestra la estructura de las tablas y sus relaciones, generadas automáticamente por JPA/Hibernate a partir de las entidades del dominio.
 
-<img src="assets/diagrams/db/iam-database-diagram.png" alt="Pago y salida del estacionamiento" width="800">
+<img src="assets/diagrams/db/iam-database-diagram.png" alt="Database Diagram — Identity & Access Management Bounded Context" width="800">
 <br>
 
 <div style="page-break-after: always;"></div>
@@ -5352,7 +5351,7 @@ Como herramientas de desarrollo se hará uso de la última versión estable de N
 
 Como IDE de desarrollo para la aplicación móvil se utilizará Visual Studio Code junto con el SDK más reciente de Flutter y Android Studio como emulador de dispositivos Android. Flutter permitirá el desarrollo multiplataforma de la aplicación móvil utilizando Dart como lenguaje de programación.
 
-Como base de datos principal se utilizará PostgreSQL para el almacenamiento de usuarios, reservas, pagos, ocupación y demás información del sistema.
+Como base de datos principal se utilizará MySQL 8 (esquema `spotfinder`) para el almacenamiento de usuarios, vehículos, pagos, ocupación y demás información del sistema. El acceso se realiza mediante Spring Data JPA con el dialecto `org.hibernate.dialect.MySQLDialect` y el driver `com.mysql.cj.jdbc.Driver`.
 
 Como herramientas SaaS y de colaboración se utilizará GitHub para el control de versiones y trabajo colaborativo. Además, se empleará Trello para la gestión del Product Backlog y seguimiento de tareas. Para la elaboración de diagramas y modelado se utilizarán LucidChart y Structurizr.
 
@@ -5379,8 +5378,8 @@ Herramienta utilizada para la ejecución de emuladores Android y pruebas de la a
 ### Git y GitHub
 Se utilizarán para el control de versiones, manejo de ramas, colaboración entre desarrolladores y almacenamiento de repositorios.
 
-### PostgreSQL
-Sistema de gestión de bases de datos relacional utilizado para almacenar la información principal del sistema.
+### MySQL
+Sistema de gestión de bases de datos relacional utilizado para almacenar la información principal del sistema. Se utiliza la versión 8.x con motor InnoDB, accedido desde el backend Spring Boot mediante Spring Data JPA. El esquema lógico se denomina `spotfinder`.
 
 ### Spring Boot
 Framework backend utilizado para el desarrollo de servicios RESTful y lógica de negocio del sistema.
@@ -5507,7 +5506,7 @@ Para el despliegue de la landing page y aplicación web se utilizará **Netlify*
 
 Para el despliegue del backend API se utilizará **Render**, **Railway** o **Zeabur** mediante contenedores y servicios cloud compatibles con Spring Boot.
 
-Para la base de datos PostgreSQL se utilizará **Railway** o **Supabase** como servicio administrado.
+Para la base de datos MySQL se utilizará **Railway** o **Aiven for MySQL** como servicio administrado.
 
 Para el despliegue de la aplicación móvil se utilizará **Android Studio** para generación de builds APK y **Google Play Console** para distribución futura.
 

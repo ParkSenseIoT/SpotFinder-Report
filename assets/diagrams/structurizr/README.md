@@ -24,4 +24,4 @@ Este directorio contiene los diagramas C4 del sistema SpotFinder.
 
 - El motor de base de datos es **MySQL 8 (InnoDB)**, no PostgreSQL. El contenedor `Database` y el nodo `Database Infrastructure` reflejan esto.
 - El esquema lógico de la BD se denomina **`spotfinder`** (todo en minúscula, snake-case-friendly).
-- Los componentes por Bounded Context (Component Level Diagrams) se mantienen en los PNG individuales que están en este mismo directorio (`Access_Control_Diagram.png`, etc.).
+- Los componentes por Bounded Context (Component Level Diagrams) se mantienen en los PNG individuales que están en este mismo directorio (`Access_Control_Diagram.png`, etc.)..

@@ -1955,116 +1955,71 @@ Hub de comunicaciones encargado de orquestar alertas Push y correos. Valida pref
 
 ![Notification Management Canvas](assets/diagrams/context-canvases/noti.png)
 
+---
+
 ## 4.1.2. Context Mapping
 
 En esta sección se define el context mapping del sistema SpotFinder, con el propósito de representar las relaciones existentes entre los bounded contexts identificados a partir del Event Storming. Este análisis permite comprender cómo interactúan los distintos dominios del sistema y qué patrones de integración son más adecuados para mantener la independencia y coherencia del modelo.
 
-A partir de la identificación de los contextos —Parking Monitoring, Access Control, Reservation Management, Payment Processing, Emergency & Safety, Identity & Access Management y Notifications— se establecieron relaciones utilizando patrones de Domain-Driven Design como Customer/Supplier, Shared Kernel, Conformist, Open Host Service (OHS) y Anti-Corruption Layer (ACL).
+A partir de la identificación de los contextos Parking Monitoring, Access Control, Reservation Management, Payment Processing, Emergency & Safety, Identity & Access Management, Notifications y Analytics & Reporting se establecieron relaciones utilizando patrones de Domain-Driven Design como Customer/Supplier, Shared Kernel, Conformist, Open Host Service (OHS) y Anti-Corruption Layer (ACL).
 
 ---
 
 ### Identificación de relaciones y patrones
 
-**Identity & Access Management → Access Control**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Access Control (D)**  
-**Tipo de integración: OHS**  
-El contexto de Identity & Access Management centraliza la autenticación y gestión de usuarios. Access Control consume estos servicios para validar identidad y permisos en los accesos físicos, utilizando interfaces definidas sin depender del modelo interno.
+**Identity & Access Management → Access Control** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Access Control (D)** **Tipo de integración: OHS** El contexto de Identity & Access Management centraliza la autenticación y gestión de usuarios. Access Control consume estos servicios para validar identidad y permisos en los accesos físicos, utilizando interfaces definidas sin depender del modelo interno.
 
 ---
 
-**Identity & Access Management → Reservation Management**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Reservation Management (D)**  
-**Tipo de integración: OHS**  
-Reservation Management requiere validar usuarios antes de permitir la creación y gestión de reservas. IAM provee estos servicios mediante interfaces desacopladas.
+**Identity & Access Management → Reservation Management** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Reservation Management (D)** **Tipo de integración: OHS** Reservation Management requiere validar usuarios antes de permitir la creación y gestión de reservas. IAM provee estos servicios mediante interfaces desacopladas.
 
 ---
 
-**Identity & Access Management → Payment Processing**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Payment Processing (D)**  
-**Tipo de integración: OHS**  
-Payment Processing utiliza IAM para autenticar usuarios antes de ejecutar transacciones, evitando dependencias directas con el modelo de identidad.
+**Identity & Access Management → Payment Processing** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Payment Processing (D)** **Tipo de integración: OHS** Payment Processing utiliza IAM para autenticar usuarios antes de ejecutar transacciones, evitando dependencias directas con el modelo de identidad.
 
 ---
 
-**Identity & Access Management → Notifications**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Notifications (D)**  
-**Tipo de integración: OHS**  
-Notifications obtiene información básica del usuario (identidad/contacto) desde IAM para poder enviar mensajes correctamente.
+**Identity & Access Management → Notifications** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Notifications (D)** **Tipo de integración: OHS** Notifications obtiene información básica del usuario (identidad/contacto) desde IAM para poder enviar mensajes correctamente.
 
 ---
 
-**Access Control → Parking Monitoring**  
-**Patrón: Customer/Supplier**  
-**Relación: Access Control (U) → Parking Monitoring (D)**  
-**Tipo de integración: Directo (eventos)**  
-Access Control genera eventos como detección de entrada, lectura de placas o apertura de barreras. Parking Monitoring consume estos eventos para actualizar el estado del estacionamiento.
+**Access Control → Parking Monitoring** **Patrón: Customer/Supplier** **Relación: Access Control (U) → Parking Monitoring (D)** **Tipo de integración: Directo (eventos)** Access Control genera eventos como detección de entrada, lectura de placas o apertura de barreras. Parking Monitoring consume estos eventos para actualizar el estado del estacionamiento.
 
 ---
 
-**Parking Monitoring ↔ Reservation Management**  
-**Patrón: Shared Kernel**  
-**Tipo de integración: Modelo compartido**  
-Ambos contextos comparten el concepto de espacio de estacionamiento y disponibilidad, garantizando consistencia en la asignación y reserva de espacios.
+**Parking Monitoring ↔ Reservation Management** **Patrón: Shared Kernel** **Tipo de integración: Modelo compartido** Ambos contextos comparten el concepto de espacio de estacionamiento y disponibilidad, garantizando consistencia en la asignación y reserva de espacios.
 
 ---
 
-**Reservation Management → Payment Processing**  
-**Patrón: Customer/Supplier + Anti-Corruption Layer (ACL)**  
-**Relación: Reservation Management (U) → Payment Processing (D)**  
-**Tipo de integración: ACL**  
-Reservation Management genera información de sesiones y reservas que es transformada mediante una ACL antes de ser utilizada por Payment Processing, evitando acoplamiento con el dominio financiero.
+**Reservation Management → Payment Processing** **Patrón: Customer/Supplier + Anti-Corruption Layer (ACL)** **Relación: Reservation Management (U) → Payment Processing (D)** **Tipo de integración: ACL** Reservation Management genera información de sesiones y reservas que es transformada mediante una ACL antes de ser utilizada por Payment Processing, evitando acoplamiento con el dominio financiero.
 
 ---
 
-**Parking Monitoring → Payment Processing**  
-**Patrón: Conformist**  
-**Relación: Parking Monitoring (U) → Payment Processing (D)**  
-**Tipo de integración: Directo (Conformist)**  
-Payment Processing consume directamente información de ocupación y duración de sesiones, adaptándose al modelo de Parking Monitoring.
+**Parking Monitoring → Payment Processing** **Patrón: Conformist** **Relación: Parking Monitoring (U) → Payment Processing (D)** **Tipo de integración: Directo (Conformist)** Payment Processing consume directamente información de ocupación y duración de sesiones, adaptándose al modelo de Parking Monitoring.
 
 ---
 
-**Parking Monitoring → Emergency & Safety**  
-**Patrón: Anti-Corruption Layer (ACL)**  
-**Relación: Parking Monitoring (U) → Emergency & Safety (D)**  
-**Tipo de integración: ACL**  
-Los datos provenientes de sensores son transformados mediante una ACL para ser interpretados como eventos de seguridad, evitando dependencia del modelo técnico IoT.
+**Parking Monitoring → Emergency & Safety** **Patrón: Anti-Corruption Layer (ACL)** **Relación: Parking Monitoring (U) → Emergency & Safety (D)** **Tipo de integración: ACL** Los datos provenientes de sensores son transformados mediante una ACL para ser interpretados como eventos de seguridad, evitando dependencia del modelo técnico IoT.
 
 ---
 
-**Parking Monitoring → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Parking Monitoring (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Eventos como cambios en la ocupación son enviados al sistema de notificaciones.
+**Parking Monitoring → Notifications** **Patrón: Customer/Supplier** **Relación: Parking Monitoring (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Eventos como cambios en la ocupación son enviados al sistema de notificaciones.
 
 ---
 
-**Reservation Management → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Reservation Management (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Eventos de reservas (confirmaciones, cancelaciones, expiraciones) son comunicados al usuario.
+**Reservation Management → Notifications** **Patrón: Customer/Supplier** **Relación: Reservation Management (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Eventos de reservas (confirmaciones, cancelaciones, expiraciones) son comunicados al usuario.
 
 ---
 
-**Payment Processing → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Payment Processing (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-El estado de las transacciones es enviado al sistema de notificaciones.
+**Payment Processing → Notifications** **Patrón: Customer/Supplier** **Relación: Payment Processing (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** El estado de las transacciones es enviado al sistema de notificaciones.
 
 ---
 
-**Emergency & Safety → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Emergency & Safety (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Las alertas críticas son enviadas al usuario o administrador mediante el sistema de notificaciones.
+**Emergency & Safety → Notifications** **Patrón: Customer/Supplier** **Relación: Emergency & Safety (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Las alertas críticas son enviadas al usuario o administrador mediante el sistema de notificaciones.
+
+---
+
+**Payment Processing → Analytics & Reporting** **Patrón: Customer/Supplier** **Relación: Payment Processing (U) → Analytics & Reporting (D)** **Tipo de integración: Directo (eventos transaccionales)** El contexto de Analytics & Reporting actúa puramente como un consumidor asíncrono de la información consolidada de las transacciones financieras y marcas de tiempo de estancia proveídas por Payment Processing, procesando estos datos de manera aislada para generar reportes financieros, horas pico y métricas de rotación sin sobrecargar ni interferir con el núcleo operativo del sistema.
 
 ---
 
@@ -2079,6 +2034,8 @@ Asimismo, se priorizó el uso de Customer/Supplier y Anti-Corruption Layer en la
 En el caso de Parking Monitoring y Reservation Management, se utilizó Shared Kernel debido a la necesidad de consistencia en el manejo de espacios.
 
 El contexto de Notifications se definió como un consumidor de eventos, centralizando la comunicación con el usuario sin afectar la lógica de otros contextos.
+
+Finalmente, para el diseño de Analytics & Reporting se optó por un enfoque de acoplamiento mínimo y asíncrono a través de una única relación Customer/Supplier con Payment Processing. Esta decisión estratégica evita la dispersión de flechas y dependencias cruzadas (evitando sobrecargar el nodo central de Parking Monitoring), aprovechando que los eventos financieros ya contienen la traza completa de tiempos de uso, placas de vehículos y montos recaudados necesarios para compilar la inteligencia de negocio.
 
 ---
 

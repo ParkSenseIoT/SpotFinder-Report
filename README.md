@@ -6293,7 +6293,7 @@ Web Dashboard para administradores).
 
 ##### B. Mobile App (Interfaz)
 
-> **Tareas asignadas:** registrarse → agregar placa → ver mapa → simular pago → revisar notificaciones.
+
 
 1. ¿Qué tan fácil fue navegar por la aplicación o entender las secciones desde la barra inferior (Dashboard / Map / Payments / Alerts / Settings)?
 2. ¿Lograste registrar tu placa y encontrarla luego en "Mis vehículos" sin perderte?
@@ -6323,8 +6323,7 @@ Web Dashboard para administradores).
 
 ##### B. Web Dashboard (Interfaz)
 
-> **Tareas asignadas:** login → ver dashboard → consultar ingresos → recorrer mapa de ocupación.
-> ⚠️ **Alcance acotado a `/dashboard`, `/parking` y `/payments`.** Las secciones Access Control, Emergency Center, Reports, Users y Settings se incluyen ya en este reporte pero serán parte del demo completo en TB2.
+
 
 1. ¿Qué tan fácil fue iniciar sesión y ubicar la información que necesitabas en el dashboard?
 2. ¿Pudiste identificar rápido los KPIs operativos (ocupación actual, ingresos del día, alertas activas)?

@@ -644,6 +644,29 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
 - [6.2.1.7. Services Documentation Evidence for Sprint Review](#6217-services-documentation-evidence-for-sprint-review)
 - [6.2.1.8. Software Deployment Evidence for Sprint Review](#6218-software-deployment-evidence-for-sprint-review)
 - [6.2.1.9. Team Collaboration Insights during Sprint](#6219-team-collaboration-insights-during-sprint)
+    - [6.2.2. Sprint 2](#622-sprint-2)
+      - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2)
+      - [6.2.2.2. Aspect Leaders and Collaborators](#6222-aspect-leaders-and-collaborators)
+      - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2)
+      - [6.2.2.4. Development Evidence for Sprint Review](#6224-development-evidence-for-sprint-review)
+      - [6.2.2.5. Testing Suite Evidence for Sprint Review](#6225-testing-suite-evidence-for-sprint-review)
+      - [6.2.2.6. Execution Evidence for Sprint Review](#6226-execution-evidence-for-sprint-review)
+      - [6.2.2.7. Services Documentation Evidence for Sprint Review](#6227-services-documentation-evidence-for-sprint-review)
+      - [6.2.2.8. Software Deployment Evidence for Sprint Review](#6228-software-deployment-evidence-for-sprint-review)
+      - [6.2.2.9. Team Collaboration Insights during Sprint](#6229-team-collaboration-insights-during-sprint)
+  - [6.3. Validation Interviews](#63-validation-interviews)
+    - [6.3.1. Diseño de Entrevistas](#631-diseño-de-entrevistas)
+      - [Segmento 1: Conductores que visitan centros comerciales](#segmento-1-conductores-que-visitan-centros-comerciales-2)
+        - [A. Landing Page (Propuesta de valor)](#a-landing-page-propuesta-de-valor)
+        - [B. Mobile App (Interfaz)](#b-mobile-app-interfaz)
+        - [C. Mobile App (Propuesta de valor)](#c-mobile-app-propuesta-de-valor)
+      - [Segmento 2: Administradores de Estacionamientos](#segmento-2-administradores-de-estacionamientos-1)
+        - [A. Landing Page (Propuesta de valor)](#a-landing-page-propuesta-de-valor-1)
+        - [B. Web Dashboard (Interfaz)](#b-web-dashboard-interfaz)
+        - [C. Web Dashboard (Propuesta de valor)](#c-web-dashboard-propuesta-de-valor)
+    - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
+    - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
+  - [6.4. Video About-the-Product](#64-video-about-the-product)
     - [Conclusiones](#conclusiones)
     - [Recomendaciones](#recomendaciones)
 - [Bibliografía](#bibliografía)
@@ -6184,6 +6207,171 @@ La estrategia de despliegue implementada permitió mantener integración continu
 
 Durante el Sprint 1 el equipo trabajó colaborativamente utilizando Trello como herramienta principal para la gestión y seguimiento
 
+<div style="page-break-after: always;"></div>
+
+---
+
+## 6.2.2. Sprint 2
+
+> *Sección reservada para la entrega AV2 / TB2. Documentará el segundo Sprint con la implementación
+> de los siete Bounded Contexts del backend, las cinco páginas faltantes del Web Dashboard
+> (Access Control, Emergency, Reports, Users, Settings), las seis features pendientes de la
+> aplicación móvil (Find My Car, pago con Yape destacado, historial de pagos detallado, pase
+> Google Wallet, servicios Premium y el flujo de Reservations), y el Bounded Context de
+> Reservation Management implementado en el backend.*
+
+### 6.2.2.1. Sprint Planning 2
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.2. Aspect Leaders and Collaborators
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.3. Sprint Backlog 2
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.4. Development Evidence for Sprint Review
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.5. Testing Suite Evidence for Sprint Review
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.6. Execution Evidence for Sprint Review
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.7. Services Documentation Evidence for Sprint Review
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.8. Software Deployment Evidence for Sprint Review
+
+*Pendiente — se documentará en AV2.*
+
+### 6.2.2.9. Team Collaboration Insights during Sprint
+
+*Pendiente — se documentará en AV2.*
+
+<div style="page-break-after: always;"></div>
+
+---
+
+## 6.3. Validation Interviews
+
+En esta sección se presentan las entrevistas de validación realizadas con los representantes de los
+segmentos objetivo del proyecto **SpotFinder**: conductores que visitan centros comerciales de Lima
+y administradores de estacionamientos de centros comerciales. El propósito de esta fase es evaluar
+la claridad de la propuesta de valor expuesta en el Landing Page, la usabilidad de los prototipos
+de software (Mobile App para conductores y Web Dashboard para administradores) y la aceptación de
+las funcionalidades planteadas, contrastando las hipótesis del Lean UX con la percepción real de los
+usuarios.
+
+### 6.3.1. Diseño de Entrevistas
+
+Para el diseño de las entrevistas de validación se elaboraron guías diferenciadas por segmento. Las
+preguntas se agrupan en dos dimensiones principales: **propuesta de valor** (claridad del mensaje,
+relevancia, pricing, intención de adopción) y **usabilidad** (facilidad de navegación, claridad de
+los flujos, fricciones encontradas). Cada segmento responde un bloque de Landing Page seguido de
+dos bloques referidos a la aplicación que utilizará en producción (Mobile App para conductores,
+Web Dashboard para administradores).
+
+#### Segmento 1: Conductores que visitan centros comerciales
+
+##### A. Landing Page (Propuesta de valor)
+
+1. ¿Qué fue lo primero que entendiste al abrir la landing page de SpotFinder?
+2. ¿Te queda claro qué problema buscamos resolver para conductores que visitan centros comerciales?
+3. ¿El mensaje principal (ahorrar tiempo buscando estacionamiento y pagar sin colas) te parece relevante en tu día a día?
+4. ¿Te quedan claras las secciones de la página (Hero, Funcionalidades, Cómo funciona, Planes, FAQ, Contacto)? ¿Agregarías alguna?
+5. ¿Qué parte del contenido te pareció más útil o atractiva como conductor?
+6. ¿Te parece que los planes Free / Pro / Premium y sus precios son los adecuados para el valor ofrecido?
+7. ¿Qué mejorarías para que la información del Landing sea más clara o persuasiva antes de descargar la app?
+
+##### B. Mobile App (Interfaz)
+
+
+
+1. ¿Qué tan fácil fue navegar por la aplicación o entender las secciones desde la barra inferior (Dashboard / Map / Payments / Alerts / Settings)?
+2. ¿Lograste registrar tu placa y encontrarla luego en "Mis vehículos" sin perderte?
+3. ¿Te resultó intuitivo el mapa de espacios libres y ocupados, o tuviste que pensar demasiado para interpretar los colores y filtros?
+4. ¿Hay alguna función que esperabas encontrar y no viste durante el recorrido?
+5. ¿Qué te generó confianza o desconfianza al simular el pago (Yape o tarjeta) y al recibir la notificación?
+
+##### C. Mobile App (Propuesta de valor)
+
+1. ¿Qué tan útil consideras la app para ahorrarte tiempo y estrés en tus visitas a centros comerciales?
+2. ¿Qué funcionalidad sientes que te ahorraría más tiempo o esfuerzo: ver el mapa en tiempo real, ingreso automático con ALPR, pago digital, Find My Car o las reservas Pro/Premium?
+3. Si tuvieras que reemplazar tu forma actual de estacionar (ticket físico + pago en caja) por esta app, ¿qué necesitaría tener para convencerte al 100%?
+4. ¿Cuánto estarías dispuesto a pagar por el plan Pro (S/ 9.90/mes con reservas) o el plan Premium (con Google Wallet pass y servicios premium como lavado)?
+5. ¿Qué tan probable es que recomendaras SpotFinder a otro conductor que va seguido a un centro comercial? *(escala 0–10, NPS)*
+
+#### Segmento 2: Administradores de Estacionamientos
+
+##### A. Landing Page (Propuesta de valor)
+
+1. Desde tu rol de administrador, ¿qué entendiste al ver la landing? ¿Identificaste rápido la propuesta B2B?
+2. ¿Te queda claro qué problemas operativos del estacionamiento resuelve SpotFinder?
+3. ¿El mensaje principal y las funcionalidades destacadas (monitoreo IoT en tiempo real, ALPR, control de barreras, reportes ejecutivos, protocolo de emergencias) son relevantes para tu operación diaria?
+4. ¿Los planes Starter / Business / Enterprise y sus precios te parecen adecuados frente al ROI que ofrecemos (rotación, reducción de personal, mejor experiencia)?
+5. ¿Qué parte del contenido te pareció más convincente como tomador de decisiones del centro comercial?
+6. ¿Qué objeciones internas anticipas que tendría tu gerencia (inversión inicial, capacitación, integración con sistemas actuales) y cómo las despejarías desde esta landing?
+7. ¿Qué mejorarías en la landing para que sea más persuasiva en una reunión comercial?
+
+##### B. Web Dashboard (Interfaz)
+
+
+
+1. ¿Qué tan fácil fue iniciar sesión y ubicar la información que necesitabas en el dashboard?
+2. ¿Pudiste identificar rápido los KPIs operativos (ocupación actual, ingresos del día, alertas activas)?
+3. ¿Te resultó intuitivo el menú lateral (Dashboard, Parking Monitoring, Analytics, Payments, etc.) o tuviste que pensar dónde estaba cada cosa?
+4. ¿Hay alguna métrica o tablero que esperabas encontrar y no viste?
+5. ¿Qué te generó confianza o desconfianza sobre la precisión de los datos en tiempo real (mapa de espacios y revenue chart)?
+
+##### C. Web Dashboard (Propuesta de valor)
+
+1. ¿Qué tan útil consideras este dashboard para tomar decisiones operativas diarias (asignación de personal, tarificación, mantenimiento)?
+2. ¿Qué módulo crees que te ahorraría más tiempo o conflictos: monitoreo en tiempo real, control de barreras, reportes automatizados, gestión de emergencias o gestión de usuarios?
+3. Comparado con la forma en que gestionas el estacionamiento hoy, ¿qué ventaja concreta le encuentras?
+4. Para reemplazar tu sistema actual por SpotFinder, ¿qué funcionalidades indispensables tendría que incluir (integración con tu pasarela contable, exportación a SAP/ERP, multi-facility, etc.)?
+5. ¿Qué tan probable es que recomendaras SpotFinder a otro centro comercial? *(escala 0–10, NPS)*
+
+### 6.3.2. Registro de Entrevistas
+
+> *Sección reservada para la entrega AV2. Documentará para cada segmento de 3 a 5 entrevistas con
+> nombre, apellido, edad, distrito, screenshot del video, URL en Microsoft Stream/Clipchamp, timing
+> de inicio y duración, junto con un resumen descriptivo de las principales apreciaciones del
+> entrevistado frente a las tareas asignadas. El video consolidado seguirá la nomenclatura
+> `upc-pre-202610-1asi0572-<NRC>-spotfinder-validation-sprint-2.mp4` indicada en el Anexo C del
+> enunciado.*
+
+### 6.3.3. Evaluaciones según heurísticas
+
+> *Sección reservada para la entrega AV2. Aplicará el formato de evaluación de heurísticas del
+> Anexo D del enunciado, combinando heurísticas de usabilidad (Nielsen), arquitectura de información
+> y diseño inclusivo. Incluirá la tabla resumen con la escala de severidad (1–4) y el detalle por
+> problema identificado durante las sesiones de validación, con captura, recomendación y
+> heurística violada.*
+
+<div style="page-break-after: always;"></div>
+
+---
+
+## 6.4. Video About-the-Product
+
+> *Sección reservada para la entrega AV2 / TB2. Incluirá el resumen del Video About-the-Product
+> dirigido a los visitantes del Landing Page y a los usuarios finales (conductores y
+> administradores), con un screenshot representativo, el URL en Microsoft Stream/Clipchamp,
+> el URL en YouTube utilizado para incrustarse en el Landing Page, la duración total y al menos
+> un testimonio positivo extraído de las entrevistas de validación. La nomenclatura del archivo
+> será `upc-pre-202610-1asi0572-<NRC>-spotfinder-about-the-product-sprint-2.mp4`.*
+
+<div style="page-break-after: always;"></div>
+
+---
 
 En esta sección se presentan las conclusiones y recomendaciones derivadas del desarrollo del proyecto **SpotFinder**.
 

@@ -558,6 +558,42 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [4.2.7.6. Bounded Context Software Architecture Code Level Diagrams](#4276-bounded-context-software-architecture-code-level-diagrams)
       - [4.2.7.6.1. Bounded Context Domain Layer Class Diagrams](#42761-bounded-context-domain-layer-class-diagrams)
       - [4.2.7.6.2. Bounded Context Database Design Diagram](#42762-bounded-context-database-design-diagram)
+  - [4.2.8. Bounded Context: Reservation Management](#428-bounded-context-reservation-management)
+    - [4.2.8.1. Domain Layer](#4281-domain-layer)
+      - [1. Reservation (Aggregate Root)](#1-reservation-aggregate-root)
+      - [2. ReservationStatus (Value Object)](#2-reservationstatus-value-object)
+      - [3. RequestReservationCommand (Command)](#3-requestreservationcommand-command)
+      - [4. ConfirmReservationCommand (Command)](#4-confirmreservationcommand-command)
+      - [5. ExpireReservationCommand (Command)](#5-expirereservationcommand-command)
+      - [6. StartTimerCommand (Command)](#6-starttimercommand-command)
+      - [7. VehicleArrivedCommand (Command)](#7-vehiclearrivedcommand-command)
+      - [8. CancelReservationCommand (Command)](#8-cancelreservationcommand-command)
+      - [9. Queries](#9-queries-1)
+      - [10. Domain Events](#10-domain-events)
+      - [11. ReservationCommandService (Domain Service)](#11-reservationcommandservice-domain-service)
+      - [12. ReservationQueryService (Domain Service)](#12-reservationqueryservice-domain-service)
+      - [13. GracePeriodPolicy (Domain Service)](#13-graceperiodpolicy-domain-service)
+      - [14. Ubiquitous Language](#14-ubiquitous-language)
+      - [15. Business Rules](#15-business-rules)
+    - [4.2.8.2. Interface Layer](#4282-interface-layer)
+      - [1. ReservationsController (REST Controller)](#1-reservationscontroller-rest-controller)
+      - [2. Resources (DTOs)](#2-resources-dtos-4)
+      - [3. Transform (Assemblers)](#3-transform-assemblers-4)
+    - [4.2.8.3. Application Layer](#4283-application-layer)
+      - [1. ReservationCommandServiceImpl (Command Service Implementation)](#1-reservationcommandserviceimpl-command-service-implementation)
+      - [2. ReservationQueryServiceImpl (Query Service Implementation)](#2-reservationqueryserviceimpl-query-service-implementation)
+      - [3. ReservationEventHandler (Domain Event Handler)](#3-reservationeventhandler-domain-event-handler)
+    - [4.2.8.4. Infrastructure Layer](#4284-infrastructure-layer)
+      - [1. ReservationRepository (Repository Interface)](#1-reservationrepository-repository-interface)
+      - [2. GracePeriodScheduler (Infrastructure Service)](#2-graceperiodscheduler-infrastructure-service)
+      - [3. IAMOpenHostServiceClient (External Service Client)](#3-iamopenhostserviceclient-external-service-client)
+      - [4. ParkingMonitoringSharedKernel (Shared Kernel)](#4-parkingmonitoringsharedkernel-shared-kernel)
+      - [5. PaymentProcessingAntiCorruptionLayer (ACL)](#5-paymentprocessinganticorruptionlayer-acl)
+      - [6. NotificationPublisher (Infrastructure Service)](#6-notificationpublisher-infrastructure-service)
+    - [4.2.8.5. Bounded Context Software Architecture Component Level Diagrams](#4285-bounded-context-software-architecture-component-level-diagrams)
+    - [4.2.8.6. Bounded Context Software Architecture Code Level Diagrams](#4286-bounded-context-software-architecture-code-level-diagrams)
+      - [4.2.8.6.1. Bounded Context Domain Layer Class Diagrams](#42861-bounded-context-domain-layer-class-diagrams)
+      - [4.2.8.6.2. Bounded Context Database Design Diagram](#42862-bounded-context-database-design-diagram)
 - [Capítulo V: Solution UI/UX Design](#capítulo-v-solution-uiux-design)
   - [5.1. Style Guidelines](#51-style-guidelines)
     - [5.1.1. General Style Guidelines](#511-general-style-guidelines)
@@ -1935,140 +1971,111 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 
 En esta sección se presentan los Bounded Context Canvases, los cuales definen los límites, responsabilidades, lenguaje ubicuo y decisiones estratégicas de cada módulo del sistema.
 
-**1. Identity & Access Management (IAM)**
-Administra el ciclo de vida de las cuentas de conductores y el registro de vehículos. Es la fuente de la verdad para validar la legitimidad de una placa antes del ingreso.
-![IAM Canvas](assets/diagrams/context-canvases/iam.png)
-
-**2. Parking Monitoring**
+**1. Parking Monitoring**  
 Gestiona la disponibilidad de plazas mediante sensores IoT (ESP32). Se encarga de procesar las señales de ocupación y actualizar el mapa de disponibilidad en tiempo real.
+
 ![Parking Monitoring Canvas](assets/diagrams/context-canvases/parking.png)
 
-**3. Access Control**
+**2. Access Control**  
 El núcleo operativo que gobierna las barreras físicas y las sesiones de vehículos. Implementa la lógica de "Autorización Triple" (Placa + IAM + Espacio) para permitir el acceso.
+
 ![Access Control Canvas](assets/diagrams/context-canvases/access.png)
 
-**4. Reservation Management**
-Controla el ciclo de vida de las reservas, gestionando el "Grace Period" de 15 minutos y la liberación automática de plazas en caso de inasistencia (No-show).
-![Reservation Management Canvas](assets/diagrams/context-canvases/reservation.png)
+**3. Payment Processing**  
+Cálculo de tarifas de estacionamiento basadas en el tiempo real de permanencia y procesamiento seguro de pagos digitales integrando la pasarela externa Culqi (tarjetas y Yape). El cobro automatizado representa el tercer pilar del valor de negocio.
 
-**5. Emergency & Safety**
+![Payment Processing Canvas](assets/diagrams/context-canvases/payment.png)
+
+**4. Analytics & Reporting**  
+Generación de métricas, estadísticas y reportes consolidados para la toma de decisiones administrativas. Opera de forma asíncrona para procesar datos históricos sin degradar la base transaccional.
+
+![Analytics & Reporting Canvas](assets/diagrams/context-canvases/analytics.png)
+
+**5. Emergency & Safety**  
 Módulo de alta prioridad que ejecuta protocolos de seguridad. En caso de emergencia, activa el "Safety Override" para la apertura total e inmediata de todas las barreras.
+
 ![Emergency & Safety Canvas](assets/diagrams/context-canvases/emergency.png)
 
-**6. Notification Management**
+**6. Reservation Management**  
+Controla el ciclo de vida de las reservas, gestionando el "Grace Period" de 15 minutos y la liberación automática de plazas en caso de inasistencia (No-show).
+
+![Reservation Management Canvas](assets/diagrams/context-canvases/reservation.png)
+
+**7. Identity & Access Management (IAM)**  
+Administra el ciclo de vida de las cuentas de conductores y el registro de vehículos. Es la fuente de la verdad para validar la legitimidad de una placa antes del ingreso.
+
+![IAM Canvas](assets/diagrams/context-canvases/iam.png)
+
+**8. Notification Management**  
 Hub de comunicaciones encargado de orquestar alertas Push y correos. Valida preferencias de privacidad del usuario y asegura la entrega de mensajes críticos del sistema.
+
 ![Notification Management Canvas](assets/diagrams/context-canvases/noti.png)
+
+---
 
 ## 4.1.2. Context Mapping
 
 En esta sección se define el context mapping del sistema SpotFinder, con el propósito de representar las relaciones existentes entre los bounded contexts identificados a partir del Event Storming. Este análisis permite comprender cómo interactúan los distintos dominios del sistema y qué patrones de integración son más adecuados para mantener la independencia y coherencia del modelo.
 
-A partir de la identificación de los contextos —Parking Monitoring, Access Control, Reservation Management, Payment Processing, Emergency & Safety, Identity & Access Management y Notifications— se establecieron relaciones utilizando patrones de Domain-Driven Design como Customer/Supplier, Shared Kernel, Conformist, Open Host Service (OHS) y Anti-Corruption Layer (ACL).
+A partir de la identificación de los contextos Parking Monitoring, Access Control, Reservation Management, Payment Processing, Emergency & Safety, Identity & Access Management, Notifications y Analytics & Reporting se establecieron relaciones utilizando patrones de Domain-Driven Design como Customer/Supplier, Shared Kernel, Conformist, Open Host Service (OHS) y Anti-Corruption Layer (ACL).
 
 ---
 
 ### Identificación de relaciones y patrones
 
-**Identity & Access Management → Access Control**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Access Control (D)**  
-**Tipo de integración: OHS**  
-El contexto de Identity & Access Management centraliza la autenticación y gestión de usuarios. Access Control consume estos servicios para validar identidad y permisos en los accesos físicos, utilizando interfaces definidas sin depender del modelo interno.
+**Identity & Access Management → Access Control** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Access Control (D)** **Tipo de integración: OHS** El contexto de Identity & Access Management centraliza la autenticación y gestión de usuarios. Access Control consume estos servicios para validar identidad y permisos en los accesos físicos, utilizando interfaces definidas sin depender del modelo interno.
 
 ---
 
-**Identity & Access Management → Reservation Management**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Reservation Management (D)**  
-**Tipo de integración: OHS**  
-Reservation Management requiere validar usuarios antes de permitir la creación y gestión de reservas. IAM provee estos servicios mediante interfaces desacopladas.
+**Identity & Access Management → Reservation Management** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Reservation Management (D)** **Tipo de integración: OHS** Reservation Management requiere validar usuarios antes de permitir la creación y gestión de reservas. IAM provee estos servicios mediante interfaces desacopladas.
 
 ---
 
-**Identity & Access Management → Payment Processing**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Payment Processing (D)**  
-**Tipo de integración: OHS**  
-Payment Processing utiliza IAM para autenticar usuarios antes de ejecutar transacciones, evitando dependencias directas con el modelo de identidad.
+**Identity & Access Management → Payment Processing** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Payment Processing (D)** **Tipo de integración: OHS** Payment Processing utiliza IAM para autenticar usuarios antes de ejecutar transacciones, evitando dependencias directas con el modelo de identidad.
 
 ---
 
-**Identity & Access Management → Notifications**  
-**Patrón: Open Host Service (OHS)**  
-**Relación: IAM (U) → Notifications (D)**  
-**Tipo de integración: OHS**  
-Notifications obtiene información básica del usuario (identidad/contacto) desde IAM para poder enviar mensajes correctamente.
+**Identity & Access Management → Notifications** **Patrón: Open Host Service (OHS)** **Relación: IAM (U) → Notifications (D)** **Tipo de integración: OHS** Notifications obtiene información básica del usuario (identidad/contacto) desde IAM para poder enviar mensajes correctamente.
 
 ---
 
-**Access Control → Parking Monitoring**  
-**Patrón: Customer/Supplier**  
-**Relación: Access Control (U) → Parking Monitoring (D)**  
-**Tipo de integración: Directo (eventos)**  
-Access Control genera eventos como detección de entrada, lectura de placas o apertura de barreras. Parking Monitoring consume estos eventos para actualizar el estado del estacionamiento.
+**Access Control → Parking Monitoring** **Patrón: Customer/Supplier** **Relación: Access Control (U) → Parking Monitoring (D)** **Tipo de integración: Directo (eventos)** Access Control genera eventos como detección de entrada, lectura de placas o apertura de barreras. Parking Monitoring consume estos eventos para actualizar el estado del estacionamiento.
 
 ---
 
-**Parking Monitoring ↔ Reservation Management**  
-**Patrón: Shared Kernel**  
-**Tipo de integración: Modelo compartido**  
-Ambos contextos comparten el concepto de espacio de estacionamiento y disponibilidad, garantizando consistencia en la asignación y reserva de espacios.
+**Parking Monitoring ↔ Reservation Management** **Patrón: Shared Kernel** **Tipo de integración: Modelo compartido** Ambos contextos comparten el concepto de espacio de estacionamiento y disponibilidad, garantizando consistencia en la asignación y reserva de espacios.
 
 ---
 
-**Reservation Management → Payment Processing**  
-**Patrón: Customer/Supplier + Anti-Corruption Layer (ACL)**  
-**Relación: Reservation Management (U) → Payment Processing (D)**  
-**Tipo de integración: ACL**  
-Reservation Management genera información de sesiones y reservas que es transformada mediante una ACL antes de ser utilizada por Payment Processing, evitando acoplamiento con el dominio financiero.
+**Reservation Management → Payment Processing** **Patrón: Customer/Supplier + Anti-Corruption Layer (ACL)** **Relación: Reservation Management (U) → Payment Processing (D)** **Tipo de integración: ACL** Reservation Management genera información de sesiones y reservas que es transformada mediante una ACL antes de ser utilizada por Payment Processing, evitando acoplamiento con el dominio financiero.
 
 ---
 
-**Parking Monitoring → Payment Processing**  
-**Patrón: Conformist**  
-**Relación: Parking Monitoring (U) → Payment Processing (D)**  
-**Tipo de integración: Directo (Conformist)**  
-Payment Processing consume directamente información de ocupación y duración de sesiones, adaptándose al modelo de Parking Monitoring.
+**Parking Monitoring → Payment Processing** **Patrón: Conformist** **Relación: Parking Monitoring (U) → Payment Processing (D)** **Tipo de integración: Directo (Conformist)** Payment Processing consume directamente información de ocupación y duración de sesiones, adaptándose al modelo de Parking Monitoring.
 
 ---
 
-**Parking Monitoring → Emergency & Safety**  
-**Patrón: Anti-Corruption Layer (ACL)**  
-**Relación: Parking Monitoring (U) → Emergency & Safety (D)**  
-**Tipo de integración: ACL**  
-Los datos provenientes de sensores son transformados mediante una ACL para ser interpretados como eventos de seguridad, evitando dependencia del modelo técnico IoT.
+**Parking Monitoring → Emergency & Safety** **Patrón: Anti-Corruption Layer (ACL)** **Relación: Parking Monitoring (U) → Emergency & Safety (D)** **Tipo de integración: ACL** Los datos provenientes de sensores son transformados mediante una ACL para ser interpretados como eventos de seguridad, evitando dependencia del modelo técnico IoT.
 
 ---
 
-**Parking Monitoring → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Parking Monitoring (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Eventos como cambios en la ocupación son enviados al sistema de notificaciones.
+**Parking Monitoring → Notifications** **Patrón: Customer/Supplier** **Relación: Parking Monitoring (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Eventos como cambios en la ocupación son enviados al sistema de notificaciones.
 
 ---
 
-**Reservation Management → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Reservation Management (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Eventos de reservas (confirmaciones, cancelaciones, expiraciones) son comunicados al usuario.
+**Reservation Management → Notifications** **Patrón: Customer/Supplier** **Relación: Reservation Management (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Eventos de reservas (confirmaciones, cancelaciones, expiraciones) son comunicados al usuario.
 
 ---
 
-**Payment Processing → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Payment Processing (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-El estado de las transacciones es enviado al sistema de notificaciones.
+**Payment Processing → Notifications** **Patrón: Customer/Supplier** **Relación: Payment Processing (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** El estado de las transacciones es enviado al sistema de notificaciones.
 
 ---
 
-**Emergency & Safety → Notifications**  
-**Patrón: Customer/Supplier**  
-**Relación: Emergency & Safety (U) → Notifications (D)**  
-**Tipo de integración: Directo (eventos)**  
-Las alertas críticas son enviadas al usuario o administrador mediante el sistema de notificaciones.
+**Emergency & Safety → Notifications** **Patrón: Customer/Supplier** **Relación: Emergency & Safety (U) → Notifications (D)** **Tipo de integración: Directo (eventos)** Las alertas críticas son enviadas al usuario o administrador mediante el sistema de notificaciones.
+
+---
+
+**Payment Processing → Analytics & Reporting** **Patrón: Customer/Supplier** **Relación: Payment Processing (U) → Analytics & Reporting (D)** **Tipo de integración: Directo (eventos transaccionales)** El contexto de Analytics & Reporting actúa puramente como un consumidor asíncrono de la información consolidada de las transacciones financieras y marcas de tiempo de estancia proveídas por Payment Processing, procesando estos datos de manera aislada para generar reportes financieros, horas pico y métricas de rotación sin sobrecargar ni interferir con el núcleo operativo del sistema.
 
 ---
 
@@ -2083,6 +2090,8 @@ Asimismo, se priorizó el uso de Customer/Supplier y Anti-Corruption Layer en la
 En el caso de Parking Monitoring y Reservation Management, se utilizó Shared Kernel debido a la necesidad de consistencia en el manejo de espacios.
 
 El contexto de Notifications se definió como un consumidor de eventos, centralizando la comunicación con el usuario sin afectar la lógica de otros contextos.
+
+Finalmente, para el diseño de Analytics & Reporting se optó por un enfoque de acoplamiento mínimo y asíncrono a través de una única relación Customer/Supplier con Payment Processing. Esta decisión estratégica evita la dispersión de flechas y dependencias cruzadas (evitando sobrecargar el nodo central de Parking Monitoring), aprovechando que los eventos financieros ya contienen la traza completa de tiempos de uso, placas de vehículos y montos recaudados necesarios para compilar la inteligencia de negocio.
 
 ---
 
@@ -4844,7 +4853,391 @@ El diagrama de diseño de base de datos del contexto de IAM muestra la estructur
 
 <div style="page-break-after: always;"></div>
 
+## 4.2.8. Bounded Context: Reservation Management
+
+Este bounded context gestiona el ciclo de vida de las reservas, permitiendo que los conductores aseguren una plaza antes de su llegada. Administra el tiempo de gracia o "Grace Period" de 15 minutos y la liberación automática de plazas en caso de inasistencia o "No-show". De acuerdo con la identificación de candidate contexts, esta funcionalidad está disponible solo para planes Pro/Premium y fue clasificada como Supporting, ya que agrega valor para usuarios premium, aunque el sistema puede funcionar sin ella.
+
+Reservation Management se relaciona con Identity & Access Management para validar usuarios antes de permitir la creación y gestión de reservas, con Parking Monitoring mediante un Shared Kernel sobre el concepto de espacio y disponibilidad, con Payment Processing mediante una ACL para transformar información de sesiones y reservas, y con Notification Management para comunicar confirmaciones, cancelaciones y expiraciones al usuario.
+
+### 4.2.8.1. Domain Layer
+
+En esta sección se describen los elementos del Domain Layer del contexto de Reservation Management, que encapsulan la lógica relacionada con la solicitud, confirmación, expiración y cancelación de reservas.
+
+#### 1. Reservation (Aggregate Root)
+
+Representa el compromiso de reserva de una plaza para un conductor antes de su llegada al estacionamiento. Es la entidad principal del bounded context y centraliza las reglas relacionadas con el estado de la reserva, el inicio del Grace Period y la cancelación automática por No-show.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| id | Long | private | Identificador único de la reserva. |
+| userId | Long | private | Identificador del usuario que solicita la reserva. Debe validarse mediante Identity & Access Management. |
+| parkingSlotId | Long | private | Identificador de la plaza reservada. Se comparte con Parking Monitoring para mantener consistencia en la disponibilidad. |
+| status | ReservationStatus | private | Estado actual de la reserva. |
+| gracePeriodStartedAt | LocalDateTime | private | Momento en el que inicia el Grace Period de 15 minutos. |
+| gracePeriodExpiresAt | LocalDateTime | private | Momento en el que expira el Grace Period. |
+| createdAt | LocalDateTime | private | Fecha y hora de creación de la reserva. |
+| updatedAt | LocalDateTime | private | Fecha y hora de la última actualización de la reserva. |
+
+**Métodos principales:**
+
+| Método | Tipo Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| Reservation() | Constructor | protected | Constructor protegido para JPA. |
+| Reservation(RequestReservationCommand command) | Constructor | public | Crea una reserva a partir de una solicitud del usuario, asociando usuario y plaza. |
+| confirm() | void | public | Confirma la reserva solicitada y cambia su estado a CONFIRMED. |
+| reserveSlot() | void | public | Marca la reserva como RESERVED para indicar que la plaza quedó separada para el conductor. |
+| startGracePeriod() | void | public | Inicia automáticamente el Grace Period de 15 minutos cuando una reserva exitosa se confirma. |
+| markVehicleArrived() | void | public | Registra la llegada del vehículo y detiene el flujo de expiración por No-show. |
+| cancel() | void | public | Cancela la reserva por solicitud del usuario o por una regla de negocio. |
+| cancelDueToNoShow() | void | public | Cancela la reserva cuando expira el Grace Period sin llegada del vehículo. |
+| isExpired(LocalDateTime currentTime) | boolean | public | Evalúa si el Grace Period ya expiró comparando la hora actual con gracePeriodExpiresAt. |
+
+#### 2. ReservationStatus (Value Object)
+
+Enumera los estados principales identificados para el ciclo de vida de una reserva.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| REQUESTED | Enum | public | La reserva fue solicitada por el usuario y está pendiente de validación. |
+| CONFIRMED | Enum | public | La reserva fue confirmada correctamente. |
+| RESERVED | Enum | public | La plaza quedó reservada para el usuario. |
+| GRACE_PERIOD_STARTED | Enum | public | El Grace Period de 15 minutos inició para que el conductor llegue a la plaza. |
+| CANCELLED | Enum | public | La reserva fue cancelada por el usuario o por el sistema. |
+| EXPIRED | Enum | public | El Grace Period expiró sin llegada del vehículo. |
+| COMPLETED | Enum | public | El vehículo llegó dentro del Grace Period y la reserva fue atendida. |
+
+#### 3. RequestReservationCommand (Command)
+
+Comando asociado al mensaje de entrada **Request Reservation** identificado en el canvas del bounded context.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| userId | Long | public | Usuario que solicita la reserva. |
+| parkingSlotId | Long | public | Plaza solicitada para reserva. |
+| requestedAt | LocalDateTime | public | Momento en el que se solicita la reserva. |
+
+#### 4. ConfirmReservationCommand (Command)
+
+Comando utilizado para confirmar una solicitud de reserva luego de validar usuario, plan y disponibilidad de plaza.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationId | Long | public | Identificador de la reserva que será confirmada. |
+| confirmedAt | LocalDateTime | public | Momento en el que se confirma la reserva. |
+
+#### 5. ExpireReservationCommand (Command)
+
+Comando asociado al mensaje de entrada **Expire Reservation** identificado en el canvas del bounded context.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationId | Long | public | Identificador de la reserva que debe evaluarse o expirar. |
+| expiredAt | LocalDateTime | public | Momento en el que se procesa la expiración de la reserva. |
+
+#### 6. StartTimerCommand (Command)
+
+Comando asociado al inicio del temporizador del Grace Period.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationId | Long | public | Identificador de la reserva sobre la que se iniciará el temporizador. |
+| gracePeriodMinutes | Integer | public | Duración del Grace Period. Según el canvas, corresponde a 15 minutos. |
+| startedAt | LocalDateTime | public | Momento en el que inicia el temporizador. |
+
+#### 7. VehicleArrivedCommand (Command)
+
+Comando asociado al mensaje **Vehicle Arrived (Stop Grace Period)** identificado en el canvas del bounded context.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationId | Long | public | Identificador de la reserva asociada a la llegada del vehículo. |
+| arrivedAt | LocalDateTime | public | Momento en el que se registra la llegada del vehículo. |
+
+#### 8. CancelReservationCommand (Command)
+
+Comando para cancelar una reserva antes de que sea completada.
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationId | Long | public | Identificador de la reserva a cancelar. |
+| reason | String | public | Motivo de cancelación. Puede representar cancelación voluntaria o cancelación automática por No-show. |
+| cancelledAt | LocalDateTime | public | Momento en el que se procesa la cancelación. |
+
+#### 9. Queries
+
+| Query | Atributos principales | Descripción |
+|---|---|---|
+| GetReservationByIdQuery | reservationId : Long | Obtiene una reserva específica por su identificador. |
+| GetReservationsByUserQuery | userId : Long | Obtiene las reservas asociadas a un conductor. |
+| GetActiveReservationsQuery | userId : Long | Obtiene las reservas activas de un usuario, considerando estados REQUESTED, CONFIRMED, RESERVED y GRACE_PERIOD_STARTED. |
+| GetReservationsBySlotQuery | parkingSlotId : Long | Obtiene las reservas asociadas a una plaza específica. |
+
+#### 10. Domain Events
+
+| Event | Atributos principales | Descripción |
+|---|---|---|
+| ReservationRequestedEvent | reservationId, userId, parkingSlotId, requestedAt | Evento emitido cuando un usuario solicita una reserva. |
+| ReservationConfirmedEvent | reservationId, userId, parkingSlotId, confirmedAt | Evento emitido cuando la reserva es confirmada. |
+| ReservationReservedEvent | reservationId, parkingSlotId | Evento saliente hacia Parking Monitoring para indicar que la plaza quedó reservada. |
+| GracePeriodStartedEvent | reservationId, gracePeriodStartedAt, gracePeriodExpiresAt | Evento emitido cuando inicia el Grace Period de 15 minutos. |
+| GracePeriodExpiredEvent | reservationId, gracePeriodExpiresAt | Evento emitido cuando expira el Grace Period. |
+| ReservationCancelledEvent | reservationId, reason, cancelledAt | Evento emitido cuando una reserva es cancelada, incluyendo cancelación automática por No-show. |
+| VehicleArrivedEvent | reservationId, userId, parkingSlotId, arrivedAt | Evento emitido cuando el vehículo llega dentro del Grace Period. |
+
+#### 11. ReservationCommandService (Domain Service)
+
+Maneja comandos relacionados con el ciclo de vida de las reservas.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(RequestReservationCommand command) | Optional\<Reservation> | public | Procesa una solicitud de reserva. Debe considerar validación de usuario vía IAM y disponibilidad de plaza vía Parking Monitoring. |
+| handle(ConfirmReservationCommand command) | Optional\<Reservation> | public | Confirma una reserva existente y deja preparada la plaza para el usuario. |
+| handle(ExpireReservationCommand command) | void | public | Evalúa la expiración del Grace Period y cancela la reserva si corresponde. |
+| handle(StartTimerCommand command) | void | public | Inicia el temporizador asociado al Grace Period. |
+| handle(VehicleArrivedCommand command) | void | public | Registra la llegada del vehículo y detiene el Grace Period. |
+| handle(CancelReservationCommand command) | void | public | Cancela una reserva y publica el evento correspondiente. |
+
+#### 12. ReservationQueryService (Domain Service)
+
+Maneja consultas relacionadas con reservas.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetReservationByIdQuery query) | Optional\<Reservation> | public | Obtiene una reserva por su identificador. |
+| handle(GetReservationsByUserQuery query) | List\<Reservation> | public | Obtiene el historial de reservas de un usuario. |
+| handle(GetActiveReservationsQuery query) | List\<Reservation> | public | Obtiene las reservas activas de un usuario. |
+| handle(GetReservationsBySlotQuery query) | List\<Reservation> | public | Obtiene reservas relacionadas con una plaza específica. |
+
+#### 13. GracePeriodPolicy (Domain Service)
+
+Servicio de dominio que encapsula la regla de negocio asociada al tiempo de gracia.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| getGracePeriodMinutes() | Integer | public | Retorna la duración del Grace Period: 15 minutos. |
+| calculateExpiration(LocalDateTime startedAt) | LocalDateTime | public | Calcula el momento de expiración sumando 15 minutos al inicio del Grace Period. |
+| hasExpired(LocalDateTime expiresAt, LocalDateTime currentTime) | boolean | public | Determina si el Grace Period expiró. |
+
+#### 14. Ubiquitous Language
+
+| Término | Definición |
+|---|---|
+| Reservation | Compromiso de reserva de plaza. |
+| Grace Period | Ventana de 15 minutos para llegar. |
+| No-show | Inasistencia tras expirar el temporizador. |
+
+#### 15. Business Rules
+
+| Regla | Descripción |
+|---|---|
+| D1 | Una reserva exitosa inicia automáticamente un Grace Period. |
+| P1 | Si el Grace Period de 15 minutos expira sin llegada, se cancela la reserva. |
+| P2 | Una reserva solo debe crearse para un usuario validado mediante IAM. |
+| P3 | Una reserva solo debe asignarse sobre una plaza disponible según Parking Monitoring. |
+| P4 | La cancelación o expiración de una reserva debe liberar la plaza asociada. |
+
 ---
+
+### 4.2.8.2. Interface Layer
+
+#### 1. ReservationsController (REST Controller)
+
+Controlador REST encargado de exponer endpoints para la creación, consulta, confirmación, expiración y cancelación de reservas.
+
+| Nombre del método | Ruta base típica | Método HTTP | Descripción |
+|---|---|---|---|
+| requestReservation | /api/v1/reservations | POST | Solicita una reserva de plaza. |
+| confirmReservation | /api/v1/reservations/{id}/confirm | PATCH | Confirma una reserva solicitada. |
+| getReservationById | /api/v1/reservations/{id} | GET | Obtiene una reserva por su identificador. |
+| getReservationsByUser | /api/v1/reservations/user/{userId} | GET | Obtiene las reservas asociadas a un usuario. |
+| getActiveReservations | /api/v1/reservations/user/{userId}/active | GET | Obtiene las reservas activas del usuario. |
+| cancelReservation | /api/v1/reservations/{id}/cancel | PATCH | Cancela una reserva. |
+| markVehicleArrived | /api/v1/reservations/{id}/arrival | PATCH | Registra la llegada del vehículo y detiene el Grace Period. |
+| expireReservation | /api/v1/reservations/{id}/expire | PATCH | Procesa la expiración de una reserva por No-show. |
+
+#### 2. Resources (DTOs)
+
+| Resource | Atributos principales | Descripción |
+|---|---|---|
+| RequestReservationResource | userId: Long, parkingSlotId: Long | Datos enviados por el usuario para solicitar una reserva. |
+| ReservationResource | id: Long, userId: Long, parkingSlotId: Long, status: String, gracePeriodStartedAt: LocalDateTime, gracePeriodExpiresAt: LocalDateTime, createdAt: LocalDateTime, updatedAt: LocalDateTime | Representación de una reserva para la API. |
+| CancelReservationResource | reason: String | Datos requeridos para registrar el motivo de cancelación de una reserva. |
+| VehicleArrivedResource | arrivedAt: LocalDateTime | Datos para registrar la llegada del vehículo dentro del Grace Period. |
+| ExpireReservationResource | expiredAt: LocalDateTime | Datos utilizados para procesar la expiración de una reserva. |
+
+#### 3. Transform (Assemblers)
+
+| Assembler | Entrada | Salida | Descripción |
+|---|---|---|---|
+| RequestReservationCommandFromResourceAssembler | RequestReservationResource | RequestReservationCommand | Convierte el DTO de solicitud en un comando de dominio. |
+| ConfirmReservationCommandFromResourceAssembler | Long reservationId | ConfirmReservationCommand | Convierte el identificador de la ruta en un comando de confirmación. |
+| ReservationResourceFromEntityAssembler | Reservation | ReservationResource | Convierte la entidad de dominio en un DTO de respuesta. |
+| CancelReservationCommandFromResourceAssembler | CancelReservationResource, Long reservationId | CancelReservationCommand | Convierte el DTO de cancelación en un comando de dominio. |
+| VehicleArrivedCommandFromResourceAssembler | VehicleArrivedResource, Long reservationId | VehicleArrivedCommand | Convierte el DTO de llegada del vehículo en un comando de dominio. |
+| ExpireReservationCommandFromResourceAssembler | ExpireReservationResource, Long reservationId | ExpireReservationCommand | Convierte el DTO de expiración en un comando de dominio. |
+
+---
+
+### 4.2.8.3. Application Layer
+
+#### 1. ReservationCommandServiceImpl (Command Service Implementation)
+
+Implementación del servicio de comandos para gestionar el ciclo de vida de las reservas.
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationRepository | ReservationRepository | private | Repositorio para persistencia de reservas. |
+| gracePeriodPolicy | GracePeriodPolicy | private | Servicio de dominio que calcula y evalúa el Grace Period de 15 minutos. |
+| gracePeriodScheduler | GracePeriodScheduler | private | Servicio de infraestructura encargado de programar expiraciones. |
+| iamClient | IAMOpenHostServiceClient | private | Cliente para validar usuarios mediante el OHS de Identity & Access Management. |
+| parkingMonitoringSharedKernel | ParkingMonitoringSharedKernel | private | Componente compartido con Parking Monitoring para validar disponibilidad y reservar/liberar plazas. |
+| paymentProcessingAntiCorruptionLayer | PaymentProcessingAntiCorruptionLayer | private | ACL para traducir información de reservas hacia Payment Processing cuando sea requerido. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(RequestReservationCommand command) | Optional\<Reservation> | public | Valida usuario, verifica disponibilidad de la plaza, crea la reserva y publica ReservationRequestedEvent. |
+| handle(ConfirmReservationCommand command) | Optional\<Reservation> | public | Confirma la reserva, reserva la plaza en Parking Monitoring, inicia el Grace Period y publica ReservationConfirmedEvent y GracePeriodStartedEvent. |
+| handle(ExpireReservationCommand command) | void | public | Cancela automáticamente la reserva si el Grace Period expiró sin llegada del vehículo y libera la plaza. |
+| handle(StartTimerCommand command) | void | public | Calcula la expiración de la reserva y programa el temporizador de Grace Period. |
+| handle(VehicleArrivedCommand command) | void | public | Registra la llegada del vehículo, cancela el temporizador y marca la reserva como COMPLETED. |
+| handle(CancelReservationCommand command) | void | public | Cancela una reserva, libera la plaza y publica ReservationCancelledEvent. |
+
+#### 2. ReservationQueryServiceImpl (Query Service Implementation)
+
+**Atributos principales:**
+
+| Atributo | Tipo | Visibilidad | Descripción |
+|---|---|---|---|
+| reservationRepository | ReservationRepository | private | Repositorio para consultas de reservas. |
+
+**Métodos principales:**
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| handle(GetReservationByIdQuery query) | Optional\<Reservation> | public | Busca una reserva por su identificador. |
+| handle(GetReservationsByUserQuery query) | List\<Reservation> | public | Obtiene el historial de reservas de un usuario. |
+| handle(GetActiveReservationsQuery query) | List\<Reservation> | public | Obtiene reservas activas de un usuario. |
+| handle(GetReservationsBySlotQuery query) | List\<Reservation> | public | Obtiene las reservas relacionadas con una plaza específica. |
+
+#### 3. ReservationEventHandler (Domain Event Handler)
+
+Maneja eventos de reserva para coordinar la comunicación con otros bounded contexts.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| on(ReservationRequestedEvent event) | void | public | Registra el evento de solicitud y permite continuar el flujo de confirmación. |
+| on(ReservationConfirmedEvent event) | void | public | Comunica a Parking Monitoring que la plaza quedó reservada e inicia el Grace Period. |
+| on(ReservationReservedEvent event) | void | public | Sincroniza la reserva de la plaza con Parking Monitoring. |
+| on(ReservationCancelledEvent event) | void | public | Comunica la cancelación de la reserva a Parking Monitoring y Notification Management. |
+| on(GracePeriodStartedEvent event) | void | public | Comunica el inicio del Grace Period a Notification Management. |
+| on(GracePeriodExpiredEvent event) | void | public | Comunica la expiración del Grace Period a Notification Management y dispara la cancelación por No-show si corresponde. |
+| on(VehicleArrivedEvent event) | void | public | Registra que el vehículo llegó dentro del Grace Period y evita la cancelación automática. |
+
+---
+
+### 4.2.8.4. Infrastructure Layer
+
+#### 1. ReservationRepository (Repository Interface)
+
+Interfaz del repositorio para gestionar la persistencia de reservas.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| findById(Long id) | Optional\<Reservation> | public | Busca una reserva por su identificador. |
+| save(Reservation reservation) | Reservation | public | Persiste o actualiza una reserva. |
+| findByUserId(Long userId) | List\<Reservation> | public | Obtiene reservas asociadas a un usuario. |
+| findByParkingSlotId(Long parkingSlotId) | List\<Reservation> | public | Obtiene reservas asociadas a una plaza. |
+| findByStatus(ReservationStatus status) | List\<Reservation> | public | Obtiene reservas filtradas por estado. |
+| findByUserIdAndStatusIn(Long userId, List\<ReservationStatus> statuses) | List\<Reservation> | public | Obtiene las reservas activas de un usuario. |
+| existsByParkingSlotIdAndStatusIn(Long parkingSlotId, List\<ReservationStatus> statuses) | boolean | public | Verifica si una plaza ya tiene una reserva activa. |
+
+#### 2. GracePeriodScheduler (Infrastructure Service)
+
+Servicio de infraestructura asociado al rol de Scheduling Context identificado para este bounded context.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| scheduleExpiration(Long reservationId, LocalDateTime expiresAt) | void | public | Programa la expiración del Grace Period de una reserva. |
+| cancelExpiration(Long reservationId) | void | public | Cancela el temporizador cuando el vehículo llega antes de que expire el Grace Period. |
+| processExpiredReservations() | void | public | Revisa reservas con Grace Period vencido y genera comandos de expiración. |
+
+#### 3. IAMOpenHostServiceClient (External Service Client)
+
+Cliente para validar usuarios antes de permitir la creación y gestión de reservas, siguiendo la relación Open Host Service con Identity & Access Management.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| validateUser(Long userId) | boolean | public | Valida que el usuario exista y pueda gestionar reservas. |
+| validateUserPlan(Long userId) | boolean | public | Valida que el usuario pertenezca a un plan habilitado para reservas Pro/Premium. |
+| getUserContact(Long userId) | UserContact | public | Obtiene datos básicos de contacto para que Notification Management pueda notificar al usuario. |
+
+#### 4. ParkingMonitoringSharedKernel (Shared Kernel)
+
+Elemento compartido con Parking Monitoring para mantener consistencia sobre el concepto de plaza y disponibilidad.
+
+| Elemento | Descripción |
+|---|---|
+| parkingSlotId | Identificador compartido de la plaza. |
+| availability | Disponibilidad de la plaza utilizada para asignación y reserva de espacios. |
+| reserveSlot(Long parkingSlotId) | Operación compartida para marcar una plaza como reservada. |
+| releaseSlot(Long parkingSlotId) | Operación compartida para liberar una plaza cuando la reserva se cancela o expira. |
+| isSlotAvailable(Long parkingSlotId) | Operación compartida para validar si una plaza puede ser reservada. |
+
+#### 5. PaymentProcessingAntiCorruptionLayer (ACL)
+
+Capa de traducción para enviar información de sesiones y reservas hacia Payment Processing sin acoplarse al dominio financiero.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| translateReservationData(Reservation reservation) | PaymentReservationData | public | Transforma datos de la reserva al formato requerido por Payment Processing. |
+| sendReservationData(Reservation reservation) | void | public | Envía información de la reserva hacia Payment Processing cuando el flujo de pago lo requiere. |
+
+#### 6. NotificationPublisher (Infrastructure Service)
+
+Servicio encargado de publicar eventos de reserva para que Notification Management comunique confirmaciones, cancelaciones y expiraciones al conductor.
+
+| Método | Tipo de Retorno | Visibilidad | Descripción |
+|---|---|---|---|
+| publishReservationConfirmed(Reservation reservation) | void | public | Publica un mensaje de confirmación de reserva. |
+| publishGracePeriodStarted(Reservation reservation) | void | public | Publica un mensaje indicando el inicio del Grace Period. |
+| publishGracePeriodExpired(Reservation reservation) | void | public | Publica un mensaje indicando que el Grace Period expiró. |
+| publishReservationCancelled(Reservation reservation) | void | public | Publica un mensaje de cancelación de reserva. |
+
+---
+
+### 4.2.8.5. Bounded Context Software Architecture Component Level Diagrams
+
+En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Reservation Management. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context.
+
+<img src="assets/diagrams/structurizr/Reservation_Management_Diagram.png" alt="Reservation Management Component Diagram" width="800">
+<br>
+
+### 4.2.8.6. Bounded Context Software Architecture Code Level Diagrams
+
+En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Reservation Management.
+
+#### 4.2.8.6.1. Bounded Context Domain Layer Class Diagrams
+
+El diagrama de clases del Domain Layer del contexto de Reservation Management ilustra las entidades, value objects, eventos y servicios que componen este bounded context.
+
+<img src="assets/diagrams/uml/reservation.png" alt="Reservation Management Domain Layer Class Diagram" width="800">
+<br>
+
+#### 4.2.8.6.2. Bounded Context Database Design Diagram
+
+El diagrama de diseño de base de datos del contexto de Reservation Management muestra la estructura de las tablas y relaciones asociadas a la persistencia de reservas.
+
+<img src="assets/diagrams/db/reservation-management-database-diagram.png" alt="Reservation Management Database Design Diagram" width="800">
+<br>
+
+---
+
 # Capítulo V: Solution UI/UX Design
 
 ## 5.1. Style Guidelines

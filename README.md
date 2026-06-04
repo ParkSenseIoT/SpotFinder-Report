@@ -6204,7 +6204,7 @@ Durante el Sprint 1 el equipo trabajó colaborativamente utilizando Trello como 
 
 ### 6.2.2. Sprint 2
 
-Durante el segundo Sprint, el equipo se enfocó en la construcción de las aplicaciones cliente del ecosistema SpotFinder —el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter)— consumiendo la REST API desarrollada en el Sprint 1, así como en completar los endpoints REST restantes (pagos, notificaciones, analítica y emergencias). Se establecieron los objetivos del Sprint, se planificaron las tareas y se asignaron responsabilidades a cada integrante del equipo.
+Durante el segundo Sprint, el equipo se enfocó en la construcción de las aplicaciones cliente del ecosistema SpotFinder —el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter)— consumiendo la REST API desarrollada en el Sprint 1, así como en completar los endpoints REST restantes (pagos, notificaciones, analítica y emergencias). Adicionalmente, durante este Sprint se incorporó el **Bounded Context Reservation Management** —identificado en §4.1.1.1 como 8° candidate context pero pendiente de implementar—, las funcionalidades **Premium para conductores** (pase digital Google Wallet US16 y servicios de lavado/detailing US17) y se reemplazaron las cinco páginas placeholder del Web Dashboard (Access Control, Emergency Center, Reports, Users, Settings) por implementaciones reales. Como parte del refinamiento técnico se alineó el motor de base de datos a **MySQL 8** (consistente con el código y los archivos SQL) y se regeneraron los diagramas C4 de Container y Deployment a partir de un workspace DSL de Structurizr versionado en el repositorio.
 
 <div style="page-break-after: always;"></div>
 
@@ -6264,20 +6264,20 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 <tr>
   <td><strong>Sprint 2 Goal</strong></td>
   <td>
-    <strong>Our focus is on</strong> delivering the administrative web dashboard (Angular) and the first version of the driver mobile application (Flutter), both consuming the SpotFinder REST API, as well as completing the remaining REST endpoints (payments, notifications, analytics and emergencies).<br><br>
-    <strong>We believe it delivers</strong> a complete end-to-end experience for drivers and administrators, allowing them to pay, locate their vehicle, receive notifications and monitor the parking operation from web and mobile.<br><br>
-    <strong>This will be confirmed when</strong> the key features are accessible from both the web dashboard and the mobile app, and verifiable through Swagger and the emulator without critical issues.
+    <strong>Our focus is on</strong> delivering the administrative web dashboard (Angular) and the first version of the driver mobile application (Flutter), both consuming the SpotFinder REST API; completing the remaining REST endpoints (payments, notifications, analytics and emergencies); incorporating the missing <strong>Reservation Management Bounded Context</strong> together with its driver-facing UI; enabling <strong>Premium driver features</strong> (Google Wallet pass and on-demand premium services like car wash); replacing the five placeholder pages of the admin dashboard (Access Control, Emergency, Reports, Users, Settings) with their real implementations; and aligning the documented database engine to the real one (MySQL 8, schema <code>spotfinder</code>) including the regeneration of the C4 Container and Deployment diagrams.<br><br>
+    <strong>We believe it delivers</strong> a complete end-to-end experience for drivers (browse, reserve, enter via ALPR, pay, get a Google Wallet pass, locate the vehicle, request premium add-ons) and administrators (real-time monitoring, access control, emergency response, reports, user and facility management) from web and mobile, plus a documentation set that matches the implemented code base.<br><br>
+    <strong>This will be confirmed when</strong> every flow is reachable from the web dashboard and the mobile app, verifiable through Swagger and the emulator without critical issues, and the report (TOC, §4.1.3.3, §4.1.3.4, §6.1.1 and §6.1.4) describes the same engine, schema name and diagrams that the deployed code uses.
   </td>
 </tr>
 
   <tr>
     <td>Sprint 2 Velocity</td>
-    <td> 99 story points</td>
+    <td> 136 story points</td>
   </tr>
 
   <tr>
     <td>Sum of story points</td>
-    <td> 99 story points</td>
+    <td> 136 story points</td>
   </tr>
 </table>
 
@@ -6285,7 +6285,7 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 
 #### 6.2.2.3. Sprint Backlog 2
 
-En esta sección se presenta el Sprint Backlog correspondiente al Sprint 2 del proyecto SpotFinder. Durante este Sprint, el equipo se enfocó en desarrollar el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter), ambos consumiendo la REST API, además de completar los endpoints REST restantes relacionados con pagos, notificaciones push, analítica de ocupación e ingresos, y gestión de emergencias. El Sprint comprometió un total de 99 story points distribuidos entre los cinco integrantes del equipo.
+En esta sección se presenta el Sprint Backlog correspondiente al Sprint 2 del proyecto SpotFinder. Durante este Sprint, el equipo se enfocó en desarrollar el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter), ambos consumiendo la REST API, además de completar los endpoints REST restantes relacionados con pagos, notificaciones push, analítica de ocupación e ingresos, y gestión de emergencias. Adicionalmente se incorporó el **Bounded Context Reservation Management** completo (backend + UI mobile), las dos funcionalidades **Premium** del conductor (pase Google Wallet en US16 y catálogo de servicios premium en US17), el **registro de vehículos adicionales** (US23) y las cinco páginas reales del Web Dashboard administrativo (Access Control, Emergency, Reports, Users, Settings) que en TB1 eran placeholders. Como deuda técnica se alineó el motor de base de datos documentado al motor real (**MySQL 8**, esquema `spotfinder`) y se regeneraron los diagramas C4 Container y Deployment desde un workspace DSL de Structurizr. El Sprint comprometió un total de 136 story points distribuidos entre los cinco integrantes del equipo.
 
 A continuación, se muestra el tablero de trabajo utilizado para la gestión de tareas del Sprint:
 
@@ -6809,6 +6809,237 @@ Link Trello: [SpotFinder - Trello]()
       <td>Controller & Tests</td>
       <td>PUT /api/v1/users/{id} con manejo de errores y pruebas.</td>
       <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+
+    <!-- ─────────────────────────────────────────────────────────────── -->
+    <!-- Items adicionales incorporados al Sprint 2 (Reservation BC,      -->
+    <!-- Premium features, registro de vehículo, admin pages faltantes,   -->
+    <!-- y deuda técnica MySQL/C4) — cubren los hallazgos del análisis    -->
+    <!-- previo a las Validation Interviews del §6.3.                      -->
+    <!-- ─────────────────────────────────────────────────────────────── -->
+
+    <tr>
+      <td rowspan="2">US16</td>
+      <td rowspan="2">Pase digital (Google Wallet) para sesión activa</td>
+      <td>US16a</td>
+      <td>UI de pase digital</td>
+      <td>Pantalla con QR, placa, hora de ingreso y estado del pase (pendiente / listo para salir) en la app móvil; CTA "Añadir a Google Wallet".</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US16b</td>
+      <td>Derivación desde sesión activa</td>
+      <td>Construir el WalletPass a partir del ActiveSessionEntity (placa, sessionId, paymentStatus) hasta tener el endpoint dedicado de Google Wallet API (SS04).</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">US17</td>
+      <td rowspan="2">Solicitud de servicios Premium (lavado, detailing, combustible)</td>
+      <td>US17a</td>
+      <td>UI catálogo de servicios Premium</td>
+      <td>Catálogo con lavado exterior, lavado interior+exterior premium, detailing express y entrega de combustible; tarjetas con precio, duración estimada y CTA "Solicitar".</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US17b</td>
+      <td>Flujo de solicitud y confirmación</td>
+      <td>Diálogo de solicitud con nota opcional del conductor; marcado en estado "Solicitado". A futuro consumirá <code>POST /api/v1/premium-services</code>.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">US23</td>
+      <td rowspan="2">Registro de vehículo adicional</td>
+      <td>US23a</td>
+      <td>UI agregar vehículo</td>
+      <td>Formulario de registro de placa (marca, modelo, color opcionales) y listado de vehículos del conductor con eliminación.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US23b</td>
+      <td>Integración con API</td>
+      <td>Conectar <code>POST /api/v1/users/{id}/vehicles</code>, <code>GET</code> y <code>DELETE</code>; manejo de placa duplicada (409 Conflict).</td>
+      <td>1</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="3">US25</td>
+      <td rowspan="3">Reservar espacio de estacionamiento (Pro/Premium)</td>
+      <td>US25a</td>
+      <td>UI listado de reservas activas e historial</td>
+      <td>Pantalla "Mis reservas" con secciones Activas e Historial, badge de estado (PENDING/CONFIRMED/EXPIRED/CANCELLED) y countdown del grace period.</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="3">5</td>
+    </tr>
+    <tr>
+      <td>US25b</td>
+      <td>UI crear / cancelar reserva</td>
+      <td>Formulario para reservar por slot id con grace period configurable (default 15 min); diálogo de cancelación con razón opcional.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>US25c</td>
+      <td>Integración con API de Reservation</td>
+      <td>Consumir <code>GET /reservations/active</code>, <code>/history</code>, <code>POST /reservations</code> y <code>PATCH /reservations/{id}/cancel</code>.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="4">TS41</td>
+      <td rowspan="4">Bounded Context Reservation Management (backend)</td>
+      <td>TS41a</td>
+      <td>Domain Layer</td>
+      <td>Aggregate <code>Reservation</code>, commands (Create/Confirm/Cancel/ExpireGracePeriod), events (Created/Confirmed/Cancelled/Expired), queries y value objects (Status, SlotId, UserId).</td>
+      <td>4</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="4">8</td>
+    </tr>
+    <tr>
+      <td>TS41b</td>
+      <td>Application Layer + ACL</td>
+      <td>ReservationCommand/QueryServiceImpl, event handlers (Created → notification, Cancelled → notification, Expired → notification), outbound ACL services (Iam, ParkingMonitoring, Notifications), Facade.</td>
+      <td>4</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>TS41c</td>
+      <td>Infrastructure</td>
+      <td>JPA <code>ReservationRepository</code> con queries derivadas y <code>ReservationExpirationScheduler</code> (sweep cada 60 s).</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>TS41d</td>
+      <td>Interface / REST</td>
+      <td>Controller con 6 endpoints (<code>POST</code>, <code>GET /{id}</code>, <code>/active</code>, <code>/history</code>, <code>/slot/{id}</code>, <code>PATCH /{id}/cancel</code>, <code>POST /sweep-expirations</code>), resources, assemblers, ACL facade y <code>@EnableScheduling</code>.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">TS42</td>
+      <td rowspan="2">Web Dashboard — Página de Access Control</td>
+      <td>TS42a</td>
+      <td>UI + Store</td>
+      <td>Página standalone con grilla de barreras (status OPEN/CLOSED, position ENTRY/EXIT, last event) y tabla de sesiones activas (placa, slot, ingreso, tiempo dentro, payment status, dueño).</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS42b</td>
+      <td>Acciones admin</td>
+      <td>Abrir/Cerrar barrera individual y "Open all barriers" (override de emergencia) integrados al signalStore.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">TS43</td>
+      <td rowspan="2">Web Dashboard — Página de Users (administradores)</td>
+      <td>TS43a</td>
+      <td>UI + filtros</td>
+      <td>KPIs (total, admins, drivers), filtros ALL/ADMIN/CAR_OWNER, tabla con estado, último login y acción Desactivar/Reactivar.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS43b</td>
+      <td>Form Crear administrador</td>
+      <td>Formulario con email, nombre, apellido y password inicial; <code>POST /api/v1/auth/register</code> con rol ADMIN, validación de email duplicado.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">TS44</td>
+      <td rowspan="2">Web Dashboard — Página de Facility Settings</td>
+      <td>TS44a</td>
+      <td>UI configuración del estacionamiento</td>
+      <td>Form editable con identificación, tarifa, moneda, grace period, umbral ultrasónico, umbral MQ-2, contacto y flags (ALPR / LED / protocolo de emergencia).</td>
+      <td>3</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS44b</td>
+      <td>Persistencia</td>
+      <td>Store con <code>refresh</code> y <code>save</code> que persiste contra <code>/api/v1/parking-facilities/{id}</code> (mock in-memory durante AV2).</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">TS45</td>
+      <td rowspan="2">Deuda técnica — alinear motor de base de datos a MySQL 8</td>
+      <td>TS45a</td>
+      <td>Backend + Schema</td>
+      <td>Rename del esquema lógico <code>spotFinder</code> → <code>spotfinder</code> en <code>application.properties</code>; verificación de los 7 archivos SQL (ya en sintaxis MySQL).</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS45b</td>
+      <td>Documentación coherente</td>
+      <td>Actualización de §4.1.3.3 (Container), §4.1.3.4 (Deployment), §6.1.1 y §6.1.4 a MySQL 8; aclaración de "un solo esquema con tablas por BC".</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+
+    <tr>
+      <td rowspan="2">TS46</td>
+      <td rowspan="2">Regeneración de diagramas C4 (Container + Deployment) con MySQL</td>
+      <td>TS46a</td>
+      <td>Structurizr DSL</td>
+      <td>Crear <code>assets/diagrams/structurizr/workspace.dsl</code> versionado con System Landscape, Context, Container y Deployment reflejando MySQL 8 y el esquema <code>spotfinder</code>.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS46b</td>
+      <td>Export y reemplazo de PNG</td>
+      <td>Exportar Container-Diagram.png y Deployment-Diagrams.png desde el DSL y reemplazarlos en <code>assets/diagrams/c4/</code>.</td>
+      <td>1</td>
       <td>Dueñas Canales, Leonardo Manuel</td>
       <td>To-do</td>
     </tr>

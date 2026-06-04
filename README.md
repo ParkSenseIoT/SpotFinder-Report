@@ -670,6 +670,8 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
       - [6.2.1.3. Sprint Backlog 1](#6213-sprint-backlog-1)
 - [6.2.1.4. Development Evidence for Sprint Review](#6214-development-evidence-for-sprint-review)
 - [6.2.1.5. Testing Suite Evidence for Sprint Review](#6215-testing-suite-evidence-for-sprint-review)
+  - [Unit Tests — Web Application (PWA)](#unit-tests--web-application-pwa)
+  - [Commits relacionados con Testing — Web Application (PWA)](#commits-relacionados-con-testing--web-application-pwa)
 - [6.2.1.6. Execution Evidence for Sprint Review](#6216-execution-evidence-for-sprint-review)
   - [Landing Page - Pantallas principales](#landing-page---pantallas-principales)
     - [Figura 6.2.1.6.1. Landing Page — Hero principal y propuesta de valor.](#figura-62161-landing-page--hero-principal-y-propuesta-de-valor)
@@ -680,16 +682,16 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
 - [6.2.1.7. Services Documentation Evidence for Sprint Review](#6217-services-documentation-evidence-for-sprint-review)
 - [6.2.1.8. Software Deployment Evidence for Sprint Review](#6218-software-deployment-evidence-for-sprint-review)
 - [6.2.1.9. Team Collaboration Insights during Sprint](#6219-team-collaboration-insights-during-sprint)
-    - [6.2.2. Sprint 2](#622-sprint-2)
-      - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2)
-      - [6.2.2.2. Aspect Leaders and Collaborators](#6222-aspect-leaders-and-collaborators)
-      - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2)
-      - [6.2.2.4. Development Evidence for Sprint Review](#6224-development-evidence-for-sprint-review)
-      - [6.2.2.5. Testing Suite Evidence for Sprint Review](#6225-testing-suite-evidence-for-sprint-review)
-      - [6.2.2.6. Execution Evidence for Sprint Review](#6226-execution-evidence-for-sprint-review)
-      - [6.2.2.7. Services Documentation Evidence for Sprint Review](#6227-services-documentation-evidence-for-sprint-review)
-      - [6.2.2.8. Software Deployment Evidence for Sprint Review](#6228-software-deployment-evidence-for-sprint-review)
-      - [6.2.2.9. Team Collaboration Insights during Sprint](#6229-team-collaboration-insights-during-sprint)
+  - [6.2.2. Sprint 2](#622-sprint-2)
+    - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2)
+    - [6.2.2.2. Aspect Leaders and Collaborators](#6222-aspect-leaders-and-collaborators)
+    - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2)
+    - [6.2.2.4. Development Evidence for Sprint Review](#6224-development-evidence-for-sprint-review)
+    - [6.2.2.5. Testing Suite Evidence for Sprint Review](#6225-testing-suite-evidence-for-sprint-review)
+    - [6.2.2.6. Execution Evidence for Sprint Review](#6226-execution-evidence-for-sprint-review)
+    - [6.2.2.7. Services Documentation Evidence for Sprint Review](#6227-services-documentation-evidence-for-sprint-review)
+    - [6.2.2.8. Software Deployment Evidence for Sprint Review](#6228-software-deployment-evidence-for-sprint-review)
+    - [6.2.2.9. Team Collaboration Insights during Sprint](#6229-team-collaboration-insights-during-sprint)
   - [6.3. Validation Interviews](#63-validation-interviews)
     - [6.3.1. Diseño de Entrevistas](#631-diseño-de-entrevistas)
       - [Segmento 1: Conductores que visitan centros comerciales](#segmento-1-conductores-que-visitan-centros-comerciales-2)
@@ -703,6 +705,9 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
+    - [6.2.2. Sprint 2](#622-sprint-2-1)
+      - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2-1)
+      - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2-1)
     - [Conclusiones](#conclusiones)
     - [Recomendaciones](#recomendaciones)
 - [Bibliografía](#bibliografía)
@@ -5205,7 +5210,7 @@ Servicio encargado de publicar eventos de reserva para que Notification Manageme
 | Método | Tipo de Retorno | Visibilidad | Descripción |
 |---|---|---|---|
 | publishReservationConfirmed(Reservation reservation) | void | public | Publica un mensaje de confirmación de reserva. |
-| publishGracePeriodStarted(Reservation reservation) | void | public | Publica un mensaje indicando el inicio del Grace Period. |
+| publishGracePeriodStarted(Reservation reservation) | void | public | Publica un mensaje indicando el inicio del Grace Period. | 
 | publishGracePeriodExpired(Reservation reservation) | void | public | Publica un mensaje indicando que el Grace Period expiró. |
 | publishReservationCancelled(Reservation reservation) | void | public | Publica un mensaje de cancelación de reserva. |
 

@@ -1,0 +1,76 @@
+Card Name,List Name,Description,Labels,Members,Estimation (Hours),Story Points
+US05a - Pago digital | UI,Hecho,Pantalla de pago con seleccion de metodo (Yape/tarjeta) confirmacion y recibo en la app movil.,Movil,Leonardo,5,8
+US05b - Pago digital | Integracion con API,Hecho,Conectar POST /api/v1/payments con manejo de estados de carga y errores de pasarela.,Movil,Leonardo,4,8
+US07a - Find My Car | UI,Hecho,Vista que muestra el codigo del espacio y referencia de ubicacion del vehiculo.,Movil,Leonardo,3,5
+US07b - Find My Car | Integracion con API,Hecho,Consumir GET /api/v1/parking-sessions/active y manejar el caso sin sesion activa.,Movil,Leonardo,2,5
+US08a - Tiempo y costo estimado | UI,Hecho,Mostrar hora de ingreso duracion y monto acumulado de la sesion activa.,Movil,Leonardo,2,3
+US08b - Tiempo y costo estimado | Integracion con API,Hecho,Consumir detalles de sesion y refrescar dinamicamente el monto estimado.,Movil,Leonardo,2,3
+US10a - Notificaciones de eventos | UI,Hecho,Listado y detalle de notificaciones push (ingreso pago pendiente emergencia) en la app movil.,Movil,Kalet,3,5
+US10b - Notificaciones de eventos | Integracion con FCM,En proceso,Recepcion y manejo de notificaciones push mediante Firebase Cloud Messaging.,Movil,Kalet,3,5
+US15a - Historial de pagos | UI,Hecho,Lista de pagos con fecha duracion monto y metodo; manejo de historial vacio.,Movil,Kalet,2,3
+US15b - Historial de pagos | Integracion con API,Hecho,Consumir GET /api/v1/payments/history con orden por fecha descendente.,Movil,Kalet,2,3
+US24a - Preferencias de notificacion | UI,Hecho,Pantalla con toggles para activar/desactivar tipos de notificacion.,Movil,Kalet,2,3
+US24b - Preferencias de notificacion | Integracion con API,Hecho,Conectar PUT /api/v1/users/{id}/notification-preferences y reflejar preferencias.,Movil,Kalet,2,3
+US11a - Gestion de disponibilidad | UI,Hecho,Habilitar/deshabilitar espacios y marcar Out of Service desde el dashboard web.,Web,Miguel,2,3
+US11b - Gestion de disponibilidad | Integracion con API,Hecho,Conectar PATCH /api/v1/parking-slots/{id}/status y refrescar el plano.,Web,Miguel,2,3
+US12a - Estadisticas de ocupacion | UI,Hecho,Graficos de ocupacion horas punta y rotacion con filtros por rango de fechas.,Web,Miguel,3,5
+US12b - Estadisticas de ocupacion | Integracion con API,Hecho,Consumir GET /api/v1/analytics/occupancy con validacion de rango de fechas.,Web,Miguel,3,5
+US13a - Generacion de reportes | UI,Hecho,Seleccion de periodo y boton de exportacion; manejo de periodo sin datos.,Web,Miguel,3,5
+US13b - Generacion de reportes | Integracion con API,Hecho,Consumir endpoint de reportes y descargar el PDF generado.,Web,Miguel,3,5
+US14a - Deteccion y alerta de emergencia | UI,Hecho,Panel con alertas de gas/humo en vivo indicadores visuales y accion de resolucion.,Web,Irving,5,8
+US14b - Deteccion y alerta de emergencia | Integracion con API,Hecho,Consumir GET /api/v1/emergency/status y PATCH /api/v1/emergencies/{id}/resolve.,Web,Irving,4,8
+US19a - Registro de administrador | UI,Hecho,Formulario de registro de administrador con validaciones y feedback de errores.,Web,Irving,3,5
+US19b - Registro de administrador | Integracion con API,Hecho,Conectar POST /api/v1/auth/register con rol admin y manejo de correo duplicado.,Web,Irving,2,5
+US21a - Recuperacion de contrasena | UI,Lista de tareas,Flujo de solicitud de enlace y restablecimiento de contrasena con validaciones.,Auth,Miguel,2,3
+US21b - Recuperacion de contrasena | Integracion con API,Lista de tareas,Conectar POST /api/v1/auth/forgot-password y /api/v1/auth/reset-password.,Auth,Miguel,2,3
+US22a - Edicion de perfil | UI,Hecho,Formulario de edicion de datos personales con validaciones y estados.,Auth,Kalet,2,3
+US22b - Edicion de perfil | Integracion con API,Hecho,Conectar PUT /api/v1/users/{id} y reflejar los datos actualizados.,Auth,Kalet,2,3
+TS06a - Recomendar espacios | Query Handler,Hecho,Implementar logica de recomendacion de espacios cercanos priorizados por proximidad.,Backend,Andres,2,3
+TS06b - Recomendar espacios | Controller & Tests,Hecho,GET /api/v1/parking-slots/recommendations DTOs y pruebas.,Backend,Andres,2,3
+TS15a - Registrar pago | App/Domain Handler,Hecho,InitiatePaymentCommandHandler con integracion de pasarela Culqi y manejo de estados.,Backend,Andres,4,5
+TS15b - Registrar pago | Controller & Tests,Hecho,POST /api/v1/payments DTOs/Assembler y pruebas de integracion.,Backend,Andres,3,5
+TS16a - Consultar pago | Query Handler,Hecho,GetPaymentByIdQueryHandler con manejo de inexistencia.,Backend,Andres,2,2
+TS16b - Consultar pago | Controller & Mapping,Hecho,GET /api/v1/payments/{id} con assembler a resource.,Backend,Andres,1,2
+TS17a - Historial de pagos | Query Handler,Hecho,GetPaymentHistoryQueryHandler ordenado por fecha descendente.,Backend,Andres,2,2
+TS17b - Historial de pagos | Controller & Mapping,Hecho,GET /api/v1/payments/history con validacion de parametros.,Backend,Andres,1,2
+TS18a - Enviar notificacion push | App/Domain Handler,En proceso,SendNotificationCommandHandler con integracion a Firebase Cloud Messaging.,Backend,Kalet,3,3
+TS18b - Enviar notificacion push | Controller & Tests,Lista de tareas,POST /api/v1/notifications DTOs y pruebas.,Backend,Kalet,2,3
+TS19a - Listar notificaciones | Query Handler,Hecho,GetNotificationsByUserQueryHandler ordenado por fecha.,Backend,Kalet,2,2
+TS19b - Listar notificaciones | Controller & Mapping,Hecho,GET /api/v1/notifications/user/{id} con manejo de lista vacia.,Backend,Kalet,1,2
+TS20a - Metricas de ocupacion | Query Handler,Hecho,OccupancyAnalyticsService con calculo de occupancyRate peakHours y turnoverRate.,Backend,Andres,3,5
+TS20b - Metricas de ocupacion | Controller & Tests,Hecho,GET /api/v1/analytics/occupancy con validacion de fechas y pruebas.,Backend,Andres,3,5
+TS21a - Metricas de ingresos | Query Handler,Hecho,RevenueAnalyticsService con totalRevenue averageTicket y paymentsByMethod.,Backend,Andres,3,3
+TS21b - Metricas de ingresos | Controller & Mapping,Hecho,GET /api/v1/analytics/revenue con rango de fechas.,Backend,Andres,2,3
+TS23a - Registrar alerta de emergencia | App/Domain Handler,Hecho,TriggerEmergencyAlertCommandHandler que activa el protocolo de emergencia.,Backend,Irving,4,5
+TS23b - Registrar alerta de emergencia | Controller & Tests,Hecho,POST /api/v1/emergency/alerts con validaciones y pruebas.,Backend,Irving,3,5
+TS24a - Consultar estado de emergencia | Query Handler,Hecho,GetEmergencyStatusQueryHandler que devuelve emergencia activa o estado NORMAL.,Backend,Irving,2,2
+TS24b - Consultar estado de emergencia | Controller & Mapping,Hecho,GET /api/v1/emergency/status con assembler a resource.,Backend,Irving,1,2
+TS26a - Resolver emergencia | App/Domain Handler,Hecho,ResolveEmergencyCommandHandler que restaura la operacion normal.,Backend,Irving,2,3
+TS26b - Resolver emergencia | Controller & Tests,Hecho,PATCH /api/v1/emergencies/{id}/resolve y pruebas de integracion.,Backend,Irving,2,3
+TS32a - Obtener perfil | Query Handler,Hecho,GetUserByIdQueryHandler con manejo de inexistencia.,Backend,Leonardo,2,2
+TS32b - Obtener perfil | Controller & Mapping,Hecho,GET /api/v1/users/{id} con assembler a resource.,Backend,Leonardo,1,2
+TS33a - Actualizar perfil | App/Domain Handler,Hecho,UpdateUserCommandHandler con validaciones de datos.,Backend,Leonardo,2,3
+TS33b - Actualizar perfil | Controller & Tests,Hecho,PUT /api/v1/users/{id} con manejo de errores y pruebas.,Backend,Leonardo,2,3
+US16a - Pase digital (Google Wallet) | UI,Hecho,Pantalla con QR placa hora de ingreso y estado del pase (pendiente / listo para salir) en la app movil; CTA Anadir a Google Wallet.,Movil,Kalet,3,5
+US16b - Pase digital (Google Wallet) | Derivacion desde sesion activa,En proceso,Construir el WalletPass a partir del ActiveSessionEntity (placa sessionId paymentStatus) hasta tener el endpoint dedicado de Google Wallet API (SS04).,Movil,Kalet,2,5
+US17a - Servicios Premium | UI catalogo,Hecho,Catalogo con lavado exterior lavado interior+exterior premium detailing express y entrega de combustible; tarjetas con precio duracion estimada y CTA Solicitar.,Movil,Kalet,2,3
+US17b - Servicios Premium | Flujo de solicitud y confirmacion,En proceso,Dialogo de solicitud con nota opcional del conductor; marcado en estado Solicitado. A futuro consumira POST /api/v1/premium-services.,Movil,Kalet,2,3
+US23a - Registro de vehiculo adicional | UI agregar vehiculo,Hecho,Formulario de registro de placa (marca modelo color opcionales) y listado de vehiculos del conductor con eliminacion.,Movil,Leonardo,2,3
+US23b - Registro de vehiculo adicional | Integracion con API,Hecho,Conectar POST GET y DELETE /api/v1/users/{id}/vehicles; manejo de placa duplicada (409 Conflict).,Movil,Leonardo,1,3
+US25a - Reservar espacio | UI listado activas e historial,Hecho,Pantalla Mis reservas con secciones Activas e Historial badge de estado (PENDING/CONFIRMED/EXPIRED/CANCELLED) y countdown del grace period.,Movil,Kalet,3,5
+US25b - Reservar espacio | UI crear y cancelar,En proceso,Formulario para reservar por slot id con grace period configurable (default 15 min); dialogo de cancelacion con razon opcional.,Movil,Kalet,2,5
+US25c - Reservar espacio | Integracion con API,Hecho,Consumir GET /reservations/active /history POST /reservations y PATCH /reservations/{id}/cancel.,Movil,Kalet,2,5
+TS41a - Reservation BC | Domain Layer,Hecho,Aggregate Reservation commands (Create/Confirm/Cancel/ExpireGracePeriod) events (Created/Confirmed/Cancelled/Expired) queries y value objects (Status SlotId UserId).,Backend,Andres,4,8
+TS41b - Reservation BC | Application Layer + ACL,Hecho,ReservationCommand/QueryServiceImpl event handlers outbound ACL services (Iam ParkingMonitoring Notifications) y Facade.,Backend,Andres,4,8
+TS41c - Reservation BC | Infrastructure,Hecho,JPA ReservationRepository con queries derivadas y ReservationExpirationScheduler (sweep cada 60 s).,Backend,Andres,2,8
+TS41d - Reservation BC | Interface REST,Hecho,Controller con 6 endpoints (POST GET /{id} /active /history /slot/{id} PATCH /{id}/cancel POST /sweep-expirations) resources assemblers ACL facade y @EnableScheduling.,Backend,Andres,2,8
+TS42a - Access Control web | UI + Store,Hecho,Pagina standalone con grilla de barreras (status OPEN/CLOSED position ENTRY/EXIT last event) y tabla de sesiones activas (placa slot ingreso tiempo dentro payment status dueno).,Web,Miguel,3,3
+TS42b - Access Control web | Acciones admin,Hecho,Abrir/Cerrar barrera individual y Open all barriers (override de emergencia) integrados al signalStore.,Web,Miguel,2,3
+TS43a - Users web | UI + filtros,Hecho,KPIs (total admins drivers) filtros ALL/ADMIN/CAR_OWNER tabla con estado ultimo login y accion Desactivar/Reactivar.,Web,Irving,2,3
+TS43b - Users web | Form Crear administrador,Hecho,Formulario con email nombre apellido y password inicial; POST /api/v1/auth/register con rol ADMIN validacion de email duplicado.,Web,Irving,2,3
+TS44a - Facility Settings web | UI configuracion,Hecho,Form editable con identificacion tarifa moneda grace period umbral ultrasonico umbral MQ-2 contacto y flags (ALPR / LED / protocolo de emergencia).,Web,Irving,3,3
+TS44b - Facility Settings web | Persistencia,Hecho,Store con refresh y save que persiste contra /api/v1/parking-facilities/{id} (mock in-memory durante AV2).,Web,Irving,2,3
+TS45a - MySQL alignment | Backend + Schema,Hecho,Rename del esquema logico spotFinder a spotfinder en application.properties; verificacion de los 7 archivos SQL (ya en sintaxis MySQL).,Backend,Leonardo,2,2
+TS45b - MySQL alignment | Documentacion coherente,Hecho,Actualizacion de 4.1.3.3 (Container) 4.1.3.4 (Deployment) 6.1.1 y 6.1.4 a MySQL 8; aclaracion de un solo esquema con tablas por BC.,Backend,Leonardo,2,2
+TS46a - Regeneracion C4 | Structurizr DSL,Hecho,Crear assets/diagrams/structurizr/workspace.dsl versionado con System Landscape Context Container y Deployment reflejando MySQL 8 y el esquema spotfinder.,Backend,Leonardo,2,2
+TS46b - Regeneracion C4 | Export y reemplazo de PNG,En proceso,Exportar Container-Diagram.png y Deployment-Diagrams.png desde el DSL y reemplazarlos en assets/diagrams/c4/.,Backend,Leonardo,1,2

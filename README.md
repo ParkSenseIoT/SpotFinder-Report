@@ -6373,6 +6373,839 @@ Web Dashboard para administradores).
 
 ---
 
+---
+
+### 6.2.2. Sprint 2
+
+Durante el segundo Sprint, el equipo se enfocó en la construcción de las aplicaciones cliente del ecosistema SpotFinder —el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter)— consumiendo la REST API desarrollada en el Sprint 1, así como en completar los endpoints REST restantes (pagos, notificaciones, analítica y emergencias). Adicionalmente, durante este Sprint se incorporó el **Bounded Context Reservation Management** —identificado en §4.1.1.1 como 8° candidate context pero pendiente de implementar—, las funcionalidades **Premium para conductores** (pase digital Google Wallet US16 y servicios de lavado/detailing US17) y se reemplazaron las cinco páginas placeholder del Web Dashboard (Access Control, Emergency Center, Reports, Users, Settings) por implementaciones reales. Como parte del refinamiento técnico se alineó el motor de base de datos a **MySQL 8** (consistente con el código y los archivos SQL) y se regeneraron los diagramas C4 de Container y Deployment a partir de un workspace DSL de Structurizr versionado en el repositorio.
+
+<div style="page-break-after: always;"></div>
+
+#### 6.2.2.1. Sprint Planning 2
+
+En esta sección se presentan los aspectos principales abordados durante la reunión de planificación del Sprint 2. Se detallan elementos como la fecha, participantes, objetivo del sprint, velocidad estimada y cantidad de story points comprometidos para esta segunda iteración del proyecto SpotFinder.
+
+<table>
+  <tr>
+    <th>Sprint #</th>
+    <th>Sprint 2</th>
+  </tr>
+
+  <tr>
+    <th colspan="2">Sprint Planning Background</th>
+  </tr>
+
+  <tr>
+    <td>Date</td>
+    <td>2026-06-03</td>
+  </tr>
+
+  <tr>
+    <td>Time</td>
+    <td>10:20 PM</td>
+  </tr>
+
+  <tr>
+    <td>Location</td>
+    <td>Reunión virtual a través de Discord</td>
+  </tr>
+
+  <tr>
+    <td>Prepared by</td>
+    <td>Roman Esteban, Henry Kalet</td>
+  </tr>
+
+  <tr>
+    <td>Attendees (to planning meeting)</td>
+    <td>
+      Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington;
+      Roman Esteban, Henry Kalet
+    </td>
+  </tr>
+
+  <tr>
+    <td>Sprint n – 1 Review Summary</td>
+    <td>
+      El Sprint 1 entregó la primera versión funcional del ecosistema SpotFinder: el backend basado en bounded contexts con los endpoints principales (monitoreo de estacionamiento, control de acceso, sesiones, autenticación y analítica) desplegado y verificable vía Swagger, junto con la Landing Page institucional. Se completaron 76 story points sin incidencias críticas.
+    </td>
+  </tr>
+
+  <tr>
+    <th colspan="2">Sprint Goal & User Stories</th>
+  </tr>
+
+<tr>
+  <td><strong>Sprint 2 Goal</strong></td>
+  <td>
+    <strong>Our focus is on</strong> delivering the administrative web dashboard (Angular) and the first version of the driver mobile application (Flutter), both consuming the SpotFinder REST API; completing the remaining REST endpoints (payments, notifications, analytics and emergencies); incorporating the missing <strong>Reservation Management Bounded Context</strong> together with its driver-facing UI; enabling <strong>Premium driver features</strong> (Google Wallet pass and on-demand premium services like car wash); replacing the five placeholder pages of the admin dashboard (Access Control, Emergency, Reports, Users, Settings) with their real implementations; and aligning the documented database engine to the real one (MySQL 8, schema <code>spotfinder</code>) including the regeneration of the C4 Container and Deployment diagrams.<br><br>
+    <strong>We believe it delivers</strong> a complete end-to-end experience for drivers (browse, reserve, enter via ALPR, pay, get a Google Wallet pass, locate the vehicle, request premium add-ons) and administrators (real-time monitoring, access control, emergency response, reports, user and facility management) from web and mobile, plus a documentation set that matches the implemented code base.<br><br>
+    <strong>This will be confirmed when</strong> every flow is reachable from the web dashboard and the mobile app, verifiable through Swagger and the emulator without critical issues, and the report (TOC, §4.1.3.3, §4.1.3.4, §6.1.1 and §6.1.4) describes the same engine, schema name and diagrams that the deployed code uses.
+  </td>
+</tr>
+
+  <tr>
+    <td>Sprint 2 Velocity</td>
+    <td> 136 story points</td>
+  </tr>
+
+  <tr>
+    <td>Sum of story points</td>
+    <td> 136 story points</td>
+  </tr>
+</table>
+
+<div style="page-break-after: always;"></div>
+
+#### 6.2.2.3. Sprint Backlog 2
+
+En esta sección se presenta el Sprint Backlog correspondiente al Sprint 2 del proyecto SpotFinder. Durante este Sprint, el equipo se enfocó en desarrollar el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil del conductor (Flutter), ambos consumiendo la REST API, además de completar los endpoints REST restantes relacionados con pagos, notificaciones push, analítica de ocupación e ingresos, y gestión de emergencias. Adicionalmente se incorporó el **Bounded Context Reservation Management** completo (backend + UI mobile), las dos funcionalidades **Premium** del conductor (pase Google Wallet en US16 y catálogo de servicios premium en US17), el **registro de vehículos adicionales** (US23) y las cinco páginas reales del Web Dashboard administrativo (Access Control, Emergency, Reports, Users, Settings) que en TB1 eran placeholders. Como deuda técnica se alineó el motor de base de datos documentado al motor real (**MySQL 8**, esquema `spotfinder`) y se regeneraron los diagramas C4 Container y Deployment desde un workspace DSL de Structurizr. El Sprint comprometió un total de 136 story points distribuidos entre los cinco integrantes del equipo.
+
+A continuación, se muestra el tablero de trabajo utilizado para la gestión de tareas del Sprint:
+
+
+<img alt="Sprint Backlog 2 in Trello" src="assets/images/screenshots/sprint2_trello.png" />
+<br><br>
+
+Link Trello: [SpotFinder - Trello]()
+
+<table border="1" cellpadding="6" cellspacing="0">
+  <thead>
+    <tr>
+      <th>Sprint #</th>
+      <th colspan="8">Sprint 2</th>
+    </tr>
+    <tr>
+      <th colspan="2">User Story</th>
+      <th colspan="7">Work Item / Task</th>
+    </tr>
+    <tr>
+      <th>ID</th>
+      <th>Title</th>
+      <th>ID</th>
+      <th>Title</th>
+      <th>Description</th>
+      <th>Estimation (hours)</th>
+      <th>Assigned To</th>
+      <th>Status</th>
+      <th>Story Points</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td rowspan="2">US05</td>
+      <td rowspan="2">Pago digital del estacionamiento</td>
+      <td>US05a</td>
+      <td>UI de pago</td>
+      <td>Pantalla de pago con selección de método (Yape/tarjeta), confirmación y recibo en la app móvil.</td>
+      <td>5</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">8</td>
+    </tr>
+    <tr>
+      <td>US05b</td>
+      <td>Integración con API</td>
+      <td>Conectar POST /api/v1/payments con manejo de estados de carga y errores de pasarela.</td>
+      <td>4</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US07</td>
+      <td rowspan="2">Find My Car</td>
+      <td>US07a</td>
+      <td>UI de localización</td>
+      <td>Vista que muestra el código del espacio y referencia de ubicación del vehículo.</td>
+      <td>3</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US07b</td>
+      <td>Integración con API</td>
+      <td>Consumir GET /api/v1/parking-sessions/active y manejar el caso sin sesión activa.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US08</td>
+      <td rowspan="2">Visualización de tiempo y costo estimado</td>
+      <td>US08a</td>
+      <td>UI de detalle de sesión</td>
+      <td>Mostrar hora de ingreso, duración y monto acumulado de la sesión activa.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US08b</td>
+      <td>Integración con API</td>
+      <td>Consumir detalles de sesión y refrescar dinámicamente el monto estimado.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US10</td>
+      <td rowspan="2">Notificaciones de eventos del vehículo</td>
+      <td>US10a</td>
+      <td>UI de notificaciones</td>
+      <td>Listado y detalle de notificaciones push (ingreso, pago pendiente, emergencia) en la app móvil.</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US10b</td>
+      <td>Integración con FCM</td>
+      <td>Recepción y manejo de notificaciones push mediante Firebase Cloud Messaging.</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US15</td>
+      <td rowspan="2">Historial de pagos</td>
+      <td>US15a</td>
+      <td>UI de historial</td>
+      <td>Lista de pagos con fecha, duración, monto y método; manejo de historial vacío.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US15b</td>
+      <td>Integración con API</td>
+      <td>Consumir GET /api/v1/payments/history con orden por fecha descendente.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US24</td>
+      <td rowspan="2">Configuración de preferencias de notificación</td>
+      <td>US24a</td>
+      <td>UI de preferencias</td>
+      <td>Pantalla con toggles para activar/desactivar tipos de notificación.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US24b</td>
+      <td>Integración con API</td>
+      <td>Conectar PUT /api/v1/users/{id}/notification-preferences y reflejar preferencias.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US11</td>
+      <td rowspan="2">Gestión de disponibilidad de espacios</td>
+      <td>US11a</td>
+      <td>UI de gestión de espacios</td>
+      <td>Habilitar/deshabilitar espacios y marcar "Out of Service" desde el dashboard web.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US11b</td>
+      <td>Integración con API</td>
+      <td>Conectar PATCH /api/v1/parking-slots/{id}/status y refrescar el plano.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US12</td>
+      <td rowspan="2">Estadísticas de ocupación</td>
+      <td>US12a</td>
+      <td>UI de estadísticas</td>
+      <td>Gráficos de ocupación, horas punta y rotación con filtros por rango de fechas.</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US12b</td>
+      <td>Integración con API</td>
+      <td>Consumir GET /api/v1/analytics/occupancy con validación de rango de fechas.</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US13</td>
+      <td rowspan="2">Generación de reportes</td>
+      <td>US13a</td>
+      <td>UI de reportes</td>
+      <td>Selección de período y botón de exportación; manejo de período sin datos.</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US13b</td>
+      <td>Integración con API</td>
+      <td>Consumir endpoint de reportes y descargar el PDF generado.</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US14</td>
+      <td rowspan="2">Detección y alerta de emergencia</td>
+      <td>US14a</td>
+      <td>UI de panel de emergencias</td>
+      <td>Panel con alertas de gas/humo en vivo, indicadores visuales y acción de resolución.</td>
+      <td>5</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">8</td>
+    </tr>
+    <tr>
+      <td>US14b</td>
+      <td>Integración con API</td>
+      <td>Consumir GET /api/v1/emergency/status y PATCH /api/v1/emergencies/{id}/resolve.</td>
+      <td>4</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US19</td>
+      <td rowspan="2">Registro de usuario administrador</td>
+      <td>US19a</td>
+      <td>UI de registro de administrador</td>
+      <td>Formulario de registro de administrador con validaciones y feedback de errores.</td>
+      <td>3</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US19b</td>
+      <td>Integración con API</td>
+      <td>Conectar POST /api/v1/auth/register con rol admin y manejo de correo duplicado.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US21</td>
+      <td rowspan="2">Recuperación de contraseña</td>
+      <td>US21a</td>
+      <td>UI de recuperación</td>
+      <td>Flujo de solicitud de enlace y restablecimiento de contraseña con validaciones.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US21b</td>
+      <td>Integración con API</td>
+      <td>Conectar POST /api/v1/auth/forgot-password y /api/v1/auth/reset-password.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US22</td>
+      <td rowspan="2">Edición de perfil</td>
+      <td>US22a</td>
+      <td>UI de edición de perfil</td>
+      <td>Formulario de edición de datos personales con validaciones y estados.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US22b</td>
+      <td>Integración con API</td>
+      <td>Conectar PUT /api/v1/users/{id} y reflejar los datos actualizados.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS06</td>
+      <td rowspan="2">Exponer endpoint para recomendar espacios</td>
+      <td>TS06a</td>
+      <td>Query Handler</td>
+      <td>Implementar lógica de recomendación de espacios cercanos priorizados por proximidad.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS06b</td>
+      <td>Controller & Tests</td>
+      <td>GET /api/v1/parking-slots/recommendations, DTOs y pruebas.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS15</td>
+      <td rowspan="2">Exponer endpoint para registrar pago</td>
+      <td>TS15a</td>
+      <td>App/Domain Handler</td>
+      <td>InitiatePaymentCommandHandler con integración de pasarela Culqi y manejo de estados.</td>
+      <td>4</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>TS15b</td>
+      <td>Controller & Tests</td>
+      <td>POST /api/v1/payments, DTOs/Assembler y pruebas de integración.</td>
+      <td>3</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS16</td>
+      <td rowspan="2">Exponer endpoint para consultar pago</td>
+      <td>TS16a</td>
+      <td>Query Handler</td>
+      <td>GetPaymentByIdQueryHandler con manejo de inexistencia.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS16b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/payments/{id} con assembler a resource.</td>
+      <td>1</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS17</td>
+      <td rowspan="2">Exponer endpoint para historial de pagos</td>
+      <td>TS17a</td>
+      <td>Query Handler</td>
+      <td>GetPaymentHistoryQueryHandler ordenado por fecha descendente.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS17b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/payments/history con validación de parámetros.</td>
+      <td>1</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS18</td>
+      <td rowspan="2">Exponer endpoint para enviar notificación push</td>
+      <td>TS18a</td>
+      <td>App/Domain Handler</td>
+      <td>SendNotificationCommandHandler con integración a Firebase Cloud Messaging.</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS18b</td>
+      <td>Controller & Tests</td>
+      <td>POST /api/v1/notifications, DTOs y pruebas.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS19</td>
+      <td rowspan="2">Exponer endpoint para listar notificaciones de un usuario</td>
+      <td>TS19a</td>
+      <td>Query Handler</td>
+      <td>GetNotificationsByUserQueryHandler ordenado por fecha.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS19b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/notifications/user/{id} con manejo de lista vacía.</td>
+      <td>1</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS20</td>
+      <td rowspan="2">Exponer endpoint para métricas de ocupación</td>
+      <td>TS20a</td>
+      <td>Query Handler</td>
+      <td>OccupancyAnalyticsService con cálculo de occupancyRate, peakHours y turnoverRate.</td>
+      <td>3</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>TS20b</td>
+      <td>Controller & Tests</td>
+      <td>GET /api/v1/analytics/occupancy con validación de fechas y pruebas.</td>
+      <td>3</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS21</td>
+      <td rowspan="2">Exponer endpoint para métricas de ingresos</td>
+      <td>TS21a</td>
+      <td>Query Handler</td>
+      <td>RevenueAnalyticsService con totalRevenue, averageTicket y paymentsByMethod.</td>
+      <td>3</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS21b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/analytics/revenue con rango de fechas.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS23</td>
+      <td rowspan="2">Exponer endpoint para registrar alerta de emergencia</td>
+      <td>TS23a</td>
+      <td>App/Domain Handler</td>
+      <td>TriggerEmergencyAlertCommandHandler que activa el protocolo de emergencia.</td>
+      <td>4</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>TS23b</td>
+      <td>Controller & Tests</td>
+      <td>POST /api/v1/emergency/alerts con validaciones y pruebas.</td>
+      <td>3</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS24</td>
+      <td rowspan="2">Exponer endpoint para consultar estado de emergencia</td>
+      <td>TS24a</td>
+      <td>Query Handler</td>
+      <td>GetEmergencyStatusQueryHandler que devuelve emergencia activa o estado NORMAL.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS24b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/emergency/status con assembler a resource.</td>
+      <td>1</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS26</td>
+      <td rowspan="2">Exponer endpoint para resolver emergencia</td>
+      <td>TS26a</td>
+      <td>App/Domain Handler</td>
+      <td>ResolveEmergencyCommandHandler que restaura la operación normal.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS26b</td>
+      <td>Controller & Tests</td>
+      <td>PATCH /api/v1/emergencies/{id}/resolve y pruebas de integración.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS32</td>
+      <td rowspan="2">Exponer endpoint para obtener perfil de usuario</td>
+      <td>TS32a</td>
+      <td>Query Handler</td>
+      <td>GetUserByIdQueryHandler con manejo de inexistencia.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS32b</td>
+      <td>Controller & Mapping</td>
+      <td>GET /api/v1/users/{id} con assembler a resource.</td>
+      <td>1</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS33</td>
+      <td rowspan="2">Exponer endpoint para actualizar perfil de usuario</td>
+      <td>TS33a</td>
+      <td>App/Domain Handler</td>
+      <td>UpdateUserCommandHandler con validaciones de datos.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS33b</td>
+      <td>Controller & Tests</td>
+      <td>PUT /api/v1/users/{id} con manejo de errores y pruebas.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US16</td>
+      <td rowspan="2">Pase digital (Google Wallet) para sesión activa</td>
+      <td>US16a</td>
+      <td>UI de pase digital</td>
+      <td>Pantalla con QR, placa, hora de ingreso y estado del pase (pendiente / listo para salir) en la app móvil; CTA "Añadir a Google Wallet".</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">5</td>
+    </tr>
+    <tr>
+      <td>US16b</td>
+      <td>Derivación desde sesión activa</td>
+      <td>Construir el WalletPass a partir del ActiveSessionEntity (placa, sessionId, paymentStatus) hasta tener el endpoint dedicado de Google Wallet API (SS04).</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US17</td>
+      <td rowspan="2">Solicitud de servicios Premium (lavado, detailing, combustible)</td>
+      <td>US17a</td>
+      <td>UI catálogo de servicios Premium</td>
+      <td>Catálogo con lavado exterior, lavado interior+exterior premium, detailing express y entrega de combustible; tarjetas con precio, duración estimada y CTA "Solicitar".</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US17b</td>
+      <td>Flujo de solicitud y confirmación</td>
+      <td>Diálogo de solicitud con nota opcional del conductor; marcado en estado "Solicitado". A futuro consumirá <code>POST /api/v1/premium-services</code>.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">US23</td>
+      <td rowspan="2">Registro de vehículo adicional</td>
+      <td>US23a</td>
+      <td>UI agregar vehículo</td>
+      <td>Formulario de registro de placa (marca, modelo, color opcionales) y listado de vehículos del conductor con eliminación.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>US23b</td>
+      <td>Integración con API</td>
+      <td>Conectar <code>POST /api/v1/users/{id}/vehicles</code>, <code>GET</code> y <code>DELETE</code>; manejo de placa duplicada (409 Conflict).</td>
+      <td>1</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="3">US25</td>
+      <td rowspan="3">Reservar espacio de estacionamiento (Pro/Premium)</td>
+      <td>US25a</td>
+      <td>UI listado de reservas activas e historial</td>
+      <td>Pantalla "Mis reservas" con secciones Activas e Historial, badge de estado (PENDING/CONFIRMED/EXPIRED/CANCELLED) y countdown del grace period.</td>
+      <td>3</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+      <td rowspan="3">5</td>
+    </tr>
+    <tr>
+      <td>US25b</td>
+      <td>UI crear / cancelar reserva</td>
+      <td>Formulario para reservar por slot id con grace period configurable (default 15 min); diálogo de cancelación con razón opcional.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>US25c</td>
+      <td>Integración con API de Reservation</td>
+      <td>Consumir <code>GET /reservations/active</code>, <code>/history</code>, <code>POST /reservations</code> y <code>PATCH /reservations/{id}/cancel</code>.</td>
+      <td>2</td>
+      <td>Roman Esteban, Henry Kalet</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="4">TS41</td>
+      <td rowspan="4">Bounded Context Reservation Management (backend)</td>
+      <td>TS41a</td>
+      <td>Domain Layer</td>
+      <td>Aggregate <code>Reservation</code>, commands (Create/Confirm/Cancel/ExpireGracePeriod), events (Created/Confirmed/Cancelled/Expired), queries y value objects (Status, SlotId, UserId).</td>
+      <td>4</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+      <td rowspan="4">8</td>
+    </tr>
+    <tr>
+      <td>TS41b</td>
+      <td>Application Layer + ACL</td>
+      <td>ReservationCommand/QueryServiceImpl, event handlers (Created → notification, Cancelled → notification, Expired → notification), outbound ACL services (Iam, ParkingMonitoring, Notifications), Facade.</td>
+      <td>4</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>TS41c</td>
+      <td>Infrastructure</td>
+      <td>JPA <code>ReservationRepository</code> con queries derivadas y <code>ReservationExpirationScheduler</code> (sweep cada 60 s).</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td>TS41d</td>
+      <td>Interface / REST</td>
+      <td>Controller con 6 endpoints (<code>POST</code>, <code>GET /{id}</code>, <code>/active</code>, <code>/history</code>, <code>/slot/{id}</code>, <code>PATCH /{id}/cancel</code>, <code>POST /sweep-expirations</code>), resources, assemblers, ACL facade y <code>@EnableScheduling</code>.</td>
+      <td>2</td>
+      <td>Cruz Ibarra, Victor Andres</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS42</td>
+      <td rowspan="2">Web Dashboard — Página de Access Control</td>
+      <td>TS42a</td>
+      <td>UI + Store</td>
+      <td>Página standalone con grilla de barreras (status OPEN/CLOSED, position ENTRY/EXIT, last event) y tabla de sesiones activas (placa, slot, ingreso, tiempo dentro, payment status, dueño).</td>
+      <td>3</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS42b</td>
+      <td>Acciones admin</td>
+      <td>Abrir/Cerrar barrera individual y "Open all barriers" (override de emergencia) integrados al signalStore.</td>
+      <td>2</td>
+      <td>Vidal Castro, Miguel Angel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS43</td>
+      <td rowspan="2">Web Dashboard — Página de Users (administradores)</td>
+      <td>TS43a</td>
+      <td>UI + filtros</td>
+      <td>KPIs (total, admins, drivers), filtros ALL/ADMIN/CAR_OWNER, tabla con estado, último login y acción Desactivar/Reactivar.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS43b</td>
+      <td>Form Crear administrador</td>
+      <td>Formulario con email, nombre, apellido y password inicial; <code>POST /api/v1/auth/register</code> con rol ADMIN, validación de email duplicado.</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS44</td>
+      <td rowspan="2">Web Dashboard — Página de Facility Settings</td>
+      <td>TS44a</td>
+      <td>UI configuración del estacionamiento</td>
+      <td>Form editable con identificación, tarifa, moneda, grace period, umbral ultrasónico, umbral MQ-2, contacto y flags (ALPR / LED / protocolo de emergencia).</td>
+      <td>3</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+      <td rowspan="2">3</td>
+    </tr>
+    <tr>
+      <td>TS44b</td>
+      <td>Persistencia</td>
+      <td>Store con <code>refresh</code> y <code>save</code> que persiste contra <code>/api/v1/parking-facilities/{id}</code> (mock in-memory durante AV2).</td>
+      <td>2</td>
+      <td>Allcca Guerrero, Irving Washington</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS45</td>
+      <td rowspan="2">Deuda técnica — alinear motor de base de datos a MySQL 8</td>
+      <td>TS45a</td>
+      <td>Backend + Schema</td>
+      <td>Rename del esquema lógico <code>spotFinder</code> → <code>spotfinder</code> en <code>application.properties</code>; verificación de los 7 archivos SQL (ya en sintaxis MySQL).</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS45b</td>
+      <td>Documentación coherente</td>
+      <td>Actualización de §4.1.3.3 (Container), §4.1.3.4 (Deployment), §6.1.1 y §6.1.4 a MySQL 8; aclaración de "un solo esquema con tablas por BC".</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+    <tr>
+      <td rowspan="2">TS46</td>
+      <td rowspan="2">Regeneración de diagramas C4 (Container + Deployment) con MySQL</td>
+      <td>TS46a</td>
+      <td>Structurizr DSL</td>
+      <td>Crear <code>assets/diagrams/structurizr/workspace.dsl</code> versionado con System Landscape, Context, Container y Deployment reflejando MySQL 8 y el esquema <code>spotfinder</code>.</td>
+      <td>2</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+      <td rowspan="2">2</td>
+    </tr>
+    <tr>
+      <td>TS46b</td>
+      <td>Export y reemplazo de PNG</td>
+      <td>Exportar Container-Diagram.png y Deployment-Diagrams.png desde el DSL y reemplazarlos en <code>assets/diagrams/c4/</code>.</td>
+      <td>1</td>
+      <td>Dueñas Canales, Leonardo Manuel</td>
+      <td>To-do</td>
+    </tr>
+  </tbody>
+</table>
+
+<div style="page-break-after: always;"></div>
+
+---
+
 En esta sección se presentan las conclusiones y recomendaciones derivadas del desarrollo del proyecto **SpotFinder**.
 
 

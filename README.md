@@ -6813,13 +6813,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>To-do</td>
     </tr>
 
-    <!-- ─────────────────────────────────────────────────────────────── -->
-    <!-- Items adicionales incorporados al Sprint 2 (Reservation BC,      -->
-    <!-- Premium features, registro de vehículo, admin pages faltantes,   -->
-    <!-- y deuda técnica MySQL/C4) — cubren los hallazgos del análisis    -->
-    <!-- previo a las Validation Interviews del §6.3.                      -->
-    <!-- ─────────────────────────────────────────────────────────────── -->
-
     <tr>
       <td rowspan="2">US16</td>
       <td rowspan="2">Pase digital (Google Wallet) para sesión activa</td>

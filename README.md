@@ -6812,7 +6812,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Dueñas Canales, Leonardo Manuel</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">US16</td>
       <td rowspan="2">Pase digital (Google Wallet) para sesión activa</td>
@@ -6832,7 +6831,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Roman Esteban, Henry Kalet</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">US17</td>
       <td rowspan="2">Solicitud de servicios Premium (lavado, detailing, combustible)</td>
@@ -6852,7 +6850,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Roman Esteban, Henry Kalet</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">US23</td>
       <td rowspan="2">Registro de vehículo adicional</td>
@@ -6872,7 +6869,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Dueñas Canales, Leonardo Manuel</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="3">US25</td>
       <td rowspan="3">Reservar espacio de estacionamiento (Pro/Premium)</td>
@@ -6900,7 +6896,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Roman Esteban, Henry Kalet</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="4">TS41</td>
       <td rowspan="4">Bounded Context Reservation Management (backend)</td>
@@ -6936,7 +6931,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Cruz Ibarra, Victor Andres</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">TS42</td>
       <td rowspan="2">Web Dashboard — Página de Access Control</td>
@@ -6956,7 +6950,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Vidal Castro, Miguel Angel</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">TS43</td>
       <td rowspan="2">Web Dashboard — Página de Users (administradores)</td>
@@ -6976,7 +6969,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Allcca Guerrero, Irving Washington</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">TS44</td>
       <td rowspan="2">Web Dashboard — Página de Facility Settings</td>
@@ -6996,7 +6988,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Allcca Guerrero, Irving Washington</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">TS45</td>
       <td rowspan="2">Deuda técnica — alinear motor de base de datos a MySQL 8</td>
@@ -7016,7 +7007,6 @@ Link Trello: [SpotFinder - Trello]()
       <td>Dueñas Canales, Leonardo Manuel</td>
       <td>To-do</td>
     </tr>
-
     <tr>
       <td rowspan="2">TS46</td>
       <td rowspan="2">Regeneración de diagramas C4 (Container + Deployment) con MySQL</td>

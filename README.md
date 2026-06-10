@@ -2933,6 +2933,7 @@ Implementación concreta del servicio de reconocimiento de placas usando Plate R
 En esta sección se presentan los diagramas de nivel componente que ilustran la arquitectura de software del contexto de Access Control. Se muestra la interacción entre los diferentes componentes, servicios y capas que conforman este bounded context, incluyendo la integración con sistemas externos (Plate Recognizer API, ESP32-CAM).
  
 <img src="assets/diagrams/structurizr/Access_Control_Diagram.png" alt="Pago y salida del estacionamiento" width="800">
+
 ### 4.2.2.6. Bounded Context Software Architecture Code Level Diagrams
  
 En esta sección se presentan los diagramas de nivel código que detallan la estructura interna del contexto de Access Control.

@@ -681,6 +681,9 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [Figura 6.2.1.6.8. Landing Page — Formulario de contacto y Footer.](#figura-62168-landing-page--formulario-de-contacto-y-footer)
 - [6.2.1.7. Services Documentation Evidence for Sprint Review](#6217-services-documentation-evidence-for-sprint-review)
 - [6.2.1.8. Software Deployment Evidence for Sprint Review](#6218-software-deployment-evidence-for-sprint-review)
+    - [Despliegue de la Landing Page: Se empleó Netlify.](#despliegue-de-la-landing-page-se-empleó-netlify)
+    - [Despliegue del FrontEnd: Se empleó Netlify.](#despliegue-del-frontend-se-empleó-netlify)
+    - [Despliegue del BackEnd y Base de Datos: Se empleó Railway.](#despliegue-del-backend-y-base-de-datos-se-empleó-railway)
 - [6.2.1.9. Team Collaboration Insights during Sprint](#6219-team-collaboration-insights-during-sprint)
   - [6.2.2. Sprint 2](#622-sprint-2)
     - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2)
@@ -705,9 +708,6 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
-    - [6.2.2. Sprint 2](#622-sprint-2-1)
-      - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2-1)
-      - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2-1)
     - [Conclusiones](#conclusiones)
     - [Recomendaciones](#recomendaciones)
 - [Bibliografía](#bibliografía)
@@ -6591,13 +6591,19 @@ La documentación sirvió como referencia para el desarrollo colaborativo y mant
 
 # 6.2.1.8. Software Deployment Evidence for Sprint Review
 
-Para el despliegue de la Landing Page se utilizó Netlify como plataforma de hosting frontend.
+Para este Sprint 2 (TB2), se desplegó tanto la Landing Page, Aplicación Web, la base de datos y el API.
 
-El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema.
+### Despliegue de la Landing Page: Se empleó Netlify.
+![Landing Page Deployment](assets/images/screenshots/evidences/landing-page-deployment.png)
 
-Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint.
+### Despliegue del FrontEnd: Se empleó Netlify.
+![FrontEnd Deployment](assets/images/screenshots/evidendes/frontend-deployment.png)
 
-La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del frontend.
+### Despliegue del BackEnd y Base de Datos: Se empleó Railway.
+![BackEnd Deployment](assets/images/screenshots/evidendes/backend-deployment.png)
+
+
+El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema. Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint. La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del sistema completo.
 
 ---
 
@@ -6950,7 +6956,7 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
 - [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
-- [Enlace Landing Page desplegado: https://venerable-banoffee-0b773a.netlify.app/#features](https://venerable-banoffee-0b773a.netlify.app/#features)
+- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#)
 - [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
 - 
 ### Anexo B: Videos

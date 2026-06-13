@@ -5755,7 +5755,9 @@ Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**
 | IR Salida (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | |
 | ESP32-CAM (cámara) | OV2640 | bus dedicado | — (no simulable) | captura de placa para ALPR |
 
-![Desing-IoT](./assets/images/screenshots/Design-IoT.png)
+**Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot Node (HC-SR04, WS2812B, MQ-2, buzzer, botón) y el Access Barrier Node (servo SG90 y los dos sensores IR de entrada/salida).
+
+<img src="assets/images/screenshots/prototype_new.png" alt="Esquemático del prototipo IoT de SpotFinder en Wokwi: ESP32 con HC-SR04, WS2812B, MQ-2, buzzer, botón, servo SG90 y 2 sensores IR" width="800">
 
 El esquemático completo del prototipo (incluyendo el servo y los dos sensores IR) y el firmware se encuentran versionados en el repositorio:
 
@@ -5822,17 +5824,23 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 
 El firmware de los nodos IoT sigue un patrón **Command/Event** que desacopla los sensores (productores de eventos) de los actuadores (consumidores de comandos), permitiendo componer cada tipo de nodo (`ParkingSpotNode`, `EmergencyNode`, `AccessBarrierNode`) a partir de las mismas abstracciones base `Sensor` y `Actuator`. El siguiente diagrama de clases (UML, elaborado con PlantUML) representa esta estructura. El código fuente del diagrama está versionado en [`assets/diagrams/uml/iot-device-class-diagram.puml`](assets/diagrams/uml/iot-device-class-diagram.puml) y el firmware correspondiente en [`assets/iot/sketch.ino`](assets/iot/sketch.ino).
 
-> *Renderizar el `.puml` en [plantuml.com](https://www.plantuml.com/plantuml) o la extensión PlantUML de VS Code para obtener la imagen.*
+<img src="assets/diagrams/uml/iot-device-class-diagram.png" alt="Diagrama de clases del dispositivo IoT de SpotFinder: patrón Command/Event con Sensor, Actuator, Device y los nodos ParkingSpotNode, EmergencyNode y AccessBarrierNode" width="800">
 
 ### Diagramas del Sistema (Software Architecture — C4 con dispositivos IoT)
 
-Para reflejar la integración de los dos nodos IoT (Parking Spot Node y Access Barrier Node) dentro de la arquitectura general, se elaboraron las siguientes vistas C4 aplicando **Diagram-as-Code con PlantUML** (alternativa permitida por el enunciado junto a Structurizr DSL). Sus fuentes están versionadas en `assets/diagrams/c4/`:
+Para reflejar la integración de los dos nodos IoT (Parking Spot Node y Access Barrier Node) dentro de la arquitectura general, se elaboraron las siguientes vistas C4 aplicando **Diagram-as-Code con PlantUML** (alternativa permitida por el enunciado junto a Structurizr DSL). Las fuentes `.puml` están versionadas en `assets/diagrams/c4/`.
 
-| Vista | Fuente | Descripción |
-|---|---|---|
-| System Context | [`spotfinder-system-context.puml`](assets/diagrams/c4/spotfinder-system-context.puml) | SpotFinder y sus actores (Driver, Administrator, Technician) y sistemas externos (Plate Recognizer, Culqi, FCM, Mall Systems). |
-| Container | [`spotfinder-container.puml`](assets/diagrams/c4/spotfinder-container.puml) | Contenedores del sistema incluyendo el **Parking Spot Node (ESP32)** y el **Access Barrier Node (ESP32-CAM)**, el Edge Server y la base de datos MySQL 8. |
-| Component (IoT & Edge) | [`spotfinder-iot-component.puml`](assets/diagrams/c4/spotfinder-iot-component.puml) | Descomposición interna de los nodos IoT: sensores, actuadores, `BackendClient` y su interacción con el Edge Server y el Backend. |
+**System Context.** Muestra a SpotFinder con sus actores (Driver, Administrator, Technician) y sistemas externos (Plate Recognizer, Culqi, FCM, Mall Systems). Fuente: [`spotfinder-system-context.puml`](assets/diagrams/c4/spotfinder-system-context.puml).
+
+<img src="assets/diagrams/c4/spotfinder-system-context.png" alt="Diagrama C4 de System Context de SpotFinder" width="800">
+
+**Container.** Muestra los contenedores del sistema incluyendo el **Parking Spot Node (ESP32)** y el **Access Barrier Node (ESP32-CAM)**, el Edge Server y la base de datos MySQL 8. Fuente: [`spotfinder-container.puml`](assets/diagrams/c4/spotfinder-container.puml).
+
+<img src="assets/diagrams/c4/spotfinder-container.png" alt="Diagrama C4 de contenedores de SpotFinder incluyendo los nodos IoT" width="800">
+
+**Component (IoT & Edge).** Detalla la descomposición interna de los nodos IoT: sensores, actuadores, `BackendClient` y su interacción con el Edge Server y el Backend. Fuente: [`spotfinder-iot-component.puml`](assets/diagrams/c4/spotfinder-iot-component.puml).
+
+<img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y Edge de SpotFinder" width="800">
 
 <div style="page-break-after: always;"></div>
 

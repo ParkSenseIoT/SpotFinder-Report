@@ -1,12 +1,8 @@
 @startuml spotfinder-iot-device-class-diagram
 ' Diagrama de clases del dispositivo IoT de SpotFinder (firmware ESP32 / ESP32-CAM)
 ' Patrón Command / Event con Sensores y Actuadores desacoplados.
+' Render base classes/interfaces at the top, descendants below (top-down hierarchy)
 top to bottom direction
-skinparam monochrome true
-skinparam shadowing false
-skinparam defaultFontName Arial
-skinparam Handwritten false
-skinparam Padding 2
 
 title Class Diagram — SpotFinder IoT Node (Embedded App, C++)
 

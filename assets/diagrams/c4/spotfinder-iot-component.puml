@@ -1,0 +1,54 @@
+@startuml spotfinder-iot-component
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Component.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam Handwritten false
+skinparam Padding 2
+
+title Component Diagram — IoT Nodes & Edge (SpotFinder)
+
+Person(driver, "Driver", "Conductor que ingresa/sale del estacionamiento")
+Container(edge, "Edge Server", "Flask / Python / MQTT", "Broker MQTT + reglas de debounce/umbral", $tags="Edge")
+Container(backend, "Backend API", "Spring Boot", "RESTful API")
+System_Ext(plateRecognizer, "Plate Recognizer API", "ALPR", $tags="External")
+
+Container_Boundary(spotNode, "Parking Spot Node (ESP32)") {
+  Component(ultrasonic, "UltrasonicSensor", "C++ / HC-SR04", "Mide distancia y emite VehicleDetected/VehicleLeft")
+  Component(neopixel, "NeoPixelLed", "C++ / WS2812B", "Guiado visual verde/rojo/azul/estroboscópico")
+  Component(gas, "GasSensor", "C++ / MQ-2", "Lee PPM y emite GasExceeded")
+  Component(buzzer, "Buzzer", "C++", "Sirena de evacuación")
+  Component(spotLogic, "ParkingSpotNode", "C++ / Device", "Orquesta sensores/actuadores del slot")
+}
+
+Container_Boundary(barrierNode, "Access Barrier Node (ESP32-CAM)") {
+  Component(irIn, "IrSensor (Entrada)", "C++ / FC-51", "Detecta llegada del vehículo")
+  Component(irOut, "IrSensor (Salida)", "C++ / FC-51", "Confirma paso del vehículo")
+  Component(camera, "Camera (OV2640)", "C++ / ESP32-CAM", "Captura imagen de placa para ALPR")
+  Component(servo, "ServoBarrier", "C++ / SG90", "Abre/cierra la barrera")
+  Component(barrierLogic, "AccessBarrierNode", "C++ / Device", "Orquesta entrada/salida y barrera")
+  Component(backendClient, "BackendClient", "C++ / HTTPClient", "Cliente REST/HTTP hacia el backend")
+}
+
+Rel(driver, irIn, "Llega a la barrera de entrada")
+Rel(driver, irOut, "Llega a la barrera de salida")
+
+Rel(ultrasonic, spotLogic, "VehicleDetected / VehicleLeft", "Event")
+Rel(gas, spotLogic, "GasExceeded", "Event")
+Rel(spotLogic, neopixel, "SetGreen/SetRed/StrobeRed", "Command")
+Rel(spotLogic, buzzer, "Siren", "Command")
+Rel(spotLogic, edge, "Publica SensorReading", "MQTT")
+
+Rel(irIn, barrierLogic, "ObstacleDetected", "Event")
+Rel(irOut, barrierLogic, "ObstacleDetected", "Event")
+Rel(barrierLogic, camera, "Captura imagen", "Command")
+Rel(barrierLogic, servo, "Open / Close", "Command")
+Rel(barrierLogic, backendClient, "createSession / getPaymentStatus / endSession")
+Rel(backendClient, backend, "POST /parking-sessions, /access/entries, GET/PATCH sessions", "HTTPS")
+Rel(backend, plateRecognizer, "Reenvía imagen para ALPR", "HTTPS")
+Rel(edge, backend, "Reenvía eventos consolidados", "HTTPS")
+
+SHOW_LEGEND()
+@enduml

@@ -5624,7 +5624,12 @@ Asimismo, los prototipos facilitaron la validación de:
 
 ### Introducción y Criterios de Diseño
 
-Esta sección presenta la propuesta de diseño físico y de circuito para los **Parking Spot Nodes** (nodos de espacio de parqueo) que componen el hardware de la solución SpotFinder. El objetivo principal de estos dispositivos es la **detección en tiempo real de la ocupación de cada espacio individual de estacionamiento** dentro de los centros comerciales objetivo, complementada con guiado visual mediante LEDs y monitoreo ambiental de gases/humo para protocolos de emergencia.
+Esta sección presenta la propuesta de diseño físico y de circuito para los dispositivos IoT que componen el hardware de la solución SpotFinder. El alcance contempla **dos tipos de nodo**:
+
+1. **Parking Spot Node:** instalado sobre cada espacio individual, realiza la **detección en tiempo real de la ocupación** mediante un sensor ultrasónico, guiado visual mediante LED y monitoreo ambiental de gases/humo para protocolos de emergencia.
+2. **Access Barrier Node:** instalado en las barreras de entrada y salida, realiza el **control de acceso vehicular** mediante reconocimiento de placas con cámara (ALPR), detección de presencia con sensores infrarrojos y apertura/cierre físico de la barrera con un servomotor.
+
+El objetivo principal de estos dispositivos es conectar el mundo físico (vehículos, espacios, barreras) con los Bounded Contexts de **Parking Monitoring**, **Access Control** y **Emergency & Safety** del backend, manteniendo una experiencia Zero-UI para el conductor.
 
 Los principales criterios para las decisiones de diseño del hardware son:
 
@@ -5693,6 +5698,28 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 
    Una pulsación corta (< 2 s) fuerza una republicación del estado al broker MQTT. Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
 
+#### Access Barrier Node (Control de Acceso Vehicular)
+
+Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**, basado en un **ESP32-CAM (AI-Thinker, sensor OV2640)** que añade capacidad de captura de imagen para el reconocimiento de placas (ALPR). Este nodo se ubica en las barreras de entrada y salida del estacionamiento e integra los siguientes componentes adicionales:
+
+7. **Servomotor SG90 (Barrera):** Actuador que levanta y baja el brazo de la barrera. Tres conexiones:
+   - **Señal (naranja)** → **GPIO 14** del ESP32-CAM (PWM mediante la librería `ESP32Servo`).
+   - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32-CAM, para evitar brown-out durante el movimiento).
+   - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32-CAM.
+
+   El servo opera entre 0° (barrera cerrada) y 90° (barrera abierta). Se recomienda un capacitor de 1000 µF entre 5 V y GND para amortiguar los picos de corriente del servo (~500–700 mA).
+
+8. **Sensores Infrarrojos FC-51 (×2, Entrada y Salida):** Detectores de presencia que disparan el flujo de acceso. Cada uno tiene tres conexiones:
+   - **VCC** → **3.3 V** del ESP32-CAM (⚠️ alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
+   - **GND** → GND.
+   - **OUT** → **GPIO 13** (IR Entrada) y **GPIO 15** (IR Salida); la salida va a `LOW` cuando detecta un obstáculo.
+
+   El IR de entrada dispara la captura de placa y la creación de sesión; el IR de salida confirma el paso del vehículo y la verificación de pago antes de cerrar la barrera.
+
+   *Nota sobre la simulación:* Wokwi no provee el módulo IR FC-51 ni la cámara del ESP32-CAM en su biblioteca. En el esquemático de simulación los sensores IR se representan mediante **pulsadores** (presionar = vehículo detectado, equivalente al `LOW` del módulo real) y el nodo se simula sobre un **ESP32 DevKit** (la cámara no es simulable). En el ensamblaje físico se sustituyen directamente por los módulos FC-51 y el ESP32-CAM sin cambios en la lógica del firmware.
+
+> **Restricciones del ESP32-CAM:** la cámara ocupa la mayoría de los GPIO; solo quedan libres **GPIO 12–15** (con microSD deshabilitada). Además, el ESP32-CAM **no tiene puerto USB**, por lo que requiere un adaptador **FTDI/USB-TTL** o la base **ESP32-CAM-MB** para ser flasheado. La alimentación debe ser de **5 V ≥ 2 A** y el servo debe tener su propio riel de 5 V con tierra común.
+
 #### Resumen de Conexiones (Pinout Table)
 
 | Componente | Pin del componente | Pin del ESP32 | Color de cable | Notas |
@@ -5715,7 +5742,26 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 
 > *Convención de colores:* sigue el estándar industrial de prototipado (rojo = +V, negro = GND, amarillo/naranja = señales de salida, azul/verde = señales de entrada o datos, morado/marrón = sensores analógicos/actuadores).
 
+**Pinout del Access Barrier Node (ESP32-CAM).** En la simulación de Wokwi (ESP32 DevKit) los pines difieren por las restricciones de GPIO del ESP32-CAM:
+
+| Componente | Pin del componente | GPIO físico (ESP32-CAM) | GPIO simulación (Wokwi) | Notas |
+|---|---|---|---|---|
+| Servo SG90 | Señal | GPIO 14 | GPIO 26 | PWM (`ESP32Servo`) |
+| Servo SG90 | V+ | 5V externo | 5V | riel separado, no del MCU |
+| Servo SG90 | GND | GND común | GND | tierra compartida |
+| IR Entrada (FC-51) | OUT | GPIO 13 | GPIO 14 | LOW = vehículo detectado |
+| IR Entrada (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | alimentar a 3.3 V |
+| IR Salida (FC-51) | OUT | GPIO 15 | GPIO 27 | LOW = vehículo detectado |
+| IR Salida (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | |
+| ESP32-CAM (cámara) | OV2640 | bus dedicado | — (no simulable) | captura de placa para ALPR |
+
 ![Desing-IoT](./assets/images/screenshots/Design-IoT.png)
+
+El esquemático completo del prototipo (incluyendo el servo y los dos sensores IR) y el firmware se encuentran versionados en el repositorio:
+
+- **Esquemático Wokwi:** [`assets/iot/diagram.json`](assets/iot/diagram.json)
+- **Firmware del nodo:** [`assets/iot/sketch.ino`](assets/iot/sketch.ino)
+- **Guía de uso:** [`assets/iot/README.md`](assets/iot/README.md)
 
 *[Link del wokwi: https://wokwi.com/projects/464031382788279297]*
 
@@ -5756,6 +5802,37 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 - **Paso 1:** El técnico mantiene presionado el botón pulsador durante más de 5 segundos.
 - **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
 - **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
+
+**6. Flujo de Ingreso Vehicular (Access Barrier Node — Happy Path):**
+
+- **Paso 1:** Un vehículo llega a la barrera de entrada y el sensor IR de entrada (GPIO 13) detecta su presencia (`LOW`).
+- **Paso 2:** El ESP32-CAM enciende el LED flash y captura la imagen de la placa.
+- **Paso 3:** El nodo envía la imagen a `POST /api/v1/access/entries` (o, en el modo sin cámara, crea la sesión con `POST /api/v1/parking-sessions` usando la placa registrada).
+- **Paso 4:** El backend reconoce la placa vía Plate Recognizer, crea la `VehicleSession` y responde `201 Created`.
+- **Paso 5:** El nodo abre la barrera (servo a 90°), espera a que el IR de salida confirme el paso del vehículo y cierra la barrera (servo a 0°).
+
+**7. Flujo de Salida Vehicular con Verificación de Pago (Unhappy Path incluido):**
+
+- **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 15) detecta su presencia.
+- **Paso 2:** El nodo consulta el estado de la sesión vía `GET /api/v1/parking-sessions/{id}` y lee `paymentStatus`.
+- **Paso 3 (Happy Path):** Si el estado es `PAID`, el nodo invoca `PATCH /api/v1/parking-sessions/{id}/end`, abre la barrera y cierra la sesión.
+- **Paso 3 (Unhappy Path):** Si el estado es `PENDING`, la barrera **permanece cerrada** y el buzzer emite un tono de aviso; el conductor debe completar el pago desde la app móvil antes de reintentar la salida.
+
+### Diagrama del Dispositivo (Embedded App — Class Diagram)
+
+El firmware de los nodos IoT sigue un patrón **Command/Event** que desacopla los sensores (productores de eventos) de los actuadores (consumidores de comandos), permitiendo componer cada tipo de nodo (`ParkingSpotNode`, `EmergencyNode`, `AccessBarrierNode`) a partir de las mismas abstracciones base `Sensor` y `Actuator`. El siguiente diagrama de clases (UML, elaborado con PlantUML) representa esta estructura. El código fuente del diagrama está versionado en [`assets/diagrams/uml/iot-device-class-diagram.puml`](assets/diagrams/uml/iot-device-class-diagram.puml) y el firmware correspondiente en [`assets/iot/sketch.ino`](assets/iot/sketch.ino).
+
+> *Renderizar el `.puml` en [plantuml.com](https://www.plantuml.com/plantuml) o la extensión PlantUML de VS Code para obtener la imagen.*
+
+### Diagramas del Sistema (Software Architecture — C4 con dispositivos IoT)
+
+Para reflejar la integración de los dos nodos IoT (Parking Spot Node y Access Barrier Node) dentro de la arquitectura general, se elaboraron las siguientes vistas C4 aplicando **Diagram-as-Code con PlantUML** (alternativa permitida por el enunciado junto a Structurizr DSL). Sus fuentes están versionadas en `assets/diagrams/c4/`:
+
+| Vista | Fuente | Descripción |
+|---|---|---|
+| System Context | [`spotfinder-system-context.puml`](assets/diagrams/c4/spotfinder-system-context.puml) | SpotFinder y sus actores (Driver, Administrator, Technician) y sistemas externos (Plate Recognizer, Culqi, FCM, Mall Systems). |
+| Container | [`spotfinder-container.puml`](assets/diagrams/c4/spotfinder-container.puml) | Contenedores del sistema incluyendo el **Parking Spot Node (ESP32)** y el **Access Barrier Node (ESP32-CAM)**, el Edge Server y la base de datos MySQL 8. |
+| Component (IoT & Edge) | [`spotfinder-iot-component.puml`](assets/diagrams/c4/spotfinder-iot-component.puml) | Descomposición interna de los nodos IoT: sensores, actuadores, `BackendClient` y su interacción con el Edge Server y el Backend. |
 
 <div style="page-break-after: always;"></div>
 

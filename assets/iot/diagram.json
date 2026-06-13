@@ -1,0 +1,152 @@
+{
+  "version": 1,
+  "author": "ParkSense IoT - SpotFinder",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 0, "attrs": {} },
+    {
+      "type": "wokwi-hc-sr04",
+      "id": "ultrasonic",
+      "top": -132.9,
+      "left": 226.3,
+      "attrs": { "distance": "150" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r_neopixel",
+      "top": 80.75,
+      "left": 211.2,
+      "attrs": { "value": "330" }
+    },
+    {
+      "type": "wokwi-neopixel",
+      "id": "led",
+      "top": 63.7,
+      "left": 354.2,
+      "attrs": { "pixels": "1" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_mq2",
+      "top": -97.3,
+      "left": -173,
+      "attrs": { "value": "0" }
+    },
+    {
+      "type": "wokwi-buzzer",
+      "id": "buzzer",
+      "top": 50.4,
+      "left": -190.2,
+      "attrs": { "volume": "0.1" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn",
+      "top": 227,
+      "left": -124.8,
+      "attrs": { "color": "green", "bounce": "0" }
+    },
+    {
+      "type": "wokwi-servo",
+      "id": "servo",
+      "top": 220,
+      "left": 320,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "ir_entry",
+      "top": 360,
+      "left": -124.8,
+      "attrs": { "color": "blue", "bounce": "0" }
+    },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "ir_exit",
+      "top": 360,
+      "left": 120,
+      "attrs": { "color": "red", "bounce": "0" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_ultrasonic",
+      "top": -163.2,
+      "left": 230.4,
+      "attrs": { "text": "Sensor de Ocupacion (HC-SR04)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_led",
+      "top": 105.6,
+      "left": 336,
+      "attrs": { "text": "LED de Guiado (WS2812B)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_pot",
+      "top": -124.8,
+      "left": -182.4,
+      "attrs": { "text": "Sensor de Gas (MQ-2 simulado)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_buzzer",
+      "top": 38.4,
+      "left": -268.8,
+      "attrs": { "text": "Alarma de Emergencia (Buzzer)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_btn",
+      "top": 278.4,
+      "left": -115.2,
+      "attrs": { "text": "Boton de Provisioning", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_servo",
+      "top": 300,
+      "left": 300,
+      "attrs": { "text": "Barrera de Acceso (Servo SG90)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_ir_entry",
+      "top": 412,
+      "left": -132,
+      "attrs": { "text": "Sensor IR Entrada (FC-51 simulado)", "fontSize": "14", "color": "#FFFFFF" }
+    },
+    {
+      "type": "wokwi-text",
+      "id": "lbl_ir_exit",
+      "top": 412,
+      "left": 112,
+      "attrs": { "text": "Sensor IR Salida (FC-51 simulado)", "fontSize": "14", "color": "#FFFFFF" }
+    }
+  ],
+  "connections": [
+    [ "esp:5V", "ultrasonic:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.1", "ultrasonic:GND", "black", [ "h-23.81", "v-172.8", "h346.8" ] ],
+    [ "esp:5V", "led:VDD", "red", [ "v38.4", "h225.79", "v-172.8" ] ],
+    [ "esp:GND.2", "led:VSS", "black", [ "h187.24", "v67.2", "h105.6", "v-18.3" ] ],
+    [ "esp:3V3", "pot_mq2:VCC", "red", [ "h0" ] ],
+    [ "esp:GND.3", "pot_mq2:GND", "black", [ "h52.84", "v-76.8", "h-297.6" ] ],
+    [ "esp:GND.3", "buzzer:2", "black", [ "h52.84", "v134.4", "h-306.8" ] ],
+    [ "esp:GND.3", "btn:2.l", "black", [ "h81.64", "v240", "h-307.2" ] ],
+    [ "esp:5", "ultrasonic:TRIG", "gold", [ "h0" ] ],
+    [ "esp:18", "ultrasonic:ECHO", "blue", [ "h0" ] ],
+    [ "esp:4", "r_neopixel:1", "green", [ "v-9.6", "h81.64" ] ],
+    [ "esp:34", "pot_mq2:SIG", "magenta", [ "h0" ] ],
+    [ "esp:25", "buzzer:1", "orange", [ "h-71.81", "v28.8" ] ],
+    [ "esp:13", "btn:1.l", "white", [ "h0" ] ],
+    [ "r_neopixel:2", "led:DIN", "green", [ "v-48", "h123.6", "v28.8" ] ],
+    [ "esp:5V", "servo:V+", "red", [ "v0" ] ],
+    [ "esp:GND.2", "servo:GND", "black", [ "v0" ] ],
+    [ "esp:26", "servo:PWM", "gold", [ "v0" ] ],
+    [ "esp:14", "ir_entry:1.l", "cyan", [ "v0" ] ],
+    [ "esp:GND.3", "ir_entry:2.l", "black", [ "v0" ] ],
+    [ "esp:27", "ir_exit:1.l", "purple", [ "v0" ] ],
+    [ "esp:GND.2", "ir_exit:2.l", "black", [ "v0" ] ]
+  ],
+  "dependencies": {}
+}

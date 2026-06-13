@@ -1,0 +1,49 @@
+@startuml spotfinder-container
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam Handwritten false
+skinparam Padding 2
+
+title Container Diagram — SpotFinder (con dispositivos IoT)
+
+Person(driver, "Driver", "Conductor")
+Person(admin, "Parking Administrator", "Administrador del estacionamiento")
+
+System_Ext(plateRecognizer, "Plate Recognizer API", "ALPR", $tags="External")
+System_Ext(culqi, "Culqi", "Pasarela de pagos", $tags="External")
+System_Ext(fcm, "Firebase Cloud Messaging", "Push", $tags="External")
+
+System_Boundary(spotfinder, "SpotFinder") {
+  Container(landing, "Landing Page", "HTML5 / CSS3 / JS", "Sitio estático con propuesta de valor y planes", $tags="Browser")
+  Container(mobile, "Mobile App", "Flutter / Dart", "App del conductor: mapa, reservas, pagos, Find My Car, Wallet", $tags="MobileApp")
+  Container(web, "Web Dashboard", "Angular + Angular Material", "Dashboard admin: monitoreo, accesos, emergencias, reportes, usuarios", $tags="Browser")
+  Container(backend, "Backend API", "Spring Boot 4 / Java 21", "RESTful API con 8 bounded contexts (IAM, Parking Monitoring, Access Control, Payment, Emergency, Analytics, Notification, Reservation)")
+  Container(edge, "Edge Server", "Flask / Python / MQTT", "Recibe lecturas MQTT de los nodos, aplica debounce/umbrales y reenvía al backend", $tags="Edge")
+  ContainerDb(db, "Database", "MySQL 8 (InnoDB)", "Esquema único 'spotfinder' con tablas por bounded context", $tags="Database")
+
+  Container(spotNode, "Parking Spot Node", "ESP32 / C++", "HC-SR04 (ocupación) + WS2812B (guiado) + MQ-2 (gas) + buzzer", $tags="IoT")
+  Container(barrierNode, "Access Barrier Node", "ESP32-CAM / C++", "Cámara (ALPR) + 2x IR (entrada/salida) + servo SG90 (barrera)", $tags="IoT")
+}
+
+Rel(driver, mobile, "Usa la app", "HTTPS, JWT")
+Rel(driver, landing, "Consulta", "HTTPS")
+Rel(admin, web, "Usa el dashboard", "HTTPS, JWT")
+
+Rel(mobile, backend, "Consume servicios REST", "JSON/HTTPS")
+Rel(web, backend, "Consume servicios REST", "JSON/HTTPS")
+Rel(backend, db, "Lee/escribe vía JPA", "JDBC / MySQL")
+Rel(backend, plateRecognizer, "ALPR", "HTTPS")
+Rel(backend, culqi, "Pagos", "HTTPS")
+Rel(backend, fcm, "Notificaciones push", "HTTPS")
+Rel(backend, web, "Actualizaciones en tiempo real", "WebSocket")
+
+Rel(spotNode, edge, "Publica lecturas de ocupación/gas", "MQTT")
+Rel(barrierNode, backend, "Envía imagen de placa y eventos de entrada/salida", "HTTPS / REST")
+Rel(barrierNode, edge, "Publica eventos de barrera", "MQTT")
+Rel(edge, backend, "Reenvía eventos consolidados", "HTTPS / REST")
+
+SHOW_LEGEND()
+@enduml

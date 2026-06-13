@@ -1,0 +1,31 @@
+@startuml spotfinder-system-context
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Context.puml
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam Handwritten false
+skinparam Padding 2
+
+title System Context Diagram — SpotFinder (ParkSense IoT)
+
+Person(driver, "Driver / Conductor", "Busca espacio, reserva, paga y localiza su vehículo desde la app móvil")
+Person(admin, "Parking Administrator", "Monitorea ocupación, gestiona accesos, emergencias y reportes desde el dashboard web")
+Person(technician, "Field Technician", "Instala y aprovisiona los nodos IoT en el estacionamiento")
+
+System(spotfinder, "SpotFinder", "Plataforma IoT que monitorea ocupación en tiempo real, automatiza accesos por ALPR y procesa pagos digitales")
+
+System_Ext(plateRecognizer, "Plate Recognizer API", "Reconocimiento automático de placas (ALPR)", $tags="External")
+System_Ext(culqi, "Culqi Payment Gateway", "Pagos con tarjeta y Yape", $tags="External")
+System_Ext(fcm, "Firebase Cloud Messaging", "Notificaciones push", $tags="External")
+System_Ext(mall, "Mall Systems", "Sistemas operativos del centro comercial", $tags="External")
+
+Rel(driver, spotfinder, "Consulta disponibilidad, reserva, paga y localiza el vehículo", "HTTPS / Mobile")
+Rel(admin, spotfinder, "Monitorea, gestiona espacios, accesos y emergencias", "HTTPS / Web")
+Rel(technician, spotfinder, "Aprovisiona y mantiene los nodos IoT", "Wi-Fi / MQTT")
+Rel(spotfinder, plateRecognizer, "Envía imágenes de placas, recibe matrícula", "HTTPS / REST")
+Rel(spotfinder, culqi, "Procesa pagos digitales", "HTTPS / REST")
+Rel(spotfinder, fcm, "Envía notificaciones push", "HTTPS / REST")
+Rel(spotfinder, mall, "Intercambia datos operativos del estacionamiento", "HTTPS")
+
+SHOW_LEGEND()
+@enduml

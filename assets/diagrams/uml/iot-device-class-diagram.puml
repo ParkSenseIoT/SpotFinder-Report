@@ -1,0 +1,168 @@
+@startuml spotfinder-iot-device-class-diagram
+' Diagrama de clases del dispositivo IoT de SpotFinder (firmware ESP32 / ESP32-CAM)
+' Patrón Command / Event con Sensores y Actuadores desacoplados.
+top to bottom direction
+skinparam monochrome true
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam Handwritten false
+skinparam Padding 2
+
+title Class Diagram — SpotFinder IoT Node (Embedded App, C++)
+
+' ---------------- Mensajes ----------------
+class Command {
+  int id
+  +Command(int commandId)
+  +operator==(const Command& other) : bool
+}
+class Event {
+  int id
+  +Event(int eventId)
+  +operator==(const Event& other) : bool
+}
+
+' ---------------- Interfaces ----------------
+abstract class CommandHandler {
+  +handle(Command command)
+}
+abstract class EventHandler {
+  +on(Event event)
+}
+
+' ---------------- Bases ----------------
+abstract class Device {
+  +on(Event event)
+  +handle(Command command)
+}
+Device -up-|> EventHandler
+Device -up-|> CommandHandler
+
+class Sensor {
+  protected int pin
+  protected EventHandler* handler
+  +Sensor(int pin, EventHandler* eventHandler = nullptr)
+  +read()
+}
+Sensor -up-|> EventHandler
+
+class Actuator {
+  protected int pin
+  protected CommandHandler* handler
+  +Actuator(int pin, CommandHandler* commandHandler = nullptr)
+  +handle(Command command)
+}
+Actuator -up-|> CommandHandler
+
+' ---------------- Sensores concretos ----------------
+class UltrasonicSensor {
+  static const int VEHICLE_DETECTED_EVENT_ID
+  static const int VEHICLE_LEFT_EVENT_ID
+  -float thresholdCm
+  +UltrasonicSensor(int trigPin, int echoPin, EventHandler* h = nullptr)
+  +readDistanceCm() : float
+}
+UltrasonicSensor -up-|> Sensor
+
+class GasSensor {
+  static const int GAS_EXCEEDED_EVENT_ID
+  -int gasThreshold
+  +GasSensor(int adcPin, int threshold, EventHandler* h = nullptr)
+  +readPpm() : int
+}
+GasSensor -up-|> Sensor
+
+class IrSensor {
+  static const int OBSTACLE_DETECTED_EVENT_ID
+  +IrSensor(int pin, EventHandler* h = nullptr)
+}
+IrSensor -up-|> Sensor
+
+class Button {
+  static const int BUTTON_PRESSED_EVENT_ID
+  static const int BUTTON_HELD_EVENT_ID
+  +Button(int pin, EventHandler* h = nullptr)
+}
+Button -up-|> Sensor
+
+' ---------------- Actuadores concretos ----------------
+class NeoPixelLed {
+  static const Command SET_GREEN
+  static const Command SET_RED
+  static const Command SET_BLUE
+  static const Command STROBE_RED
+  -uint32_t color
+  +NeoPixelLed(int pin, CommandHandler* h = nullptr)
+}
+NeoPixelLed -up-|> Actuator
+
+class Buzzer {
+  static const Command SIREN
+  +Buzzer(int pin, CommandHandler* h = nullptr)
+}
+Buzzer -up-|> Actuator
+
+class ServoBarrier {
+  static const Command OPEN
+  static const Command CLOSE
+  -int openAngle
+  -int closeAngle
+  +ServoBarrier(int pin, CommandHandler* h = nullptr)
+}
+ServoBarrier -up-|> Actuator
+
+' ---------------- Servicio de red ----------------
+class BackendClient {
+  -String apiBase
+  +postSensorReading(slotId, distance) : int
+  +createSession(plate, userId) : long
+  +getPaymentStatus(sessionId) : String
+  +endSession(sessionId) : int
+  +postEmergencyAlert(gasLevel, location) : int
+}
+
+' ---------------- Dispositivos compuestos ----------------
+class ParkingSpotNode {
+  static const int TRIG_PIN
+  static const int ECHO_PIN
+  static const int LED_PIN
+  -UltrasonicSensor ultrasonic
+  -NeoPixelLed led
+  -bool occupied
+  +on(Event event)
+  +handle(Command command)
+}
+ParkingSpotNode -up-|> Device
+ParkingSpotNode *-- UltrasonicSensor
+ParkingSpotNode *-- NeoPixelLed
+ParkingSpotNode --> BackendClient : uses
+
+class EmergencyNode {
+  static const int MQ2_PIN
+  static const int BUZZER_PIN
+  -GasSensor gas
+  -Buzzer buzzer
+  +on(Event event)
+}
+EmergencyNode -up-|> Device
+EmergencyNode *-- GasSensor
+EmergencyNode *-- Buzzer
+EmergencyNode --> BackendClient : uses
+
+class AccessBarrierNode {
+  static const int IR_IN_PIN
+  static const int IR_OUT_PIN
+  static const int SERVO_PIN
+  -IrSensor irEntry
+  -IrSensor irExit
+  -ServoBarrier barrier
+  -long activeSessionId
+  +on(Event event)
+  +handle(Command command)
+}
+AccessBarrierNode -up-|> Device
+AccessBarrierNode *-- IrSensor
+AccessBarrierNode *-- ServoBarrier
+AccessBarrierNode --> BackendClient : uses
+
+@enduml

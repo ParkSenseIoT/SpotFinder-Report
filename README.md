@@ -6839,14 +6839,117 @@ Web Dashboard para administradores).
 4. Para reemplazar tu sistema actual por SpotFinder, ¿qué funcionalidades indispensables tendría que incluir (integración con tu pasarela contable, exportación a SAP/ERP, multi-facility, etc.)?
 5. ¿Qué tan probable es que recomendaras SpotFinder a otro centro comercial? *(escala 0–10, NPS)*
 
-### 6.3.2. Registro de Entrevistas
+## 6.3.2. Registro de Entrevistas
 
-> *Sección reservada para la entrega AV2. Documentará para cada segmento de 3 a 5 entrevistas con
-> nombre, apellido, edad, distrito, screenshot del video, URL en Microsoft Stream/Clipchamp, timing
-> de inicio y duración, junto con un resumen descriptivo de las principales apreciaciones del
-> entrevistado frente a las tareas asignadas. El video consolidado seguirá la nomenclatura
-> `upc-pre-202610-1asi0572-<NRC>-spotfinder-validation-sprint-2.mp4` indicada en el Anexo C del
-> enunciado.*
+## Segmento Objetivo 1: Conductores frecuentes de centros comerciales
+
+#### **Entrevista 1**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Carlos |
+| **Apellidos** | Anofre |
+| **Distrito** | [Por definir] |
+| **Edad** | 31 años |
+| **Fecha de entrevista** | 13/06/2026 |
+| **Timing**              | --:-- -- --:-- (Duración: 10:09) |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 1](./assets/images/screenshots/conductores_entrevista1.png)
+
+**Resumen**
+[Completar resumen: Describir comportamiento de visita a centros comerciales, frecuencia (2-3 veces por semana), preferencias tecnológicas o frustraciones actuales en relación a parking y movilidad. Enfocado en perfil de Ingeniería Software.]
+
+---
+
+#### **Entrevista 2**
+|Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Fabio |
+| **Apellidos** | Alfaro |
+| **Distrito** | [Por definir] |
+| **Edad** | 28 años |
+| **Fecha de entrevista** | 15/06/2026 |
+| **Timing**              | --:-- -- --:-- (Duración: 08:33) |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)
+
+**Resumen**
+[Completar resumen: Describir percepción como conductor frecuente (2-3 veces por semana). Analizar su interés en soluciones tecnológicas dado su perfil de ingeniería software. ¿Qué problemas resuelve el sistema SpotFinder para él?]
+
+---
+
+#### **Entrevista 3**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Samuel |
+| **Apellidos** | [Por definir] |
+| **Distrito** | [Por definir] |
+| **Edad** | 27 años |
+| **Fecha de entrevista** | 08/06/2026 |
+| **Timing**              | --:-- -- --:-- (Duración: 10:24) |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 3](./assets/images/screenshots/conductores_entrevista3.png)
+
+**Resumen**
+[Completar resumen: Analizar hábitos de conducción y visita a centros comerciales (2-3 veces por semana). Identificar puntos de dolor específicos que puedan ser mitigados por la implementación propuesta.]
+
+---
+
+## Segmento Objetivo 2: Administración de Estacionamientos
+
+**Segmento Administradores de Estacionamientos: Entrevistado 1**
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | Dana [Apellido Por Definir] |
+| **Edad**                | 28 |
+| **Sexo**                | [Por definir] |
+| **Distrito**            | Lima (CC) |
+| **Ocupación**           | Supervisión de Estacionamiento |
+| **Fecha de entrevista** | 08/06/2026 |
+| **Timing**              | --:-- -- --:-- (Duración: 13:10) |
+| **Video**               | [Ver entrevista](LINK) |
+| **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/administrador_entrevista1.png) |
+| **Resumen**             | [Completar resumen: Describe responsabilidades en la supervisión del parking en centros comerciales. Expectativas sobre automatización, gestión de flujo vehicular o seguridad. Impacto en sus procesos diarios.] |
+
+---
+
+**Segmento Administradores de Estacionamientos: Entrevistado 2** *(Espacio para Completar)*
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | [Pendiente de ingreso] |
+| **Edad**                | [Pendiente] |
+| **Sexo**                | [Pendiente] |
+| **Distrito**            | [Pendiente] |
+| **Ocupación**           | [Pendiente] |
+| **Fecha de entrevista** | [Pendiente] |
+| **Timing**              | [Pendiente] |
+| **Video**               | [Link por ingresar] |
+| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
+| **Resumen**             | [Pendiente de contenido de entrevista] |
+
+---
+
+**Segmento Administradores de Estacionamientos: Entrevistado 3** *(Espacio para Completar)*
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | [Pendiente de ingreso] |
+| **Edad**                | [Pendiente] |
+| **Sexo**                | [Pendiente] |
+| **Distrito**            | [Pendiente] |
+| **Ocupación**           | [Pendiente] |
+| **Fecha de entrevista** | [Pendiente] |
+| **Timing**              | [Pendiente] |
+| **Video**               | [Link por ingresar] |
+| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
+| **Resumen**             | [Pendiente de contenido de entrevista] |
 
 ### 6.3.3. Evaluaciones según heurísticas
 

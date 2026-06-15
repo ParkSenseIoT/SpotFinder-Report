@@ -6851,14 +6851,14 @@ Web Dashboard para administradores).
 | **Distrito** | [Por definir] |
 | **Edad** | 31 años |
 | **Fecha de entrevista** | 13/06/2026 |
-| **Timing**              | --:-- -- --:-- (Duración: 10:09) |
+| **Timing**              | Duración: 10:09 |
 | **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
 
 **Evidencia**
 ![Captura de la entrevista 1](./assets/images/screenshots/conductores_entrevista1.png)
 
 **Resumen**
-[Completar resumen: Describir comportamiento de visita a centros comerciales, frecuencia (2-3 veces por semana), preferencias tecnológicas o frustraciones actuales en relación a parking y movilidad. Enfocado en perfil de Ingeniería Software.]
+Carlos, ingeniero de software de 31 años, comentó que suele visitar centros comerciales entre 2 y 3 veces por semana, principalmente para realizar compras, comer o asistir a reuniones. Durante la entrevista manifestó que una de sus principales molestias es el tiempo que pierde buscando estacionamiento, especialmente en horarios de alta afluencia. Considera que una solución como SpotFinder sería útil si muestra disponibilidad en tiempo real, permite ubicar espacios libres de manera rápida y reduce la incertidumbre al ingresar al estacionamiento. Por su perfil tecnológico, se mostró familiarizado con el uso de aplicaciones móviles y valoró positivamente funciones como guiado dentro del estacionamiento, reserva de espacios y pagos digitales.
 
 ---
 
@@ -6870,14 +6870,14 @@ Web Dashboard para administradores).
 | **Distrito** | [Por definir] |
 | **Edad** | 28 años |
 | **Fecha de entrevista** | 15/06/2026 |
-| **Timing**              | --:-- -- --:-- (Duración: 08:33) |
+| **Timing**              | Duración: 08:33 |
 | **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
 
 **Evidencia**
 ![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)
 
 **Resumen**
-[Completar resumen: Describir percepción como conductor frecuente (2-3 veces por semana). Analizar su interés en soluciones tecnológicas dado su perfil de ingeniería software. ¿Qué problemas resuelve el sistema SpotFinder para él?]
+Fabio, ingeniero de software de 28 años, indicó que visita centros comerciales de 2 a 3 veces por semana y que suele utilizar estacionamientos privados por comodidad y seguridad. Señaló que el principal problema en estos espacios es la falta de información clara sobre los lugares disponibles, lo que genera recorridos innecesarios y pérdida de tiempo. Durante la validación, mostró interés en una aplicación que permita consultar la disponibilidad antes de llegar, recibir indicaciones hacia un espacio libre y realizar el pago desde el celular. Además, destacó que la interfaz debe ser simple, rápida y confiable, ya que los usuarios buscan resolver el problema del estacionamiento en pocos pasos.
 
 ---
 
@@ -6889,14 +6889,14 @@ Web Dashboard para administradores).
 | **Distrito** | [Por definir] |
 | **Edad** | 27 años |
 | **Fecha de entrevista** | 08/06/2026 |
-| **Timing**              | --:-- -- --:-- (Duración: 10:24) |
+| **Timing**              | Duración: 10:24 |
 | **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
 
 **Evidencia**
 ![Captura de la entrevista 3](./assets/images/screenshots/conductores_entrevista3.png)
 
 **Resumen**
-[Completar resumen: Analizar hábitos de conducción y visita a centros comerciales (2-3 veces por semana). Identificar puntos de dolor específicos que puedan ser mitigados por la implementación propuesta.]
+Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros comerciales entre 2 y 3 veces por semana. Comentó que, en su experiencia, encontrar estacionamiento puede ser complicado durante fines de semana o en horarios concurridos, lo que genera estrés y demoras antes de realizar sus actividades. Valoró positivamente la propuesta de SpotFinder, especialmente las funciones relacionadas con disponibilidad en tiempo real, guiado hacia espacios libres y recordatorio de ubicación del vehículo. También consideró importante que la aplicación sea intuitiva y que brinde información clara sobre el estado del estacionamiento para evitar confusiones al momento de ingresar.
 
 ---
 
@@ -6912,10 +6912,10 @@ Web Dashboard para administradores).
 | **Distrito**            | Lima (CC) |
 | **Ocupación**           | Supervisión de Estacionamiento |
 | **Fecha de entrevista** | 08/06/2026 |
-| **Timing**              | --:-- -- --:-- (Duración: 13:10) |
+| **Timing**              | Duración: 13:10 |
 | **Video**               | [Ver entrevista](LINK) |
 | **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/administrador_entrevista1.png) |
-| **Resumen**             | [Completar resumen: Describe responsabilidades en la supervisión del parking en centros comerciales. Expectativas sobre automatización, gestión de flujo vehicular o seguridad. Impacto en sus procesos diarios.] |
+| **Resumen**             | Dana, supervisora de estacionamiento en un centro comercial de Lima, comentó que la gestión diaria del estacionamiento requiere coordinación constante con el personal operativo, especialmente en horas punta. Señaló que los principales problemas se relacionan con la congestión vehicular, la falta de visibilidad exacta sobre los espacios disponibles y los reclamos de usuarios por demoras o desorientación dentro del estacionamiento. Considera que una solución tecnológica como SpotFinder podría mejorar la operación mediante un panel de control con información en tiempo real, reportes automáticos, guiado visual para conductores y mejor distribución del flujo vehicular. También destacó que la implementación debería ser progresiva, fácil de usar para el personal y demostrar beneficios claros en eficiencia y satisfacción del cliente.|
 
 ---
 

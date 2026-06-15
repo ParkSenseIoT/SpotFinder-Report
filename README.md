@@ -681,6 +681,9 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [Figura 6.2.1.6.8. Landing Page — Formulario de contacto y Footer.](#figura-62168-landing-page--formulario-de-contacto-y-footer)
 - [6.2.1.7. Services Documentation Evidence for Sprint Review](#6217-services-documentation-evidence-for-sprint-review)
 - [6.2.1.8. Software Deployment Evidence for Sprint Review](#6218-software-deployment-evidence-for-sprint-review)
+    - [Despliegue de la Landing Page: Se empleó Netlify.](#despliegue-de-la-landing-page-se-empleó-netlify)
+    - [Despliegue del FrontEnd: Se empleó Netlify.](#despliegue-del-frontend-se-empleó-netlify)
+    - [Despliegue del BackEnd y Base de Datos: Se empleó Railway.](#despliegue-del-backend-y-base-de-datos-se-empleó-railway)
 - [6.2.1.9. Team Collaboration Insights during Sprint](#6219-team-collaboration-insights-during-sprint)
   - [6.2.2. Sprint 2](#622-sprint-2)
     - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2)
@@ -705,9 +708,6 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
-    - [6.2.2. Sprint 2](#622-sprint-2-1)
-      - [6.2.2.1. Sprint Planning 2](#6221-sprint-planning-2-1)
-      - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2-1)
     - [Conclusiones](#conclusiones)
     - [Recomendaciones](#recomendaciones)
 - [Bibliografía](#bibliografía)
@@ -6676,13 +6676,19 @@ La documentación sirvió como referencia para el desarrollo colaborativo y mant
 
 # 6.2.1.8. Software Deployment Evidence for Sprint Review
 
-Para el despliegue de la Landing Page se utilizó Netlify como plataforma de hosting frontend.
+Para este Sprint 2 (TB2), se desplegó tanto la Landing Page, Aplicación Web, la base de datos y el API.
 
-El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema.
+### Despliegue de la Landing Page: Se empleó Netlify.
+![Landing Page Deployment](assets/images/screenshots/evidences/landing-page-deployment.png)
 
-Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint.
+### Despliegue del FrontEnd: Se empleó Netlify.
+![FrontEnd Deployment](assets/images/screenshots/evidendes/frontend-deployment.png)
 
-La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del frontend.
+### Despliegue del BackEnd y Base de Datos: Se empleó Railway.
+![BackEnd Deployment](assets/images/screenshots/evidendes/backend-deployment.png)
+
+
+El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema. Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint. La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del sistema completo.
 
 ---
 
@@ -6979,14 +6985,117 @@ Web Dashboard para administradores).
 4. Para reemplazar tu sistema actual por SpotFinder, ¿qué funcionalidades indispensables tendría que incluir (integración con tu pasarela contable, exportación a SAP/ERP, multi-facility, etc.)?
 5. ¿Qué tan probable es que recomendaras SpotFinder a otro centro comercial? *(escala 0–10, NPS)*
 
-### 6.3.2. Registro de Entrevistas
+## 6.3.2. Registro de Entrevistas
 
-> *Sección reservada para la entrega AV2. Documentará para cada segmento de 3 a 5 entrevistas con
-> nombre, apellido, edad, distrito, screenshot del video, URL en Microsoft Stream/Clipchamp, timing
-> de inicio y duración, junto con un resumen descriptivo de las principales apreciaciones del
-> entrevistado frente a las tareas asignadas. El video consolidado seguirá la nomenclatura
-> `upc-pre-202610-1asi0572-<NRC>-spotfinder-validation-sprint-2.mp4` indicada en el Anexo C del
-> enunciado.*
+## Segmento Objetivo 1: Conductores frecuentes de centros comerciales
+
+#### **Entrevista 1**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Carlos |
+| **Apellidos** | Anofre |
+| **Distrito** | [Por definir] |
+| **Edad** | 31 años |
+| **Fecha de entrevista** | 13/06/2026 |
+| **Timing**              | Duración: 10:09 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 1](./assets/images/screenshots/conductores_entrevista1.png)
+
+**Resumen**
+Carlos, ingeniero de software de 31 años, comentó que suele visitar centros comerciales entre 2 y 3 veces por semana, principalmente para realizar compras, comer o asistir a reuniones. Durante la entrevista manifestó que una de sus principales molestias es el tiempo que pierde buscando estacionamiento, especialmente en horarios de alta afluencia. Considera que una solución como SpotFinder sería útil si muestra disponibilidad en tiempo real, permite ubicar espacios libres de manera rápida y reduce la incertidumbre al ingresar al estacionamiento. Por su perfil tecnológico, se mostró familiarizado con el uso de aplicaciones móviles y valoró positivamente funciones como guiado dentro del estacionamiento, reserva de espacios y pagos digitales.
+
+---
+
+#### **Entrevista 2**
+|Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Fabio |
+| **Apellidos** | Alfaro |
+| **Distrito** | [Por definir] |
+| **Edad** | 28 años |
+| **Fecha de entrevista** | 15/06/2026 |
+| **Timing**              | Duración: 08:33 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)
+
+**Resumen**
+Fabio, ingeniero de software de 28 años, indicó que visita centros comerciales de 2 a 3 veces por semana y que suele utilizar estacionamientos privados por comodidad y seguridad. Señaló que el principal problema en estos espacios es la falta de información clara sobre los lugares disponibles, lo que genera recorridos innecesarios y pérdida de tiempo. Durante la validación, mostró interés en una aplicación que permita consultar la disponibilidad antes de llegar, recibir indicaciones hacia un espacio libre y realizar el pago desde el celular. Además, destacó que la interfaz debe ser simple, rápida y confiable, ya que los usuarios buscan resolver el problema del estacionamiento en pocos pasos.
+
+---
+
+#### **Entrevista 3**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Samuel |
+| **Apellidos** | [Por definir] |
+| **Distrito** | [Por definir] |
+| **Edad** | 27 años |
+| **Fecha de entrevista** | 08/06/2026 |
+| **Timing**              | Duración: 10:24 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](LINK) |
+
+**Evidencia**
+![Captura de la entrevista 3](./assets/images/screenshots/conductores_entrevista3.png)
+
+**Resumen**
+Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros comerciales entre 2 y 3 veces por semana. Comentó que, en su experiencia, encontrar estacionamiento puede ser complicado durante fines de semana o en horarios concurridos, lo que genera estrés y demoras antes de realizar sus actividades. Valoró positivamente la propuesta de SpotFinder, especialmente las funciones relacionadas con disponibilidad en tiempo real, guiado hacia espacios libres y recordatorio de ubicación del vehículo. También consideró importante que la aplicación sea intuitiva y que brinde información clara sobre el estado del estacionamiento para evitar confusiones al momento de ingresar.
+
+---
+
+## Segmento Objetivo 2: Administración de Estacionamientos
+
+**Segmento Administradores de Estacionamientos: Entrevistado 1**
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | Dana [Apellido Por Definir] |
+| **Edad**                | 28 |
+| **Sexo**                | [Por definir] |
+| **Distrito**            | Lima (CC) |
+| **Ocupación**           | Supervisión de Estacionamiento |
+| **Fecha de entrevista** | 08/06/2026 |
+| **Timing**              | Duración: 13:10 |
+| **Video**               | [Ver entrevista](LINK) |
+| **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/administrador_entrevista1.png) |
+| **Resumen**             | Dana, supervisora de estacionamiento en un centro comercial de Lima, comentó que la gestión diaria del estacionamiento requiere coordinación constante con el personal operativo, especialmente en horas punta. Señaló que los principales problemas se relacionan con la congestión vehicular, la falta de visibilidad exacta sobre los espacios disponibles y los reclamos de usuarios por demoras o desorientación dentro del estacionamiento. Considera que una solución tecnológica como SpotFinder podría mejorar la operación mediante un panel de control con información en tiempo real, reportes automáticos, guiado visual para conductores y mejor distribución del flujo vehicular. También destacó que la implementación debería ser progresiva, fácil de usar para el personal y demostrar beneficios claros en eficiencia y satisfacción del cliente.|
+
+---
+
+**Segmento Administradores de Estacionamientos: Entrevistado 2** *(Espacio para Completar)*
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | [Pendiente de ingreso] |
+| **Edad**                | [Pendiente] |
+| **Sexo**                | [Pendiente] |
+| **Distrito**            | [Pendiente] |
+| **Ocupación**           | [Pendiente] |
+| **Fecha de entrevista** | [Pendiente] |
+| **Timing**              | [Pendiente] |
+| **Video**               | [Link por ingresar] |
+| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
+| **Resumen**             | [Pendiente de contenido de entrevista] |
+
+---
+
+**Segmento Administradores de Estacionamientos: Entrevistado 3** *(Espacio para Completar)*
+
+| Atributo                | Detalle |
+|-------------------------|--------|
+| **Nombre**              | [Pendiente de ingreso] |
+| **Edad**                | [Pendiente] |
+| **Sexo**                | [Pendiente] |
+| **Distrito**            | [Pendiente] |
+| **Ocupación**           | [Pendiente] |
+| **Fecha de entrevista** | [Pendiente] |
+| **Timing**              | [Pendiente] |
+| **Video**               | [Link por ingresar] |
+| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
+| **Resumen**             | [Pendiente de contenido de entrevista] |
 
 ### 6.3.3. Evaluaciones según heurísticas
 
@@ -7096,7 +7205,7 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
 - [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
-- [Enlace Landing Page desplegado: https://venerable-banoffee-0b773a.netlify.app/#features](https://venerable-banoffee-0b773a.netlify.app/#features)
+- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#)
 - [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
 - 
 ### Anexo B: Videos

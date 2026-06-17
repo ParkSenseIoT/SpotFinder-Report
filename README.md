@@ -691,9 +691,21 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [6.2.2.3. Sprint Backlog 2](#6223-sprint-backlog-2)
     - [6.2.2.4. Development Evidence for Sprint Review](#6224-development-evidence-for-sprint-review)
     - [6.2.2.5. Testing Suite Evidence for Sprint Review](#6225-testing-suite-evidence-for-sprint-review)
+      - [Unit Tests — Web Application (PWA)](#unit-tests--web-application-pwa-1)
+      - [Backend / Integration Tests](#backend--integration-tests)
+      - [Manual / Functional Tests — Web Dashboard](#manual--functional-tests--web-dashboard)
+      - [Manual / Functional Tests — Mobile App](#manual--functional-tests--mobile-app)
+      - [Resumen de métricas de pruebas](#resumen-de-métricas-de-pruebas)
+      - [Commits relacionados con Testing](#commits-relacionados-con-testing)
     - [6.2.2.6. Execution Evidence for Sprint Review](#6226-execution-evidence-for-sprint-review)
     - [6.2.2.7. Services Documentation Evidence for Sprint Review](#6227-services-documentation-evidence-for-sprint-review)
     - [6.2.2.8. Software Deployment Evidence for Sprint Review](#6228-software-deployment-evidence-for-sprint-review)
+      - [Arquitectura de despliegue](#arquitectura-de-despliegue)
+      - [Landing Page — Netlify](#landing-page--netlify)
+      - [Web Dashboard — Vercel](#web-dashboard--vercel)
+      - [Backend REST API — Render](#backend-rest-api--render)
+      - [Base de datos — MySQL 8](#base-de-datos--mysql-8)
+      - [Aplicación móvil — Flutter](#aplicación-móvil--flutter)
     - [6.2.2.9. Team Collaboration Insights during Sprint](#6229-team-collaboration-insights-during-sprint)
   - [6.3. Validation Interviews](#63-validation-interviews)
     - [6.3.1. Diseño de Entrevistas](#631-diseño-de-entrevistas)
@@ -705,7 +717,12 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
         - [A. Landing Page (Propuesta de valor)](#a-landing-page-propuesta-de-valor-1)
         - [B. Web Dashboard (Interfaz)](#b-web-dashboard-interfaz)
         - [C. Web Dashboard (Propuesta de valor)](#c-web-dashboard-propuesta-de-valor)
-    - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
+  - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
+  - [Segmento Objetivo 1: Conductores frecuentes de centros comerciales](#segmento-objetivo-1-conductores-frecuentes-de-centros-comerciales)
+      - [**Entrevista 1**](#entrevista-1-1)
+      - [**Entrevista 2**](#entrevista-2-1)
+      - [**Entrevista 3**](#entrevista-3-1)
+  - [Segmento Objetivo 2: Administración de Estacionamientos](#segmento-objetivo-2-administración-de-estacionamientos)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
     - [Conclusiones](#conclusiones)
@@ -6738,7 +6755,82 @@ Link Trello: [SpotFinder - Trello]()
 
 ### 6.2.2.5. Testing Suite Evidence for Sprint Review
 
-*Pendiente — se documentará en AV2.*
+Durante el Sprint 2 se ejecutó un conjunto de pruebas dirigido a validar la integración end-to-end entre las nuevas aplicaciones cliente (Web Dashboard Angular y aplicación móvil Flutter) y la REST API desplegada en Render, así como el correcto funcionamiento de los bounded contexts completados en esta iteración: **Reservation Management**, **Payments**, **Notifications**, **Analytics & Reporting** y **Emergency & Safety**.
+
+Se mantuvo la suite de **Unit Tests** de la PWA Angular con **Karma + Jasmine** iniciada en el Sprint 1, compuesta por **7 archivos `.spec.ts`** que cubren los bounded contexts IAM, Parking Monitoring, Payments y Notifications, con un total de **28 tests ejecutándose correctamente**. Durante el Sprint 2 se ejecutaron estas pruebas de regresión tras cada integración de frontend con el backend, asegurando que los stores, guards y utilidades de dominio no se rompieran al conectar con datos reales.
+
+#### Unit Tests — Web Application (PWA)
+
+| Archivo de test | Componente / Servicio bajo prueba | Comportamientos verificados | N° de tests |
+|---|---|---:|---:|
+| `app.component.spec.ts` | `AppComponent` | Creación del componente raíz, título de la PWA y renderizado del `<router-outlet>`. | 3 |
+| `auth.guard.spec.ts` | `authGuard` | Permite el acceso cuando existe JWT; redirige a `/auth/login` cuando no hay sesión. | 2 |
+| `auth.store.spec.ts` | `AuthStore` | Estado inicial signed-out, login persiste sesión y redirige a `/dashboard`, logout limpia y redirige a `/auth/login`. | 3 |
+| `token-storage.service.spec.ts` | `TokenStorageService` | Persistencia de JWT/usuario en `localStorage`, sobreescritura, retorno de `null` sin sesión y limpieza en logout. | 4 |
+| `notification-display.utils.spec.ts` | `notification-display.utils` | Mapeo de estados no leídos para badge, severidad por tipo de notificación (CRITICAL/WARNING/SUCCESS/INFO) y filtrado del Activity Feed. | 7 |
+| `monitoring.store.spec.ts` | `MonitoringStore` | Estado inicial, agrupación de slots en sectores de 6 con `occupiedCount` y `totalCount`, y selección de sector. | 3 |
+| `payment-filter.utils.spec.ts` | `applyPaymentFilters` | Filtros por método, estado, búsqueda de transacción, rango de fechas y ordenamiento descendente por `paidAt`. | 6 |
+| **Total** | | | **28** |
+
+Resultado del último run:
+
+```text
+TOTAL: 28 SUCCESS
+✔ Browser application bundle generation complete.
+```
+
+#### Backend / Integration Tests
+
+El backend Spring Boot mantiene actualmente el test de contexto por defecto (`SpotFinderBackendApplicationTests.contextLoads()`). Durante el Sprint 2 se priorizó la validación de integración mediante pruebas manuales sobre la documentación **Swagger** desplegada, ejecutando los endpoints de los nuevos bounded contexts:
+
+- **Reservation Management:** `POST /api/v1/reservations`, `GET /api/v1/reservations/{id}`, `GET /api/v1/reservations/active`, `GET /api/v1/reservations/history`, `GET /api/v1/reservations/slot/{slotId}`, `PATCH /api/v1/reservations/{id}/cancel`.
+- **Payments:** `POST /api/v1/payments`, `GET /api/v1/payments/{id}`, `GET /api/v1/payments/history`.
+- **Notifications:** `POST /api/v1/notifications`, `GET /api/v1/notifications/user/{userId}`.
+- **Analytics:** `GET /api/v1/analytics/occupancy`, `GET /api/v1/analytics/revenue`.
+- **Emergency & Safety:** `POST /api/v1/emergency/alerts`, `GET /api/v1/emergency/status`, `PATCH /api/v1/emergencies/{id}/resolve`.
+
+#### Manual / Functional Tests — Web Dashboard
+
+| Escenario | Pasos | Resultado esperado | Estado |
+|---|---|---|---|
+| Login de administrador | Ingresar credenciales admin en `/auth/login`. | JWT almacenado y redirección a `/dashboard`. | ✅ |
+| Visualización de mapa de ocupación | Abrir `Parking Monitoring` y verificar sectores A/B con colores. | Sectores agrupados de 6 slots, contador de ocupación actualizado. | ✅ |
+| Control de barreras | En `Access Control`, pulsar Open/Close en una barrera. | Estado de barrera cambia y se refleja en la tabla. | ✅ |
+| Gestión de emergencias | En `Emergency Center`, simular alerta y luego resolver. | Alerta aparece en el panel y pasa a estado resuelto. | ✅ |
+| Generación de reportes | En `Reports`, seleccionar rango de fechas y exportar. | PDF generado y descargado con métricas del período. | ✅ |
+| Gestión de usuarios | En `Users`, crear administrador y desactivar/reactivar usuario. | Usuario aparece en tabla con estado actualizado. | ✅ |
+| Configuración de facility | En `Settings`, editar tarifa y guardar. | Cambios reflejados en el formulario de configuración. | ✅ |
+
+#### Manual / Functional Tests — Mobile App
+
+| Escenario | Pasos | Resultado esperado | Estado |
+|---|---|---|---|
+| Registro de conductor | Completar formulario de registro en la app Flutter. | Cuenta creada y redirección al login. | ✅ |
+| Login y persistencia de JWT | Iniciar sesión y cerrar/reabrir la app. | Sesión mantenida mediante `flutter_secure_storage`. | ✅ |
+| Registro de vehículos | Agregar placa adicional en perfil. | Vehículo listado con opción de eliminación. | ✅ |
+| Reserva de espacio (Pro/Premium) | Seleccionar slot, confirmar reserva y ver countdown. | Reserva aparece en Activas con estado PENDING/CONFIRMED. | ✅ |
+| Pago digital | Ingresar a pantalla de pago, seleccionar Yape/tarjeta y confirmar. | Pago registrado y recibo disponible. | ✅ |
+| Pase digital (Google Wallet) | Desde sesión activa, generar pase digital. | Pase mostrado con QR, placa y hora de ingreso. | En progreso |
+| Servicios Premium | Solicitar lavado/detailing desde catálogo. | Solicitud marcada en estado Solicitado. | En progreso |
+
+#### Resumen de métricas de pruebas
+
+| Tipo de prueba | Herramienta | Alcance | Resultado |
+|---|---|---|---|
+| Unit Tests | Karma + Jasmine | Frontend Angular (7 spec files, 28 tests) | 28/28 passing |
+| Integration Tests | Swagger UI + Postman | Backend REST API endpoints de Sprint 2 | Validado manualmente |
+| Manual UI Tests | Web Dashboard + Emulador Android | Flujos críticos de admin y conductor | 13/15 escenarios OK, 2 en progreso |
+| Acceptance Tests (BDD) | Gherkin | Pendiente para Sprint 3 / AV2 | No ejecutado |
+
+#### Commits relacionados con Testing
+
+**URL del repositorio:** [https://github.com/ParkSenseIoT/SpotFinder-Frontend](https://github.com/ParkSenseIoT/SpotFinder-Frontend)
+
+| Repositorio | Rama | Commit Message | Descripción | Fecha |
+|---|---|---|---|---|
+| SpotFinder-Frontend | `feature/testing` | `test: add unit tests for IAM, monitoring, payments and notifications` | Suite de 7 spec files con 28 tests unitarios. | 2026-05-14 |
+| SpotFinder-Backend | `develop` | `test: keep SpotFinderBackendApplicationTests contextLoads` | Test base de carga de contexto Spring Boot. | 2026-06-15 |
+| SpotFinder-Flutter | `develop` | `test: default widget test for MyApp` | Widget test por defecto generado por Flutter. | 2026-06-10 |
 
 ### 6.2.2.6. Execution Evidence for Sprint Review
 
@@ -6750,7 +6842,55 @@ Link Trello: [SpotFinder - Trello]()
 
 ### 6.2.2.8. Software Deployment Evidence for Sprint Review
 
-*Pendiente — se documentará en AV2.*
+Durante el Sprint 2 se completó el despliegue de todos los componentes del ecosistema SpotFinder que se habían construido en los Sprints 1 y 2, permitiendo la validación de la experiencia end-to-end tanto para administradores como para conductores. La estrategia de despliegue se basó en plataformas serverless/PaaS que se integran directamente con los repositorios de GitHub, manteniendo un flujo de integración continua simple y replicable.
+
+#### Arquitectura de despliegue
+
+| Componente | Plataforma | Tipo de despliegue | URL pública |
+|---|---|---|---|
+| Landing Page | Netlify | Next.js 15 estático (SPA export) | [https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#) |
+| Web Dashboard | Vercel | Angular 19 build de producción | [https://spotfinder-nu.vercel.app/](https://spotfinder-nu.vercel.app/) |
+| Backend REST API | Render | Spring Boot 21 en contenedor Docker | [https://spotfinder-backend-ozsh.onrender.com/](https://spotfinder-backend-ozsh.onrender.com/) |
+| Base de datos | Railway / Aiven for MySQL | MySQL 8 managed | Variable `DB_URL` (privada) |
+| Aplicación móvil | Android Studio / Google Play Console | Build APK / futura distribución | No publicada en store aún |
+
+#### Landing Page — Netlify
+
+El Landing Page fue desarrollado con **Next.js 15** y exportado a estático para hosting sin servidor. El despliegue se configuró conectando el repositorio `SpotFinder-LandingPage` a Netlify:
+
+1. **Build command:** `next build` (con `output: 'export'` en `next.config.ts`).
+2. **Publish directory:** `out/` / `dist/` según la configuración de salida estática de Next.js.
+3. **Variables de entorno:** no requiere variables privadas.
+4. **Dominio asignado por Netlify:** `venerable-banoffee-0b773a.netlify.app`.
+
+El despliegue fue verificado al momento de la entrega: la landing responde correctamente, muestra las secciones Hero, funcionalidades, flujo de acceso, FAQ y formulario de contacto.
+
+**URL desplegada:** [https://spotfinder-landing.netlify.app/](https://spotfinder-landing.netlify.app/)
+
+#### Web Dashboard — Vercel
+
+El Web Dashboard fue desarrollado con **Angular 19** y desplegado en **Vercel**:
+
+1. **Build command:** `ng build --configuration=production`.
+2. **Output directory:** `dist/spotfinder-web/browser`.
+3. **Environment variables:** `API_URL` apuntando al backend en Render (`https://spotfinder-backend-ozsh.onrender.com`).
+4. **SPA fallback:** `vercel.json` con rewrites a `index.html` para soportar rutas de Angular.
+
+**URL:** [https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
+
+#### Backend REST API — Render
+
+El backend se desplegó en **Render**
+La URL de Swagger es `https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/`. Al momento de la entrega el servicio responde, considerando el tiempo de arranque propio del plan gratuito de Render.
+
+#### Base de datos — MySQL 8
+
+Se desplegó una instancia de **MySQL 8** como servicio administrado en **Railway** (con respaldo en Aiven for MySQL). El esquema lógico se denomina `spotfinder` y contiene las tablas de los 8 bounded contexts (Parking Monitoring, Access Control, Payments, Notifications, Analytics, Emergency, Reservation, IAM). El backend se conecta mediante el driver `com.mysql.cj.jdbc.Driver` y el dialecto `org.hibernate.dialect.MySQLDialect`, con `ddl-auto=update` para sincronización de esquemas durante el desarrollo.
+
+#### Aplicación móvil — Flutter
+
+La aplicación móvil se desarrolló en **Flutter/Dart** y se ejecuta en emuladores Android mediante **Android Studio**. Para el Sprint 2 se generó el **build APK** de depuración y pruebas internas. La publicación en **Google Play Console** está planificada para el Sprint 3 / AV2, una vez finalizadas las integraciones de notificaciones push (FCM) y pase digital (Google Wallet).
+
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint
 

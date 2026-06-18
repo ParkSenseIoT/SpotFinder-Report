@@ -631,8 +631,11 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
     - [Introducción y Criterios de Diseño](#introducción-y-criterios-de-diseño)
     - [Relación con la Arquitectura de Información y Guía de Estilos](#relación-con-la-arquitectura-de-información-y-guía-de-estilos)
     - [Propuesta de Diseño de Circuito (Hardware Schematic)](#propuesta-de-diseño-de-circuito-hardware-schematic)
+      - [Access Barrier Node (Control de Acceso Vehicular)](#access-barrier-node-control-de-acceso-vehicular)
       - [Resumen de Conexiones (Pinout Table)](#resumen-de-conexiones-pinout-table)
     - [Flujos de Interacción del Prototipo IoT](#flujos-de-interacción-del-prototipo-iot)
+    - [Diagrama del Dispositivo (Embedded App — Class Diagram)](#diagrama-del-dispositivo-embedded-app--class-diagram)
+    - [Diagramas del Sistema (Software Architecture — C4 con dispositivos IoT)](#diagramas-del-sistema-software-architecture--c4-con-dispositivos-iot)
 - [Capítulo VI: Product Implementation, Validation \& Deployment](#capítulo-vi-product-implementation-validation--deployment)
   - [6.1. Software Configuration Management](#61-software-configuration-management)
   - [6.1.1 Software Development Environment Configuration](#611-software-development-environment-configuration)
@@ -7134,7 +7137,7 @@ Web Dashboard para administradores).
 | :--- | :--- |
 | **Nombres** | Carlos |
 | **Apellidos** | Anofre |
-| **Distrito** | [Por definir] |
+| **Distrito** | San Borja |
 | **Edad** | 31 años |
 | **Fecha de entrevista** | 13/06/2026 |
 | **Timing**              | Duración: 10:09 |
@@ -7153,7 +7156,7 @@ Carlos, ingeniero de software de 31 años, comentó que suele visitar centros co
 | :--- | :--- |
 | **Nombres** | Fabio |
 | **Apellidos** | Alfaro |
-| **Distrito** | [Por definir] |
+| **Distrito** | Santiago de Surco |
 | **Edad** | 28 años |
 | **Fecha de entrevista** | 15/06/2026 |
 | **Timing**              | Duración: 08:33 |
@@ -7171,8 +7174,8 @@ Fabio, ingeniero de software de 28 años, indicó que visita centros comerciales
 | Atributo | **Datos Personales** |
 | :--- | :--- |
 | **Nombres** | Samuel |
-| **Apellidos** | [Por definir] |
-| **Distrito** | [Por definir] |
+| **Apellidos** | De Luque |
+| **Distrito** | La Molina |
 | **Edad** | 27 años |
 | **Fecha de entrevista** | 08/06/2026 |
 | **Timing**              | Duración: 10:24 |
@@ -7192,10 +7195,10 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | Dana [Apellido Por Definir] |
+| **Nombre**              | Dana |
 | **Edad**                | 28 |
-| **Sexo**                | [Por definir] |
-| **Distrito**            | Lima (CC) |
+| **Sexo**                | Femenino |
+| **Distrito**            | Lima |
 | **Ocupación**           | Supervisión de Estacionamiento |
 | **Fecha de entrevista** | 08/06/2026 |
 | **Timing**              | Duración: 13:10 |
@@ -7205,37 +7208,35 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 
 ---
 
-**Segmento Administradores de Estacionamientos: Entrevistado 2** *(Espacio para Completar)*
+**Segmento Administradores de Estacionamientos: Entrevistado 2**
 
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | [Pendiente de ingreso] |
-| **Edad**                | [Pendiente] |
-| **Sexo**                | [Pendiente] |
-| **Distrito**            | [Pendiente] |
-| **Ocupación**           | [Pendiente] |
-| **Fecha de entrevista** | [Pendiente] |
-| **Timing**              | [Pendiente] |
+| **Nombre**              | Washington Alija |
+| **Edad**                | 50 años |
+| **Sexo**                | Masculino |
+| **Distrito**            | San Isidro |
+| **Fecha de entrevista** | 18/06/2026 |
+| **Timing**              | Duración: 8:43 |
 | **Video**               | [Link por ingresar] |
 | **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
-| **Resumen**             | [Pendiente de contenido de entrevista] |
+| **Resumen**             | Washington, administrador con amplia experiencia en estacionamientos, señaló que uno de los principales desafíos en su trabajo es la falta de control preciso sobre la ocupación en tiempo real, lo que dificulta la toma de decisiones durante horas de alta demanda. Comentó que frecuentemente recibe quejas de usuarios por la demora en encontrar espacios disponibles y por la desorganización en el flujo vehicular. Considera que una solución como SpotFinder podría aportar valor mediante herramientas de monitoreo en tiempo real, alertas de saturación y análisis de datos para optimizar la distribución de vehículos. También destacó la importancia de que el sistema sea confiable, fácil de integrar con los procesos actuales y que reduzca la carga operativa del personal. |
 
 ---
 
-**Segmento Administradores de Estacionamientos: Entrevistado 3** *(Espacio para Completar)*
+**Segmento Administradores de Estacionamientos: Entrevistado 3**
 
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | [Pendiente de ingreso] |
-| **Edad**                | [Pendiente] |
-| **Sexo**                | [Pendiente] |
-| **Distrito**            | [Pendiente] |
-| **Ocupación**           | [Pendiente] |
-| **Fecha de entrevista** | [Pendiente] |
-| **Timing**              | [Pendiente] |
+| **Nombre**              | Fabrizio Morales |
+| **Edad**                | 26 años |
+| **Sexo**                | Masculino |
+| **Distrito**            | San Borja |
+| **Fecha de entrevista** | 18/06/2026 |
+| **Timing**              | Duración: 9:18 |
 | **Video**               | [Link por ingresar] |
 | **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
-| **Resumen**             | [Pendiente de contenido de entrevista] |
+| **Resumen**             | Fabrizio, joven administrador de estacionamientos, indicó que uno de los problemas más recurrentes en su gestión es la desorientación de los usuarios dentro del estacionamiento y la falta de señalización clara sobre espacios disponibles. Mencionó que esto genera congestión interna y retrasa la rotación de vehículos. Mostró interés en SpotFinder, especialmente en funcionalidades como el guiado inteligente hacia espacios libres y la visualización en tiempo real de la ocupación. Además, resaltó que una plataforma digital podría mejorar la experiencia del cliente y facilitar la supervisión general del estacionamiento, siempre que sea intuitiva y requiera una capacitación mínima para el personal. |
 
 ### 6.3.3. Evaluaciones según heurísticas
 

@@ -21,7 +21,7 @@ System_Boundary(spotfinder, "SpotFinder") {
   Container(mobile, "Mobile App", "Flutter / Dart", "App del conductor: mapa, reservas, pagos, Find My Car, Wallet", $tags="MobileApp")
   Container(web, "Web Dashboard", "Angular + Angular Material", "Dashboard admin: monitoreo, accesos, emergencias, reportes, usuarios", $tags="Browser")
   Container(backend, "Backend API", "Spring Boot 4 / Java 21", "RESTful API con 8 bounded contexts (IAM, Parking Monitoring, Access Control, Payment, Emergency, Analytics, Notification, Reservation)")
-  Container(edge, "Edge Server", "Flask / Python / MQTT", "Recibe lecturas MQTT de los nodos, aplica debounce/umbrales y reenvía al backend", $tags="Edge")
+  Container(edge, "Edge Gateway", "Flask / Python (REST)", "Recibe lecturas HTTP/REST de los nodos (SpotFinder-EdgeGateway), aplica debounce/umbrales y reenvía al backend", $tags="Edge")
   ContainerDb(db, "Database", "MySQL 8 (InnoDB)", "Esquema único 'spotfinder' con tablas por bounded context", $tags="Database")
 
   Container(spotNode, "Parking Spot Node", "ESP32 / C++", "HC-SR04 (ocupación) + WS2812B (guiado) + MQ-2 (gas) + buzzer", $tags="IoT")
@@ -40,9 +40,9 @@ Rel(backend, culqi, "Pagos", "HTTPS")
 Rel(backend, fcm, "Notificaciones push", "HTTPS")
 Rel(backend, web, "Actualizaciones en tiempo real", "WebSocket")
 
-Rel(spotNode, edge, "Publica lecturas de ocupación/gas", "MQTT")
+Rel(spotNode, edge, "Publica lecturas de ocupación/gas", "HTTPS / REST")
 Rel(barrierNode, backend, "Envía imagen de placa y eventos de entrada/salida", "HTTPS / REST")
-Rel(barrierNode, edge, "Publica eventos de barrera", "MQTT")
+Rel(barrierNode, edge, "Publica eventos de barrera", "HTTPS / REST")
 Rel(edge, backend, "Reenvía eventos consolidados", "HTTPS / REST")
 
 SHOW_LEGEND()

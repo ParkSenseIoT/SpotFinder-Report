@@ -11,7 +11,7 @@ skinparam Padding 2
 title Component Diagram — IoT Nodes & Edge (SpotFinder)
 
 Person(driver, "Driver", "Conductor que ingresa/sale del estacionamiento")
-Container(edge, "Edge Server", "Flask / Python / MQTT", "Broker MQTT + reglas de debounce/umbral", $tags="Edge")
+Container(edge, "Edge Gateway", "Flask / Python (REST)", "API REST + reglas de debounce/umbral (SpotFinder-EdgeGateway)", $tags="Edge")
 Container(backend, "Backend API", "Spring Boot", "RESTful API")
 System_Ext(plateRecognizer, "Plate Recognizer API", "ALPR", $tags="External")
 
@@ -39,7 +39,7 @@ Rel(ultrasonic, spotLogic, "VehicleDetected / VehicleLeft", "Event")
 Rel(gas, spotLogic, "GasExceeded", "Event")
 Rel(spotLogic, neopixel, "SetGreen/SetRed/StrobeRed", "Command")
 Rel(spotLogic, buzzer, "Siren", "Command")
-Rel(spotLogic, edge, "Publica SensorReading", "MQTT")
+Rel(spotLogic, edge, "POST /monitoring/sensor-readings", "HTTPS / REST")
 
 Rel(irIn, barrierLogic, "ObstacleDetected", "Event")
 Rel(irOut, barrierLogic, "ObstacleDetected", "Event")

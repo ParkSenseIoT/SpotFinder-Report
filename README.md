@@ -5846,6 +5846,15 @@ El firmware de los nodos IoT sigue un patrón **Command/Event** que desacopla lo
 
 <img src="assets/diagrams/uml/iot-device-class-diagram.png" alt="Diagrama de clases del dispositivo IoT de SpotFinder: patrón Command/Event con Sensor, Actuator, Device y los nodos ParkingSpotNode, EmergencyNode y AccessBarrierNode" width="800">
 
+### Edge Gateway y Conexión de los Nodos
+
+La lógica de borde se implementó como un servicio independiente, el **SpotFinder Edge Gateway** ([repositorio](https://github.com/ParkSenseIoT/SpotFinder-EdgeGateway)), desarrollado en **Flask/Python con arquitectura DDD** (bounded contexts IAM y Monitoring). Los nodos ESP32 no se comunican directamente con el backend: publican sus lecturas al Edge Gateway, que vive en la misma red local del estacionamiento (una laptop o Raspberry Pi).
+
+- **Protocolo de conexión:** los nodos hablan **HTTP/REST** con el Edge Gateway, autenticándose con `device_id` + cabecera `X-API-Key`. *(MQTT se mantiene como optimización futura para despliegues con muchos nodos; el prototipo y el firmware actual usan HTTP/REST, más simple de probar y depurar.)*
+- **Endpoints del edge:** `POST /api/v1/monitoring/sensor-readings` (ocupación) y `POST /api/v1/monitoring/gas-analysis` (gas, que devuelve la decisión de emergencia).
+- **Procesamiento en el borde:** el Edge Gateway aplica el **debounce de ocupación ("sostenido > 2 s")** y la **evaluación del umbral de gas**, y solo cuando el estado estable cambia (o hay emergencia) **reenvía el evento consolidado** al backend Spring Boot (`/api/v1/sensor-readings`, `/api/v1/emergency/alerts`). Así el piso sigue guiando con los LEDs y operando aunque el cloud no esté disponible.
+- **Firmware del nodo:** el código del ESP32 vive en el repositorio **SpotFinder Embedded App** ([repositorio](https://github.com/ParkSenseIoT/SpotFinder-EmbeddedApp)), con un cliente de transporte `EdgeClient` que encapsula la conexión Wi-Fi/HTTP hacia el edge.
+
 ### Diagramas del Sistema (Software Architecture — C4 con dispositivos IoT)
 
 Para reflejar la integración de los dos nodos IoT (Parking Spot Node y Access Barrier Node) dentro de la arquitectura general, se elaboraron las siguientes vistas C4 aplicando **Diagram-as-Code con PlantUML** (alternativa permitida por el enunciado junto a Structurizr DSL). Las fuentes `.puml` están versionadas en `assets/diagrams/c4/`.

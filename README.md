@@ -2188,10 +2188,7 @@ El sistema está compuesto por los siguientes contenedores:
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
 
-> **Nota sobre la persistencia.** El sistema utiliza una **única base de datos MySQL** llamada `spotfinder`. Los siete Database Design Diagrams que se presentan en cada sección 4.2.X.6.2 (uno por Bounded Context: IAM, Parking Monitoring, Access Control, Payment Processing, Emergency & Safety, Analytics & Reporting y Notification Management) no representan siete bases de datos distintas, sino **agrupaciones lógicas de tablas dentro del mismo esquema** `spotfinder`. Esta decisión es coherente con la naturaleza monolítica-modular del backend Spring Boot, donde cada Bounded Context vive como un package independiente dentro de `com.spotfinderbackend` y persiste sus agregados en tablas separadas que comparten el mismo `DataSource` JDBC.
-
-<img src="./assets/diagrams/c4/Container-Diagram.png" width="800">
-<br>
+<img src="assets/diagrams/c4/spotfinder-container.png" alt="Diagrama C4 de contenedores de SpotFinder incluyendo los nodos IoT" width="800">
 
 #### 4.1.3.4. Software Architecture Deployment Diagrams.
 
@@ -2210,7 +2207,7 @@ Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS 
 
 Este diagrama evidencia una arquitectura distribuida en múltiples capas, combinando dispositivos de usuario, infraestructura en la nube y procesamiento en el borde (edge computing), lo que permite escalabilidad y eficiencia en el manejo de datos en tiempo real.
 
-<img src="assets/diagrams/c4/Deployment-Diagrams.png" alt="Deployment Diagram — SpotFinder" width="800">
+<img src="assets/diagrams/c4/spotfinder-system-context.png" alt="Diagrama C4 de System Context de SpotFinder" width="800">
 <br>
 
 # 4.2. Tactical-Level Domain-Driven Design
@@ -5837,9 +5834,9 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 - **Paso 3 (Happy Path):** Si el estado es `PAID`, el nodo invoca `PATCH /api/v1/parking-sessions/{id}/end`, abre la barrera y cierra la sesión.
 - **Paso 3 (Unhappy Path):** Si el estado es `PENDING`, la barrera **permanece cerrada** y el buzzer emite un tono de aviso; el conductor debe completar el pago desde la app móvil antes de reintentar la salida.
 
-### Diagrama del Dispositivo (Embedded App — Class Diagram)
+### Diagrama del Dispositivo (Embedded App)
 
-El firmware de los nodos IoT sigue un patrón **Command/Event** que desacopla los sensores (productores de eventos) de los actuadores (consumidores de comandos), permitiendo componer cada tipo de nodo (`ParkingSpotNode`, `EmergencyNode`, `AccessBarrierNode`) a partir de las mismas abstracciones base `Sensor` y `Actuator`. El siguiente diagrama de clases (UML, elaborado con PlantUML) representa esta estructura. El código fuente del diagrama está versionado en [`assets/diagrams/uml/iot-device-class-diagram.puml`](assets/diagrams/uml/iot-device-class-diagram.puml) y el firmware correspondiente en [`assets/iot/sketch.ino`](assets/iot/sketch.ino).
+El firmware de los nodos IoT sigue un patrón **Command/Event** que desacopla los sensores (productores de eventos) de los actuadores (consumidores de comandos), permitiendo componer cada tipo de nodo (`ParkingSpotNode`, `EmergencyNode`, `AccessBarrierNode`) a partir de las mismas abstracciones base `Sensor` y `Actuator`. El siguiente diagrama de clases (UML, elaborado con PlantUML) representa esta estructura.
 
 <img src="assets/diagrams/uml/iot-device-class-diagram.png" alt="Diagrama de clases del dispositivo IoT de SpotFinder: patrón Command/Event con Sensor, Actuator, Device y los nodos ParkingSpotNode, EmergencyNode y AccessBarrierNode" width="800">
 
@@ -5852,21 +5849,7 @@ La lógica de borde se implementó como un servicio independiente, el **SpotFind
 - **Procesamiento en el borde:** el Edge Gateway aplica el **debounce de ocupación ("sostenido > 2 s")** y la **evaluación del umbral de gas**, y solo cuando el estado estable cambia (o hay emergencia) **reenvía el evento consolidado** al backend Spring Boot (`/api/v1/sensor-readings`, `/api/v1/emergency/alerts`). Así el piso sigue guiando con los LEDs y operando aunque el cloud no esté disponible.
 - **Firmware del nodo:** el código del ESP32 vive en el repositorio **SpotFinder Embedded App** ([repositorio](https://github.com/ParkSenseIoT/SpotFinder-EmbeddedApp)), con un cliente de transporte `EdgeClient` que encapsula la conexión Wi-Fi/HTTP hacia el edge.
 
-### Diagramas del Sistema (Software Architecture — C4 con dispositivos IoT)
 
-Para reflejar la integración de los dos nodos IoT (Parking Spot Node y Access Barrier Node) dentro de la arquitectura general, se elaboraron las siguientes vistas C4 aplicando **Diagram-as-Code con PlantUML** (alternativa permitida por el enunciado junto a Structurizr DSL). Las fuentes `.puml` están versionadas en `assets/diagrams/c4/`.
-
-**System Context.** Muestra a SpotFinder con sus actores (Driver, Administrator, Technician) y sistemas externos (Plate Recognizer, Culqi, FCM, Mall Systems). Fuente: [`spotfinder-system-context.puml`](assets/diagrams/c4/spotfinder-system-context.puml).
-
-<img src="assets/diagrams/c4/spotfinder-system-context.png" alt="Diagrama C4 de System Context de SpotFinder" width="800">
-
-**Container.** Muestra los contenedores del sistema incluyendo el **Parking Spot Node (ESP32)** y el **Access Barrier Node (ESP32-CAM)**, el Edge Server y la base de datos MySQL 8. Fuente: [`spotfinder-container.puml`](assets/diagrams/c4/spotfinder-container.puml).
-
-<img src="assets/diagrams/c4/spotfinder-container.png" alt="Diagrama C4 de contenedores de SpotFinder incluyendo los nodos IoT" width="800">
-
-**Component (IoT & Edge).** Detalla la descomposición interna de los nodos IoT: sensores, actuadores, `BackendClient` y su interacción con el Edge Server y el Backend. Fuente: [`spotfinder-iot-component.puml`](assets/diagrams/c4/spotfinder-iot-component.puml).
-
-<img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y Edge de SpotFinder" width="800">
 
 <div style="page-break-after: always;"></div>
 

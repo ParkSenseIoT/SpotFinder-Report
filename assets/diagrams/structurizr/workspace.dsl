@@ -13,9 +13,9 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
             webDashboard  = container "Web Dashboard"     "Dashboard administrativo: monitoreo en tiempo real, métricas, gestión de espacios y emergencias."                  "Angular + Angular Material" "WebBrowser"
             landingPage   = container "Landing Page"      "Sitio web estático con propuesta de valor, planes y CTAs hacia la app móvil y el dashboard."                       "HTML5 / CSS3 / JavaScript"  "WebBrowser"
             backendApi    = container "Backend API"       "Servicios RESTful: lógica de negocio de los 7 bounded contexts (IAM, Parking Monitoring, Access Control, Payment Processing, Emergency & Safety, Analytics & Reporting, Notification Management)." "Spring Boot 4 / Java 21"
-            edgeServer    = container "Edge Server"       "Capa edge: recibe lecturas MQTT de los sensores, aplica debounce/umbrales y reenvía eventos al backend."           "Flask / Python / MQTT"     "Edge"
+            edgeServer    = container "Edge Gateway"      "Capa edge: recibe lecturas HTTP/REST de los nodos, aplica debounce/umbrales y reenvía eventos al backend."          "Flask / Python (REST)"     "Edge"
             database      = container "Database"          "Persistencia relacional del sistema. Esquema único `spotfinder` con tablas por bounded context."                   "MySQL 8 (InnoDB)"          "Database"
-            iotNode       = container "Parking Spot Node" "Nodo IoT por espacio: ESP32 + HC-SR04 + LED WS2812B + MQ-2 + buzzer. Publica eventos vía MQTT."                    "ESP32 / C++ / MQTT"        "IoT"
+            iotNode       = container "Parking Spot Node" "Nodo IoT por espacio: ESP32 + HC-SR04 + LEDs + MQ-2 + buzzer. Publica lecturas vía HTTP/REST."                       "ESP32 / C++ (HTTP)"        "IoT"
         }
 
         # --- Sistemas externos ---
@@ -48,7 +48,7 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
         spotfinder.backendApi -> fcm        "Envía notificaciones push"
         spotfinder.backendApi -> mallSys    "Intercambia datos operativos"
 
-        spotfinder.iotNode    -> spotfinder.edgeServer "Publica lecturas y eventos (MQTT)"
+        spotfinder.iotNode    -> spotfinder.edgeServer "Publica lecturas y eventos (HTTP/REST)"
         spotfinder.edgeServer -> spotfinder.backendApi "Reenvía eventos consolidados (HTTPS / REST)"
         spotfinder.backendApi -> spotfinder.webDashboard "Push de actualizaciones en tiempo real (WebSocket)"
 
@@ -76,7 +76,7 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
                 hostedDatabase = containerInstance spotfinder.database
             }
 
-            edgeNode = deploymentNode "IoT Processing Layer" "Servidor edge en el estacionamiento" "Edge Gateway Node (Linux + MQTT Broker)" {
+            edgeNode = deploymentNode "IoT Processing Layer" "Servidor edge en el estacionamiento" "Edge Gateway Node (Linux, laptop/RPi)" {
                 hostedEdge = containerInstance spotfinder.edgeServer
             }
 

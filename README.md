@@ -2184,7 +2184,7 @@ El sistema está compuesto por los siguientes contenedores:
 - Web Dashboard (Angular): aplicación web orientada a administradores, que permite gestionar el estacionamiento y monitorear métricas en tiempo real.
 - Backend API (Spring Boot): componente central que expone servicios REST y contiene la lógica de negocio del sistema. Actúa como intermediario entre las aplicaciones cliente, los servicios externos y la base de datos.
 - Database (MySQL 8): almacena la información del sistema, incluyendo usuarios, vehículos, pagos y datos de ocupación.
-- IoT Gateway / Edge Server (Flask + MQTT): componente encargado de recibir datos desde sensores IoT (por ejemplo, ocupación de espacios) y enviarlos al backend para su procesamiento.
+- Edge Gateway (Flask, HTTP/REST): componente encargado de recibir datos desde los nodos IoT (por ejemplo, ocupación de espacios), consolidarlos y enviarlos al backend para su procesamiento.
 
 El Backend API también se encarga de integrarse con servicios externos como el sistema de pagos, el reconocimiento de placas y las notificaciones.
 
@@ -2201,9 +2201,9 @@ Los principales nodos de despliegue son:
 - Frontend Hosting (CDN): infraestructura encargada de servir la aplicación web (Angular SPA) a los usuarios.
 - API Hosting Platform (Spring Boot Runtime): entorno donde se despliega el Backend API, encargado de procesar las solicitudes del sistema.
 - Database Infrastructure (Managed MySQL Service): servicio gestionado donde se aloja la base de datos del sistema.
-- IoT Processing Layer (Edge Gateway Node): nodo donde se ejecuta el servicio IoT (Flask + MQTT), encargado de procesar datos provenientes de sensores en tiempo real.
+- IoT Processing Layer (Edge Gateway Node): nodo donde se ejecuta el Edge Gateway (Flask, HTTP/REST), encargado de procesar y consolidar los datos provenientes de los nodos en tiempo real.
 
-Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS para las aplicaciones cliente, MQTT para la comunicación con dispositivos IoT y SQL para el acceso a la base de datos.
+Las comunicaciones entre componentes se realizan mediante protocolos como HTTPS para las aplicaciones cliente, HTTP/REST para la comunicación con los nodos IoT y SQL para el acceso a la base de datos.
 
 Este diagrama evidencia una arquitectura distribuida en múltiples capas, combinando dispositivos de usuario, infraestructura en la nube y procesamiento en el borde (edge computing), lo que permite escalabilidad y eficiencia en el manejo de datos en tiempo real.
 

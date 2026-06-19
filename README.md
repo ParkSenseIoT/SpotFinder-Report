@@ -5704,7 +5704,7 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
    - **AO** (analog output) → **GPIO 34** del ESP32 (entrada ADC1, solo lectura — cable **morado**)
    - **DO** (digital output, threshold trip) → **GPIO 35** del ESP32 (cable **naranja**)
 
-   *Nota sobre la simulación:* debido a que Wokwi no provee el sensor MQ-2 en su biblioteca de componentes, este sensor se representa en el diagrama mediante un potenciómetro analógico conectado al GPIO 34, que permite simular la variación del nivel de gas (de 0 a 4095 unidades ADC) para validar la lógica de disparo del evento `EmergencyAlertTriggered`. En el ensamblaje físico, el potenciómetro será reemplazado directamente por el sensor MQ-2 sin cambios en el firmware.
+
 
 5. **Buzzer Pasivo (3.3 V):** Actuador de alerta acústica para emergencias. Dos conexiones:
    - Pin positivo → **GPIO 25** del ESP32 (cable **marrón**)
@@ -5723,22 +5723,19 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**, basado en un **ESP32-CAM (AI-Thinker, sensor OV2640)** que añade capacidad de captura de imagen para el reconocimiento de placas (ALPR). Este nodo se ubica en las barreras de entrada y salida del estacionamiento e integra los siguientes componentes adicionales:
 
 7. **Servomotor SG90 (Barrera):** Actuador que levanta y baja el brazo de la barrera. Tres conexiones:
-   - **Señal (naranja)** → **GPIO 14** del ESP32-CAM (PWM mediante la librería `ESP32Servo`).
+   - **Señal (naranja)** → **GPIO 14** del ESP32-CAM (PWM mediante la librería ESP32Servo).
    - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32-CAM, para evitar brown-out durante el movimiento).
    - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32-CAM.
 
    El servo opera entre 0° (barrera cerrada) y 90° (barrera abierta). Se recomienda un capacitor de 1000 µF entre 5 V y GND para amortiguar los picos de corriente del servo (~500–700 mA).
 
 8. **Sensores Infrarrojos FC-51 (×2, Entrada y Salida):** Detectores de presencia que disparan el flujo de acceso. Cada uno tiene tres conexiones:
-   - **VCC** → **3.3 V** del ESP32-CAM (⚠️ alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
+   - **VCC** → **3.3 V** del ESP32-CAM (alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
    - **GND** → GND.
-   - **OUT** → **GPIO 13** (IR Entrada) y **GPIO 15** (IR Salida); la salida va a `LOW` cuando detecta un obstáculo.
+   - **OUT** → **GPIO 13** (IR Entrada) y **GPIO 15** (IR Salida); la salida va a LOW cuando detecta un obstáculo.
 
    El IR de entrada dispara la captura de placa y la creación de sesión; el IR de salida confirma el paso del vehículo y la verificación de pago antes de cerrar la barrera.
 
-   *Nota sobre la simulación:* Wokwi no provee el módulo IR FC-51 ni la cámara del ESP32-CAM en su biblioteca. En el esquemático de simulación los sensores IR se representan mediante **pulsadores** (presionar = vehículo detectado, equivalente al `LOW` del módulo real) y el nodo se simula sobre un **ESP32 DevKit** (la cámara no es simulable). En el ensamblaje físico se sustituyen directamente por los módulos FC-51 y el ESP32-CAM sin cambios en la lógica del firmware.
-
-> **Restricciones del ESP32-CAM:** la cámara ocupa la mayoría de los GPIO; solo quedan libres **GPIO 12–15** (con microSD deshabilitada). Además, el ESP32-CAM **no tiene puerto USB**, por lo que requiere un adaptador **FTDI/USB-TTL** o la base **ESP32-CAM-MB** para ser flasheado. La alimentación debe ser de **5 V ≥ 2 A** y el servo debe tener su propio riel de 5 V con tierra común.
 
 #### Resumen de Conexiones (Pinout Table)
 
@@ -5760,13 +5757,13 @@ Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**
 | Botón | Pin 1 | GPIO 13 | Blanco | INPUT_PULLUP interno |
 | Botón | Pin 2 | GND | Negro | Tierra común |
 
-> *Convención de colores:* sigue el estándar industrial de prototipado (rojo = +V, negro = GND, amarillo/naranja = señales de salida, azul/verde = señales de entrada o datos, morado/marrón = sensores analógicos/actuadores).
+
 
 **Pinout del Access Barrier Node (ESP32-CAM).** En la simulación de Wokwi (ESP32 DevKit) los pines difieren por las restricciones de GPIO del ESP32-CAM:
 
 | Componente | Pin del componente | GPIO físico (ESP32-CAM) | GPIO simulación (Wokwi) | Notas |
 |---|---|---|---|---|
-| Servo SG90 | Señal | GPIO 14 | GPIO 26 | PWM (`ESP32Servo`) |
+| Servo SG90 | Señal | GPIO 14 | GPIO 26 | PWM (ESP32Servo) |
 | Servo SG90 | V+ | 5V externo | 5V | riel separado, no del MCU |
 | Servo SG90 | GND | GND común | GND | tierra compartida |
 | IR Entrada (FC-51) | OUT | GPIO 13 | GPIO 14 | LOW = vehículo detectado |

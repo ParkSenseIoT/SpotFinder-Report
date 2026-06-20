@@ -106,15 +106,15 @@ En GitHub se presenta un timeline de las principales ramas creadas por cada inte
  
 **Gráfico de commits por integrante:**
  
-![Commits Graph](./assets/images/screenshots/commitsgraph.png)
+![Commits Graph](./assets/images/screenshots/commitsgraph.jpg)
  
 **Gráfico de red (network graph) de ramas en el repositorio de GitHub:**
  
-![Network Graph](./assets/images/screenshots/networkgraph.png)
+![Network Graph](./assets/images/screenshots/networkgraph.jpg)
  
 **Contribuciones de los integrantes:**
  
-![Contributors Image](./assets/images/screenshots/contributorsimage.png)
+![Contributors Image](./assets/images/screenshots/contributorsimage.jpg)
  
 ### TB1
  
@@ -1011,7 +1011,7 @@ Actualmente, gran parte de los operadores en Perú (como Apparka, que lidera el 
 
 | | **SpotFinder (ParkSense)** | **Apparka (Los Portales)** | **ParkHelp** | **Quadra** |
 | :--- | :--- | :--- | :--- | :--- |
-| | <img src="./assets/images/screenshots/SpotFinderlogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Apparkalogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Parkhelplogo.jpg" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Quadralogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> |
+| | <img src="./assets/images/screenshots/SpotFinderlogo.jpg" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Apparkalogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Parkhelplogo.jpg" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> | <img src="./assets/images/screenshots/Quadralogo.png" width="150" style="aspect-ratio: 1/1; object-fit: cover; border-radius: 8px;"> |
 | **Perfil - Overview** | Sistema IoT integral para gestión inteligente de estacionamientos en centros comerciales, que combina sensores ultrasónicos por espacio, ALPR, guiado visual con LEDs, app móvil para conductores y dashboard analítico para administradores. | Operador líder de estacionamientos en Perú (~300 ubicaciones). Su app permite ubicar estacionamientos, ver disponibilidad general, pagar digitalmente y usar apertura automática de barreras por lectura de placas ("En Una"). | Líder global en sistemas de guiado de estacionamiento con más de 600,000 espacios monitoreados en 700+ ubicaciones en 50+ países. Ofrece sensores ultrasónicos, cámaras LPR, señalización digital y software ParkManager. | Marketplace peruano de estacionamientos peer-to-peer que permite a particulares alquilar sus cocheras privadas por horas. Usa IA para pricing dinámico y LPR para acceso. |
 | **Ventaja competitiva** | Solución IoT integral de bajo costo diseñada para el mercado peruano, con detección por espacio individual, guiado visual, ALPR con soporte de placas peruanas e integración con pasarelas de pago locales (Yape, Culqi). | Red de estacionamientos más grande del Perú. Marca establecida con 60+ años de experiencia. App con funcionalidad "En Una" para ingreso/salida sin tickets. Presencia en aeropuertos a nivel nacional. | Tecnología madura con 20+ años de experiencia. Portfolio más amplio de sensores del mercado (ultrasónicos, cámara, wireless, LoRa, LTE-M). Software ParkManager con analytics avanzados. | Modelo innovador peer-to-peer que desbloquea inventario de estacionamiento no utilizado (cocheras privadas). Precio accesible por minuto. |
 | **Perfil de Marketing** | | | | |
@@ -1159,7 +1159,7 @@ Estudiante universitaria que visita centros comerciales como el Jockey Plaza dos
 | **Enlace** | [🔗 Ver grabación de la entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
 
 **Evidencia**
-![Captura de la entrevista 2](./assets/images/screenshots/seg1entrevista2.png)
+![Captura de la entrevista 2](./assets/images/screenshots/seg1entrevista2.jpg)
   
 **Resumen**
 Usuario frecuente de estacionamientos en centros comerciales que prioriza la seguridad y la eficiencia en el pago. Reporta una alta frustración debido a las largas colas en los cajeros físicos y la dificultad de encontrar espacios en temporadas altas. Valora positivamente la automatización mediante el reconocimiento de placas vehiculares (ALPR) y la posibilidad de realizar pagos digitales a través de la app, lo cual considera una solución necesaria para modernizar el servicio actual.
@@ -1178,7 +1178,7 @@ Usuario frecuente de estacionamientos en centros comerciales que prioriza la seg
 | **Enlace** | [🔗 Ver grabación de la entrevista](https://1drv.ms/v/c/e7943890401aebc7/IQCsVfJnUhn9RJWEkmDyCX2pAQnBlD9IkX-cMPJdZnQzPF0?e=uymIhe) |
 
 **Evidencia**
-![Captura de la entrevista 3](./assets/images/screenshots/seg1entrevista3.png)
+![Captura de la entrevista 3](./assets/images/screenshots/seg1entrevista3.jpg)
 
 
 **Resumen**
@@ -5652,7 +5652,7 @@ Los principales criterios para las decisiones de diseño del hardware son:
 
 - **Precisión en la Detección de Ocupación:** Se utiliza un sensor ultrasónico **HC-SR04**, montado a 50–60 cm sobre el piso del espacio (techo del nivel de parqueo). El sensor emite pulsos ultrasónicos de 40 kHz y mide el tiempo de retorno del eco. Una distancia umbral configurable (por ejemplo, < 100 cm sostenido por > 2 segundos) determina el estado **Occupied**; valores superiores y estables determinan el estado **Available**. El filtrado por umbral temporal evita falsos positivos por peatones que cruzan momentáneamente.
 
-- **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, soporte nativo del protocolo MQTT, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de publicar el evento `SensorReading` al MQTT Broker, reduciendo el tráfico de red.
+- **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, su pila TCP/IP con cliente HTTP nativo, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de enviar el evento `SensorReading` por **HTTP/REST** al Edge Gateway, reduciendo el tráfico de red.
 
 - **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra un **LED WS2812B** (Neopixel direccionable) montado en la parte inferior de la carcasa, visible desde el corredor del estacionamiento. El color es controlado vía un único pin de datos por protocolo serial de un solo hilo, lo que permite encadenar varios LEDs en zonas adyacentes con un solo GPIO si se desea optimizar el cableado en una sub-zona.
 
@@ -5666,7 +5666,7 @@ Los principales criterios para las decisiones de diseño del hardware son:
 
 El diseño de la interfaz física del dispositivo IoT (*IoT Device Physical Interfaces*) es una extensión coherente de la propuesta de experiencia de usuario y arquitectura de información definida en la sección 5.1.2 (*IoT Style Guidelines*) y de los Bounded Contexts de **Parking Monitoring** y **Emergency Management**.
 
-- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento MQTT, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
+- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento de red, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
 
 - **Alerta Cognitiva Estroboscópica:** En estado crítico de emergencia (detección de gas/humo por MQ-2 o broadcast desde el Edge Server), el patrón lumínico de todos los LEDs cambia a **parpadeo estroboscópico rojo a 2 Hz**, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
 
@@ -5680,7 +5680,7 @@ Para la validación lógica de los componentes electrónicos y sus conexiones, s
 
 Los componentes integrados y sus nodos de conexión son los siguientes:
 
-1. **Microcontrolador ESP32 (DevKit V1):** Actúa como cerebro del sistema, gestor de la lógica de detección y módulo de comunicación Wi-Fi/MQTT. Alimentación a 5 V por USB micro-B o a 3.3 V por pin VIN en despliegue en techo. Mantiene una conexión persistente al broker MQTT del Edge Server publicando en el topic `parksense/floor/{floorId}/spot/{spotId}/status`.
+1. **Microcontrolador ESP32 (DevKit V1):** Actúa como cerebro del sistema, gestor de la lógica de detección y módulo de comunicación Wi-Fi (cliente HTTP). Alimentación a 5 V por USB micro-B o a 3.3 V por pin VIN en despliegue en techo. Envía las lecturas al Edge Gateway mediante peticiones **HTTP/REST** (`POST /api/v1/monitoring/sensor-readings`), autenticándose con la cabecera `X-API-Key`.
 
 2. **Sensor Ultrasónico HC-SR04:** Componente principal de detección de ocupación. Alimentado a **5 V**. Cuatro conexiones:
    - **VCC** → 5V del ESP32 (cable **rojo**)
@@ -5713,7 +5713,7 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
    - Un terminal → **GPIO 13** del ESP32, utilizando la resistencia interna Pull-Up del ESP32 (`INPUT_PULLUP`) — cable **blanco**
    - Otro terminal → GND (cable **negro**)
 
-   Una pulsación corta (< 2 s) fuerza una republicación del estado al broker MQTT. Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
+   Una pulsación corta (< 2 s) fuerza un reenvío manual del estado al Edge Gateway (HTTP POST). Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
 
 #### Access Barrier Node (Control de Acceso Vehicular)
 
@@ -5790,12 +5790,12 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 
 - **Paso 1:** El técnico instala el nodo en el techo del espacio de parqueo y conecta la alimentación.
 - **Paso 2:** El ESP32 arranca y el LED WS2812B parpadea en **Azul `#1A82FF`** indicando estado de provisioning (búsqueda de red Wi-Fi).
-- **Paso 3:** Una vez conectado al broker MQTT del Edge Server, el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
+- **Paso 3:** Una vez conectado a la red Wi-Fi y validado contra el Edge Gateway (HTTP/REST con `X-API-Key`), el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
 
 **2. Flujo de Detección de Ocupación (Happy Path):**
 
 - **Paso 1:** Un vehículo entra al espacio y el HC-SR04 detecta una distancia < 100 cm de forma sostenida durante > 2 segundos.
-- **Paso 2:** El ESP32 publica el evento `SensorReadingProcessed` al topic MQTT correspondiente con el estado `Occupied`.
+- **Paso 2:** El ESP32 envía la lectura por **HTTP/REST** al Edge Gateway (`POST /api/v1/monitoring/sensor-readings`); el Edge aplica el debounce y consolida el estado `Occupied`.
 - **Paso 3:** El LED WS2812B cambia inmediatamente a **Rojo `#EF4444`** fijo.
 - **Paso 4:** El Edge Server consolida la lectura, la reenvía al backend Cloud y el espacio se refleja como ocupado en el mapa de la app móvil y el dashboard web.
 
@@ -6691,10 +6691,10 @@ Para este Sprint 2 (TB2), se desplegó tanto la Landing Page, Aplicación Web, l
 ![Landing Page Deployment](assets/images/screenshots/evidences/landing-page-deployment.png)
 
 ### Despliegue del FrontEnd: Se empleó Netlify.
-![FrontEnd Deployment](assets/images/screenshots/evidendes/frontend-deployment.png)
+![FrontEnd Deployment](assets/images/screenshots/evidences/frontend-deployment.png)
 
 ### Despliegue del BackEnd y Base de Datos: Se empleó Railway.
-![BackEnd Deployment](assets/images/screenshots/evidendes/backend-deployment.png)
+![BackEnd Deployment](assets/images/screenshots/evidences/backend-deployment.png)
 
 
 El despliegue permitió publicar una primera versión funcional y accesible de la plataforma, facilitando pruebas de navegación, validaciones visuales y revisiones colaborativas del sistema. Asimismo, el proyecto fue gestionado mediante GitHub utilizando control de versiones basado en ramas feature y commits asociados a las tareas del Sprint. La estrategia de despliegue implementada permitió mantener integración continua básica y simplificar futuras actualizaciones del sistema completo.

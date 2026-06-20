@@ -157,7 +157,7 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
 - [Project Report Collaboration Insights](#project-report-collaboration-insights)
   - [AV1](#av1)
   - [TB1](#tb1)
-  - [TB2](#av2)
+  - [AV2](#av2)
 - [Contenido](#contenido)
 - [Student Outcome](#student-outcome)
 

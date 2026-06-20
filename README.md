@@ -6972,7 +6972,54 @@ El backend Spring Boot mantiene actualmente el test de contexto por defecto (`Sp
 
 ### 6.2.2.6. Execution Evidence for Sprint Review
 
-*Pendiente — se documentará en AV2.*
+Durante el Sprint 2, se consolidó la integración integral de nuestro ecosistema tecnológico, abarcando desde la capa de usuario hasta el procesamiento en el borde (*Edge Computing*). El objetivo principal fue garantizar la coherencia de datos en tiempo real, optimizar los flujos de usuario y asegurar la escalabilidad de la arquitectura.
+
+### Componentes Desarrollados
+* **Landing Page:** Diseño *responsive* orientado a la conversión y segmentación de usuarios.
+* **Backend:** Arquitectura robusta encargada de la lógica de negocio y persistencia de datos.
+* **Frontend (Web/Móvil):** Interfaz unificada enfocada en la experiencia de usuario y rendimiento.
+* **Edge Gateway:** Implementación de nodos para la gestión y procesamiento de datos en el origen.
+* **Embedded App:** Simulación de dispositivos embebidos para validación de hardware (Wokwi).
+
+A continuación, se presentan las capturas correspondientes a las principales vistas y componentes funcionales desarrollados durante este Sprint.
+
+#### 6.2.2.6.1. Landing page
+##### Página para el Segmento Objetivo 1
+<img src="assets\images\screenshots\landing1.png">
+
+##### Página para el Segmento Objetivo 2
+<img src="assets\images\screenshots\landing2.png">
+
+#### 6.2.2.6.2. Backend
+<img src="assets\images\screenshots\backend.png">
+
+#### 6.2.2.6.2. Frontend - Aplicación Web
+<img src="assets\images\screenshots\front-0.png">
+
+<img src="assets\images\screenshots\front-1.png">
+
+<img src="assets\images\screenshots\front-2.png">
+
+<img src="assets\images\screenshots\front-3.png">
+
+<img src="assets\images\screenshots\front-4.png">
+
+<img src="assets\images\screenshots\front-5.png">
+
+#### 6.2.2.6.2. Frontend - Aplicación Móvil
+
+<img src="assets\images\screenshots\mobile.png">
+
+#### 6.2.2.6.2. Edge Gateway
+
+<img src="assets\images\screenshots\edge-code.png">
+
+<img src="assets\images\screenshots\edge-doc.png">
+
+#### 6.2.2.6.2. Embedded App (Simulation)
+
+<img src="assets\images\screenshots\wokwi.png">
+
 
 ### 6.2.2.7. Services Documentation Evidence for Sprint Review
 
@@ -6986,8 +7033,8 @@ Durante el Sprint 2 se completó el despliegue de todos los componentes del ecos
 
 | Componente | Plataforma | Tipo de despliegue | URL pública |
 |---|---|---|---|
-| Landing Page | Netlify | Next.js 15 estático (SPA export) | [https://spotfinder-landing.netlify.app/#](https://spectacular-hummingbird-05afdc.netlify.app/) |
-| Web Dashboard | Vercel | Angular 19 build de producción | [https://spotfinder-nu.vercel.app/](https://spotfind-sigma.vercel.app/) |
+| Landing Page | Netlify | Next.js 15 estático (SPA export) | [https://spectacular-hummingbird-05afdc.netlify.app/](https://spectacular-hummingbird-05afdc.netlify.app/) |
+| Web Dashboard | Vercel | Angular 19 build de producción | [https://spotfind-sigma.vercel.app/](https://spotfind-sigma.vercel.app/) |
 | Backend REST API | Render | Spring Boot 21 en contenedor Docker | [https://spotfinder-backend-ozsh.onrender.com/](https://spotfinder-backend-ozsh.onrender.com/) |
 | Base de datos | Railway / Aiven for MySQL | MySQL 8 managed | Variable `DB_URL` (privada) |
 | Aplicación móvil | Android Studio / Google Play Console | Build APK / futura distribución | No publicada en store aún |
@@ -7003,7 +7050,7 @@ El Landing Page fue desarrollado con **Next.js 15** y exportado a estático para
 
 El despliegue fue verificado al momento de la entrega: la landing responde correctamente, muestra las secciones Hero, funcionalidades, flujo de acceso, FAQ y formulario de contacto.
 
-**URL desplegada:** [https://spotfinder-landing.netlify.app/](https://spectacular-hummingbird-05afdc.netlify.app/)
+**URL desplegada:** [Landing Page](https://spectacular-hummingbird-05afdc.netlify.app/)
 
 #### Web Dashboard — Vercel
 
@@ -7014,12 +7061,16 @@ El Web Dashboard fue desarrollado con **Angular 19** y desplegado en **Vercel**:
 3. **Environment variables:** `API_URL` apuntando al backend en Render (`https://spotfinder-backend-ozsh.onrender.com`).
 4. **SPA fallback:** `vercel.json` con rewrites a `index.html` para soportar rutas de Angular.
 
-**URL:** [https://spotfinder-nu.vercel.app/auth/login](https://spotfind-sigma.vercel.app/)
+<img src="assets\images\screenshots\vercel.png">
+
+**URL:** [Web Application](https://spotfind-sigma.vercel.app/)
 
 #### Backend REST API — Render
 
 El backend se desplegó en **Render**
 La URL de Swagger es `https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/`. Al momento de la entrega el servicio responde, considerando el tiempo de arranque propio del plan gratuito de Render.
+
+<img src="assets\images\screenshots\render.png">
 
 #### Base de datos — MySQL 8
 
@@ -7028,6 +7079,8 @@ Se desplegó una instancia de **MySQL 8** como servicio administrado en **Railwa
 #### Aplicación móvil — Flutter
 
 La aplicación móvil se desarrolló en **Flutter/Dart** y se ejecuta en emuladores Android mediante **Android Studio**. Para el Sprint 2 se generó el **build APK** de depuración y pruebas internas. La publicación en **Google Play Console** está planificada para el Sprint 3 / AV2, una vez finalizadas las integraciones de notificaciones push (FCM) y pase digital (Google Wallet).
+
+<img src="assets\images\screenshots\firebase.jpeg">
 
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint

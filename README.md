@@ -6725,7 +6725,7 @@ Carlos, ingeniero de software de 31 años, comentó que suele visitar centros co
 | **Edad** | 28 años |
 | **Fecha de entrevista** | 15/06/2026 |
 | **Timing**              | Duración: 08:33 |
-| **Enlace** | [[🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 10:09) |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 10:09) |
 
 **Evidencia**
 ![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)

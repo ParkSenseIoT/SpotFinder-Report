@@ -7241,57 +7241,34 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 | **Profesor** | Marco Antonio León Baca |
 | **Auditor** | ParkSense (equipo de desarrollo) |
 | **Clientes** | Conductores: Carlos Anofre, Fabio Alfaro, Samuel De Luque · Administradores: Dana, Washington Alija, Fabrizio Morales |
-| **Site o App a evaluar** | SpotFinder — Landing Page, Web Dashboard administrativo y Mobile App del conductor |
+| **Site o App a evaluar** | SpotFinder — Landing Page (Netlify) y Web Dashboard administrativo (Angular, Vercel) |
 
-Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas de validación (Sección 6.3.2) con conductores frecuentes de centros comerciales y administradores de estacionamientos, y revisa la usabilidad de la experiencia propuesta según heurísticas de usabilidad (Nielsen), arquitectura de información e *inclusive design*. Para cada problema se indica, con el ícono 📸, la captura de pantalla que debe tomarse como evidencia y el nombre de archivo sugerido.
+Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas de validación (Sección 6.3.2) con conductores frecuentes de centros comerciales y administradores de estacionamientos, y revisa la usabilidad de las superficies web desplegadas del producto según heurísticas de usabilidad (Nielsen), arquitectura de información e *inclusive design*. Cada problema se documenta con una captura real de la versión en producción. *(La evaluación heurística de la Mobile App del conductor se incorporará en una versión posterior.)*
 
 #### Tareas a evaluar
 
-El alcance de esta evaluación incluye la revisión de usabilidad de las siguientes tareas:
-
-**Landing Page:**
-1. Explorar la propuesta de valor principal de SpotFinder (sección Hero, mensaje clave).
-2. Sección de Funcionalidades.
-3. Sección "Cómo funciona" (flujo de detección IoT en tiempo real).
-4. Sección de Planes (Free / Pro / Premium para conductores y Starter / Business / Enterprise para administradores).
-5. Sección de FAQ.
-6. Sección de Contacto.
+**Landing Page (Netlify):**
+1. Propuesta de valor (sección Hero).
+2. "Ventajas del sistema" (Funcionalidades).
+3. "Proceso automatizado / Sincronización en 4 pasos" (Cómo funciona).
+4. Testimonios.
+5. Preguntas Frecuentes (FAQ).
+6. Footer / Contacto.
 
 **Web Dashboard administrativo (Angular):**
 1. Inicio de sesión.
-2. Dashboard / KPIs operativos.
-3. Parking Monitoring (mapa de ocupación en tiempo real).
-4. Analytics (ocupación e ingresos).
+2. Operational Overview (Dashboard / KPIs).
+3. Parking Monitoring.
+4. Analytics.
 5. Payments.
-6. Access Control.
-7. Emergency.
-8. Reports.
-9. Users.
-10. Settings.
-
-**Mobile App del conductor (Flutter):**
-1. Registro e inicio de sesión.
-2. Dashboard.
-3. Map (espacios libres / ocupados).
-4. Payments (Yape / tarjeta).
-5. Alerts / Notifications.
-6. Find My Car.
-7. Mis Vehículos.
-8. Settings.
+6. Reports.
+7. Settings.
 
 #### Fuera de alcance
 
-No están incluidas en esta versión de la evaluación las siguientes tareas:
-
-**Landing Page**
-1. Redes sociales asociadas a la startup.
-2. Política de privacidad y condiciones de uso.
-
-**Web Dashboard y Mobile App**
-1. Recuperación de contraseña.
-2. Política de privacidad y condiciones de uso.
-3. Reportes de bugs.
-4. Configuraciones generales del sistema del dispositivo.
+1. Redes sociales y enlaces legales (Términos de Servicio, Política de Privacidad).
+2. Recuperación de contraseña.
+3. Reportes de bugs y configuraciones del sistema operativo.
 
 #### Escala de severidad
 
@@ -7310,48 +7287,48 @@ No están incluidas en esta versión de la evaluación las siguientes tareas:
 
 | # | Problema | Escala de severidad | Heurística / Principio violado |
 |:---:|---|:---:|---|
-| 1 | La landing no comunica con claridad cómo funciona la detección de ocupación en tiempo real (la propuesta IoT), dificultando entender el valor diferencial. | 2 | Match between system and the real world |
-| 2 | Los planes B2C (conductores) y B2B (administradores) se presentan sin segmentación clara por tipo de usuario, generando confusión sobre cuál corresponde a cada quién. | 2 | Consistency and standards |
-| 3 | La landing no ofrece un canal de soporte/contacto inmediato (chat o FAQ ampliado) para resolver dudas antes de decidir la adopción. | 1 | Help and documentation |
-| 4 | Faltan testimonios o casos de uso con indicadores de ROI que generen confianza en el perfil administrador (B2B). | 2 | Help and documentation |
+| 1 | Varias zonas de texto tienen muy bajo contraste (gris sobre fondo casi negro), dificultando la lectura. | 2 | Inclusive Design / Accessibility |
+| 2 | El contenido de las secciones permanece oculto hasta hacer scroll (animaciones de aparición); sin desplazamiento o sin JS no se visualiza. | 2 | Visibility of system status |
+| 3 | La landing no muestra precios ni planes, por lo que no es posible evaluar el costo antes de descargar la app o contactar al equipo. | 2 | Match between system and the real world |
+| 4 | El footer contiene el error "Security de Datos" (mezcla de inglés y español; debería ser "Seguridad de Datos"). | 1 | Consistency and standards |
 
 **Descripción de problemas**
 
-**PROBLEMA #1: La propuesta IoT de tiempo real no se explica con claridad**
+**PROBLEMA #1: Texto de bajo contraste en varias secciones**
+- **Severidad:** 2
+- **Heurística violada:** Inclusive Design / Accessibility
+- **Problema:** La landing usa un tema oscuro en el que parte del texto (subtítulos descriptivos y algunas tarjetas de funcionalidad, como "Seguridad y Control") aparece en gris tenue sobre un fondo casi negro, con un contraste muy bajo. Esto afecta la legibilidad para cualquier usuario y, en particular, a personas con baja visión o en condiciones de luz adversa, incumpliendo pautas de contraste (WCAG AA).
+- **Recomendación:** Aumentar el contraste del texto secundario (relación mínima 4.5:1 para texto normal) y verificar todas las tarjetas con una herramienta de contraste; evitar grises por debajo del umbral sobre fondos oscuros.
+- **📸 Captura:** Sección "Ventajas del sistema" mostrando tarjetas de funcionalidad con texto gris de muy bajo contraste. → `landing-p1-contraste.png`
+
+![Landing - Problema 1](./assets/images/heuristics/landing-p1-contraste.png)
+
+**PROBLEMA #2: Contenido oculto tras animaciones de scroll**
+- **Severidad:** 2
+- **Heurística violada:** Visibility of system status
+- **Problema:** Las secciones de la landing solo se vuelven visibles cuando el usuario hace scroll (animaciones de aparición por desplazamiento). En una vista inicial, o si las animaciones/JS no se ejecutan, grandes áreas aparecen en blanco/negro sin contenido, lo que puede hacer creer que la página está vacía o rota y afecta a tecnologías de asistencia y a usuarios que prefieren movimiento reducido.
+- **Recomendación:** Garantizar que el contenido esté presente en el DOM y sea legible aun sin animación (respetar `prefers-reduced-motion`), usando las animaciones solo como mejora progresiva.
+- **📸 Captura:** Vista de la landing recién cargada (página completa) donde se observan secciones en blanco por las animaciones no disparadas. → `landing-p2-scroll-animaciones.png`
+
+![Landing - Problema 2](./assets/images/heuristics/landing-p2-scroll-animaciones.png)
+
+**PROBLEMA #3: La landing no muestra precios ni planes**
 - **Severidad:** 2
 - **Heurística violada:** Match between system and the real world
-- **Problema:** En las entrevistas, conductores como Fabio Alfaro y Samuel De Luque resaltaron que el principal valor esperado es "saber la disponibilidad antes de llegar" y "espacios en tiempo real". Sin embargo, la landing describe la propuesta de forma general y no explica de manera concreta cómo los sensores IoT detectan la ocupación ni cómo esa información llega al conductor, lo que dificulta que el usuario relacione el mensaje con su problema real (perder tiempo buscando estacionamiento).
-- **Recomendación:** Reforzar la sección "Cómo funciona" con un esquema simple de 3 pasos (sensor detecta → app muestra disponibilidad → guiado al espacio), usando lenguaje cotidiano e íconos, evitando tecnicismos.
-- **📸 Captura a tomar:** Sección Hero / "Cómo funciona" de la landing mostrando la descripción genérica de la propuesta de valor. → `landing-p1-propuesta-iot.png`
+- **Problema:** En las entrevistas, tanto conductores (Fabio Alfaro) como administradores (Washington Alija) hicieron referencia al costo/valor del servicio. Sin embargo, la landing no incluye una sección de precios ni planes; el menú solo ofrece "Solución", "Beneficios", "FAQ" y "Para Empresas". El usuario no puede evaluar cuánto cuesta el servicio sin descargar la app o contactar al equipo, lo que no coincide con la expectativa habitual de una landing comercial.
+- **Recomendación:** Incorporar una sección de Planes/Precios (diferenciando la oferta para conductores de la oferta para administradores/empresas) accesible desde el menú.
+- **📸 Captura:** Encabezado/menú de la landing donde se evidencia la ausencia de una sección de Precios/Planes. → `landing-p3-sin-planes.png`
 
-![Landing - Problema 1](./assets/images/heuristics/landing-p1-propuesta-iot.png)
+![Landing - Problema 3](./assets/images/heuristics/landing-p3-sin-planes.png)
 
-**PROBLEMA #2: Los planes B2C y B2B no están segmentados por tipo de usuario**
-- **Severidad:** 2
-- **Heurística violada:** Consistency and standards
-- **Problema:** SpotFinder ofrece planes para conductores (Free / Pro / Premium) y para administradores de estacionamientos (Starter / Business / Enterprise). En la landing ambos esquemas conviven sin una separación visual clara por audiencia, lo que puede confundir a un visitante sobre cuál plan le corresponde. Administradores como Dana y Washington Alija enfatizaron necesitar "beneficios claros" y entender rápido la propuesta para su rol.
-- **Recomendación:** Separar la sección de Planes en dos pestañas o columnas claramente rotuladas ("Para conductores" / "Para administradores"), con un selector visible que filtre los planes según el perfil.
-- **📸 Captura a tomar:** Sección de Planes de la landing mostrando los planes B2C y B2B sin segmentación clara por audiencia. → `landing-p2-planes.png`
-
-![Landing - Problema 2](./assets/images/heuristics/landing-p2-planes.png)
-
-**PROBLEMA #3: Falta un canal de soporte/contacto inmediato**
+**PROBLEMA #4: Error "Security de Datos" en el footer**
 - **Severidad:** 1
-- **Heurística violada:** Help and documentation
-- **Problema:** La landing no incluye un chat/chatbot ni un bloque de FAQ suficientemente visible para resolver dudas rápidas antes de la adopción. Para perfiles administradores que evalúan una compra B2B (como Washington Alija), la ausencia de un canal inmediato los obliga a buscar otros medios de contacto menos directos.
-- **Recomendación:** Incorporar un widget de chat/chatbot visible (esquina inferior derecha) con horario de atención indicado, y ampliar la sección de FAQ con las preguntas más comunes de cada segmento.
-- **📸 Captura a tomar:** Vista de la landing (sección Contacto / esquina inferior derecha) evidenciando la ausencia de un widget de chat y de horarios de atención. → `landing-p3-soporte.png`
+- **Heurística violada:** Consistency and standards
+- **Problema:** En el footer, bajo la columna "LEGAL", el enlace dice "Security de Datos", mezclando inglés y español. Lo correcto en una interfaz en español sería "Seguridad de Datos". Aunque es un detalle, afecta la consistencia del lenguaje y la percepción de cuidado/profesionalismo.
+- **Recomendación:** Corregir el texto a "Seguridad de Datos" y revisar el resto de la interfaz para mantener un idioma consistente.
+- **📸 Captura:** Footer de la landing mostrando el enlace "Security de Datos". → `landing-p4-typo-seguridad.png`
 
-![Landing - Problema 3](./assets/images/heuristics/landing-p3-soporte.png)
-
-**PROBLEMA #4: Faltan testimonios y casos de uso con ROI para el perfil administrador**
-- **Severidad:** 2
-- **Heurística violada:** Help and documentation
-- **Problema:** Los administradores entrevistados (Dana, Washington, Fabrizio) coincidieron en que adoptarían la solución si demuestra "beneficios claros en eficiencia" y se integra con sus procesos. La landing no presenta testimonios, métricas de impacto (reducción de congestión, mejora de rotación) ni casos de uso que respalden esa promesa de valor para el segmento B2B.
-- **Recomendación:** Agregar una sección de testimonios/casos de éxito con indicadores cuantitativos (p. ej. "−30% de tiempo de búsqueda", "+X% de rotación") orientados a la toma de decisiones del administrador.
-- **📸 Captura a tomar:** Sección de la landing (Testimonios / Beneficios) mostrando la ausencia de casos de uso o métricas de ROI para administradores. → `landing-p4-testimonios-roi.png`
-
-![Landing - Problema 4](./assets/images/heuristics/landing-p4-testimonios-roi.png)
+![Landing - Problema 4](./assets/images/heuristics/landing-p4-typo-seguridad.png)
 
 ---
 
@@ -7361,89 +7338,28 @@ No están incluidas en esta versión de la evaluación las siguientes tareas:
 
 | # | Problema | Escala de severidad | Heurística / Principio violado |
 |:---:|---|:---:|---|
-| 1 | El dashboard no resalta de forma prominente las alertas de saturación / ocupación crítica en tiempo real, clave para la operación en horas punta. | 3 | Visibility of system status |
-| 2 | No existe una opción clara de exportar reportes a formatos integrables con los sistemas actuales (Excel / PDF / ERP). | 2 | Flexibility and efficiency of use |
-| 3 | El menú lateral con múltiples módulos puede resultar denso para personal operativo con capacitación mínima. | 2 | Aesthetic and minimalist design |
+| 1 | Toda la interfaz del dashboard está en inglés, mientras el landing y los usuarios (administradores peruanos) operan en español. | 3 | Match between system and the real world |
+| 2 | Las opciones "Reports" y "Settings" del menú muestran la misma vista de "Analytics"; no son páginas reales. | 3 | Consistency and standards |
 
 **Descripción de problemas**
 
-**PROBLEMA #1: Las alertas de saturación en tiempo real no son suficientemente visibles**
+**PROBLEMA #1: El dashboard está completamente en inglés**
 - **Severidad:** 3
-- **Heurística violada:** Visibility of system status
-- **Problema:** Dana y Washington Alija señalaron que su mayor dificultad es "no tener control preciso de la ocupación en tiempo real" durante las horas de alta demanda, lo que retrasa decisiones. Si el dashboard muestra la ocupación pero no destaca de forma inmediata un estado de saturación (p. ej. piso al 95%), el administrador debe interpretar los datos en lugar de recibir una alerta directa.
-- **Recomendación:** Añadir un indicador/banner de estado global (Normal / Alta demanda / Saturado) siempre visible en la parte superior del dashboard, con alertas push cuando se superen umbrales de ocupación configurables.
-- **📸 Captura a tomar:** Dashboard principal / Parking Monitoring del Web Dashboard mostrando los KPIs de ocupación sin un indicador prominente de saturación. → `webdashboard-p1-alertas-saturacion.png`
+- **Heurística violada:** Match between system and the real world
+- **Problema:** La interfaz del Web Dashboard está en inglés en su totalidad ("Operational Overview", "Parking Monitoring", "Total Occupancy", "Active Alerts", etc.), mientras que la landing y, sobre todo, los usuarios objetivo —administradores de estacionamientos peruanos como Dana, Washington y Fabrizio— operan en español. Los entrevistados enfatizaron que la herramienta debía ser "fácil de usar" y requerir "capacitación mínima" para el personal; un panel en inglés contradice directamente esa necesidad y aumenta la curva de aprendizaje.
+- **Recomendación:** Localizar el dashboard al español (con posibilidad de cambio de idioma), priorizando los términos operativos del día a día. Mantener consistencia con el idioma de la landing.
+- **📸 Captura:** Pantalla "Operational Overview" del dashboard con toda la interfaz en inglés. → `webdashboard-p1-idioma-ingles.png`
 
-![Web Dashboard - Problema 1](./assets/images/heuristics/webdashboard-p1-alertas-saturacion.png)
+![Web Dashboard - Problema 1](./assets/images/heuristics/webdashboard-p1-idioma-ingles.png)
 
-**PROBLEMA #2: Falta exportación de reportes a formatos integrables**
-- **Severidad:** 2
-- **Heurística violada:** Flexibility and efficiency of use
-- **Problema:** Washington Alija resaltó la importancia de que el sistema "sea fácil de integrar con los procesos actuales". Si el módulo de Reports no permite exportar a formatos estándar (Excel, PDF) o integrarse con sistemas contables/ERP existentes, el administrador debe transcribir datos manualmente, aumentando la carga operativa.
-- **Recomendación:** Incorporar botones de exportación (PDF / Excel / CSV) en Reports y Analytics, y documentar una vía de integración (API o exportación programada) con sistemas contables.
-- **📸 Captura a tomar:** Módulo Reports / Analytics del Web Dashboard mostrando la ausencia de opciones de exportación a formatos integrables. → `webdashboard-p2-exportar-reportes.png`
-
-![Web Dashboard - Problema 2](./assets/images/heuristics/webdashboard-p2-exportar-reportes.png)
-
-**PROBLEMA #3: El menú con múltiples módulos resulta denso para personal operativo**
-- **Severidad:** 2
-- **Heurística violada:** Aesthetic and minimalist design
-- **Problema:** Dana y Fabrizio Morales destacaron que la solución debe ser "fácil de usar para el personal" y requerir "capacitación mínima". El menú lateral del dashboard expone simultáneamente muchos módulos (Parking Monitoring, Analytics, Payments, Access Control, Emergency, Reports, Users, Settings), lo que puede sobrecargar visualmente a un supervisor que solo necesita las funciones operativas frecuentes.
-- **Recomendación:** Agrupar los módulos por categoría (Operación / Finanzas / Administración) y permitir contraer secciones, priorizando en el primer nivel las tareas de uso diario (monitoreo y alertas).
-- **📸 Captura a tomar:** Menú lateral del Web Dashboard mostrando todos los módulos al mismo nivel jerárquico. → `webdashboard-p3-navegacion-menu.png`
-
-![Web Dashboard - Problema 3](./assets/images/heuristics/webdashboard-p3-navegacion-menu.png)
-
----
-
-#### Mobile App del conductor (Flutter)
-
-**Tabla resumen**
-
-| # | Problema | Escala de severidad | Heurística / Principio violado |
-|:---:|---|:---:|---|
-| 1 | El mapa de ocupación no incluye una leyenda/onboarding que explique los colores y filtros, obligando a interpretar sin guía. | 2 | Recognition rather than recall |
-| 2 | La función "Find My Car" no es fácilmente visible/accesible desde el dashboard principal. | 2 | Visibility of system status |
-| 3 | Durante el pago digital (Yape / tarjeta) falta retroalimentación de estado clara (procesando / éxito / error). | 3 | Visibility of system status |
-| 4 | La app no ofrece opciones de accesibilidad (tamaño de fuente, alto contraste). | 2 | Flexibility and efficiency of use |
-
-**Descripción de problemas**
-
-**PROBLEMA #1: El mapa de ocupación carece de leyenda y onboarding**
-- **Severidad:** 2
-- **Heurística violada:** Recognition rather than recall
-- **Problema:** Samuel De Luque y Fabio Alfaro insistieron en que la app debe ser "intuitiva" y "resolver en pocos pasos". El mapa muestra espacios libres y ocupados mediante colores y filtros, pero no incluye una leyenda visible ni un breve onboarding que explique el significado de cada color (verde = libre, rojo = ocupado) y el uso de los filtros, obligando al conductor a deducirlo.
-- **Recomendación:** Agregar una leyenda fija de colores en el mapa y un onboarding de primera apertura (tooltips) que explique los estados y filtros.
-- **📸 Captura a tomar:** Pantalla Map de la app móvil mostrando el mapa de espacios sin leyenda de colores ni onboarding. → `mobile-p1-leyenda-mapa.png`
-
-![Mobile - Problema 1](./assets/images/heuristics/mobile-p1-leyenda-mapa.png)
-
-**PROBLEMA #2: La función "Find My Car" es poco visible**
-- **Severidad:** 2
-- **Heurística violada:** Visibility of system status
-- **Problema:** Samuel De Luque valoró especialmente el "recordatorio de ubicación del vehículo". Si la función Find My Car no está accesible de forma directa desde el dashboard principal (queda oculta en submenús), el conductor podría no encontrarla justo cuando más la necesita: al regresar y no recordar dónde estacionó.
-- **Recomendación:** Exponer un acceso directo a "Find My Car" en el dashboard principal o como acción persistente cuando existe una sesión de estacionamiento activa.
-- **📸 Captura a tomar:** Dashboard principal de la app móvil mostrando que "Find My Car" no tiene un acceso directo visible. → `mobile-p2-find-my-car.png`
-
-![Mobile - Problema 2](./assets/images/heuristics/mobile-p2-find-my-car.png)
-
-**PROBLEMA #3: Falta retroalimentación de estado durante el pago digital**
+**PROBLEMA #2: "Reports" y "Settings" muestran la vista de Analytics (páginas no implementadas)**
 - **Severidad:** 3
-- **Heurística violada:** Visibility of system status
-- **Problema:** Los conductores asociaron la confianza en la app a su "confiabilidad" durante el pago (Yape / tarjeta). Si al confirmar un pago la interfaz no muestra estados claros (procesando, éxito, error con motivo), el usuario queda con incertidumbre sobre si la transacción se completó, generando desconfianza y reintentos.
-- **Recomendación:** Añadir estados explícitos durante el pago: indicador de "procesando", confirmación de éxito con recibo y mensajes de error accionables, evitando pantallas sin respuesta.
-- **📸 Captura a tomar:** Flujo de pago (Payments) de la app móvil mostrando la pantalla de confirmación sin estados claros de procesamiento. → `mobile-p3-feedback-pago.png`
+- **Heurística violada:** Consistency and standards
+- **Problema:** Al seleccionar "Reports" o "Settings" en el menú lateral, el dashboard no muestra una página de reportes ni de configuración: ambas rutas renderizan exactamente la misma vista de "Analytics" (gráficos "Occupancy Trends", "Zone Density" y "Live Activity Feed"). La navegación promete secciones que no existen como tales, lo que rompe la consistencia y la confianza del usuario. Esto es especialmente relevante porque administradores como Dana esperaban "reportes automáticos" como un valor central.
+- **Recomendación:** Implementar las páginas reales de Reports (con generación/exportación de reportes) y Settings (configuración de la cuenta/facility), o bien deshabilitar/ocultar temporalmente esas entradas del menú mientras no estén implementadas para no inducir a error.
+- **📸 Captura:** Ruta "Settings" del dashboard, donde el menú resalta "Settings" pero el contenido es la vista de Analytics. → `webdashboard-p2-settings-analytics.png`
 
-![Mobile - Problema 3](./assets/images/heuristics/mobile-p3-feedback-pago.png)
-
-**PROBLEMA #4: Ausencia de opciones de accesibilidad**
-- **Severidad:** 2
-- **Heurística violada:** Flexibility and efficiency of use
-- **Problema:** La app no ofrece opciones de personalización visual (tamaño de fuente, alto contraste, modo claro/oscuro), lo que reduce la usabilidad inclusiva para conductores con distintas necesidades visuales o que usan la app en condiciones de luz variables (exteriores, estacionamientos con poca luz).
-- **Recomendación:** Incorporar un módulo de Accesibilidad en Settings que permita ajustar tamaño de texto, alto contraste y tema, alineado con pautas de diseño inclusivo (WCAG).
-- **📸 Captura a tomar:** Pantalla Settings de la app móvil evidenciando la ausencia de opciones de accesibilidad. → `mobile-p4-accesibilidad.png`
-
-![Mobile - Problema 4](./assets/images/heuristics/mobile-p4-accesibilidad.png)
+![Web Dashboard - Problema 2](./assets/images/heuristics/webdashboard-p2-settings-analytics.png)
 
 <div style="page-break-after: always;"></div>
 

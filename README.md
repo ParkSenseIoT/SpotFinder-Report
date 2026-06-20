@@ -7050,6 +7050,8 @@ El Landing Page fue desarrollado con **Next.js 15** y exportado a estático para
 
 El despliegue fue verificado al momento de la entrega: la landing responde correctamente, muestra las secciones Hero, funcionalidades, flujo de acceso, FAQ y formulario de contacto.
 
+<img src="assets\images\screenshots\netlify.png">
+
 **URL desplegada:** [Landing Page](https://spectacular-hummingbird-05afdc.netlify.app/)
 
 #### Web Dashboard — Vercel

@@ -6986,8 +6986,8 @@ Durante el Sprint 2 se completó el despliegue de todos los componentes del ecos
 
 | Componente | Plataforma | Tipo de despliegue | URL pública |
 |---|---|---|---|
-| Landing Page | Netlify | Next.js 15 estático (SPA export) | [https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#) |
-| Web Dashboard | Vercel | Angular 19 build de producción | [https://spotfinder-nu.vercel.app/](https://spotfinder-nu.vercel.app/) |
+| Landing Page | Netlify | Next.js 15 estático (SPA export) | [https://spotfinder-landing.netlify.app/#](https://spectacular-hummingbird-05afdc.netlify.app/) |
+| Web Dashboard | Vercel | Angular 19 build de producción | [https://spotfinder-nu.vercel.app/](https://spotfind-sigma.vercel.app/) |
 | Backend REST API | Render | Spring Boot 21 en contenedor Docker | [https://spotfinder-backend-ozsh.onrender.com/](https://spotfinder-backend-ozsh.onrender.com/) |
 | Base de datos | Railway / Aiven for MySQL | MySQL 8 managed | Variable `DB_URL` (privada) |
 | Aplicación móvil | Android Studio / Google Play Console | Build APK / futura distribución | No publicada en store aún |
@@ -7003,7 +7003,7 @@ El Landing Page fue desarrollado con **Next.js 15** y exportado a estático para
 
 El despliegue fue verificado al momento de la entrega: la landing responde correctamente, muestra las secciones Hero, funcionalidades, flujo de acceso, FAQ y formulario de contacto.
 
-**URL desplegada:** [https://spotfinder-landing.netlify.app/](https://spotfinder-landing.netlify.app/)
+**URL desplegada:** [https://spotfinder-landing.netlify.app/](https://spectacular-hummingbird-05afdc.netlify.app/)
 
 #### Web Dashboard — Vercel
 
@@ -7014,7 +7014,7 @@ El Web Dashboard fue desarrollado con **Angular 19** y desplegado en **Vercel**:
 3. **Environment variables:** `API_URL` apuntando al backend en Render (`https://spotfinder-backend-ozsh.onrender.com`).
 4. **SPA fallback:** `vercel.json` con rewrites a `index.html` para soportar rutas de Angular.
 
-**URL:** [https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
+**URL:** [https://spotfinder-nu.vercel.app/auth/login](https://spotfind-sigma.vercel.app/)
 
 #### Backend REST API — Render
 

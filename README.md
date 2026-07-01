@@ -2,25 +2,29 @@
 <p align="center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/UPC_logo_transparente.png" alt="UPC Logo" width="100"><br><br>
     <strong>Universidad Peruana de Ciencias Aplicadas</strong><br>
-    <strong>Facultad de Ingeniería</strong>
+    <strong>Carrera de Ingeniería de Software</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Curso:</strong> 1ASI0572 - Desarrollo de Soluciones IOT<br>
-    <strong>Sección:</strong> 6772
+    <strong>1ASI0572</strong><br>
+    <strong>Desarrollo de Soluciones IoT</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Nombre del profesor:</strong> Marco Antonio León Baca
+    <strong>NRC:</strong> 6772
 </p>
 <br>
 <p align="center">
-    <strong>"Informe del Trabajo Parcial"</strong>
+    <strong>"Informe del Trabajo Final"</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Nombre del grupo:</strong> ParkSense IoT<br>
-    <strong>Nombre del producto:</strong> SpotFinder
+    <strong>Docente:</strong> León Baca, Marco Antonio
+</p>
+<br>
+<p align="center">
+    <strong>Equipo:</strong> ParkSenseIoT<br>
+    <strong>Proyecto:</strong> SpotFinder
 </p>
 <br>
 <p align="center"><strong>Integrantes:</strong></p>
@@ -38,7 +42,7 @@
 </div>
 
 <br>
-<p align="center">Lima – Abril 2026</p>
+<p align="center">Período 202610</p>
 
 <div style="page-break-after: always;"></div>
 

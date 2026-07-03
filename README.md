@@ -6271,7 +6271,7 @@ Los aspectos considerados para este Sprint incluyen el desarrollo del backend (R
 | Dueñas Canales, Leonardo Manuel | Insonnio | C | L | L | C | C |
 | Vidal Castro, Miguel Angel | Gossk | C | L | C | C | C |
 | Allcca Guerrero, Irving Washington | eviterno17 | C | C | C | L | C |
-| Cruz Ibarra, Victor Andrés | Elandrehss | L | C | C | C | C |
+| Cruz Ibarra, Victor Andrés | Elandrehss | L | C | C | C | C | 
 
 ### 6.2.2.3. Sprint Backlog 2
 

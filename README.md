@@ -6253,7 +6253,7 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 | **Prepared by** | Roman Esteban, Henry Kalet |
 | **Attendees (to planning meeting)** | Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington; Roman Esteban, Henry Kalet |
 | **Sprint 1 Review Summary** | El Sprint 1 entregó la primera versión funcional del ecosistema SpotFinder: el backend basado en bounded contexts con los endpoints principales (monitoreo de estacionamiento, control de acceso, sesiones, autenticación y analítica) desplegado y verificable vía Swagger, junto con la Landing Page institucional. Se completaron 76 story points sin incidencias críticas. |
-| **Sprint 2 Goal** | **Our focus is on** delivering the administrative web dashboard (Angular) and the first version of the driver mobile application (Flutter), both consuming the SpotFinder REST API; completing the remaining REST endpoints (payments, notifications, analytics and emergencies); incorporating the missing **Reservation Management Bounded Context** together with its driver-facing UI; enabling **Premium driver features** (Google Wallet pass and on-demand premium services like car wash); replacing the five placeholder pages of the admin dashboard (Access Control, Emergency, Reports, Users, Settings) with their real implementations; and aligning the documented database engine to the real one (MySQL 8, schema `spotfinder`) including the regeneration of the C4 Container and Deployment diagrams.<br><br>**We believe it delivers** a complete end-to-end experience for drivers (browse, reserve, enter via ALPR, pay, get a Google Wallet pass, locate the vehicle, request premium add-ons) and administrators (real-time monitoring, access control, emergency response, reports, user and facility management) from web and mobile, plus a documentation set that matches the implemented code base.<br><br>**This will be confirmed when** every flow is reachable from the web dashboard and the mobile app, verifiable through Swagger and the emulator without critical issues, and the report (TOC, 4.1.3.3, 4.1.3.4, 6.1.1 and 6.1.4) describes the same engine, schema name and diagrams that the deployed code uses. |
+| **Sprint 2 Goal** | Nuestro enfoque está en entregar el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil para conductores (Flutter), ambas consumiendo la REST API de SpotFinder; completar los endpoints REST restantes (pagos, notificaciones, analítica y emergencias); incorporar el **Bounded Context de Reservation Management** faltante junto con su UI orientada al conductor; habilitar las funcionalidades Premium para conductores (pase digital Google Wallet y servicios premium bajo demanda como lavado de autos); reemplazar las cinco páginas placeholder del dashboard administrativo (Access Control, Emergency, Reports, Users, Settings) por sus implementaciones reales; y alinear el motor de base de datos documentado con el real (MySQL 8, esquema `spotfinder`), incluyendo la regeneración de los diagramas C4 de Container y Deployment.<br><br> Creemos que esto entrega una experiencia completa de extremo a extremo para conductores (explorar, reservar, ingresar vía ALPR, pagar, obtener un pase de Google Wallet, localizar el vehículo, solicitar servicios premium adicionales) y para administradores (monitoreo en tiempo real, control de acceso, respuesta a emergencias, reportes, gestión de usuarios y del establecimiento) desde la web y el móvil, además de un conjunto de documentación que coincide con el código implementado.<br><br> Esto se confirmará cuando cada flujo sea accesible desde el dashboard web y la aplicación móvil, verificable a través de Swagger y el emulador sin incidencias críticas, y el informe (TOC, 4.1.3.3, 4.1.3.4, 6.1.1 y 6.1.4) describa el mismo motor, nombre de esquema y diagramas que utiliza el código desplegado. |
 | **Sprint 2 Velocity** | 136 story points |
 | **Sum of Story Points** | 136 story points |
 
@@ -6261,7 +6261,17 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 
 ### 6.2.2.2. Aspect Leaders and Collaborators
 
-*Pendiente — se documentará en AV2.*
+En esta sección se presenta la matriz de liderazgo y colaboración correspondiente al Sprint 2. El objetivo de esta matriz es identificar los principales aspectos funcionales y técnicos abordados durante el Sprint, así como definir qué integrantes del equipo asumieron roles de liderazgo y cuáles participaron como colaboradores en cada aspecto. Esta organización permite mejorar la coordinación, distribución de responsabilidades y comunicación interna del equipo durante el desarrollo del Sprint.
+
+Los aspectos considerados para este Sprint incluyen el desarrollo del backend (REST API, Reservation Management BC, endpoints de pagos, notificaciones, analítica y emergencias), el frontend web (dashboard administrativo Angular), la aplicación móvil (Flutter para conductores), la integración IoT y Edge (Edge Gateway, simulación Wokwi) y la documentación técnica (regeneración de diagramas C4, alineación MySQL 8, actualización del informe).
+
+| Team Member (Last Name, First Name) | GitHub Username | Backend Development | Frontend Web Development | Mobile Development | IoT & Edge Integration | Documentation & Deployment |
+|---|---|---|---|---|---|---|
+| Esteban Román, Henry Kalet | kalet123-commit | L | C | C | C | L |
+| Dueñas Canales, Leonardo Manuel | Insonnio | C | L | L | C | C |
+| Vidal Castro, Miguel Angel | Gossk | C | L | C | C | C |
+| Allcca Guerrero, Irving Washington | eviterno17 | C | C | C | L | C |
+| Cruz Ibarra, Victor Andrés | Elandrehss | L | C | C | C | C |
 
 ### 6.2.2.3. Sprint Backlog 2
 
@@ -6729,7 +6739,7 @@ Carlos, ingeniero de software de 31 años, comentó que suele visitar centros co
 | **Edad** | 28 años |
 | **Fecha de entrevista** | 15/06/2026 |
 | **Timing**              | Duración: 08:33 |
-| **Enlace** | [[🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 10:09) |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 10:09) |
 
 **Evidencia**
 ![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)

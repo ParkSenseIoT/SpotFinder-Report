@@ -410,7 +410,7 @@ La raíz radica en la falta de infraestructura tecnológica IoT. La mayoría de 
 **¿Cómo se utilizará el producto? (How)**
 * **Para conductores:** Mediante una aplicación móvil para ver disponibilidad en tiempo real, reserva de espacios, localización del auto y pago digital.
 * **Para administradores:** A través de un dashboard web con métricas clave (tasa de ocupación, rotación, ingresos) y control remoto de barreras.
-* **Componente IoT:** Nodos **ESP32** con sensores ultrasónicos **HC-SR04**, LEDs **WS2812B**, módulos **ESP32-CAM** para placas y sensores **MQ-2** para detección de gases, comunicados vía protocolo **MQTT**.
+* **Componente IoT:** Nodos **ESP32** con sensores ultrasónicos **HC-SR04**, **LEDs de guiado (verde/rojo)**, módulos **ESP32-CAM** para placas y sensores **MQ-2** para detección de gases, comunicados vía **HTTP/REST** con el Edge Gateway.
 
 **¿Cuán grande es el impacto? (How much)**
 * El 30% del tráfico en zonas comerciales proviene de vehículos buscando estacionamiento.
@@ -605,7 +605,7 @@ Actualmente, gran parte de los operadores en Perú (como Apparka, que lidera el 
 | **Mercado objetivo** | Centros comerciales medianos y grandes en Lima que buscan modernizar sus estacionamientos con IoT. Conductores que visitan estos centros comerciales. | Centros comerciales, aeropuertos, hospitales y edificios corporativos en Perú. Conductores que buscan estacionamiento en la red de Apparka. | Aeropuertos, centros comerciales, hospitales y universidades a nivel global. Operadores de estacionamiento y municipalidades. | Conductores en Lima que buscan cocheras privadas cerca de su destino. Propietarios de cocheras que desean generar ingresos extra. |
 | **Estrategias de marketing** | Demostraciones piloto en centros comerciales, alianzas con operadores, marketing B2B a gerentes de operaciones, contenido técnico sobre IoT y smart parking. | Marketing masivo (TV, digital), alianzas con centros comerciales, presencia en aeropuertos, descarga gratuita de app. | Participación en ferias internacionales (ICSC, IPMI, EPICCA), partners regionales (AccessPark Colombia), cases studies y whitepapers técnicos. | Marketing digital en redes sociales, PR en medios de comunicación (El Comercio, Mercado Negro), alianzas con edificios y condominios. |
 | **Perfil de Producto** | | | | |
-| **Productos y servicios** | Sensores HC-SR04 por espacio, LEDs WS2812B de guiado, ESP32-CAM + Plate Recognizer para ALPR, sensor MQ-2 para emergencias, app móvil (Flutter), dashboard web (Angular), Edge Server (Flask + MQTT), backend (Spring Boot). | App móvil (iOS/Android) con buscador de estacionamientos, pago digital (tarjeta, Apparka Wallet), LPR para entrada/salida automática, gestión de abonados, integración con Google Maps/Waze. | Sensores U2 ultrasónicos indoor, sensores C2 con cámara LPR, sensores G4/G5 wireless outdoor, señalización digital, software ParkManager, iluminación LED inteligente. | App móvil para reservar cocheras por hora/semana/mes, mapa con cocheras disponibles, perfil de anfitrión con calificaciones, pago digital in-app, stickertag para acceso. |
+| **Productos y servicios** | Sensores HC-SR04 por espacio, LEDs de guiado (verde/rojo), ESP32-CAM + Plate Recognizer para ALPR, sensor MQ-2 para emergencias, app móvil (Flutter), dashboard web (Angular), Edge Server (Flask, HTTP/REST), backend (Spring Boot). | App móvil (iOS/Android) con buscador de estacionamientos, pago digital (tarjeta, Apparka Wallet), LPR para entrada/salida automática, gestión de abonados, integración con Google Maps/Waze. | Sensores U2 ultrasónicos indoor, sensores C2 con cámara LPR, sensores G4/G5 wireless outdoor, señalización digital, software ParkManager, iluminación LED inteligente. | App móvil para reservar cocheras por hora/semana/mes, mapa con cocheras disponibles, perfil de anfitrión con calificaciones, pago digital in-app, stickertag para acceso. |
 | **Precios y costos** | Modelo SaaS por espacio monitoreado. Starter: hasta 200 espacios. Business: hasta 1,000 espacios + ALPR + analytics. Enterprise: 1,000+ espacios, solución completa con integraciones. (Precios por definir en validación). | Gratuita para conductores. El centro comercial/operador paga por la integración. Cobro por estacionamiento: S/ 5-20/hora según ubicación. Abonados mensuales disponibles. | Precios enterprise bajo cotización directa. Alto costo de implementación (hardware propietario + instalación + licencia de software). No disponible en modelo self-service. | Gratuita para conductores. Cobro de S/ 0.12/minuto. Los anfitriones reciben un porcentaje del alquiler. Modelo marketplace con comisión por transacción. |
 | **Canales de distribución** | App móvil (iOS/Android), dashboard web, hardware IoT instalado en sitio. | App móvil (iOS/Android), presencia física en estacionamientos propios y operados. | Venta directa B2B, red de distribuidores certificados en 50+ países, partners regionales en LATAM. | App móvil (iOS/Android). |
 | **Análisis SWOT** | | | | |
@@ -1436,7 +1436,7 @@ Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation v
  
 | Candidate Context | Eventos Clave Asociados | Clasificación | Descripción | Justificación |
 |---|---|---|---|---|
-| **Parking Monitoring** | Vehicle Presence Detected, Slot Status Changed to Occupied/Available, Sensor Reading Published, Availability Map Updated | **Core** | Detección de ocupación por sensores IoT, actualización de LEDs y mapa de disponibilidad en tiempo real. | Es el corazón tecnológico de SpotFinder. Sin sensores detectando espacios, el sistema no existe. Es lo que diferencia a SpotFinder de Apparka y Quadra. La complejidad del modelo es alta (comunicación MQTT, debounce, real-time updates). |
+| **Parking Monitoring** | Vehicle Presence Detected, Slot Status Changed to Occupied/Available, Sensor Reading Published, Availability Map Updated | **Core** | Detección de ocupación por sensores IoT, actualización de LEDs y mapa de disponibilidad en tiempo real. | Es el corazón tecnológico de SpotFinder. Sin sensores detectando espacios, el sistema no existe. Es lo que diferencia a SpotFinder de Apparka y Quadra. La complejidad del modelo es alta (comunicación HTTP/REST, debounce, real-time updates). |
 | **Access Control** | License Plate Captured, Plate Recognized, Entry Barrier Opened, Vehicle Session Started, Exit Barrier Opened, Vehicle Session Ended | **Core** | Gestión del ingreso y salida vehicular mediante ALPR (reconocimiento de placas) y control de barreras. | El ALPR es el segundo diferenciador clave: elimina los tickets físicos. La sesión vehicular que inicia/termina aquí conecta todo el sistema. Alta complejidad por integración con Plate Recognizer API y control de hardware (servomotor barrera). |
 | **Payment Processing** | Payment Initiated, Fee Calculated, Payment Succeeded/Failed, Payment Receipt Generated | **Core** | Cálculo de tarifas y procesamiento de pagos digitales vía Culqi (Yape + tarjeta). | El pago digital sin cola es el tercer pilar del valor de negocio. Integración con pasarela externa (Culqi) agrega complejidad. Directamente vinculado a los ingresos del estacionamiento. |
 | **Analytics & Reporting** | Occupancy Report Generated, Revenue Report Generated, Peak Hours Analyzed, Turnover Rate Calculated, Heatmap Generated | **Supporting** | Generación de métricas, estadísticas y reportes para la toma de decisiones administrativas. | Aporta valor al administrador pero no es el diferenciador principal frente a competidores. Complejidad media: agregación de datos, cálculos estadísticos. Podría externalizarse con herramientas BI estándar. |
@@ -1511,8 +1511,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 <br>
 
 **Flujo de Integración:**
-- El sensor ultrasónico ESP32 detecta un objeto y publica la lectura en el MQTT Broker.
-- El MQTT Broker reenvía la información al Edge Server.
+- El sensor ultrasónico ESP32 detecta un objeto y envía la lectura por **HTTP/REST** al Edge Server (`POST /api/v1/monitoring/sensor-readings`, autenticado con `X-API-Key`).
 - El Edge Server aplica una regla de validación (debounce), confirmando la presencia del vehículo (Vehicle Presence Confirmed).
 - Se registra la lectura en el Parking Monitoring BC.
 - El Parking Monitoring BC actualiza el estado del espacio a ocupado (Parking Slot Status Changed).
@@ -1521,7 +1520,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 
 
 **Bounded Contexts Involucrados:**
-- Parking Monitoring → Edge Processing (Edge Server) → Infraestructura IoT (MQTT, sensores)
+- Parking Monitoring → Edge Processing (Edge Server) → Infraestructura IoT (HTTP/REST, sensores)
 
 ---
 
@@ -1557,7 +1556,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 <br>
 
 **Flujo de Integración:**
-- El sensor MQ-2 detecta niveles peligrosos de gas y publica la lectura en el MQTT Broker.
+- El sensor MQ-2 detecta niveles peligrosos de gas y envía la lectura por **HTTP/REST** al Edge Server (`POST /api/v1/monitoring/gas-analysis`).
 - El Edge Server evalúa el umbral crítico (Gas Level Exceeded Threshold).
 - Se registra una alerta en el Emergency & Safety BC (Emergency Alert Triggered).
 - Se activa el protocolo de emergencia (Emergency Protocol Activated).
@@ -5241,21 +5240,21 @@ Los principales criterios para las decisiones de diseño del hardware son:
 
 - **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, su pila TCP/IP con cliente HTTP nativo, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de enviar el evento `SensorReading` por **HTTP/REST** al Edge Gateway, reduciendo el tráfico de red.
 
-- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra un **LED WS2812B** (Neopixel direccionable) montado en la parte inferior de la carcasa, visible desde el corredor del estacionamiento. El color es controlado vía un único pin de datos por protocolo serial de un solo hilo, lo que permite encadenar varios LEDs en zonas adyacentes con un solo GPIO si se desea optimizar el cableado en una sub-zona.
+- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra **dos LEDs discretos** (verde en **GPIO 32**, rojo en **GPIO 33**) montados en la parte inferior de la carcasa, visibles desde el corredor del estacionamiento. El firmware los controla directamente por GPIO: verde = espacio disponible, rojo = ocupado o alarma.
 
-- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral de 900 PPM, el nodo publica un evento `EmergencyAlertTriggered` que desencadena el cambio coordinado de todos los LEDs del piso a parpadeo rojo estroboscópico.
+- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral configurado, el nodo lo reporta al Edge (`POST /api/v1/monitoring/gas-analysis`); si el Edge marca emergencia, el nodo enciende el LED rojo y activa el buzzer localmente.
 
-- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el nodo recibe el comando `BroadcastEvacuationSignal` desde el Edge Server, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
+- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el Edge marca una emergencia de gas (en la respuesta de `POST /api/v1/monitoring/gas-analysis`) o cuando el nodo supera el umbral local de gas, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
 
-- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar el modo de emparejamiento Wi-Fi (provisioning) y el reseteo del nodo sin necesidad de retirarlo del techo del estacionamiento.
+- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar un reenvío manual del estado del nodo al Edge y reiniciarlo sin necesidad de retirarlo del techo del estacionamiento.
 
 ### Relación con la Arquitectura de Información y Guía de Estilos
 
 El diseño de la interfaz física del dispositivo IoT (*IoT Device Physical Interfaces*) es una extensión coherente de la propuesta de experiencia de usuario y arquitectura de información definida en la sección 5.1.2 (*IoT Style Guidelines*) y de los Bounded Contexts de **Parking Monitoring** y **Emergency Management**.
 
-- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento de red, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
+- **Semántica Cromática Consistente (Affordance Visual):** Los dos LEDs respetan la paleta semántica de SpotFinder. El **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo o en estado de alarma.
 
-- **Alerta Cognitiva Estroboscópica:** En estado crítico de emergencia (detección de gas/humo por MQ-2 o broadcast desde el Edge Server), el patrón lumínico de todos los LEDs cambia a **parpadeo estroboscópico rojo a 2 Hz**, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
+- **Alerta Cognitiva de Emergencia:** En estado crítico (el Edge marca emergencia tras la lectura del MQ-2), el LED rojo del nodo pasa a **parpadeo a 2 Hz** y el buzzer emite una sirena, una señal de alarma diseñada para capturar el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
 
 - **Interacción Invisible (Zero-Friction):** El nodo no expone interfaz gráfica al conductor: la interacción es por presencia (el vehículo entra y el sensor lo detecta) y la retroalimentación es exclusivamente espacial (luz LED). La interfaz gráfica se delega a la app móvil (notificación push de espacio reservado) y al dashboard web (mapa de ocupación en tiempo real), respetando la premisa **Zero-Friction para conductores en movilidad** y **Maximum Observability para operadores**.
 
@@ -5275,12 +5274,11 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
    - **Trig** (disparo del pulso) → **GPIO 5** del ESP32 (cable **amarillo**)
    - **Echo** (retorno del pulso) → **GPIO 18** del ESP32 (cable **azul**)
 
-3. **LED WS2812B (Neopixel direccionable):** Indicador de estado del espacio. Tres conexiones:
-   - **VCC** → 5V (cable **rojo**)
-   - **GND** → GND (cable **negro**)
-   - **DIN** (data in) → **GPIO 4** del ESP32 a través de una resistencia de 330 Ω (cable **verde**)
+3. **Dos LEDs de estado (verde y rojo):** Indicadores del estado del espacio. Cada LED con su resistencia limitadora:
+   - **LED verde** (ánodo) → **GPIO 32** con R 220 Ω; cátodo → GND (cable **verde**)
+   - **LED rojo** (ánodo) → **GPIO 33** con R 220 Ω; cátodo → GND (cable **rojo**)
 
-   Se recomienda un capacitor de 100 µF entre VCC y GND del LED para estabilizar la corriente en transiciones de color. *Nota sobre la simulación:* en Wokwi se puede representar con el componente `neopixel` o, como alternativa equivalente para la lógica de control, con un LED RGB cátodo común a tres resistencias de 220 Ω en GPIO 4 (Rojo), GPIO 2 (Verde) y GPIO 15 (Azul).
+   Verde = espacio disponible, rojo = ocupado o alarma. El firmware los controla por GPIO directo (`digitalWrite`). *Nota sobre la simulación:* en Wokwi se representan con dos LEDs discretos.
 
 4. **Sensor de Gas MQ-2:** Detector de gases combustibles y humo para el protocolo de emergencia (presente solo en nodos cabecera de pasillo). Cuatro conexiones:
    - **VCC** → 5V (cable **rojo**)
@@ -5296,11 +5294,11 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 
    El GPIO 25 soporta DAC, lo que permite generar tonos de frecuencia variable (sirena ascendente/descendente) en vez de un beep monótono.
 
-6. **Botón Pulsador (Provisioning / Reset):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
+6. **Botón Pulsador (Reset / Reenvío manual):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
    - Un terminal → **GPIO 13** del ESP32, utilizando la resistencia interna Pull-Up del ESP32 (`INPUT_PULLUP`) — cable **blanco**
    - Otro terminal → GND (cable **negro**)
 
-   Una pulsación corta (< 2 s) fuerza un reenvío manual del estado al Edge Gateway (HTTP POST). Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
+   Una pulsación fuerza un reenvío manual del estado del nodo al Edge Gateway (HTTP POST) y sirve como reinicio manual durante el mantenimiento.
 
 #### Access Barrier Node (Control de Acceso Vehicular)
 
@@ -5334,9 +5332,8 @@ De esta forma el Edge desacopla la cámara del actuador: la CAM solo "ve" la pla
 | HC-SR04 | GND | GND | Negro | Tierra común |
 | HC-SR04 | Trig | GPIO 5 | Amarillo | Salida digital |
 | HC-SR04 | Echo | GPIO 18 | Azul | Entrada digital |
-| WS2812B | VCC | 5V (VIN) | Rojo | Alimentación |
-| WS2812B | GND | GND | Negro | Tierra común |
-| WS2812B | DIN | GPIO 4 | Verde | Datos seriales (con R=330 Ω) |
+| LED verde | Ánodo | GPIO 32 | Verde | R 220 Ω; cátodo a GND |
+| LED rojo | Ánodo | GPIO 33 | Rojo | R 220 Ω; cátodo a GND |
 | MQ-2 (potenciómetro en sim.) | VCC | 5V (VIN) | Rojo | Alimentación |
 | MQ-2 (potenciómetro en sim.) | GND | GND | Negro | Tierra común |
 | MQ-2 (potenciómetro en sim.) | AO | GPIO 34 | Morado | Solo entrada ADC |
@@ -5362,9 +5359,9 @@ De esta forma el Edge desacopla la cámara del actuador: la CAM solo "ve" la pla
 
 El **Plate Camera Node** es un nodo físico aparte (ESP32-CAM, sensor **OV3660**, bus de cámara dedicado, no simulable en Wokwi) que solo captura la placa y la envía al Edge para ALPR.
 
-**Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot Node (HC-SR04, WS2812B, MQ-2, buzzer, botón) y el Access Barrier Node (servo SG90 y los dos sensores IR de entrada/salida).
+**Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot + Barrier Node (HC-SR04, 2 LEDs verde/rojo, MQ-2, buzzer, botón, servo SG90 y los dos sensores IR de entrada/salida) y, como nodo separado, el Plate Camera Node (ESP32-CAM).
 
-<img src="assets/images/screenshots/prototype_new.png" alt="Esquemático del prototipo IoT de SpotFinder en Wokwi: ESP32 con HC-SR04, WS2812B, MQ-2, buzzer, botón, servo SG90 y 2 sensores IR" width="800">
+<img src="assets/images/screenshots/prototype_new.png" alt="Esquemático del prototipo IoT de SpotFinder en Wokwi: ESP32 con HC-SR04, 2 LEDs (verde/rojo), MQ-2, buzzer, botón, servo SG90 y 2 sensores IR" width="800">
 
 El esquemático completo del prototipo (incluyendo el servo y los dos sensores IR) y el firmware se encuentran versionados en el repositorio:
 
@@ -5379,40 +5376,27 @@ El esquemático completo del prototipo (incluyendo el servo y los dos sensores I
 
 El hardware cubre interacciones físicas que se sincronizan con las vistas de la aplicación móvil del conductor, el dashboard web del administrador y el Edge Server, definiendo los siguientes flujos principales de Wireflow físico:
 
-**1. Flujo de Inicialización y Provisioning del Nodo:**
-
-- **Paso 1:** El técnico instala el nodo en el techo del espacio de parqueo y conecta la alimentación.
-- **Paso 2:** El ESP32 arranca y el LED WS2812B parpadea en **Azul `#1A82FF`** indicando estado de provisioning (búsqueda de red Wi-Fi).
-- **Paso 3:** Una vez conectado a la red Wi-Fi y validado contra el Edge Gateway (HTTP/REST con `X-API-Key`), el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
-
-**2. Flujo de Detección de Ocupación (Happy Path):**
+**1. Flujo de Detección de Ocupación (Happy Path):**
 
 - **Paso 1:** Un vehículo entra al espacio y el HC-SR04 detecta una distancia < 100 cm de forma sostenida durante > 2 segundos.
 - **Paso 2:** El ESP32 envía la lectura por **HTTP/REST** al Edge Gateway (`POST /api/v1/monitoring/sensor-readings`); el Edge aplica el debounce y consolida el estado `Occupied`.
-- **Paso 3:** El LED WS2812B cambia inmediatamente a **Rojo `#EF4444`** fijo.
+- **Paso 3:** El LED rojo (GPIO 33) se enciende inmediatamente (**Rojo `#EF4444`** fijo) y el verde se apaga.
 - **Paso 4:** El Edge Server consolida la lectura, la reenvía al backend Cloud y el espacio se refleja como ocupado en el mapa de la app móvil y el dashboard web.
 
-**3. Flujo de Liberación del Espacio (Happy Path):**
+**2. Flujo de Liberación del Espacio (Happy Path):**
 
 - **Paso 1:** El vehículo sale del espacio y el HC-SR04 detecta una distancia estable > 100 cm durante > 2 segundos.
 - **Paso 2:** El ESP32 publica el evento con estado `Available`.
 - **Paso 3:** El LED retorna a **Verde `#10B981`** fijo, y la app móvil notifica a conductores que hayan filtrado por espacios cercanos disponibles.
 
-**4. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
+**3. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
 
-- **Paso 1:** El sensor MQ-2 lee una concentración > 900 PPM por más de 3 segundos.
-- **Paso 2:** El ESP32 publica el evento `EmergencyAlertTriggered` en el topic `parksense/emergency/floor/{floorId}`.
-- **Paso 3:** El Edge Server propaga el comando `BroadcastEvacuationSignal` a todos los nodos del piso.
-- **Paso 4:** Todos los LEDs WS2812B del piso cambian a **parpadeo estroboscópico rojo a 2 Hz** y los buzzers emiten una sirena ascendente/descendente, guiando físicamente la evacuación de los conductores presentes.
-- **Paso 5:** El dashboard web del administrador muestra una alerta crítica con la ubicación del sensor que detectó el evento.
+- **Paso 1:** El sensor MQ-2 supera el umbral de gas por más de 3 segundos.
+- **Paso 2:** El ESP32 envía la lectura al Edge por **HTTP/REST** (`POST /api/v1/monitoring/gas-analysis`).
+- **Paso 3:** El Edge evalúa el umbral crítico y, si hay emergencia, responde marcando el estado de emergencia; el nodo enciende el **LED rojo en parpadeo a 2 Hz** y el buzzer emite una sirena ascendente/descendente localmente.
+- **Paso 4:** El Edge reenvía la alerta consolidada al backend, que registra el evento en el Emergency & Safety BC y notifica al dashboard web del administrador (con la ubicación del sensor) y a los usuarios activos vía FCM.
 
-**5. Flujo de Mantenimiento Manual (Provisioning Reset):**
-
-- **Paso 1:** El técnico mantiene presionado el botón pulsador durante más de 5 segundos.
-- **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
-- **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
-
-**6. Flujo de Ingreso Vehicular (Opción A, edge-mediated — Happy Path):**
+**4. Flujo de Ingreso Vehicular (Opción A, edge-mediated — Happy Path):**
 
 - **Paso 1:** El **Plate Camera Node (ESP32-CAM)** captura la placa periódicamente (~2.5 s) y la envía al Edge: `POST /api/v1/access/plate` (imagen base64, cabecera `X-API-Key`).
 - **Paso 2:** El Edge reenvía la imagen al backend (`POST /api/v1/access/entries`). El backend reconoce la placa vía **Plate Recognizer**, crea la `VehicleSession` y responde `201 Created`.
@@ -5422,7 +5406,7 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 
 > **Validado en hardware (jul. 2026):** flujo probado extremo a extremo con la CAM y el DevKit en la misma red Wi-Fi 2.4 GHz, el Edge en la laptop y el backend Spring Boot + MySQL 8. Se confirmó `POST /access/plate → 200`, creación de sesión (`ABC-123` en modo *stub* del ALPR), `GET /access/barrier → OPEN` y la lectura del comando por el DevKit. La app móvil Flutter mostró la sesión activa `ABC-123` y el "Ingreso confirmado" consumiendo el mismo backend.
 
-**7. Flujo de Salida Vehicular con Verificación de Pago (diseño; Unhappy Path incluido):**
+**5. Flujo de Salida Vehicular con Verificación de Pago (diseño; Unhappy Path incluido):**
 
 - **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 27) detecta su presencia.
 - **Paso 2:** Se consulta el estado de la sesión (`GET /api/v1/parking-sessions/{id}`) y se lee `paymentStatus`.
@@ -5467,7 +5451,7 @@ Como herramientas SaaS y de colaboración se utilizará GitHub para el control d
 
 Como herramienta de diseño UX/UI se utilizará Figma para la creación de wireframes, mockups y prototipos interactivos de la aplicación móvil y dashboard web.
 
-Como herramienta de desarrollo para el componente IoT y Edge Computing se utilizará Visual Studio Code junto con Python/Flask y el protocolo MQTT para la comunicación con sensores y dispositivos IoT.
+Como herramienta de desarrollo para el componente IoT y Edge Computing se utilizará Visual Studio Code junto con Python/Flask y comunicación **HTTP/REST** con los sensores y dispositivos IoT.
 
 Para el desarrollo de la landing page se utilizarán HTML5, CSS3 y JavaScript, debido a la facilidad de implementación y compatibilidad con despliegues estáticos modernos.
 
@@ -5620,7 +5604,7 @@ Para la base de datos MySQL se utilizará **Railway** o **Aiven for MySQL** como
 
 Para el despliegue de la aplicación móvil se utilizará **Android Studio** para generación de builds APK y **Google Play Console** para distribución futura.
 
-Para los servicios IoT y Edge Processing se utilizarán servidores Linux o servicios cloud compatibles con MQTT y Flask.
+Para los servicios IoT y Edge Processing se utilizarán servidores Linux o servicios cloud compatibles con HTTP/REST y Flask.
 
 El despliegue seguirá los siguientes pasos:
 
@@ -7044,7 +7028,7 @@ En esta sección se presentan las conclusiones y recomendaciones derivadas del d
 ### Conclusiones
 
 * La revisión del informe evidencia que **SpotFinder** responde a una necesidad real y documentada en el contexto peruano: la ineficiencia en la gestión de estacionamientos de centros comerciales en Lima, donde los conductores pierden en promedio cinco horas semanales buscando espacio y la congestión vehicular genera pérdidas de S/ 23,300 millones anuales según el BCR. El problema está sustentado tanto por fuentes estadísticas oficiales (IPE, AAP, INEI, Lima Cómo Vamos) como por la investigación cualitativa con seis entrevistas a conductores y administradores, quienes confirmaron la frustración con los sistemas manuales actuales y la necesidad de automatización.
-* La propuesta de solución está correctamente orientada al integrar hardware IoT accesible (ESP32, sensores HC-SR04, LEDs WS2812B, ESP32-CAM, sensor MQ-2) con una arquitectura de software basada en Domain-Driven Design. El uso de Lean UX permitió conectar cinco hipótesis de valor con métricas concretas (reducción del 50% del tiempo de búsqueda, 90% de precisión ALPR, 50% de pagos digitales en tres meses), y la validación mediante entrevistas confirmó que las funcionalidades priorizadas coinciden con las necesidades de ambos segmentos.
+* La propuesta de solución está correctamente orientada al integrar hardware IoT accesible (ESP32, sensores HC-SR04, LEDs de guiado verde/rojo, ESP32-CAM, sensor MQ-2) con una arquitectura de software basada en Domain-Driven Design. El uso de Lean UX permitió conectar cinco hipótesis de valor con métricas concretas (reducción del 50% del tiempo de búsqueda, 90% de precisión ALPR, 50% de pagos digitales en tres meses), y la validación mediante entrevistas confirmó que las funcionalidades priorizadas coinciden con las necesidades de ambos segmentos.
 * El diseño técnico presenta una base sólida para escalar el producto, gracias a la identificación de ocho bounded contexts
 (tres Core, cuatro Supporting, uno Generic) y la definición de patrones de integración (OHS, Customer/Supplier, ACL, Published Language, Conformist). El Tactical DDD documenta siete bounded contexts completos con sus cuatro capas, class diagrams y database design, dejando una arquitectura consistente y lista para implementación.
 

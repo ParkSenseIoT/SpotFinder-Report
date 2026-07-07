@@ -6874,6 +6874,14 @@ Prototipo físico con los dos nodos del diseño "Opción A": el **Parking Spot +
 
 <img src="assets/images/screenshots/sprint3-edge.png" alt="Edge Gateway corriendo en la laptop con las peticiones de los nodos ESP32" width="800">
 
+Monitor serial del **Parking Spot + Barrier Node** (ESP32 DevKit): conexión Wi-Fi, envío de lecturas al Edge y consulta del comando de barrera:
+
+<img src="assets/images/screenshots/sprint3-serial-devkit.png" alt="Monitor serial del ESP32 DevKit durante el flujo de ocupación, gas y barrera" width="700">
+
+Monitor serial del **Plate Camera Node** (ESP32-CAM): captura de la placa y envío al Edge (`POST /access/plate`):
+
+<img src="assets/images/screenshots/sprint3-serial-cam.png" alt="Monitor serial del ESP32-CAM enviando la imagen de la placa al Edge" width="700">
+
 ### 6.2.3.7. Services Documentation Evidence for Sprint Review
 
 El Edge Gateway expone una API REST propia (consumida por los nodos ESP32) que actúa como fachada hacia el backend. Los contratos principales documentados en este Sprint son:

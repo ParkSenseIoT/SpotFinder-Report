@@ -6677,7 +6677,25 @@ La aplicación móvil se desarrolló en **Flutter/Dart** y se ejecuta en emulado
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint
 
-*Pendiente — se documentará en AV2.*
+Durante el Sprint 2, el equipo mantuvo el flujo de trabajo *GitFlow* con ramas `feature/<nombre>` para cada contribución individual dentro de los tres repositorios activos de la organización [ParkSenseIoT](https://github.com/ParkSenseIoT):
+
+- **SpotFinder-Backend** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Backend)): endpoints REST de pagos, notificaciones push (FCM), analítica (ocupación e ingresos), gestión de emergencias y el nuevo Bounded Context *Reservation Management*.
+- **SpotFinder-Frontend** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Frontend)): dashboard administrativo web en Angular con las cinco páginas reales (Access Control, Emergency Center, Reports, Users, Facility Settings) y el refactoring con lazy loading.
+- **SpotFinder-Flutter** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Flutter)): primera versión funcional de la aplicación móvil para conductores con flujos de pago, localización de vehículo, reservas, pase digital Google Wallet y servicios premium.
+
+La gestión del Sprint se realizó mediante **Trello**, con un tablero que refleja 75 tarjetas distribuidas en las columnas "Lista de tareas", "En proceso" y "Hecho". El equipo llevó a cabo **Daily Standups** a través de Discord para sincronizar avances e identificar bloqueos, y una *Sprint Review* al final del período donde se validaron los flujos end-to-end desde el dashboard web y la app móvil contra la REST API desplegada en Render.
+
+*Gráfico de commits por integrante (Sprint 2):*
+
+![Commits Graph Sprint 2](./assets/images/screenshots/commitsgraph-tb2.png)
+
+*Gráfico de red (network graph) de ramas durante el Sprint 2:*
+
+![Network Graph Sprint 2](./assets/images/screenshots/networkgraph-tb2.png)
+
+*Contribuciones de los integrantes durante el Sprint 2:*
+
+![Contributors Image Sprint 2](./assets/images/screenshots/contributorsimage-tb2.png)
 
 <div style="page-break-after: always;"></div>
 

@@ -6864,6 +6864,16 @@ Dashboard del conductor mostrando la **sesión activa `ABC-123`** (generada por 
 
 <img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y el Edge Gateway de SpotFinder (Opción A)" width="800">
 
+#### 6.2.3.6.3. Prototipo físico y Edge Gateway
+
+Prototipo físico con los dos nodos del diseño "Opción A": el **Parking Spot + Barrier Node** (ESP32 DevKit) y el **Plate Camera Node** (ESP32-CAM):
+
+<img src="assets/images/screenshots/sprint3-prototype.jpeg" alt="Prototipo físico de SpotFinder: ESP32 DevKit y ESP32-CAM cableados" width="600">
+
+**Edge Gateway** (Flask) corriendo en la laptop y recibiendo por HTTP/REST las peticiones de los nodos (`sensor-readings`, `gas-analysis`, `access/plate`, `access/barrier`):
+
+<img src="assets/images/screenshots/sprint3-edge.png" alt="Edge Gateway corriendo en la laptop con las peticiones de los nodos ESP32" width="800">
+
 ### 6.2.3.7. Services Documentation Evidence for Sprint Review
 
 El Edge Gateway expone una API REST propia (consumida por los nodos ESP32) que actúa como fachada hacia el backend. Los contratos principales documentados en este Sprint son:

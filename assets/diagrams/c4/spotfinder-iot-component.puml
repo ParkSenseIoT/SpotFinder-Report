@@ -5,8 +5,6 @@
 skinparam monochrome true
 skinparam shadowing false
 skinparam defaultFontName Arial
-skinparam Handwritten false
-skinparam Padding 2
 
 title Component Diagram — IoT Nodes & Edge (SpotFinder)
 
@@ -15,21 +13,22 @@ Container(edge, "Edge Gateway", "Flask / Python (REST)", "API REST + reglas de d
 Container(backend, "Backend API", "Spring Boot", "RESTful API")
 System_Ext(plateRecognizer, "Plate Recognizer API", "ALPR", $tags="External")
 
-Container_Boundary(spotNode, "Parking Spot Node (ESP32)") {
+Container_Boundary(spotNode, "Parking Spot + Barrier Node (ESP32 DevKit)") {
   Component(ultrasonic, "UltrasonicSensor", "C++ / HC-SR04", "Mide distancia y emite VehicleDetected/VehicleLeft")
-  Component(neopixel, "NeoPixelLed", "C++ / WS2812B", "Guiado visual verde/rojo/azul/estroboscópico")
+  Component(statusLeds, "StatusLeds", "C++ / 2 LEDs (verde 32 / rojo 33)", "Guiado visual disponible/ocupado")
   Component(gas, "GasSensor", "C++ / MQ-2", "Lee PPM y emite GasExceeded")
-  Component(buzzer, "Buzzer", "C++", "Sirena de evacuación")
-  Component(spotLogic, "ParkingSpotNode", "C++ / Device", "Orquesta sensores/actuadores del slot")
+  Component(buzzer, "Buzzer", "C++", "Sirena de evacuación / aviso")
+  Component(irIn, "IrSensor (Entrada)", "C++ / FC-51 GPIO14", "Detecta llegada del vehículo a la barrera")
+  Component(irOut, "IrSensor (Salida)", "C++ / FC-51 GPIO27", "Confirma paso del vehículo")
+  Component(servo, "ServoBarrier", "C++ / SG90 GPIO26", "Abre/cierra la barrera (0°/90°)")
+  Component(spotLogic, "ParkingSpot+BarrierNode", "C++ / Device", "Orquesta sensores/actuadores del slot y la barrera")
+  Component(edgeClient, "EdgeClient", "C++ / HTTPClient", "Cliente HTTP/REST hacia el Edge (X-API-Key)")
 }
 
-Container_Boundary(barrierNode, "Access Barrier Node (ESP32-CAM)") {
-  Component(irIn, "IrSensor (Entrada)", "C++ / FC-51", "Detecta llegada del vehículo")
-  Component(irOut, "IrSensor (Salida)", "C++ / FC-51", "Confirma paso del vehículo")
-  Component(camera, "Camera (OV2640)", "C++ / ESP32-CAM", "Captura imagen de placa para ALPR")
-  Component(servo, "ServoBarrier", "C++ / SG90", "Abre/cierra la barrera")
-  Component(barrierLogic, "AccessBarrierNode", "C++ / Device", "Orquesta entrada/salida y barrera")
-  Component(backendClient, "BackendClient", "C++ / HTTPClient", "Cliente REST/HTTP hacia el backend")
+Container_Boundary(cameraNode, "Plate Camera Node (ESP32-CAM, OV3660)") {
+  Component(camera, "Camera (OV3660)", "C++ / ESP32-CAM", "Captura imagen de placa para ALPR")
+  Component(camLogic, "PlateCameraNode", "C++ / Device", "Captura periódica y envío al Edge")
+  Component(camEdgeClient, "EdgeClient", "C++ / HTTPClient", "POST /access/plate (base64, X-API-Key)")
 }
 
 Rel(driver, irIn, "Llega a la barrera de entrada")
@@ -37,18 +36,23 @@ Rel(driver, irOut, "Llega a la barrera de salida")
 
 Rel(ultrasonic, spotLogic, "VehicleDetected / VehicleLeft", "Event")
 Rel(gas, spotLogic, "GasExceeded", "Event")
-Rel(spotLogic, neopixel, "SetGreen/SetRed/StrobeRed", "Command")
-Rel(spotLogic, buzzer, "Siren", "Command")
-Rel(spotLogic, edge, "POST /monitoring/sensor-readings", "HTTPS / REST")
+Rel(spotLogic, statusLeds, "SetGreen / SetRed", "Command")
+Rel(spotLogic, buzzer, "Siren / Beep", "Command")
+Rel(spotLogic, edgeClient, "postOccupancy / postGas", "Call")
+Rel(edgeClient, edge, "POST /monitoring/sensor-readings, /monitoring/gas-analysis", "HTTP/REST")
 
-Rel(irIn, barrierLogic, "ObstacleDetected", "Event")
-Rel(irOut, barrierLogic, "ObstacleDetected", "Event")
-Rel(barrierLogic, camera, "Captura imagen", "Command")
-Rel(barrierLogic, servo, "Open / Close", "Command")
-Rel(barrierLogic, backendClient, "createSession / getPaymentStatus / endSession")
-Rel(backendClient, backend, "POST /parking-sessions, /access/entries, GET/PATCH sessions", "HTTPS")
+Rel(camera, camLogic, "Frame JPEG", "Event")
+Rel(camLogic, camEdgeClient, "sendPlate(base64)", "Call")
+Rel(camEdgeClient, edge, "POST /access/plate", "HTTP/REST")
+Rel(edge, backend, "Reenvía la placa: POST /access/entries", "HTTP/REST")
 Rel(backend, plateRecognizer, "Reenvía imagen para ALPR", "HTTPS")
-Rel(edge, backend, "Reenvía eventos consolidados", "HTTPS")
+
+Rel(irIn, spotLogic, "ObstacleDetected", "Event")
+Rel(irOut, spotLogic, "ObstacleDetected", "Event")
+Rel(spotLogic, edgeClient, "barrierShouldOpen()", "Call")
+Rel(edgeClient, edge, "GET /access/barrier -> {OPEN|IDLE}", "HTTP/REST")
+Rel(spotLogic, servo, "Open / Close (si comando OPEN)", "Command")
+Rel(edge, backend, "Reenvía lecturas consolidadas de monitoreo", "HTTP/REST")
 
 SHOW_LEGEND()
 @enduml

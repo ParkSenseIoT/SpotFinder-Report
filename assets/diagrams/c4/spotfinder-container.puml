@@ -4,8 +4,6 @@
 skinparam monochrome true
 skinparam shadowing false
 skinparam defaultFontName Arial
-skinparam Handwritten false
-skinparam Padding 2
 
 title Container Diagram — SpotFinder (con dispositivos IoT)
 
@@ -24,8 +22,8 @@ System_Boundary(spotfinder, "SpotFinder") {
   Container(edge, "Edge Gateway", "Flask / Python (REST)", "Recibe lecturas HTTP/REST de los nodos (SpotFinder-EdgeGateway), aplica debounce/umbrales y reenvía al backend", $tags="Edge")
   ContainerDb(db, "Database", "MySQL 8 (InnoDB)", "Esquema único 'spotfinder' con tablas por bounded context", $tags="Database")
 
-  Container(spotNode, "Parking Spot Node", "ESP32 / C++", "HC-SR04 (ocupación) + WS2812B (guiado) + MQ-2 (gas) + buzzer", $tags="IoT")
-  Container(barrierNode, "Access Barrier Node", "ESP32-CAM / C++", "Cámara (ALPR) + 2x IR (entrada/salida) + servo SG90 (barrera)", $tags="IoT")
+  Container(spotNode, "Parking Spot + Barrier Node", "ESP32 DevKit / C++", "HC-SR04 (ocupación) + 2 LEDs (verde/rojo) + MQ-2 (gas) + buzzer + 2x IR (entrada/salida) + servo SG90 (barrera)", $tags="IoT")
+  Container(cameraNode, "Plate Camera Node", "ESP32-CAM (OV3660) / C++", "Solo cámara: captura la placa y la envía al Edge para ALPR", $tags="IoT")
 }
 
 Rel(driver, mobile, "Usa la app", "HTTPS, JWT")
@@ -40,10 +38,9 @@ Rel(backend, culqi, "Pagos", "HTTPS")
 Rel(backend, fcm, "Notificaciones push", "HTTPS")
 Rel(backend, web, "Actualizaciones en tiempo real", "WebSocket")
 
-Rel(spotNode, edge, "Publica lecturas de ocupación/gas", "HTTPS / REST")
-Rel(barrierNode, backend, "Envía imagen de placa y eventos de entrada/salida", "HTTPS / REST")
-Rel(barrierNode, edge, "Publica eventos de barrera", "HTTPS / REST")
-Rel(edge, backend, "Reenvía eventos consolidados", "HTTPS / REST")
+Rel(cameraNode, edge, "Envía imagen de placa (base64) cada ~2.5 s", "HTTP/REST POST /access/plate")
+Rel(spotNode, edge, "Publica ocupación/gas y consulta el comando de barrera (OPEN/IDLE)", "HTTP/REST")
+Rel(edge, backend, "Reenvía lecturas consolidadas y la placa para ALPR", "HTTP/REST")
 
 SHOW_LEGEND()
 @enduml

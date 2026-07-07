@@ -15,7 +15,8 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
             backendApi    = container "Backend API"       "Servicios RESTful: lógica de negocio de los 7 bounded contexts (IAM, Parking Monitoring, Access Control, Payment Processing, Emergency & Safety, Analytics & Reporting, Notification Management)." "Spring Boot 4 / Java 21"
             edgeServer    = container "Edge Gateway"      "Capa edge: recibe lecturas HTTP/REST de los nodos, aplica debounce/umbrales y reenvía eventos al backend."          "Flask / Python (REST)"     "Edge"
             database      = container "Database"          "Persistencia relacional del sistema. Esquema único `spotfinder` con tablas por bounded context."                   "MySQL 8 (InnoDB)"          "Database"
-            iotNode       = container "Parking Spot Node" "Nodo IoT por espacio: ESP32 + HC-SR04 + LEDs + MQ-2 + buzzer. Publica lecturas vía HTTP/REST."                       "ESP32 / C++ (HTTP)"        "IoT"
+            iotNode       = container "Parking Spot + Barrier Node" "Nodo IoT (ESP32 DevKit): HC-SR04 + 2 LEDs (verde/rojo) + MQ-2 + buzzer + 2x IR + servo SG90. Publica ocupación/gas y consulta el comando de barrera (OPEN/IDLE) vía HTTP/REST." "ESP32 DevKit / C++ (HTTP)" "IoT"
+            cameraNode    = container "Plate Camera Node" "Nodo IoT (ESP32-CAM, sensor OV3660): solo cámara. Captura la placa y la envía al Edge para ALPR (HTTP/REST)." "ESP32-CAM / C++ (HTTP)" "IoT"
         }
 
         # --- Sistemas externos ---
@@ -48,8 +49,9 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
         spotfinder.backendApi -> fcm        "Envía notificaciones push"
         spotfinder.backendApi -> mallSys    "Intercambia datos operativos"
 
-        spotfinder.iotNode    -> spotfinder.edgeServer "Publica lecturas y eventos (HTTP/REST)"
-        spotfinder.edgeServer -> spotfinder.backendApi "Reenvía eventos consolidados (HTTPS / REST)"
+        spotfinder.iotNode    -> spotfinder.edgeServer "Publica ocupación/gas y consulta el comando de barrera OPEN/IDLE (HTTP/REST)"
+        spotfinder.cameraNode -> spotfinder.edgeServer "Envía la imagen de la placa: POST /access/plate (HTTP/REST)"
+        spotfinder.edgeServer -> spotfinder.backendApi "Reenvía lecturas y la placa para ALPR (HTTP/REST)"
         spotfinder.backendApi -> spotfinder.webDashboard "Push de actualizaciones en tiempo real (WebSocket)"
 
         # --- Deployment: ambiente productivo ---
@@ -82,6 +84,7 @@ workspace "SpotFinder" "C4 Model — Sistema IoT de gestión inteligente de esta
 
             parkingFloor = deploymentNode "Parking Floor" "Espacios físicos del estacionamiento" "Centro comercial" {
                 hostedIotNode = containerInstance spotfinder.iotNode
+                hostedCameraNode = containerInstance spotfinder.cameraNode
             }
         }
     }

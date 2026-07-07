@@ -1,29 +1,30 @@
 /* ============================================================================
- *  SpotFinder — Firmware del nodo IoT (ESP32 / ESP32-CAM)
+ *  SpotFinder — Sketch de SIMULACIÓN (Wokwi) del nodo IoT (ESP32)
  *  ParkSense IoT
  *
- *  Integra en un solo sketch las tres responsabilidades físicas del prototipo:
+ *  Este sketch es una simulación de referencia que integra en una sola placa las
+ *  responsabilidades físicas del prototipo para validarlas sin hardware. El
+ *  firmware AUTORITATIVO está dividido en dos nodos (diseño "Opción A") y vive en
+ *  el repositorio SpotFinder-EmbeddedApp:
+ *    - Parking Spot + Barrier Node (ESP32 DevKit):   src/main.cpp (PlatformIO)
+ *    - Plate Camera Node (ESP32-CAM, sensor OV3660): arduino/PlateCameraNode/PlateCameraNode.ino
  *
- *   1. Parking Spot Node  : HC-SR04 (ocupación) + WS2812B (guiado visual)
- *   2. Emergency Node     : MQ-2 (gas/humo, simulado con potenciómetro) + buzzer
- *   3. Access Barrier Node: 2x IR (entrada/salida) + servo SG90 (barrera)
+ *  Responsabilidades simuladas aquí:
+ *   1. Parking Spot Node  : HC-SR04 (ocupación) + 2 LEDs de guiado (verde/rojo)
+ *   2. Emergency          : MQ-2 (gas/humo, simulado con potenciómetro) + buzzer
+ *   3. Access Barrier     : 2x IR (entrada/salida) + servo SG90 (barrera)
  *
- *  El nodo se conecta por Wi-Fi y habla por HTTP REST con el Backend Spring Boot
- *  (en la demo, directo; en producción, vía el Edge Server Flask + MQTT).
+ *  Arquitectura HTTP/REST de extremo a extremo (sin MQTT): los nodos hablan con
+ *  el SpotFinder Edge Gateway (Flask), que consolida y reenvía al Backend Spring
+ *  Boot. Endpoints reales del Edge:
+ *   - POST /api/v1/monitoring/sensor-readings   (ocupación del slot, X-API-Key)
+ *   - POST /api/v1/monitoring/gas-analysis       (gas > umbral)
+ *   - POST /api/v1/access/plate                  (la cámara envía la placa)
+ *   - GET  /api/v1/access/barrier                (el DevKit consulta OPEN/IDLE)
  *
- *  Endpoints usados:
- *   - POST   /api/v1/sensor-readings        (ocupación del slot)
- *   - POST   /api/v1/parking-sessions       (entrada: crea sesión por placa)
- *   - GET    /api/v1/parking-sessions/{id}  (salida: verifica paymentStatus)
- *   - PATCH  /api/v1/parking-sessions/{id}/end
- *   - POST   /api/v1/emergency/alerts        (gas > umbral)
- *
- *  Librerías (Arduino IDE / PlatformIO):
- *   - WiFi.h           (incluida en el core ESP32)
- *   - HTTPClient.h     (incluida en el core ESP32)
- *   - ArduinoJson      (Benoit Blanchon)
- *   - Adafruit_NeoPixel
- *   - ESP32Servo
+ *  Librerías: WiFi.h, HTTPClient.h (core ESP32), ArduinoJson (Benoit Blanchon),
+ *  ESP32Servo. Nota: el build físico usa 2 LEDs discretos (verde GPIO32 / rojo
+ *  GPIO33) por GPIO directo; esta simulación los representa con un NeoPixel.
  * ========================================================================== */
 
 #include <WiFi.h>
@@ -46,14 +47,14 @@ const char* BARRIER_IN  = "ENTRY-01";
 const long  DEMO_USER   = 1;          // userId dueño de la sesión
 
 // ------------------------- Pines (ESP32 DevKit / Wokwi) --------------------
-// NOTA: en el ESP32-CAM físico se usan GPIO 13 (IR entrada), 15 (IR salida) y
-// 14 (servo); aquí se usa el mapeo del DevKit para la simulación en Wokwi.
+// NOTA: en el build físico (ESP32 DevKit) el firmware usa GPIO 14 (IR entrada),
+// 27 (IR salida) y 26 (servo); estos mismos pines se usan aquí.
 const int PIN_TRIG   = 5;
 const int PIN_ECHO   = 18;
 const int PIN_LED    = 4;     // WS2812B (DIN, con R=330 ohm)
 const int PIN_MQ2    = 34;    // ADC1 (potenciómetro simula gas)
 const int PIN_BUZZER = 25;
-const int PIN_BTN    = 13;    // provisioning (INPUT_PULLUP)
+const int PIN_BTN    = 13;    // botón: reenvío manual / reset (INPUT_PULLUP)
 const int PIN_SERVO  = 26;    // barrera
 const int PIN_IR_IN  = 14;    // IR entrada  (LOW = vehículo detectado)
 const int PIN_IR_OUT = 27;    // IR salida

@@ -309,6 +309,7 @@ Para el TB2 el equipo, ya conformado por 4 integrantes, continuó trabajando en 
   - [6.2. Landing Page, Services & Applications Implementation](#62-landing-page-services--applications-implementation)
     - [6.2.1. Sprint 1](#621-sprint-1)
     - [6.2.2. Sprint 2](#622-sprint-2)
+    - [6.2.3. Sprint 3](#623-sprint-3)
   - [6.3. Validation Interviews](#63-validation-interviews)
     - [6.3.1. Diseño de Entrevistas](#631-diseño-de-entrevistas)
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
@@ -6677,6 +6678,212 @@ La aplicación móvil se desarrolló en **Flutter/Dart** y se ejecuta en emulado
 ### 6.2.2.9. Team Collaboration Insights during Sprint
 
 *Pendiente — se documentará en AV2.*
+
+<div style="page-break-after: always;"></div>
+
+---
+
+## 6.2.3. Sprint 3
+
+### 6.2.3.1. Sprint Planning 3
+
+| Campo | Detalle |
+|---|---|
+| **Sprint #** | Sprint 3 |
+| **Date** | 2026-06-05 |
+| **Time** | 10:00 PM |
+| **Location** | Reunión virtual a través de Discord |
+| **Prepared by** | Roman Esteban, Henry Kalet |
+| **Attendees (to planning meeting)** | Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington; Roman Esteban, Henry Kalet |
+| **Sprint 2 Review Summary** | El Sprint 2 entregó el dashboard administrativo web (Angular) y la primera versión de la app móvil del conductor (Flutter), ambos consumiendo la REST API; se completaron los endpoints REST restantes (pagos, notificaciones, analítica y emergencias), el Bounded Context Reservation Management (backend + UI), las funcionalidades Premium (Google Wallet y servicios premium), el registro de vehículos y las cinco páginas reales del dashboard; además se alineó la base de datos a MySQL 8 y se regeneraron los diagramas C4. Se completaron **136 story points** sin incidencias críticas. |
+| **Sprint 3 Goal** | Nuestro enfoque está en cerrar la **capa IoT y Edge Computing** de SpotFinder, la única capa que quedaba por implementar de extremo a extremo. En concreto: (1) construir el **Edge Gateway** (Flask con arquitectura DDD: bounded contexts IAM, Monitoring y Access) que autentica a los nodos por `device_id` + `X-API-Key`, aplica el debounce de ocupación y el umbral de gas, y reenvía al backend; (2) implementar el **firmware embebido** de los dos nodos físicos del diseño "Opción A" — el **Parking Spot + Barrier Node** (ESP32 DevKit: HC-SR04, MQ-2, 2 LEDs, buzzer, 2× IR y servo de barrera) y el **Plate Camera Node** (ESP32-CAM, sensor OV3660, solo cámara); (3) integrar el **ALPR real** con Plate Recognizer en el backend; (4) **validar el flujo completo en hardware físico** (cámara → Edge → backend → sesión → comando de barrera → servo); y (5) **conectar la app móvil Android** al backend mostrando los datos reales del IoT.<br><br> Creemos que esto entrega, por primera vez, el circuito físico completo del producto: un vehículo detectado por la cámara genera una sesión vía ALPR en el backend, el Edge levanta el comando de apertura y el nodo embebido abre la barrera, mientras la app del conductor refleja la sesión activa en tiempo real.<br><br> Esto se confirmará cuando el nodo embebido y el Edge se comuniquen por HTTP/REST sin incidencias, el flujo de barrera sea verificable de extremo a extremo con los dos ESP32 físicos, el ALPR real devuelva placas desde Plate Recognizer, y la app Android muestre la sesión y el ingreso generados por el hardware. |
+| **Sprint 3 Velocity** | 84 story points |
+| **Sum of Story Points** | 84 story points |
+
+<div style="page-break-after: always;"></div>
+
+### 6.2.3.2. Aspect Leaders and Collaborators
+
+En esta sección se presenta la matriz de liderazgo y colaboración correspondiente al Sprint 3. Dado que el Sprint 3 se centró en la capa IoT y Edge Computing, los aspectos considerados incluyen el desarrollo del **Edge Gateway** (Flask/DDD), el **firmware embebido** de los dos nodos ESP32 (Opción A), el **ALPR real y los endpoints de acceso del backend**, la **validación del flujo completo en hardware** y la **documentación** (actualización del §5.6, diagramas C4 y alineación del informe con el build real).
+
+| Team Member (Last Name, First Name) | GitHub Username | Edge Gateway | Embedded Firmware (ESP32) | ALPR & Backend Access | Hardware Validation | Documentation |
+|---|---|---|---|---|---|---|
+| Esteban Román, Henry Kalet | kalet123-commit | L | C | C | L | L |
+| Allcca Guerrero, Irving Washington | eviterno17 | C | L | C | L | C |
+| Cruz Ibarra, Victor Andrés | Elandrehss | C | C | L | C | C |
+| Dueñas Canales, Leonardo Manuel | Insonnio | C | C | C | C | L |
+| Vidal Castro, Miguel Angel | Gossk | C | C | C | C | C |
+
+### 6.2.3.3. Sprint Backlog 3
+
+En esta sección se presenta el Sprint Backlog correspondiente al Sprint 3 del proyecto SpotFinder. Durante este Sprint el equipo construyó el **Edge Gateway** (Flask/DDD) con los bounded contexts IAM, Monitoring y Access; implementó el **firmware embebido** de los dos nodos del diseño "Opción A" (Parking Spot + Barrier Node en ESP32 DevKit y Plate Camera Node en ESP32-CAM); integró el **ALPR real** con Plate Recognizer (con fallback a stub); **validó el flujo completo en hardware físico**; y **conectó la app Android** al backend mostrando datos reales del IoT. El Sprint comprometió un total de **84 story points**.
+
+Atendiendo la observación de mejora del Sprint 2 ("los User Stories deben descomponerse en Engineering Tasks estimadas en horas, en el rango de 4 a 8 horas como máximo" y "el user goal debe incluir el embebido y EDGE"), en este Sprint **cada User/Technical Story se descompone en Engineering Tasks estimadas entre 4 y 8 horas**, y el seguimiento del tablero usa los estados **To Do → In Process → To Review → Done**. El *Sprint Goal* (sección 6.2.3.1) fue redactado explícitamente alrededor del **componente embebido y el Edge Gateway**.
+
+A continuación, se muestra el tablero de trabajo utilizado para la gestión de tareas del Sprint:
+
+![Sprint Backlog 3 in Trello](assets/images/screenshots/sprint3_trello.png)
+
+Link Trello: [SpotFinder - Trello]()
+
+| Epic / US | Título | Item | Work Item | Descripción | Est. (h) | Asignado a | Estado | SP |
+|---|---|---|---|---|---|---|---|---|
+| US26 | Detección de ocupación del Parking Spot Node | US26a | Firmware de ocupación + LEDs | Lectura HC-SR04 con suavizado/debounce local y control de los 2 LEDs (verde GPIO32 / rojo GPIO33) según ocupación. | 6 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US26 | Detección de ocupación del Parking Spot Node | US26b | Envío de lecturas al Edge | `EdgeClient.postOccupancy()` → `POST /api/v1/monitoring/sensor-readings` con cabecera `X-API-Key`. | 5 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US27 | Detección de emergencia por gas | US27a | Firmware MQ-2 + buzzer | Lectura analógica del MQ-2 (GPIO34) con umbral local y activación de buzzer + LED rojo en emergencia. | 5 | Allcca Guerrero, Irving Washington | Done | 5 |
+| US27 | Detección de emergencia por gas | US27b | Envío de gas al Edge | `EdgeClient.postGas()` → `POST /api/v1/monitoring/gas-analysis` y reacción al flag de emergencia del Edge. | 4 | Roman Esteban, Henry Kalet | Done | 5 |
+| US28 | Control de barrera vehicular (Opción A) | US28a | Firmware DevKit: IR + servo + polling | 2× IR (entrada GPIO14 / salida GPIO27) + servo (GPIO26) y `EdgeClient.barrierShouldOpen()` → `GET /api/v1/access/barrier`. | 7 | Allcca Guerrero, Irving Washington | Done | 13 |
+| US28 | Control de barrera vehicular (Opción A) | US28b | Firmware Plate Camera Node (ESP32-CAM) | Captura JPEG (OV3660, xclk 10 MHz, Huge APP) y `POST /api/v1/access/plate` (base64, `X-API-Key`) cada ~2.5 s. | 6 | Allcca Guerrero, Irving Washington | Done | 13 |
+| TS47 | Edge Gateway — Bounded Context IAM | TS47a | Autenticación de nodos | BC IAM (DDD) con validación `device_id` + `X-API-Key`, seed del nodo de prueba y respuesta 401 ante credenciales inválidas. | 5 | Roman Esteban, Henry Kalet | Done | 3 |
+| TS48 | Edge Gateway — Bounded Context Monitoring | TS48a | Ocupación + debounce | `POST /monitoring/sensor-readings` y `GET /monitoring/occupancy` con debounce "sostenido > 2 s". | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS48 | Edge Gateway — Bounded Context Monitoring | TS48b | Análisis de gas | `POST /monitoring/gas-analysis` con evaluación de umbral y marca de emergencia. | 4 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS49 | Edge Gateway — Bounded Context Access (Opción A) | TS49a | Relay de placa | `POST /api/v1/access/plate` que reenvía la imagen de la cámara al backend (`/access/entries`). | 5 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS49 | Edge Gateway — Bounded Context Access (Opción A) | TS49b | Comando de barrera | `GET /api/v1/access/barrier` con comando `OPEN`/`IDLE` y ventana de validez de 8 s tras el reconocimiento. | 5 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS50 | Edge Gateway — Reenvío al backend | TS50a | BackendClient | Reenvío condicionado a `SPOTFINDER_BACKEND_URL`; modo offline (solo LED local) cuando la env no está seteada. | 5 | Cruz Ibarra, Victor Andres | Done | 5 |
+| TS51 | ALPR real con Plate Recognizer | TS51a | Cliente multipart | `PlateRecognizerClient` con `RestClient`: POST multipart a Snapshot Cloud (`Authorization: Token`) y parseo de `results[0].plate/score`. | 6 | Cruz Ibarra, Victor Andres | Done | 8 |
+| TS51 | ALPR real con Plate Recognizer | TS51b | Fallback y configuración | Fallback determinista al stub cuando no hay token o falla la API; config `PLATE_RECOGNIZER_TOKEN/URL/REGIONS/STUB_FALLBACK`. | 4 | Cruz Ibarra, Victor Andres | Done | 8 |
+| TS52 | Backend — Endpoints de acceso + fixes de arranque | TS52a | Endpoints públicos | Habilitar `/access/entries` y `/access/exits` sin JWT en `WebSecurityConfiguration` para el Edge/IoT. | 4 | Cruz Ibarra, Victor Andres | Done | 5 |
+| TS52 | Backend — Endpoints de acceso + fixes de arranque | TS52b | Fixes MySQL 8 + RestClient | `allowPublicKeyRetrieval=true` (caching_sha2) y construcción del `RestClient` con `RestClient.create()`. | 4 | Roman Esteban, Henry Kalet | Done | 5 |
+| US29 | Validación del flujo completo en hardware | US29a | Autotest de componentes | Firmware de autotest que valida HC-SR04, MQ-2, botón, buzzer, 2 LEDs, 2 IR y servo por separado desde el monitor serial. | 5 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US29 | Validación del flujo completo en hardware | US29b | Prueba E2E CAM+DevKit+Edge+Backend | Los dos ESP32 en la misma red 2.4 GHz → `POST /access/plate → 200`, sesión creada y `GET /access/barrier → OPEN` verificado en vivo. | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| US29 | Validación del flujo completo en hardware | US29c | Apertura física del servo | Tapar el IR de entrada del DevKit dentro de la ventana `OPEN` y confirmar la apertura del servo de la barrera. | 4 | Allcca Guerrero, Irving Washington | To Review | 8 |
+| US30 | Conexión de la app Android con el backend | US30a | Build y login real | Configurar `SPOTFINDER_API_URL`, generar el APK y validar login/registro contra el backend desplegado. | 4 | Dueñas Canales, Leonardo Manuel | Done | 5 |
+| US30 | Conexión de la app Android con el backend | US30b | Dashboard con datos reales | Verificar que el dashboard del conductor muestre la sesión activa (`ABC-123`) y el "Ingreso confirmado" generados por el flujo del IoT. | 4 | Dueñas Canales, Leonardo Manuel | Done | 5 |
+| TS53 | Documentación — §5.6 Opción A + C4 + build real | TS53a | §5.6 y diagramas C4 | Reescribir §5.6 a Opción A, corregir OV2640→OV3660 y regenerar los C4 Container y Component. | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS53 | Documentación — §5.6 Opción A + C4 + build real | TS53b | Alineación al build real | Reemplazar MQTT→HTTP/REST y WS2812B→2 LEDs, ajustar flujos y actualizar el workspace DSL de Structurizr. | 5 | Dueñas Canales, Leonardo Manuel | Done | 8 |
+
+### 6.2.3.4. Development Evidence for Sprint Review
+
+Durante el Sprint 3, el equipo concentró sus esfuerzos en la capa IoT y Edge Computing, completando el circuito físico de extremo a extremo del producto. Se construyó el **Edge Gateway** en Flask con arquitectura DDD (bounded contexts IAM, Monitoring y Access), que autentica a los nodos por `device_id` + `X-API-Key`, aplica el debounce de ocupación ("sostenido > 2 s") y el umbral de gas, y reenvía los eventos consolidados al backend en la nube.
+
+En el **firmware embebido** se implementaron los dos nodos del diseño "Opción A": el **Parking Spot + Barrier Node** (ESP32 DevKit) que integra HC-SR04, MQ-2, dos LEDs de guiado, buzzer, dos sensores IR y el servo de la barrera, consultando al Edge el comando de apertura (`GET /access/barrier`); y el **Plate Camera Node** (ESP32-CAM, sensor OV3660) dedicado exclusivamente a capturar la placa y enviarla al Edge (`POST /access/plate`).
+
+En el **backend** se integró el ALPR real con **Plate Recognizer** (cliente multipart con fallback a stub) y se habilitaron los endpoints de acceso (`/access/entries`, `/access/exits`) sin JWT para el Edge, además de resolver los fixes de arranque necesarios para MySQL 8. Finalmente se **validó el flujo completo en hardware físico** y se **conectó la app Android** al backend, verificando que el dashboard del conductor refleja la sesión y el ingreso generados por la cámara.
+
+La siguiente tabla presenta la evidencia de desarrollo correspondiente al Sprint 3, con los principales commits realizados en cada repositorio.
+
+| Repository | Branch | Commit ID | Commit Message | Committed on (Date) |
+|---|---|---|---|---|
+| SpotFinder-EdgeGateway | main | 63320cb | Merge branch 'feature/access-barrier-cmd' into main | 2026-07-03 |
+| SpotFinder-EdgeGateway | feature/access-barrier-cmd | e504ef5 | feat(access): add GET /access/barrier command for the DevKit to poll (Option A) | 2026-07-03 |
+| SpotFinder-EdgeGateway | feature/access-plate | 012e3f0 | feat(access): add /api/v1/access/plate to relay ESP32-CAM plate image to backend | 2026-07-03 |
+| SpotFinder-EdgeGateway | main | eb4deea | feat(forwarding): forward consolidated events to the cloud backend | 2026-06-18 |
+| SpotFinder-EdgeGateway | main | 04dc14c | feat: scaffold SpotFinder Edge Gateway (Flask DDD, IAM + Monitoring) | 2026-06-18 |
+| SpotFinder-EmbeddedApp | main | 26b52fc | Merge branch 'feature/split-cam-devkit' into main | 2026-07-03 |
+| SpotFinder-EmbeddedApp | feature/split-cam-devkit | 4e9aa2e | refactor(split): CAM = camera-only (PlateCameraNode); DevKit polls edge for barrier | 2026-07-03 |
+| SpotFinder-EmbeddedApp | feature/esp32cam-barrier | ac46be7 | feat(cam): add Access Barrier Node firmware (ESP32-CAM) | 2026-07-03 |
+| SpotFinder-EmbeddedApp | main | bc9d215 | feat: scaffold SpotFinder Embedded App (ESP32 firmware + EdgeClient) | 2026-06-18 |
+| SpotFinder-Backend | develop | 209a7a3 | fix(backend): startup fixes for ALPR client and MySQL 8 connection | 2026-07-06 |
+| SpotFinder-Backend | feature/alpr-platerecognizer-real | 517d7c3 | feat(alpr): real Plate Recognizer multipart client with stub fallback | 2026-07-03 |
+| SpotFinder-Backend | feature/open-access-endpoints | 5b9aa47 | chore(security): allow /access/entries and /access/exits without JWT (edge/IoT) | 2026-07-03 |
+| SpotFinder-Report | develop | 02f2787 | docs(report): align IoT sections to real build (HTTP/REST, 2 LEDs, Opcion A) | 2026-07-07 |
+| SpotFinder-Report | develop | c2c7c8a | docs(report): update IoT section to Opcion A (split camera/barrier nodes) | 2026-07-07 |
+
+### 6.2.3.5. Testing Suite Evidence for Sprint Review
+
+Durante el Sprint 3, dado que la capa validada fue la de IoT/Edge (firmware embebido + gateway + integración con el backend), la estrategia de pruebas se basó en **pruebas funcionales y de integración de extremo a extremo sobre hardware y servicios reales**, complementadas con un **firmware de autotest** que valida cada componente electrónico por separado.
+
+#### Pruebas funcionales del Edge Gateway (locales)
+
+Se ejecutó la batería de pruebas del Edge Gateway levantando el servicio Flask en `0.0.0.0:5000` y usando `curl` sobre cada endpoint:
+
+| Escenario | Endpoint | Resultado esperado | Estado |
+|---|---|---|---|
+| Health check | `GET /status` | `200 {status: ok}` | ✅ |
+| Auth sin API key | `POST /monitoring/sensor-readings` (sin `X-API-Key`) | `401 Unauthorized` | ✅ |
+| Auth con API key válida | `POST /monitoring/sensor-readings` (con `X-API-Key`) | `201 Created` con la lectura | ✅ |
+| Análisis de gas | `POST /monitoring/gas-analysis` | `200` con evaluación de umbral | ✅ |
+| Relay de placa | `POST /access/plate` | `200 FORWARDED` (con backend) / `202 RECEIVED` (offline) | ✅ |
+| Comando de barrera | `GET /access/barrier` | `OPEN` tras reconocimiento / `IDLE` en reposo | ✅ |
+
+#### Autotest de hardware (componentes del Parking Spot + Barrier Node)
+
+Se flasheó un firmware de autotest independiente que lee en vivo y acciona cada componente desde el monitor serial (115200 baud):
+
+| Componente | Pin | Prueba | Resultado |
+|---|---|---|---|
+| HC-SR04 (ultrasónico) | Trig 5 / Echo 18 | Variación de distancia | ✅ |
+| MQ-2 (gas) | AO 34 | Aumento de lectura ante gas | ✅ |
+| Botón | 13 | Detección de pulsación | ✅ |
+| Buzzer | 25 | Emisión de tono | ✅ |
+| LED verde / rojo | 32 / 33 | Encendido por comando | ✅ |
+| IR entrada / salida | 14 / 27 | Detección de obstáculo | ✅ |
+| Servo SG90 (barrera) | 26 | Apertura/cierre (0°/90°) | ✅ |
+
+#### Pruebas de integración End-to-End
+
+| Escenario | Descripción | Resultado |
+|---|---|---|
+| ALPR real | `POST` multipart a Plate Recognizer con token válido | `HTTP 201`, respuesta `results` de la API |
+| Flujo de barrera (software) | CAM → Edge (`/access/plate`) → Backend (`/access/entries`) → sesión `ABC-123` → Edge `OPEN` | ✅ verificado en vivo |
+| Nodos en red estable | DevKit y CAM conectados al hotspot (IP fija `192.168.137.1`) publicando al Edge (`200`) | ✅ |
+| App Android ↔ Backend | Login del conductor y dashboard mostrando la sesión `ABC-123` e "Ingreso confirmado" reales | ✅ |
+| Apertura física del servo | Tapar el IR de entrada dentro de la ventana `OPEN` para abrir la barrera | 🔄 En revisión (prueba presencial final) |
+
+> Nota: las pruebas unitarias automatizadas del Edge (pytest) y del firmware quedan planificadas como deuda técnica para el cierre de AV2.
+
+### 6.2.3.6. Execution Evidence for Sprint Review
+
+Durante el Sprint 3 se ejecutó y verificó el circuito físico completo del producto, desde la captura de la placa por la cámara hasta la apertura de la barrera y el reflejo de la sesión en la app del conductor.
+
+#### Componentes Desarrollados
+* **Edge Gateway (Flask/DDD):** IAM (auth de nodos), Monitoring (ocupación + gas) y Access (placa + comando de barrera).
+* **Embedded App (Opción A):** Parking Spot + Barrier Node (ESP32 DevKit) y Plate Camera Node (ESP32-CAM, OV3660).
+* **Backend — ALPR real:** integración con Plate Recognizer y endpoints de acceso abiertos al Edge.
+* **App móvil (Flutter):** conectada al backend, mostrando datos reales del IoT.
+
+A continuación se presentan las capturas de las principales evidencias de ejecución del Sprint.
+
+#### 6.2.3.6.1. App móvil conectada al backend (datos reales del IoT)
+
+Login del conductor contra el backend:
+
+<img src="assets/images/screenshots/sprint3-app-login.png" width="320">
+
+Dashboard del conductor mostrando la **sesión activa `ABC-123`** (generada por la cámara vía ALPR) y el **"Ingreso confirmado"** en la actividad reciente:
+
+<img src="assets/images/screenshots/sprint3-app-dashboard.png" width="320">
+
+#### 6.2.3.6.2. Diagrama C4 de Componentes — Nodos IoT y Edge (Opción A)
+
+<img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y el Edge Gateway de SpotFinder (Opción A)" width="800">
+
+> **Capturas pendientes (a incorporar por el equipo):** foto del prototipo físico con los dos ESP32 cableados, captura del monitor serial del DevKit durante el flujo de barrera, captura del Edge Gateway corriendo en la laptop, tablero de Trello del Sprint 3 (`sprint3_trello.png`) y evidencia de la apertura física del servo.
+
+### 6.2.3.7. Services Documentation Evidence for Sprint Review
+
+El Edge Gateway expone una API REST propia (consumida por los nodos ESP32) que actúa como fachada hacia el backend. Los contratos principales documentados en este Sprint son:
+
+| Método | Endpoint | Auth | Descripción |
+|---|---|---|---|
+| GET | `/status` | — | Health check del gateway |
+| POST | `/api/v1/monitoring/sensor-readings` | `X-API-Key` | Lectura de ocupación (`device_id`, `slot_id`, `distance_cm`) |
+| GET | `/api/v1/monitoring/occupancy` | `X-API-Key` | Estado de ocupación con debounce ("sostenido > 2 s") |
+| POST | `/api/v1/monitoring/gas-analysis` | `X-API-Key` | Lectura de gas (`device_id`, `gas_level`) y evaluación de umbral |
+| POST | `/api/v1/access/plate` | `X-API-Key` | La cámara envía la imagen de la placa (`image_data` base64) |
+| GET | `/api/v1/access/barrier` | — | El DevKit consulta el comando `{command: OPEN\|IDLE, plate}` |
+
+En el backend, el Bounded Context de Access Control expone `POST /api/v1/access/entries` (ALPR + creación de sesión) y `POST /api/v1/access/exits`, abiertos sin JWT para el Edge. El ALPR se integra con la API externa **Plate Recognizer** (Snapshot Cloud) mediante `Authorization: Token`. La documentación viva del backend permanece disponible vía Swagger UI.
+
+### 6.2.3.8. Software Deployment Evidence for Sprint Review
+
+El Sprint 3 incorporó el despliegue de la **capa de borde y los nodos embebidos**, que por su naturaleza se ejecutan en la red local del estacionamiento (no en la nube).
+
+| Componente | Plataforma / Entorno | Tipo de despliegue | Notas |
+|---|---|---|---|
+| Edge Gateway | Laptop (Windows) en la red local | Servicio Flask en `0.0.0.0:5000` | Reenvía al backend si `SPOTFINDER_BACKEND_URL` está seteada |
+| Parking Spot + Barrier Node | ESP32 DevKit (CP2102) | Firmware PlatformIO (`esp32_hw`, `upload_speed=115200`) | Flasheado por COM4 |
+| Plate Camera Node | ESP32-CAM (CH340, sensor OV3660) | Firmware Arduino IDE (partición "Huge APP") | Flasheado con base MB, auto-reset |
+| Backend + MySQL 8 | Local (validación) / Render + Railway (nube) | Spring Boot + MySQL 8 | ALPR real vía token de Plate Recognizer |
+| Red del demo | Windows Mobile Hotspot 2.4 GHz | AP local con **IP fija `192.168.137.1`** | Desacopla los nodos del roaming de internet |
+
+Para la demostración se estabilizó la red mediante el **Mobile Hotspot de Windows** (banda 2.4 GHz), de modo que la laptop siempre expone la IP fija `192.168.137.1`; así los dos ESP32 apuntan a una dirección constante independientemente de la red por la que la laptop obtenga internet. Se verificó que ambos nodos publican al Edge con respuesta `200` y que el backend, con el token de Plate Recognizer configurado, ejecuta el ALPR real.
+
+### 6.2.3.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 3 el trabajo se distribuyó en cuatro repositorios en paralelo (**SpotFinder-EdgeGateway**, **SpotFinder-EmbeddedApp**, **SpotFinder-Backend** y **SpotFinder-Report**), manteniendo el flujo de ramas `feature/*` integradas mediante *merges* `--no-ff` hacia las ramas de integración (`main` para Edge y Embedded; `develop` para Backend y Report). El liderazgo técnico de la capa IoT/Edge recayó en Allcca Guerrero (firmware) y Henry Kalet (Edge Gateway y validación de hardware), con Cruz Ibarra en el ALPR y los endpoints de acceso del backend, y Dueñas Canales en la conexión de la app móvil y la documentación.
+
+Las principales lecciones aprendidas del Sprint fueron: (1) la importancia de **estabilizar la red** antes de una demo de hardware — el *roaming* automático de la laptop entre redes Wi-Fi rompía la comunicación con los nodos, lo que se resolvió con un hotspot de IP fija; (2) la conveniencia de **bajar la velocidad de flasheo** (115200) para cables/USB de calidad variable; y (3) el valor de un **fallback determinista** (stub del ALPR) para poder ejercitar el flujo completo aun sin conectividad o token, separando la validación mecánica de la del reconocimiento real.
 
 <div style="page-break-after: always;"></div>
 

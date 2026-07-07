@@ -5242,21 +5242,26 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 
 #### Access Barrier Node (Control de Acceso Vehicular)
 
-Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**, basado en un **ESP32-CAM (AI-Thinker, sensor OV2640)** que añade capacidad de captura de imagen para el reconocimiento de placas (ALPR). Este nodo se ubica en las barreras de entrada y salida del estacionamiento e integra los siguientes componentes adicionales:
+Además del Parking Spot Node, la solución incorpora el **control de acceso vehicular** con reconocimiento de placas (ALPR). En la implementación real se adoptó el **diseño "Opción A" (dividido)**, en el que la capacidad de acceso se reparte entre **dos nodos físicos** coordinados por el Edge Gateway (nunca directamente contra el backend):
+
+- **Plate Camera Node — ESP32-CAM (AI-Thinker, sensor OV3660):** dedicado **exclusivamente a la cámara**. Captura la imagen de la placa y la envía en base64 al Edge (`POST /api/v1/access/plate`, con `X-API-Key`) cada ~2.5 s. No controla ni la barrera ni los sensores IR.
+- **Grupo de barrera (2× IR de entrada/salida + servo SG90) montado sobre el Parking Spot Node (ESP32 DevKit):** el DevKit consulta al Edge (`GET /api/v1/access/barrier`) y, cuando el Edge responde `OPEN` (porque el backend reconoció una placa y creó la sesión), abre la barrera si su IR de entrada detecta el vehículo.
+
+De esta forma el Edge desacopla la cámara del actuador: la CAM solo "ve" la placa, el backend hace el ALPR y crea la sesión, y el DevKit ejecuta la apertura física. Los componentes adicionales del grupo de barrera (sobre el DevKit) son:
 
 7. **Servomotor SG90 (Barrera):** Actuador que levanta y baja el brazo de la barrera. Tres conexiones:
-   - **Señal (naranja)** → **GPIO 14** del ESP32-CAM (PWM mediante la librería ESP32Servo).
-   - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32-CAM, para evitar brown-out durante el movimiento).
-   - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32-CAM.
+   - **Señal (naranja)** → **GPIO 26** del ESP32 DevKit (PWM mediante la librería ESP32Servo).
+   - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32, para evitar brown-out durante el movimiento; se comprobó en hardware que el pico del servo corrompe el flasheo si comparte alimentación).
+   - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32.
 
    El servo opera entre 0° (barrera cerrada) y 90° (barrera abierta). Se recomienda un capacitor de 1000 µF entre 5 V y GND para amortiguar los picos de corriente del servo (~500–700 mA).
 
 8. **Sensores Infrarrojos FC-51 (×2, Entrada y Salida):** Detectores de presencia que disparan el flujo de acceso. Cada uno tiene tres conexiones:
-   - **VCC** → **3.3 V** del ESP32-CAM (alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
+   - **VCC** → **3.3 V** del ESP32 (alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
    - **GND** → GND.
-   - **OUT** → **GPIO 13** (IR Entrada) y **GPIO 15** (IR Salida); la salida va a LOW cuando detecta un obstáculo.
+   - **OUT** → **GPIO 14** (IR Entrada) y **GPIO 27** (IR Salida); la salida va a LOW cuando detecta un obstáculo.
 
-   El IR de entrada dispara la captura de placa y la creación de sesión; el IR de salida confirma el paso del vehículo y la verificación de pago antes de cerrar la barrera.
+   El IR de entrada dispara la consulta del comando de barrera al Edge y la apertura del servo; el IR de salida confirma el paso del vehículo antes de cerrar la barrera.
 
 
 #### Resumen de Conexiones (Pinout Table)
@@ -5281,18 +5286,19 @@ Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**
 
 
 
-**Pinout del Access Barrier Node (ESP32-CAM).** En la simulación de Wokwi (ESP32 DevKit) los pines difieren por las restricciones de GPIO del ESP32-CAM:
+**Pinout del grupo de barrera (sobre el ESP32 DevKit).** Bajo la Opción A el servo y los dos IR viven en el DevKit; estos son los GPIO reales usados por el firmware (`build_config.h`). La columna Wokwi refleja los mismos pines en la simulación:
 
-| Componente | Pin del componente | GPIO físico (ESP32-CAM) | GPIO simulación (Wokwi) | Notas |
+| Componente | Pin del componente | GPIO real (ESP32 DevKit) | GPIO simulación (Wokwi) | Notas |
 |---|---|---|---|---|
-| Servo SG90 | Señal | GPIO 14 | GPIO 26 | PWM (ESP32Servo) |
+| Servo SG90 | Señal | GPIO 26 | GPIO 26 | PWM (ESP32Servo) |
 | Servo SG90 | V+ | 5V externo | 5V | riel separado, no del MCU |
 | Servo SG90 | GND | GND común | GND | tierra compartida |
-| IR Entrada (FC-51) | OUT | GPIO 13 | GPIO 14 | LOW = vehículo detectado |
+| IR Entrada (FC-51) | OUT | GPIO 14 | GPIO 14 | LOW = vehículo detectado |
 | IR Entrada (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | alimentar a 3.3 V |
-| IR Salida (FC-51) | OUT | GPIO 15 | GPIO 27 | LOW = vehículo detectado |
+| IR Salida (FC-51) | OUT | GPIO 27 | GPIO 27 | LOW = vehículo detectado |
 | IR Salida (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | |
-| ESP32-CAM (cámara) | OV2640 | bus dedicado | — (no simulable) | captura de placa para ALPR |
+
+El **Plate Camera Node** es un nodo físico aparte (ESP32-CAM, sensor **OV3660**, bus de cámara dedicado, no simulable en Wokwi) que solo captura la placa y la envía al Edge para ALPR.
 
 **Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot Node (HC-SR04, WS2812B, MQ-2, buzzer, botón) y el Access Barrier Node (servo SG90 y los dos sensores IR de entrada/salida).
 
@@ -5344,19 +5350,21 @@ El hardware cubre interacciones físicas que se sincronizan con las vistas de la
 - **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
 - **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
 
-**6. Flujo de Ingreso Vehicular (Access Barrier Node — Happy Path):**
+**6. Flujo de Ingreso Vehicular (Opción A, edge-mediated — Happy Path):**
 
-- **Paso 1:** Un vehículo llega a la barrera de entrada y el sensor IR de entrada (GPIO 13) detecta su presencia (`LOW`).
-- **Paso 2:** El ESP32-CAM enciende el LED flash y captura la imagen de la placa.
-- **Paso 3:** El nodo envía la imagen a `POST /api/v1/access/entries` (o, en el modo sin cámara, crea la sesión con `POST /api/v1/parking-sessions` usando la placa registrada).
-- **Paso 4:** El backend reconoce la placa vía Plate Recognizer, crea la `VehicleSession` y responde `201 Created`.
-- **Paso 5:** El nodo abre la barrera (servo a 90°), espera a que el IR de salida confirme el paso del vehículo y cierra la barrera (servo a 0°).
+- **Paso 1:** El **Plate Camera Node (ESP32-CAM)** captura la placa periódicamente (~2.5 s) y la envía al Edge: `POST /api/v1/access/plate` (imagen base64, cabecera `X-API-Key`).
+- **Paso 2:** El Edge reenvía la imagen al backend (`POST /api/v1/access/entries`). El backend reconoce la placa vía **Plate Recognizer**, crea la `VehicleSession` y responde `201 Created`.
+- **Paso 3:** Al recibir el 201, el Edge levanta el comando **`OPEN`** durante una ventana de **8 s** (`GET /api/v1/access/barrier` → `{command: OPEN, plate}`).
+- **Paso 4:** En paralelo, el **DevKit** detecta con su IR de entrada (GPIO 14, `LOW`) que hay un vehículo y consulta `GET /api/v1/access/barrier`.
+- **Paso 5:** Si el comando es `OPEN`, el DevKit abre la barrera (servo GPIO 26 → 90°); el IR de salida (GPIO 27) confirma el paso y la barrera se cierra (servo → 0°).
 
-**7. Flujo de Salida Vehicular con Verificación de Pago (Unhappy Path incluido):**
+> **Validado en hardware (jul. 2026):** flujo probado extremo a extremo con la CAM y el DevKit en la misma red Wi-Fi 2.4 GHz, el Edge en la laptop y el backend Spring Boot + MySQL 8. Se confirmó `POST /access/plate → 200`, creación de sesión (`ABC-123` en modo *stub* del ALPR), `GET /access/barrier → OPEN` y la lectura del comando por el DevKit. La app móvil Flutter mostró la sesión activa `ABC-123` y el "Ingreso confirmado" consumiendo el mismo backend.
 
-- **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 15) detecta su presencia.
-- **Paso 2:** El nodo consulta el estado de la sesión vía `GET /api/v1/parking-sessions/{id}` y lee `paymentStatus`.
-- **Paso 3 (Happy Path):** Si el estado es `PAID`, el nodo invoca `PATCH /api/v1/parking-sessions/{id}/end`, abre la barrera y cierra la sesión.
+**7. Flujo de Salida Vehicular con Verificación de Pago (diseño; Unhappy Path incluido):**
+
+- **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 27) detecta su presencia.
+- **Paso 2:** Se consulta el estado de la sesión (`GET /api/v1/parking-sessions/{id}`) y se lee `paymentStatus`.
+- **Paso 3 (Happy Path):** Si el estado es `PAID`, se cierra la sesión (`PATCH /api/v1/parking-sessions/{id}/end`) y se abre la barrera.
 - **Paso 3 (Unhappy Path):** Si el estado es `PENDING`, la barrera **permanece cerrada** y el buzzer emite un tono de aviso; el conductor debe completar el pago desde la app móvil antes de reintentar la salida.
 
 ### Diagrama del Dispositivo (Embedded App)

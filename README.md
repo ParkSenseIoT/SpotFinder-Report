@@ -2,25 +2,29 @@
 <p align="center">
     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fc/UPC_logo_transparente.png" alt="UPC Logo" width="100"><br><br>
     <strong>Universidad Peruana de Ciencias Aplicadas</strong><br>
-    <strong>Facultad de Ingeniería</strong>
+    <strong>Carrera de Ingeniería de Software</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Curso:</strong> 1ASI0572 - Desarrollo de Soluciones IOT<br>
-    <strong>Sección:</strong> 6772
+    <strong>1ASI0572</strong><br>
+    <strong>Desarrollo de Soluciones IoT</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Nombre del profesor:</strong> Marco Antonio León Baca
+    <strong>NRC:</strong> 6772
 </p>
 <br>
 <p align="center">
-    <strong>"Informe del Trabajo Parcial"</strong>
+    <strong>"Informe del Trabajo Final"</strong>
 </p>
 <br>
 <p align="center">
-    <strong>Nombre del grupo:</strong> ParkSense IoT<br>
-    <strong>Nombre del producto:</strong> SpotFinder
+    <strong>Docente:</strong> León Baca, Marco Antonio
+</p>
+<br>
+<p align="center">
+    <strong>Equipo:</strong> ParkSenseIoT<br>
+    <strong>Proyecto:</strong> SpotFinder
 </p>
 <br>
 <p align="center"><strong>Integrantes:</strong></p>
@@ -30,7 +34,6 @@
 | Código | Apellidos y Nombres |
 |:---:|:---:|
 | U202310210 | Esteban Román, Henry Kalet |
-| U202117475 | Dueñas Canales, Leonardo Manuel |
 | U202314186 | Vidal Castro, Miguel Angel |
 | U202213241 | Allcca Guerrero, Irving Washington |
 | U202311053 | Cruz Ibarra, Victor Andrés |
@@ -38,7 +41,7 @@
 </div>
 
 <br>
-<p align="center">Lima – Abril 2026</p>
+<p align="center">Período 202610</p>
 
 <div style="page-break-after: always;"></div>
 
@@ -69,6 +72,10 @@
 | 2.4.0 | 2026-05-07 | Equipo ParkSense | Capítulo VI: Sprint 1 – Sprint Planning 1, Aspect Leaders and Collaborators, Sprint Backlog 1. |
 | 2.5.0 | 2026-05-11 | Equipo ParkSense | Capítulo VI: Sprint Review Evidence – Development, Testing Suite, Execution, Services Documentation, Software Deployment y Team Collaboration Insights del Sprint 1. |
 | 2.6.0 | 2026-05-13 | Esteban Román, Henry Kalet | Actualización de Student Outcome con acciones TB1, Conclusiones, Bibliografía y Anexos para la entrega TB1. |
+| 2.7.0 | 2026-06-08 | Equipo ParkSense | Hito AV2: optimización de arquitectura de microservicios (backend), refactoring y lazy loading (frontend web), rediseño de componentes críticos (app móvil Flutter) y ampliación de la Testing Suite con automatización CI/CD. |
+| 2.8.0 | 2026-07-06 | Esteban Román, Henry Kalet | Incorporación de la sección AV2 en Project Report Collaboration Insights (Tareas asignadas y GitHub Collaboration Insights) y actualización del Student Outcome, previo a la entrega de TB2. |
+| 2.9.0 | 2026-07-06 | Equipo ParkSense | Hito TB2: finalización de la integración IoT end-to-end (envío y recepción de datos del sensor de ocupación) y mejoras generales sobre backend, frontend web y aplicación móvil. |
+| 2.9.1 | 2026-07-06 | Esteban Román, Henry Kalet | Incorporación de la sección TB2 en Project Report Collaboration Insights (Tareas asignadas y GitHub Collaboration Insights) y actualización del Student Outcome para la entrega de TB2. Actualización del equipo (baja de Dueñas Canales, Leonardo Manuel) en carátula y tabla de usuarios de GitHub. |
  
 ## Project Report Collaboration Insights
  
@@ -81,7 +88,6 @@ Los integrantes del equipo y sus nombres de usuario en GitHub son los siguientes
 | Integrante | Código | Nombre en GitHub |
 |---|---|---|
 | Esteban Román, Henry Kalet | U202310210 | kalet123-commit |
-| Dueñas Canales, Leonardo Manuel | U202117475 | insonnio |
 | Vidal Castro, Miguel Angel | U202314186 | gossk |
 | Allcca Guerrero, Irving Washington | U202213241 | eviterno17 |
 | Cruz Ibarra, Victor Andrés | U202311053 | elandrehs |
@@ -146,6 +152,64 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
  
 ![Contributors Image TB1](./assets/images/screenshots/contributorsimage-tb1.png)
 
+### AV2
+ 
+#### Tareas asignadas
+ 
+Para el desarrollo del AV2, partiendo de los entregables de TB1, cada participante del equipo realizó las siguientes tareas:
+ 
+| Integrante | Tareas asignadas |
+|---|---|
+| **Esteban Román, Henry Kalet** | - Reestructuración de la arquitectura de microservicios del backend de producción, optimizando las consultas de disponibilidad de estacionamientos en tiempo real. - Implementación de caché distribuida para mejorar los tiempos de respuesta del API. - Revisión integral del informe técnico, levantamiento de observaciones metodológicas y control de calidad final de los entregables. |
+| **Vidal Castro, Miguel Angel** | - Rediseño y optimización de componentes críticos en la aplicación móvil Flutter para conductores. - Mejora de la renderización de mapas de geolocalización y reducción de la latencia en la actualización del estado de los sensores. - Documentación de los nuevos flujos de interacción móvil. |
+| **Allcca Guerrero, Irving Washington** | - Evolución de la guía de estilos visuales y la arquitectura de información a partir de los hallazgos de las pruebas de usabilidad del Sprint anterior. - Aseguramiento de los criterios de accesibilidad en las interfaces web y móviles. - Actualización de Wireflow Diagrams y User Flow Diagrams del flujo de conductores. |
+| **Cruz Ibarra, Victor Andrés** | - Ampliación de la Testing Suite y automatización del pipeline de integración continua (CI/CD). - Incremento del Code Coverage tanto en el backend como en el frontend. - Redacción de la documentación de evidencias de pruebas y contratos de API actualizados. |
+ 
+#### GitHub Collaboration Insights
+ 
+Para el AV2 el equipo continuó trabajando en la organización [https://github.com/ParkSenseIoT](https://github.com/ParkSenseIoT), manteniendo el flujo **GitFlow** con ramas `feature/<sección>` por integrante, sobre los repositorios `SpotFinder-Report`, `SpotFinder-Backend` y `SpotFinder-Flutter`.
+ 
+**Gráfico de commits por integrante (AV2):**
+ 
+![Commits Graph AV2](./assets/images/screenshots/commitsgraph-av2.png)
+ 
+**Gráfico de red (network graph) de ramas en el repositorio durante AV2:**
+ 
+![Network Graph AV2](./assets/images/screenshots/networkgraph-av2.png)
+ 
+**Contribuciones de los integrantes durante AV2:**
+ 
+![Contributors Image AV2](./assets/images/screenshots/contributorsimage-av2.png)
+
+### TB2
+ 
+#### Tareas asignadas
+ 
+Para el desarrollo del TB2, partiendo de los entregables de AV2, y luego de la baja de Dueñas Canales, Leonardo Manuel del equipo, los 4 integrantes restantes redistribuyeron las tareas pendientes, enfocándose en finalizar la integración IoT de extremo a extremo y en mejoras generales sobre lo ya construido:
+ 
+| Integrante | Tareas asignadas |
+|---|---|
+| **Esteban Román, Henry Kalet** | - Finalización de la integración IoT end-to-end, asegurando que los datos del sensor de ocupación (ESP32) se envíen desde el nodo y sean recibidos correctamente por el Edge Gateway y el backend. - Coordinación técnica general del equipo y control de calidad de los entregables tras la reducción de integrantes. |
+| **Vidal Castro, Miguel Angel** | - Mejoras generales sobre el dashboard administrativo web y la aplicación móvil Flutter, asumiendo tareas de frontend web y mobile que anteriormente lideraba Leonardo Dueñas. - Corrección de observaciones recogidas en las validaciones previas. |
+| **Allcca Guerrero, Irving Washington** | - Continuación de las mejoras de integración IoT & Edge (Edge Gateway, simulación), en apoyo directo a la finalización del envío/recepción de datos del sensor. - Ajustes de estilo y accesibilidad en las interfaces según hallazgos de usabilidad. |
+| **Cruz Ibarra, Victor Andrés** | - Mejoras generales de testing y aseguramiento de calidad sobre backend y frontend. - Actualización de la documentación de servicios y contratos de API afectados por los cambios del sprint. |
+ 
+#### GitHub Collaboration Insights
+ 
+Para el TB2 el equipo, ya conformado por 4 integrantes, continuó trabajando en la organización [https://github.com/ParkSenseIoT](https://github.com/ParkSenseIoT), manteniendo el flujo **GitFlow** con ramas `feature/<sección>` por integrante, sobre los repositorios `SpotFinder-Report`, `SpotFinder-Backend` y `SpotFinder-Flutter`.
+ 
+**Gráfico de commits por integrante (TB2):**
+ 
+![Commits Graph TB2](./assets/images/screenshots/commitsgraph-tb2.png)
+ 
+**Gráfico de red (network graph) de ramas en el repositorio durante TB2:**
+ 
+![Network Graph TB2](./assets/images/screenshots/networkgraph-tb2.png)
+ 
+**Contribuciones de los integrantes durante TB2:**
+ 
+![Contributors Image TB2](./assets/images/screenshots/contributorsimage-tb2.png)
+
 <div style="page-break-after: always;"></div>
 
 ---
@@ -158,6 +222,7 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
   - [AV1](#av1)
   - [TB1](#tb1)
   - [AV2](#av2)
+  - [TB2](#tb2)
 - [Contenido](#contenido)
 - [Student Outcome](#student-outcome)
 
@@ -244,11 +309,14 @@ Para el TB1 el equipo trabajó en la organización [https://github.com/ParkSense
   - [6.2. Landing Page, Services & Applications Implementation](#62-landing-page-services--applications-implementation)
     - [6.2.1. Sprint 1](#621-sprint-1)
     - [6.2.2. Sprint 2](#622-sprint-2)
+    - [6.2.3. Sprint 3](#623-sprint-3)
   - [6.3. Validation Interviews](#63-validation-interviews)
     - [6.3.1. Diseño de Entrevistas](#631-diseño-de-entrevistas)
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
+    - [6.4.1. Video About-the-Product](#641-video-about-the-product)
+    - [6.4.2. Video About-the-Team](#642-video-about-the-team)
 
 - [Conclusiones](#conclusiones)
 
@@ -276,11 +344,12 @@ En el siguiente cuadro se describe las acciones realizadas y enunciados de concl
  
 | Criterio específico | Acciones realizadas | Conclusiones |
 |---------------------|---------------------|--------------|
-| **Comunica oralmente con efectividad a diferentes rangos de audiencia** | **Esteban Román, Henry Kalet**<br>_**AV1:** Lideré las sesiones de Event Storming y Candidate Context Discovery con el equipo, explicando la metodología de los 10 pasos y guiando la identificación de bounded contexts. Presenté y justifiqué las decisiones de arquitectura DDD (clasificación Core/Supporting/Generic) utilizando un lenguaje accesible tanto para los integrantes técnicos como para la comprensión general del dominio de estacionamientos._<br>_**TB1:** Expuse al equipo el diseño del IoT Device (ESP32, sensor ultrasónico y arquitectura edge-to-cloud), traduciendo conceptos de hardware a un lenguaje comprensible para los integrantes orientados a software, y coordiné el Sprint Planning 1 alineando objetivos técnicos del backend con los entregables del Sprint Review._ <br><br> **Dueñas Canales, Leonardo Manuel**<br>_**AV1:** Presenté los diagramas de arquitectura C4 (System Landscape, Context, Container, Deployment) al equipo, explicando las decisiones de diseño y las interacciones entre componentes del sistema IoT (ESP32, Edge Server, Cloud Backend). Adapté la explicación para que los compañeros sin experiencia en IoT comprendieran el flujo de datos desde los sensores hasta la app móvil._<br>_**TB1:** Comuniqué al equipo la configuración del entorno de desarrollo y el pipeline de despliegue (Software Deployment Configuration), explicando de forma clara las dependencias entre repositorios (Backend, Flutter, Report) durante las Daily y la Sprint Review._ <br>**AV2:** Desarrollé el refactoring y la optimización de la plataforma web de administración (frontend), mejorando el rendimiento de la interfaz de usuario mediante el lazy loading de módulos y reduciendo el consumo de memoria del navegador. Expliqué al equipo técnico el impacto de estas mejoras en la visualización de los paneles analíticos en tiempo real para el segmento de administradores de estacionamientos.<br> <br> **Vidal Castro, Miguel Angel**<br>_**AV1:** Presenté y expliqué el Context Mapping al equipo, comunicando los patrones DDD elegidos (OHS, Customer/Supplier, ACL, Published Language) y las razones detrás de cada relación entre bounded contexts. Facilité la discusión de alternativas con el equipo, asegurando que todos comprendieran las implicaciones de cada patrón en la arquitectura._<br>_**TB1:** Presenté al equipo los Wireflow Diagrams y los User Flow Diagrams de la aplicación, explicando las decisiones de UX a integrantes con perfil técnico y validando la consistencia con los User Stories priorizados en el Sprint Backlog 1._ <br>**AV2:** Encargado del rediseño y optimización de los componentes críticos en la aplicación móvil Flutter para conductores, logrando una renderización de mapas de geolocalización más fluida y reduciendo la latencia en la actualización del estado de los sensores de los estacionamientos. Documenté los nuevos flujos de interacción móvil asegurando la consistencia con las historias de usuario priorizadas.<br> <br> **Allcca Guerrero, Irving Washington**<br>_**AV1:** Comuniqué los hallazgos del Needfinding (User Personas, Empathy Maps) al equipo, explicando los perfiles de los conductores y administradores identificados en la investigación. Presenté los Bounded Context Canvases de los 3 contextos Core, detallando la comunicación inbound/outbound y las decisiones de negocio de cada contexto._<br>_**TB1:** Lideré la presentación del Style Guidelines y la Information Architecture al equipo, explicando las decisiones de identidad visual, navegación y SEO de la Landing Page y los mock-ups de las aplicaciones para alinear al equipo de frontend e IoT con una misma identidad de producto._ <br>**AV2:** Documenté e implementé la evolución de la guía de estilos visuales y la arquitectura de información a partir de las pruebas de usabilidad del Sprint anterior, asegurando que las mejoras de diseño en las interfaces web y móviles respeten los criterios de accesibilidad. Presenté al equipo las nuevas vistas optimizadas para mantener la coherencia estética del producto.<br> <br> **Cruz Ibarra, Victor Andrés**<br>_**AV1:** Conduje y presenté las entrevistas realizadas al segmento de administradores de estacionamientos, comunicando los hallazgos clave sobre la problemática actual (gestión manual, falta de analítica, costos operativos). Expliqué los Domain Message Flows al equipo, detallando los 4 escenarios de interacción entre bounded contexts con un lenguaje claro y orientado al negocio._<br>_**TB1:** Presenté la Testing Suite Evidence y los Services Documentation Evidence del Sprint Review, explicando al equipo el alcance de las pruebas y el contrato de los endpoints expuestos para que tanto frontend como evaluadores comprendieran el estado real del Sprint 1._ <br> **AV2:** Lideré la ampliación de la Testing Suite y la automatización del pipeline de integración continua, incrementando la cobertura de código (Code Coverage) tanto en el backend como en el frontend para mitigar errores en producción. Redacté la documentación de evidencias de pruebas y contratos de API actualizados, garantizando un despliegue técnico reproducible. | **Conclusiones AV1:** El equipo logró comunicar efectivamente las decisiones técnicas y de diseño a diferentes audiencias. Las sesiones de Event Storming y las presentaciones de arquitectura DDD permitieron que todos los integrantes comprendieran el dominio del problema y las decisiones de diseño, independientemente de su nivel de experiencia previa con DDD o IoT. La comunicación oral efectiva fue clave para alinear criterios en la clasificación de bounded contexts y la definición de patrones de integración.<br><br>**Conclusiones TB1:** Durante TB1 la comunicación oral se trasladó del plano conceptual al plano operativo: el equipo expuso decisiones de UI/UX, IoT Device Design y despliegue de servicios en Sprint Planning y Sprint Review, manteniendo un lenguaje accesible para integrantes con distintos perfiles (frontend, backend, IoT). La alineación constante mediante ceremonias Scrum permitió cumplir los objetivos del Sprint 1 sin malentendidos sobre el alcance de cada bounded context. <br>  <br> **Conclusiones AV2:** Durante el hito AV2, el equipo consolidó la aplicación de un enfoque de mejora continua basado en las retrospectivas y métricas de rendimiento de los entregables previos. La comunicación oral se centró en la justificación técnica de las optimizaciones de arquitectura y usabilidad, permitiendo que los perfiles de software e IoT coordinaran con éxito el despliegue de las mejoras del backend, frontend web y aplicación móvil. Por otra parte, la documentación escrita reflejó la madurez del proyecto al incorporar de forma homogénea las observaciones y modificaciones del documento técnico, asegurando la trazabilidad absoluta entre el diseño conceptual, las APIs documentadas y el código fuente final. |
-| **Comunica por escrito con efectividad a diferentes rangos de audiencia** | **Esteban Román, Henry Kalet**<br>_**AV1:** Redacté los capítulos I y III del informe, organizando de manera clara la problemática (5W+2H), el proceso Lean UX, las User Stories con formato Gherkin de 7 columnas, y el Product Backlog priorizado por valor de negocio. Documenté el Tactical DDD de los 7 bounded contexts con tablas detalladas de Domain Layer (aggregates, value objects, commands, queries, events, domain services), Interface Layer, Application Layer e Infrastructure Layer, asegurando consistencia y trazabilidad entre la documentación y la implementación._<br>_**TB1:** Redacté la sección 5.6 IoT Device Design (diagrama de componentes, esquemático del sensor y arquitectura edge-to-cloud) y consolidé la actualización del Student Outcome, Conclusiones, Bibliografía y Anexos para TB1, manteniendo la trazabilidad con los entregables previos del AV1._ <br> **AV2:** Lideré la reestructuración de la arquitectura de microservicios en el backend de producción, optimizando las consultas de disponibilidad de estacionamientos en tiempo real y mejorando los tiempos de respuesta del API mediante caché distribuida. Asimismo, asumí la responsabilidad principal de la revisión integral del informe técnico, levantando las observaciones metodológicas planteadas por los evaluadores, unificando el estilo de redacción de todos los integrantes y realizando el control de calidad final de los entregables del documento. <br> <br> **Dueñas Canales, Leonardo Manuel**<br>_**AV1:** Documenté la arquitectura de software del sistema SpotFinder mediante diagramas C4 en Structurizr DSL, incluyendo código fuente replicable. Redacté las descripciones de los Component Level Diagrams para los bounded contexts, detallando las interacciones entre capas y sistemas externos con nomenclatura técnica precisa._<br>_**TB1:** Redacté las secciones de Software Development Environment Configuration y Software Deployment Configuration del Capítulo VI, documentando con precisión técnica el setup de IDEs, contenedores y pipelines, y contribuí a la evidencia escrita de Software Deployment Evidence del Sprint Review._ <br>**AV2:** Documenté técnicamente el refactoring del frontend web de administración, detallando en el informe la nueva estructura de módulos (lazy loading), el impacto medido en el consumo de memoria y la optimización de los componentes de renderizado. Redacté las guías de despliegue actualizadas en el repositorio para que cualquier desarrollador pueda replicar el entorno del panel analítico sin inconvenientes.<br> <br> **Vidal Castro, Miguel Angel**<br>_**AV1:** Redacté la sección de Context Mapping del informe, documentando las 7 relaciones entre bounded contexts con patrones DDD, análisis de alternativas (pros/contras) y decisiones sustentadas. También documenté las Technical Stories adicionales con formato estandarizado de 7 columnas, contribuyendo a la especificación completa de requisitos técnicos del backend._<br>_**TB1:** Documenté los Wireflow Diagrams, User Flow Diagrams y la sección de Applications Prototyping en colaboración con Irving y Victor, además de redactar la Development y Testing Suite Evidence del frontend para el Sprint Review con capturas y descripciones de cada feature implementada._ <br> **AV2** : Documenté la evolución del Style Guidelines y los Bounded Context Canvases modificados a partir de los hallazgos de usabilidad, redactando las justificaciones de diseño centrado en el usuario y accesibilidad para las interfaces web y móviles. Consolidé esta sección con un lenguaje técnico y visual estructurado para facilitar el trabajo de los desarrolladores frontend. <br> <br> **Allcca Guerrero, Irving Washington**<br>_**AV1:** Redacté las secciones de Needfinding del Capítulo II, documentando los User Personas (Carlos Ramírez y Patricia Vega), User Task Matrix, y Empathy Maps con información extraída de las entrevistas. Documenté los Bounded Context Canvases siguiendo el template oficial de ddd-crew/bounded-context-canvas, detallando comunicación, ubiquitous language y business decisions para cada contexto._<br>_**TB1:** Redacté íntegramente las secciones 5.1 Style Guidelines, 5.2 Information Architecture y 5.3 Landing Page UI Design, y coautoré 5.4 Applications UX/UI Design y 5.5 Applications Prototyping, documentando wireframes, mock-ups y user flows con un formato consistente y orientado tanto a evaluadores como al equipo de desarrollo._ <br> **AV2:** Redacté las especificaciones técnicas de la optimización de la aplicación móvil en Flutter, documentando el manejo de estados para la geolocalización fluida y la sincronización edge-to-cloud de los sensores. Actualicé los Wireflow Diagrams y los User Flow Diagrams del flujo de conductores en el informe, garantizando la coherencia escrita con las nuevas interacciones implementadas.<br> <br> **Cruz Ibarra, Victor Andrés**<br>_**AV1:** Redacté el diseño y análisis de entrevistas del Capítulo II, sintetizando los hallazgos de 6 entrevistas (3 por segmento) en un análisis cruzado con validación de hipótesis Lean UX. Documenté el Candidate Context Discovery con la técnica Start-with-Value y los Domain Message Flows de 4 escenarios clave del sistema, además de los Database Design Diagrams con esquemas SQL para cada bounded context._<br>_**TB1:** Coautoré las secciones 5.4 Applications UX/UI Design y 5.5 Applications Prototyping y redacté el Source Code Style Guide & Conventions, la Testing Suite Evidence y la Services Documentation Evidence del Sprint Review, documentando convenciones y contratos de API con un nivel de detalle reproducible._ <br> <br> **AV2:** Documenté la evolución del Style Guidelines y los Bounded Context Canvases modificados a partir de los hallazgos de usabilidad, redactando las justificaciones de diseño centrado en el usuario y accesibilidad para las interfaces web y móviles. Consolidé esta sección con un lenguaje técnico y visual estructurado para facilitar el trabajo de los desarrolladores frontend. | **Conclusiones AV1:** La documentación escrita del proyecto refleja un alto nivel de detalle y consistencia técnica. El uso de formatos estandarizados (tablas de 7 columnas para User Stories, templates de Bounded Context Canvas, Structurizr DSL para diagramas C4, PlantUML para class diagrams, SQL para database design) aseguró que la información sea comprensible tanto para el equipo técnico como para evaluadores externos. La trazabilidad entre Event Storming, User Stories, Bounded Contexts y Tactical DDD demuestra coherencia en el diseño del sistema.<br><br>**Conclusiones TB1:** La documentación escrita evolucionó hacia la implementación: el Capítulo V sumó la dimensión UX/UI e IoT Device Design, y el Capítulo VI consolidó la evidencia operativa del Sprint 1 (configuración, código, pruebas, despliegue y colaboración). El equipo mantuvo un estilo de redacción uniforme entre todos los integrantes, lo que permitió que evaluadores y miembros nuevos del proyecto pudieran reconstruir las decisiones de diseño y los resultados del Sprint sin requerir contexto adicional. <br> <br> **Conclusiones AV2:** En este hito, la documentación escrita alcanzó un estado óptimo de madurez a través de un proceso iterativo de mejora continua. El equipo plasmó con precisión técnica las modificaciones de los entregables y el levantamiento de observaciones, asegurando que los manuales de arquitectura, diagramas de flujo y contratos de API reflejen exactamente el comportamiento real del sistema optimizado (backend, frontend web y aplicación móvil). La uniformidad en el estilo de redacción y el uso de formatos estandarizados permitieron comunicar de manera efectiva los cambios de ingeniería tanto a evaluadores académicos como a los integrantes técnicos del equipo. |
+| **Comunica oralmente con efectividad a diferentes rangos de audiencia** | **Esteban Román, Henry Kalet**<br>_**AV1:** Lideré las sesiones de Event Storming y Candidate Context Discovery con el equipo, explicando la metodología de los 10 pasos y guiando la identificación de bounded contexts. Presenté y justifiqué las decisiones de arquitectura DDD (clasificación Core/Supporting/Generic) utilizando un lenguaje accesible tanto para los integrantes técnicos como para la comprensión general del dominio de estacionamientos._<br>_**TB1:** Expuse al equipo el diseño del IoT Device (ESP32, sensor ultrasónico y arquitectura edge-to-cloud), traduciendo conceptos de hardware a un lenguaje comprensible para los integrantes orientados a software, y coordiné el Sprint Planning 1 alineando objetivos técnicos del backend con los entregables del Sprint Review._ <br> **TB2:** Expliqué al equipo el estado de la integración IoT end-to-end y coordiné las tareas finales para asegurar que los datos del sensor de ocupación se envíen y sean recibidos correctamente por el backend, alineando al equipo reducido a 4 integrantes tras la salida de Leonardo. <br><br> **Vidal Castro, Miguel Angel**<br>_**AV1:** Presenté y expliqué el Context Mapping al equipo, comunicando los patrones DDD elegidos (OHS, Customer/Supplier, ACL, Published Language) y las razones detrás de cada relación entre bounded contexts. Facilité la discusión de alternativas con el equipo, asegurando que todos comprendieran las implicaciones de cada patrón en la arquitectura._<br>_**TB1:** Presenté al equipo los Wireflow Diagrams y los User Flow Diagrams de la aplicación, explicando las decisiones de UX a integrantes con perfil técnico y validando la consistencia con los User Stories priorizados en el Sprint Backlog 1._ <br>**AV2:** Encargado del rediseño y optimización de los componentes críticos en la aplicación móvil Flutter para conductores, logrando una renderización de mapas de geolocalización más fluida y reduciendo la latencia en la actualización del estado de los sensores de los estacionamientos. Documenté los nuevos flujos de interacción móvil asegurando la consistencia con las historias de usuario priorizadas. <br> **TB2:** Comuniqué al equipo las mejoras asumidas en el dashboard web y la aplicación móvil, explicando los ajustes heredados de las tareas de frontend web y mobile que antes correspondían a Leonardo, para mantener la continuidad del producto sin perder contexto.<br> <br> **Allcca Guerrero, Irving Washington**<br>_**AV1:** Comuniqué los hallazgos del Needfinding (User Personas, Empathy Maps) al equipo, explicando los perfiles de los conductores y administradores identificados en la investigación. Presenté los Bounded Context Canvases de los 3 contextos Core, detallando la comunicación inbound/outbound y las decisiones de negocio de cada contexto._<br>_**TB1:** Lideré la presentación del Style Guidelines y la Information Architecture al equipo, explicando las decisiones de identidad visual, navegación y SEO de la Landing Page y los mock-ups de las aplicaciones para alinear al equipo de frontend e IoT con una misma identidad de producto._ <br>**AV2:** Documenté e implementé la evolución de la guía de estilos visuales y la arquitectura de información a partir de las pruebas de usabilidad del Sprint anterior, asegurando que las mejoras de diseño en las interfaces web y móviles respeten los criterios de accesibilidad. Presenté al equipo las nuevas vistas optimizadas para mantener la coherencia estética del producto. <br> **TB2:** Expliqué al equipo el avance de la integración Edge/IoT en apoyo a la finalización del envío y recepción de datos del sensor, y comuniqué los ajustes de accesibilidad aplicados sobre las interfaces ya existentes.<br> <br> **Cruz Ibarra, Victor Andrés**<br>_**AV1:** Conduje y presenté las entrevistas realizadas al segmento de administradores de estacionamientos, comunicando los hallazgos clave sobre la problemática actual (gestión manual, falta de analítica, costos operativos). Expliqué los Domain Message Flows al equipo, detallando los 4 escenarios de interacción entre bounded contexts con un lenguaje claro y orientado al negocio._<br>_**TB1:** Presenté la Testing Suite Evidence y los Services Documentation Evidence del Sprint Review, explicando al equipo el alcance de las pruebas y el contrato de los endpoints expuestos para que tanto frontend como evaluadores comprendieran el estado real del Sprint 1._ <br> **AV2:** Lideré la ampliación de la Testing Suite y la automatización del pipeline de integración continua, incrementando la cobertura de código (Code Coverage) tanto en el backend como en el frontend para mitigar errores en producción. Redacté la documentación de evidencias de pruebas y contratos de API actualizados, garantizando un despliegue técnico reproducible. <br> **TB2:** Presenté al equipo el estado de las pruebas y la documentación de servicios actualizada tras los cambios del sprint, explicando el impacto de las mejoras generales sobre la calidad del sistema. | **Conclusiones AV1:** El equipo logró comunicar efectivamente las decisiones técnicas y de diseño a diferentes audiencias. Las sesiones de Event Storming y las presentaciones de arquitectura DDD permitieron que todos los integrantes comprendieran el dominio del problema y las decisiones de diseño, independientemente de su nivel de experiencia previa con DDD o IoT. La comunicación oral efectiva fue clave para alinear criterios en la clasificación de bounded contexts y la definición de patrones de integración.<br><br>**Conclusiones TB1:** Durante TB1 la comunicación oral se trasladó del plano conceptual al plano operativo: el equipo expuso decisiones de UI/UX, IoT Device Design y despliegue de servicios en Sprint Planning y Sprint Review, manteniendo un lenguaje accesible para integrantes con distintos perfiles (frontend, backend, IoT). La alineación constante mediante ceremonias Scrum permitió cumplir los objetivos del Sprint 1 sin malentendidos sobre el alcance de cada bounded context. <br>  <br> **Conclusiones AV2:** Durante el hito AV2, el equipo consolidó la aplicación de un enfoque de mejora continua basado en las retrospectivas y métricas de rendimiento de los entregables previos. La comunicación oral se centró en la justificación técnica de las optimizaciones de arquitectura y usabilidad, permitiendo que los perfiles de software e IoT coordinaran con éxito el despliegue de las mejoras del backend, frontend web y aplicación móvil. Por otra parte, la documentación escrita reflejó la madurez del proyecto al incorporar de forma homogénea las observaciones y modificaciones del documento técnico, asegurando la trazabilidad absoluta entre el diseño conceptual, las APIs documentadas y el código fuente final. <br> <br> **Conclusiones TB2:** Tras la salida de Leonardo del equipo, los 4 integrantes restantes reforzaron la comunicación oral para redistribuir responsabilidades sin perder continuidad sobre el trabajo ya avanzado. El foco de las presentaciones estuvo en cerrar la integración IoT de punta a punta (envío y recepción de datos del sensor) y comunicar mejoras generales, manteniendo un lenguaje claro entre los perfiles de hardware y software del equipo reducido. |
+| **Comunica por escrito con efectividad a diferentes rangos de audiencia** | **Esteban Román, Henry Kalet**<br>_**AV1:** Redacté los capítulos I y III del informe, organizando de manera clara la problemática (5W+2H), el proceso Lean UX, las User Stories con formato Gherkin de 7 columnas, y el Product Backlog priorizado por valor de negocio. Documenté el Tactical DDD de los 7 bounded contexts con tablas detalladas de Domain Layer (aggregates, value objects, commands, queries, events, domain services), Interface Layer, Application Layer e Infrastructure Layer, asegurando consistencia y trazabilidad entre la documentación y la implementación._<br>_**TB1:** Redacté la sección 5.6 IoT Device Design (diagrama de componentes, esquemático del sensor y arquitectura edge-to-cloud) y consolidé la actualización del Student Outcome, Conclusiones, Bibliografía y Anexos para TB1, manteniendo la trazabilidad con los entregables previos del AV1._ <br> **AV2:** Lideré la reestructuración de la arquitectura de microservicios en el backend de producción, optimizando las consultas de disponibilidad de estacionamientos en tiempo real y mejorando los tiempos de respuesta del API mediante caché distribuida. Asimismo, asumí la responsabilidad principal de la revisión integral del informe técnico, levantando las observaciones metodológicas planteadas por los evaluadores, unificando el estilo de redacción de todos los integrantes y realizando el control de calidad final de los entregables del documento. <br> **TB2:** Documenté la finalización de la integración IoT end-to-end (envío y recepción de los datos del sensor de ocupación) y actualicé el registro de integrantes y el Student Outcome para reflejar la reducción del equipo a 4 personas. <br> <br> **Vidal Castro, Miguel Angel**<br>_**AV1:** Redacté la sección de Context Mapping del informe, documentando las 7 relaciones entre bounded contexts con patrones DDD, análisis de alternativas (pros/contras) y decisiones sustentadas. También documenté las Technical Stories adicionales con formato estandarizado de 7 columnas, contribuyendo a la especificación completa de requisitos técnicos del backend._<br>_**TB1:** Documenté los Wireflow Diagrams, User Flow Diagrams y la sección de Applications Prototyping en colaboración con Irving y Victor, además de redactar la Development y Testing Suite Evidence del frontend para el Sprint Review con capturas y descripciones de cada feature implementada._ <br> **AV2:** Documenté la evolución del Style Guidelines y los Bounded Context Canvases modificados a partir de los hallazgos de usabilidad, redactando las justificaciones de diseño centrado en el usuario y accesibilidad para las interfaces web y móviles. Consolidé esta sección con un lenguaje técnico y visual estructurado para facilitar el trabajo de los desarrolladores frontend. <br> **TB2:** Redacté las mejoras aplicadas al dashboard web y a la aplicación móvil, documentando las tareas de frontend web y mobile heredadas tras la salida de Leonardo del equipo. <br> <br> **Allcca Guerrero, Irving Washington**<br>_**AV1:** Redacté las secciones de Needfinding del Capítulo II, documentando los User Personas (Carlos Ramírez y Patricia Vega), User Task Matrix, y Empathy Maps con información extraída de las entrevistas. Documenté los Bounded Context Canvases siguiendo el template oficial de ddd-crew/bounded-context-canvas, detallando comunicación, ubiquitous language y business decisions para cada contexto._<br>_**TB1:** Redacté íntegramente las secciones 5.1 Style Guidelines, 5.2 Information Architecture y 5.3 Landing Page UI Design, y coautoré 5.4 Applications UX/UI Design y 5.5 Applications Prototyping, documentando wireframes, mock-ups y user flows con un formato consistente y orientado tanto a evaluadores como al equipo de desarrollo._ <br> **AV2:** Redacté las especificaciones técnicas de la optimización de la aplicación móvil en Flutter, documentando el manejo de estados para la geolocalización fluida y la sincronización edge-to-cloud de los sensores. Actualicé los Wireflow Diagrams y los User Flow Diagrams del flujo de conductores en el informe, garantizando la coherencia escrita con las nuevas interacciones implementadas.<br> **TB2:** Documenté las mejoras de integración Edge/IoT y los ajustes de accesibilidad aplicados sobre las interfaces existentes, en apoyo directo a la finalización del envío y recepción de datos del sensor. <br> <br> **Cruz Ibarra, Victor Andrés**<br>_**AV1:** Redacté el diseño y análisis de entrevistas del Capítulo II, sintetizando los hallazgos de 6 entrevistas (3 por segmento) en un análisis cruzado con validación de hipótesis Lean UX. Documenté el Candidate Context Discovery con la técnica Start-with-Value y los Domain Message Flows de 4 escenarios clave del sistema, además de los Database Design Diagrams con esquemas SQL para cada bounded context._<br>_**TB1:** Coautoré las secciones 5.4 Applications UX/UI Design y 5.5 Applications Prototyping y redacté el Source Code Style Guide & Conventions, la Testing Suite Evidence y la Services Documentation Evidence del Sprint Review, documentando convenciones y contratos de API con un nivel de detalle reproducible._ <br> <br> **AV2:** Redacté la documentación técnica de la ampliación de la Testing Suite y la automatización del pipeline de CI/CD, detallando las métricas de Code Coverage alcanzadas en backend y frontend. Actualicé los contratos de API y las evidencias de pruebas en el informe, garantizando la trazabilidad entre el código fuente y la documentación técnica final. <br> **TB2:** Actualicé la documentación de servicios y los contratos de API afectados por las mejoras generales del sprint, y redacté el estado de las pruebas de regresión ejecutadas sobre backend y frontend. | **Conclusiones AV1:** La documentación escrita del proyecto refleja un alto nivel de detalle y consistencia técnica. El uso de formatos estandarizados (tablas de 7 columnas para User Stories, templates de Bounded Context Canvas, Structurizr DSL para diagramas C4, PlantUML para class diagrams, SQL para database design) aseguró que la información sea comprensible tanto para el equipo técnico como para evaluadores externos. La trazabilidad entre Event Storming, User Stories, Bounded Contexts y Tactical DDD demuestra coherencia en el diseño del sistema.<br><br>**Conclusiones TB1:** La documentación escrita evolucionó hacia la implementación: el Capítulo V sumó la dimensión UX/UI e IoT Device Design, y el Capítulo VI consolidó la evidencia operativa del Sprint 1 (configuración, código, pruebas, despliegue y colaboración). El equipo mantuvo un estilo de redacción uniforme entre todos los integrantes, lo que permitió que evaluadores y miembros nuevos del proyecto pudieran reconstruir las decisiones de diseño y los resultados del Sprint sin requerir contexto adicional. <br> <br> **Conclusiones AV2:** En este hito, la documentación escrita alcanzó un estado óptimo de madurez a través de un proceso iterativo de mejora continua. El equipo plasmó con precisión técnica las modificaciones de los entregables y el levantamiento de observaciones, asegurando que los manuales de arquitectura, diagramas de flujo y contratos de API reflejen exactamente el comportamiento real del sistema optimizado (backend, frontend web y aplicación móvil). La uniformidad en el estilo de redacción y el uso de formatos estandarizados permitieron comunicar de manera efectiva los cambios de ingeniería tanto a evaluadores académicos como a los integrantes técnicos del equipo. <br> <br> **Conclusiones TB2:** La documentación escrita del TB2 reflejó la reorganización del equipo tras la salida de Leonardo: las tareas de frontend web y mobile que él lideraba fueron redistribuidas y documentadas por el resto del equipo, manteniendo la trazabilidad con lo construido en AV2. El cierre de la integración IoT end-to-end quedó registrado de forma consistente entre el diseño (Capítulo IV y V) y la evidencia de implementación (Capítulo VI), asegurando que el informe final refleje el estado real del sistema con 4 integrantes activos. |
   
 
 <div style="page-break-after: always;"></div>
+
 
 # Capítulo I: Introducción
 
@@ -344,7 +413,7 @@ La raíz radica en la falta de infraestructura tecnológica IoT. La mayoría de 
 **¿Cómo se utilizará el producto? (How)**
 * **Para conductores:** Mediante una aplicación móvil para ver disponibilidad en tiempo real, reserva de espacios, localización del auto y pago digital.
 * **Para administradores:** A través de un dashboard web con métricas clave (tasa de ocupación, rotación, ingresos) y control remoto de barreras.
-* **Componente IoT:** Nodos **ESP32** con sensores ultrasónicos **HC-SR04**, LEDs **WS2812B**, módulos **ESP32-CAM** para placas y sensores **MQ-2** para detección de gases, comunicados vía protocolo **MQTT**.
+* **Componente IoT:** Nodos **ESP32** con sensores ultrasónicos **HC-SR04**, **LEDs de guiado (verde/rojo)**, módulos **ESP32-CAM** para placas y sensores **MQ-2** para detección de gases, comunicados vía **HTTP/REST** con el Edge Gateway.
 
 **¿Cuán grande es el impacto? (How much)**
 * El 30% del tráfico en zonas comerciales proviene de vehículos buscando estacionamiento.
@@ -539,7 +608,7 @@ Actualmente, gran parte de los operadores en Perú (como Apparka, que lidera el 
 | **Mercado objetivo** | Centros comerciales medianos y grandes en Lima que buscan modernizar sus estacionamientos con IoT. Conductores que visitan estos centros comerciales. | Centros comerciales, aeropuertos, hospitales y edificios corporativos en Perú. Conductores que buscan estacionamiento en la red de Apparka. | Aeropuertos, centros comerciales, hospitales y universidades a nivel global. Operadores de estacionamiento y municipalidades. | Conductores en Lima que buscan cocheras privadas cerca de su destino. Propietarios de cocheras que desean generar ingresos extra. |
 | **Estrategias de marketing** | Demostraciones piloto en centros comerciales, alianzas con operadores, marketing B2B a gerentes de operaciones, contenido técnico sobre IoT y smart parking. | Marketing masivo (TV, digital), alianzas con centros comerciales, presencia en aeropuertos, descarga gratuita de app. | Participación en ferias internacionales (ICSC, IPMI, EPICCA), partners regionales (AccessPark Colombia), cases studies y whitepapers técnicos. | Marketing digital en redes sociales, PR en medios de comunicación (El Comercio, Mercado Negro), alianzas con edificios y condominios. |
 | **Perfil de Producto** | | | | |
-| **Productos y servicios** | Sensores HC-SR04 por espacio, LEDs WS2812B de guiado, ESP32-CAM + Plate Recognizer para ALPR, sensor MQ-2 para emergencias, app móvil (Flutter), dashboard web (Angular), Edge Server (Flask + MQTT), backend (Spring Boot). | App móvil (iOS/Android) con buscador de estacionamientos, pago digital (tarjeta, Apparka Wallet), LPR para entrada/salida automática, gestión de abonados, integración con Google Maps/Waze. | Sensores U2 ultrasónicos indoor, sensores C2 con cámara LPR, sensores G4/G5 wireless outdoor, señalización digital, software ParkManager, iluminación LED inteligente. | App móvil para reservar cocheras por hora/semana/mes, mapa con cocheras disponibles, perfil de anfitrión con calificaciones, pago digital in-app, stickertag para acceso. |
+| **Productos y servicios** | Sensores HC-SR04 por espacio, LEDs de guiado (verde/rojo), ESP32-CAM + Plate Recognizer para ALPR, sensor MQ-2 para emergencias, app móvil (Flutter), dashboard web (Angular), Edge Server (Flask, HTTP/REST), backend (Spring Boot). | App móvil (iOS/Android) con buscador de estacionamientos, pago digital (tarjeta, Apparka Wallet), LPR para entrada/salida automática, gestión de abonados, integración con Google Maps/Waze. | Sensores U2 ultrasónicos indoor, sensores C2 con cámara LPR, sensores G4/G5 wireless outdoor, señalización digital, software ParkManager, iluminación LED inteligente. | App móvil para reservar cocheras por hora/semana/mes, mapa con cocheras disponibles, perfil de anfitrión con calificaciones, pago digital in-app, stickertag para acceso. |
 | **Precios y costos** | Modelo SaaS por espacio monitoreado. Starter: hasta 200 espacios. Business: hasta 1,000 espacios + ALPR + analytics. Enterprise: 1,000+ espacios, solución completa con integraciones. (Precios por definir en validación). | Gratuita para conductores. El centro comercial/operador paga por la integración. Cobro por estacionamiento: S/ 5-20/hora según ubicación. Abonados mensuales disponibles. | Precios enterprise bajo cotización directa. Alto costo de implementación (hardware propietario + instalación + licencia de software). No disponible en modelo self-service. | Gratuita para conductores. Cobro de S/ 0.12/minuto. Los anfitriones reciben un porcentaje del alquiler. Modelo marketplace con comisión por transacción. |
 | **Canales de distribución** | App móvil (iOS/Android), dashboard web, hardware IoT instalado en sitio. | App móvil (iOS/Android), presencia física en estacionamientos propios y operados. | Venta directa B2B, red de distribuidores certificados en 50+ países, partners regionales en LATAM. | App móvil (iOS/Android). |
 | **Análisis SWOT** | | | | |
@@ -1370,7 +1439,7 @@ Ubicar cada bounded context en la matriz de dos ejes (Business Differentiation v
  
 | Candidate Context | Eventos Clave Asociados | Clasificación | Descripción | Justificación |
 |---|---|---|---|---|
-| **Parking Monitoring** | Vehicle Presence Detected, Slot Status Changed to Occupied/Available, Sensor Reading Published, Availability Map Updated | **Core** | Detección de ocupación por sensores IoT, actualización de LEDs y mapa de disponibilidad en tiempo real. | Es el corazón tecnológico de SpotFinder. Sin sensores detectando espacios, el sistema no existe. Es lo que diferencia a SpotFinder de Apparka y Quadra. La complejidad del modelo es alta (comunicación MQTT, debounce, real-time updates). |
+| **Parking Monitoring** | Vehicle Presence Detected, Slot Status Changed to Occupied/Available, Sensor Reading Published, Availability Map Updated | **Core** | Detección de ocupación por sensores IoT, actualización de LEDs y mapa de disponibilidad en tiempo real. | Es el corazón tecnológico de SpotFinder. Sin sensores detectando espacios, el sistema no existe. Es lo que diferencia a SpotFinder de Apparka y Quadra. La complejidad del modelo es alta (comunicación HTTP/REST, debounce, real-time updates). |
 | **Access Control** | License Plate Captured, Plate Recognized, Entry Barrier Opened, Vehicle Session Started, Exit Barrier Opened, Vehicle Session Ended | **Core** | Gestión del ingreso y salida vehicular mediante ALPR (reconocimiento de placas) y control de barreras. | El ALPR es el segundo diferenciador clave: elimina los tickets físicos. La sesión vehicular que inicia/termina aquí conecta todo el sistema. Alta complejidad por integración con Plate Recognizer API y control de hardware (servomotor barrera). |
 | **Payment Processing** | Payment Initiated, Fee Calculated, Payment Succeeded/Failed, Payment Receipt Generated | **Core** | Cálculo de tarifas y procesamiento de pagos digitales vía Culqi (Yape + tarjeta). | El pago digital sin cola es el tercer pilar del valor de negocio. Integración con pasarela externa (Culqi) agrega complejidad. Directamente vinculado a los ingresos del estacionamiento. |
 | **Analytics & Reporting** | Occupancy Report Generated, Revenue Report Generated, Peak Hours Analyzed, Turnover Rate Calculated, Heatmap Generated | **Supporting** | Generación de métricas, estadísticas y reportes para la toma de decisiones administrativas. | Aporta valor al administrador pero no es el diferenciador principal frente a competidores. Complejidad media: agregación de datos, cálculos estadísticos. Podría externalizarse con herramientas BI estándar. |
@@ -1445,8 +1514,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 <br>
 
 **Flujo de Integración:**
-- El sensor ultrasónico ESP32 detecta un objeto y publica la lectura en el MQTT Broker.
-- El MQTT Broker reenvía la información al Edge Server.
+- El sensor ultrasónico ESP32 detecta un objeto y envía la lectura por **HTTP/REST** al Edge Server (`POST /api/v1/monitoring/sensor-readings`, autenticado con `X-API-Key`).
 - El Edge Server aplica una regla de validación (debounce), confirmando la presencia del vehículo (Vehicle Presence Confirmed).
 - Se registra la lectura en el Parking Monitoring BC.
 - El Parking Monitoring BC actualiza el estado del espacio a ocupado (Parking Slot Status Changed).
@@ -1455,7 +1523,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 
 
 **Bounded Contexts Involucrados:**
-- Parking Monitoring → Edge Processing (Edge Server) → Infraestructura IoT (MQTT, sensores)
+- Parking Monitoring → Edge Processing (Edge Server) → Infraestructura IoT (HTTP/REST, sensores)
 
 ---
 
@@ -1491,7 +1559,7 @@ Para la representación visual se utilizó la técnica de Domain Storytelling, l
 <br>
 
 **Flujo de Integración:**
-- El sensor MQ-2 detecta niveles peligrosos de gas y publica la lectura en el MQTT Broker.
+- El sensor MQ-2 detecta niveles peligrosos de gas y envía la lectura por **HTTP/REST** al Edge Server (`POST /api/v1/monitoring/gas-analysis`).
 - El Edge Server evalúa el umbral crítico (Gas Level Exceeded Threshold).
 - Se registra una alerta en el Emergency & Safety BC (Emergency Alert Triggered).
 - Se activa el protocolo de emergencia (Emergency Protocol Activated).
@@ -5175,21 +5243,21 @@ Los principales criterios para las decisiones de diseño del hardware son:
 
 - **Procesamiento Eficiente (Edge Computing):** El diseño se basa en un microcontrolador **ESP32 (DevKit V1)**, seleccionado por su Wi-Fi integrado, su pila TCP/IP con cliente HTTP nativo, sus 38 pines GPIO, su bajo consumo en modo Deep Sleep y su precio accesible para escalabilidad por espacio. El ESP32 realiza la validación local de la lectura ultrasónica (suavizado, debouncing temporal) antes de enviar el evento `SensorReading` por **HTTP/REST** al Edge Gateway, reduciendo el tráfico de red.
 
-- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra un **LED WS2812B** (Neopixel direccionable) montado en la parte inferior de la carcasa, visible desde el corredor del estacionamiento. El color es controlado vía un único pin de datos por protocolo serial de un solo hilo, lo que permite encadenar varios LEDs en zonas adyacentes con un solo GPIO si se desea optimizar el cableado en una sub-zona.
+- **Guiado Visual Inmediato (Affordance Zero-UI):** Cada nodo integra **dos LEDs discretos** (verde en **GPIO 32**, rojo en **GPIO 33**) montados en la parte inferior de la carcasa, visibles desde el corredor del estacionamiento. El firmware los controla directamente por GPIO: verde = espacio disponible, rojo = ocupado o alarma.
 
-- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral de 900 PPM, el nodo publica un evento `EmergencyAlertTriggered` que desencadena el cambio coordinado de todos los LEDs del piso a parpadeo rojo estroboscópico.
+- **Seguridad y Detección de Emergencias:** Se incorpora opcionalmente (en nodos cabecera de pasillo) un sensor **MQ-2** para la detección de gases combustibles (GLP, metano, propano) y humo. El sensor entrega una señal analógica leída por el ADC del ESP32 (GPIO 34). Cuando la concentración supera el umbral configurado, el nodo lo reporta al Edge (`POST /api/v1/monitoring/gas-analysis`); si el Edge marca emergencia, el nodo enciende el LED rojo y activa el buzzer localmente.
 
-- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el nodo recibe el comando `BroadcastEvacuationSignal` desde el Edge Server, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
+- **Realimentación Acústica de Emergencia:** Un **buzzer pasivo (3.3 V)** conectado al GPIO 25 emite tonos de alerta cuando el Edge marca una emergencia de gas (en la respuesta de `POST /api/v1/monitoring/gas-analysis`) o cuando el nodo supera el umbral local de gas, complementando la señal lumínica del LED en escenarios donde la visibilidad pueda estar comprometida por humo.
 
-- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar el modo de emparejamiento Wi-Fi (provisioning) y el reseteo del nodo sin necesidad de retirarlo del techo del estacionamiento.
+- **Mantenibilidad Operativa:** Un **botón pulsador físico** conectado al GPIO 13 (con resistencia interna Pull-up) permite al personal técnico forzar un reenvío manual del estado del nodo al Edge y reiniciarlo sin necesidad de retirarlo del techo del estacionamiento.
 
 ### Relación con la Arquitectura de Información y Guía de Estilos
 
 El diseño de la interfaz física del dispositivo IoT (*IoT Device Physical Interfaces*) es una extensión coherente de la propuesta de experiencia de usuario y arquitectura de información definida en la sección 5.1.2 (*IoT Style Guidelines*) y de los Bounded Contexts de **Parking Monitoring** y **Emergency Management**.
 
-- **Semántica Cromática Consistente (Affordance Visual):** Los LEDs WS2812B respetan estrictamente la paleta semántica de SpotFinder. El color **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El color **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo. El color **Azul `#1A82FF` (Action Blue)** se utiliza únicamente durante el estado de provisioning Wi-Fi y emparejamiento de red, en coherencia con su uso en la app móvil como color interactivo de alta prioridad.
+- **Semántica Cromática Consistente (Affordance Visual):** Los dos LEDs respetan la paleta semántica de SpotFinder. El **Verde `#10B981` (Success/Available)** comunica permisibilidad: el espacio está libre y disponible para ocupación. El **Rojo `#EF4444` (Error/Occupied)** comunica restricción: el espacio está ocupado por un vehículo o en estado de alarma.
 
-- **Alerta Cognitiva Estroboscópica:** En estado crítico de emergencia (detección de gas/humo por MQ-2 o broadcast desde el Edge Server), el patrón lumínico de todos los LEDs cambia a **parpadeo estroboscópico rojo a 2 Hz**, una señal universal de alarma diseñada para capturar inmediatamente el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
+- **Alerta Cognitiva de Emergencia:** En estado crítico (el Edge marca emergencia tras la lectura del MQ-2), el LED rojo del nodo pasa a **parpadeo a 2 Hz** y el buzzer emite una sirena, una señal de alarma diseñada para capturar el sistema visual periférico del conductor y detonar la acción de evacuación, alineado con el principio Zero-UI declarado en el style guide.
 
 - **Interacción Invisible (Zero-Friction):** El nodo no expone interfaz gráfica al conductor: la interacción es por presencia (el vehículo entra y el sensor lo detecta) y la retroalimentación es exclusivamente espacial (luz LED). La interfaz gráfica se delega a la app móvil (notificación push de espacio reservado) y al dashboard web (mapa de ocupación en tiempo real), respetando la premisa **Zero-Friction para conductores en movilidad** y **Maximum Observability para operadores**.
 
@@ -5209,12 +5277,11 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
    - **Trig** (disparo del pulso) → **GPIO 5** del ESP32 (cable **amarillo**)
    - **Echo** (retorno del pulso) → **GPIO 18** del ESP32 (cable **azul**)
 
-3. **LED WS2812B (Neopixel direccionable):** Indicador de estado del espacio. Tres conexiones:
-   - **VCC** → 5V (cable **rojo**)
-   - **GND** → GND (cable **negro**)
-   - **DIN** (data in) → **GPIO 4** del ESP32 a través de una resistencia de 330 Ω (cable **verde**)
+3. **Dos LEDs de estado (verde y rojo):** Indicadores del estado del espacio. Cada LED con su resistencia limitadora:
+   - **LED verde** (ánodo) → **GPIO 32** con R 220 Ω; cátodo → GND (cable **verde**)
+   - **LED rojo** (ánodo) → **GPIO 33** con R 220 Ω; cátodo → GND (cable **rojo**)
 
-   Se recomienda un capacitor de 100 µF entre VCC y GND del LED para estabilizar la corriente en transiciones de color. *Nota sobre la simulación:* en Wokwi se puede representar con el componente `neopixel` o, como alternativa equivalente para la lógica de control, con un LED RGB cátodo común a tres resistencias de 220 Ω en GPIO 4 (Rojo), GPIO 2 (Verde) y GPIO 15 (Azul).
+   Verde = espacio disponible, rojo = ocupado o alarma. El firmware los controla por GPIO directo (`digitalWrite`). *Nota sobre la simulación:* en Wokwi se representan con dos LEDs discretos.
 
 4. **Sensor de Gas MQ-2:** Detector de gases combustibles y humo para el protocolo de emergencia (presente solo en nodos cabecera de pasillo). Cuatro conexiones:
    - **VCC** → 5V (cable **rojo**)
@@ -5230,29 +5297,34 @@ Los componentes integrados y sus nodos de conexión son los siguientes:
 
    El GPIO 25 soporta DAC, lo que permite generar tonos de frecuencia variable (sirena ascendente/descendente) en vez de un beep monótono.
 
-6. **Botón Pulsador (Provisioning / Reset):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
+6. **Botón Pulsador (Reset / Reenvío manual):** Interfaz de entrada para operaciones de mantenimiento. Dos conexiones:
    - Un terminal → **GPIO 13** del ESP32, utilizando la resistencia interna Pull-Up del ESP32 (`INPUT_PULLUP`) — cable **blanco**
    - Otro terminal → GND (cable **negro**)
 
-   Una pulsación corta (< 2 s) fuerza un reenvío manual del estado al Edge Gateway (HTTP POST). Una pulsación larga (> 5 s) entra en modo provisioning Wi-Fi y enciende el LED en **Azul `#1A82FF`** parpadeando.
+   Una pulsación fuerza un reenvío manual del estado del nodo al Edge Gateway (HTTP POST) y sirve como reinicio manual durante el mantenimiento.
 
 #### Access Barrier Node (Control de Acceso Vehicular)
 
-Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**, basado en un **ESP32-CAM (AI-Thinker, sensor OV2640)** que añade capacidad de captura de imagen para el reconocimiento de placas (ALPR). Este nodo se ubica en las barreras de entrada y salida del estacionamiento e integra los siguientes componentes adicionales:
+Además del Parking Spot Node, la solución incorpora el **control de acceso vehicular** con reconocimiento de placas (ALPR). En la implementación real se adoptó el **diseño "Opción A" (dividido)**, en el que la capacidad de acceso se reparte entre **dos nodos físicos** coordinados por el Edge Gateway (nunca directamente contra el backend):
+
+- **Plate Camera Node — ESP32-CAM (AI-Thinker, sensor OV3660):** dedicado **exclusivamente a la cámara**. Captura la imagen de la placa y la envía en base64 al Edge (`POST /api/v1/access/plate`, con `X-API-Key`) cada ~2.5 s. No controla ni la barrera ni los sensores IR.
+- **Grupo de barrera (2× IR de entrada/salida + servo SG90) montado sobre el Parking Spot Node (ESP32 DevKit):** el DevKit consulta al Edge (`GET /api/v1/access/barrier`) y, cuando el Edge responde `OPEN` (porque el backend reconoció una placa y creó la sesión), abre la barrera si su IR de entrada detecta el vehículo.
+
+De esta forma el Edge desacopla la cámara del actuador: la CAM solo "ve" la placa, el backend hace el ALPR y crea la sesión, y el DevKit ejecuta la apertura física. Los componentes adicionales del grupo de barrera (sobre el DevKit) son:
 
 7. **Servomotor SG90 (Barrera):** Actuador que levanta y baja el brazo de la barrera. Tres conexiones:
-   - **Señal (naranja)** → **GPIO 14** del ESP32-CAM (PWM mediante la librería ESP32Servo).
-   - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32-CAM, para evitar brown-out durante el movimiento).
-   - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32-CAM.
+   - **Señal (naranja)** → **GPIO 26** del ESP32 DevKit (PWM mediante la librería ESP32Servo).
+   - **V+ (rojo)** → **fuente externa 5 V** (no del pin del ESP32, para evitar brown-out durante el movimiento; se comprobó en hardware que el pico del servo corrompe el flasheo si comparte alimentación).
+   - **GND (marrón)** → **tierra común** entre la fuente de 5 V y el ESP32.
 
    El servo opera entre 0° (barrera cerrada) y 90° (barrera abierta). Se recomienda un capacitor de 1000 µF entre 5 V y GND para amortiguar los picos de corriente del servo (~500–700 mA).
 
 8. **Sensores Infrarrojos FC-51 (×2, Entrada y Salida):** Detectores de presencia que disparan el flujo de acceso. Cada uno tiene tres conexiones:
-   - **VCC** → **3.3 V** del ESP32-CAM (alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
+   - **VCC** → **3.3 V** del ESP32 (alimentar a 3.3 V, no a 5 V, para que la salida sea compatible con el GPIO).
    - **GND** → GND.
-   - **OUT** → **GPIO 13** (IR Entrada) y **GPIO 15** (IR Salida); la salida va a LOW cuando detecta un obstáculo.
+   - **OUT** → **GPIO 14** (IR Entrada) y **GPIO 27** (IR Salida); la salida va a LOW cuando detecta un obstáculo.
 
-   El IR de entrada dispara la captura de placa y la creación de sesión; el IR de salida confirma el paso del vehículo y la verificación de pago antes de cerrar la barrera.
+   El IR de entrada dispara la consulta del comando de barrera al Edge y la apertura del servo; el IR de salida confirma el paso del vehículo antes de cerrar la barrera.
 
 
 #### Resumen de Conexiones (Pinout Table)
@@ -5263,9 +5335,8 @@ Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**
 | HC-SR04 | GND | GND | Negro | Tierra común |
 | HC-SR04 | Trig | GPIO 5 | Amarillo | Salida digital |
 | HC-SR04 | Echo | GPIO 18 | Azul | Entrada digital |
-| WS2812B | VCC | 5V (VIN) | Rojo | Alimentación |
-| WS2812B | GND | GND | Negro | Tierra común |
-| WS2812B | DIN | GPIO 4 | Verde | Datos seriales (con R=330 Ω) |
+| LED verde | Ánodo | GPIO 32 | Verde | R 220 Ω; cátodo a GND |
+| LED rojo | Ánodo | GPIO 33 | Rojo | R 220 Ω; cátodo a GND |
 | MQ-2 (potenciómetro en sim.) | VCC | 5V (VIN) | Rojo | Alimentación |
 | MQ-2 (potenciómetro en sim.) | GND | GND | Negro | Tierra común |
 | MQ-2 (potenciómetro en sim.) | AO | GPIO 34 | Morado | Solo entrada ADC |
@@ -5277,22 +5348,23 @@ Además del Parking Spot Node, la solución incorpora el **Access Barrier Node**
 
 
 
-**Pinout del Access Barrier Node (ESP32-CAM).** En la simulación de Wokwi (ESP32 DevKit) los pines difieren por las restricciones de GPIO del ESP32-CAM:
+**Pinout del grupo de barrera (sobre el ESP32 DevKit).** Bajo la Opción A el servo y los dos IR viven en el DevKit; estos son los GPIO reales usados por el firmware (`build_config.h`). La columna Wokwi refleja los mismos pines en la simulación:
 
-| Componente | Pin del componente | GPIO físico (ESP32-CAM) | GPIO simulación (Wokwi) | Notas |
+| Componente | Pin del componente | GPIO real (ESP32 DevKit) | GPIO simulación (Wokwi) | Notas |
 |---|---|---|---|---|
-| Servo SG90 | Señal | GPIO 14 | GPIO 26 | PWM (ESP32Servo) |
+| Servo SG90 | Señal | GPIO 26 | GPIO 26 | PWM (ESP32Servo) |
 | Servo SG90 | V+ | 5V externo | 5V | riel separado, no del MCU |
 | Servo SG90 | GND | GND común | GND | tierra compartida |
-| IR Entrada (FC-51) | OUT | GPIO 13 | GPIO 14 | LOW = vehículo detectado |
+| IR Entrada (FC-51) | OUT | GPIO 14 | GPIO 14 | LOW = vehículo detectado |
 | IR Entrada (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | alimentar a 3.3 V |
-| IR Salida (FC-51) | OUT | GPIO 15 | GPIO 27 | LOW = vehículo detectado |
+| IR Salida (FC-51) | OUT | GPIO 27 | GPIO 27 | LOW = vehículo detectado |
 | IR Salida (FC-51) | VCC / GND | 3V3 / GND | 3V3 / GND | |
-| ESP32-CAM (cámara) | OV2640 | bus dedicado | — (no simulable) | captura de placa para ALPR |
 
-**Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot Node (HC-SR04, WS2812B, MQ-2, buzzer, botón) y el Access Barrier Node (servo SG90 y los dos sensores IR de entrada/salida).
+El **Plate Camera Node** es un nodo físico aparte (ESP32-CAM, sensor **OV3660**, bus de cámara dedicado, no simulable en Wokwi) que solo captura la placa y la envía al Edge para ALPR.
 
-<img src="assets/images/screenshots/prototype_new.png" alt="Esquemático del prototipo IoT de SpotFinder en Wokwi: ESP32 con HC-SR04, WS2812B, MQ-2, buzzer, botón, servo SG90 y 2 sensores IR" width="800">
+**Esquemático actualizado del prototipo (Wokwi):** incluye el Parking Spot + Barrier Node (HC-SR04, 2 LEDs verde/rojo, MQ-2, buzzer, botón, servo SG90 y los dos sensores IR de entrada/salida) y, como nodo separado, el Plate Camera Node (ESP32-CAM).
+
+<img src="assets/images/screenshots/prototype_new.png" alt="Esquemático del prototipo IoT de SpotFinder en Wokwi: ESP32 con HC-SR04, 2 LEDs (verde/rojo), MQ-2, buzzer, botón, servo SG90 y 2 sensores IR" width="800">
 
 El esquemático completo del prototipo (incluyendo el servo y los dos sensores IR) y el firmware se encuentran versionados en el repositorio:
 
@@ -5307,52 +5379,41 @@ El esquemático completo del prototipo (incluyendo el servo y los dos sensores I
 
 El hardware cubre interacciones físicas que se sincronizan con las vistas de la aplicación móvil del conductor, el dashboard web del administrador y el Edge Server, definiendo los siguientes flujos principales de Wireflow físico:
 
-**1. Flujo de Inicialización y Provisioning del Nodo:**
-
-- **Paso 1:** El técnico instala el nodo en el techo del espacio de parqueo y conecta la alimentación.
-- **Paso 2:** El ESP32 arranca y el LED WS2812B parpadea en **Azul `#1A82FF`** indicando estado de provisioning (búsqueda de red Wi-Fi).
-- **Paso 3:** Una vez conectado a la red Wi-Fi y validado contra el Edge Gateway (HTTP/REST con `X-API-Key`), el LED se apaga momentáneamente y luego enciende en **Verde `#10B981`** fijo, indicando que el nodo está operativo y el espacio fue reportado como `Available`.
-
-**2. Flujo de Detección de Ocupación (Happy Path):**
+**1. Flujo de Detección de Ocupación (Happy Path):**
 
 - **Paso 1:** Un vehículo entra al espacio y el HC-SR04 detecta una distancia < 100 cm de forma sostenida durante > 2 segundos.
 - **Paso 2:** El ESP32 envía la lectura por **HTTP/REST** al Edge Gateway (`POST /api/v1/monitoring/sensor-readings`); el Edge aplica el debounce y consolida el estado `Occupied`.
-- **Paso 3:** El LED WS2812B cambia inmediatamente a **Rojo `#EF4444`** fijo.
+- **Paso 3:** El LED rojo (GPIO 33) se enciende inmediatamente (**Rojo `#EF4444`** fijo) y el verde se apaga.
 - **Paso 4:** El Edge Server consolida la lectura, la reenvía al backend Cloud y el espacio se refleja como ocupado en el mapa de la app móvil y el dashboard web.
 
-**3. Flujo de Liberación del Espacio (Happy Path):**
+**2. Flujo de Liberación del Espacio (Happy Path):**
 
 - **Paso 1:** El vehículo sale del espacio y el HC-SR04 detecta una distancia estable > 100 cm durante > 2 segundos.
 - **Paso 2:** El ESP32 publica el evento con estado `Available`.
 - **Paso 3:** El LED retorna a **Verde `#10B981`** fijo, y la app móvil notifica a conductores que hayan filtrado por espacios cercanos disponibles.
 
-**4. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
+**3. Flujo de Emergencia por Detección de Gases (Unhappy Path):**
 
-- **Paso 1:** El sensor MQ-2 lee una concentración > 900 PPM por más de 3 segundos.
-- **Paso 2:** El ESP32 publica el evento `EmergencyAlertTriggered` en el topic `parksense/emergency/floor/{floorId}`.
-- **Paso 3:** El Edge Server propaga el comando `BroadcastEvacuationSignal` a todos los nodos del piso.
-- **Paso 4:** Todos los LEDs WS2812B del piso cambian a **parpadeo estroboscópico rojo a 2 Hz** y los buzzers emiten una sirena ascendente/descendente, guiando físicamente la evacuación de los conductores presentes.
-- **Paso 5:** El dashboard web del administrador muestra una alerta crítica con la ubicación del sensor que detectó el evento.
+- **Paso 1:** El sensor MQ-2 supera el umbral de gas por más de 3 segundos.
+- **Paso 2:** El ESP32 envía la lectura al Edge por **HTTP/REST** (`POST /api/v1/monitoring/gas-analysis`).
+- **Paso 3:** El Edge evalúa el umbral crítico y, si hay emergencia, responde marcando el estado de emergencia; el nodo enciende el **LED rojo en parpadeo a 2 Hz** y el buzzer emite una sirena ascendente/descendente localmente.
+- **Paso 4:** El Edge reenvía la alerta consolidada al backend, que registra el evento en el Emergency & Safety BC y notifica al dashboard web del administrador (con la ubicación del sensor) y a los usuarios activos vía FCM.
 
-**5. Flujo de Mantenimiento Manual (Provisioning Reset):**
+**4. Flujo de Ingreso Vehicular (Opción A, edge-mediated — Happy Path):**
 
-- **Paso 1:** El técnico mantiene presionado el botón pulsador durante más de 5 segundos.
-- **Paso 2:** El nodo borra las credenciales Wi-Fi almacenadas y reinicia en modo provisioning.
-- **Paso 3:** El LED parpadea en **Azul `#1A82FF`** hasta que el técnico complete el emparejamiento desde la app de configuración.
+- **Paso 1:** El **Plate Camera Node (ESP32-CAM)** captura la placa periódicamente (~2.5 s) y la envía al Edge: `POST /api/v1/access/plate` (imagen base64, cabecera `X-API-Key`).
+- **Paso 2:** El Edge reenvía la imagen al backend (`POST /api/v1/access/entries`). El backend reconoce la placa vía **Plate Recognizer**, crea la `VehicleSession` y responde `201 Created`.
+- **Paso 3:** Al recibir el 201, el Edge levanta el comando **`OPEN`** durante una ventana de **8 s** (`GET /api/v1/access/barrier` → `{command: OPEN, plate}`).
+- **Paso 4:** En paralelo, el **DevKit** detecta con su IR de entrada (GPIO 14, `LOW`) que hay un vehículo y consulta `GET /api/v1/access/barrier`.
+- **Paso 5:** Si el comando es `OPEN`, el DevKit abre la barrera (servo GPIO 26 → 90°); el IR de salida (GPIO 27) confirma el paso y la barrera se cierra (servo → 0°).
 
-**6. Flujo de Ingreso Vehicular (Access Barrier Node — Happy Path):**
+> **Validado en hardware (jul. 2026):** flujo probado extremo a extremo con la CAM y el DevKit en la misma red Wi-Fi 2.4 GHz, el Edge en la laptop y el backend Spring Boot + MySQL 8. Se confirmó `POST /access/plate → 200`, creación de sesión (`ABC-123` en modo *stub* del ALPR), `GET /access/barrier → OPEN` y la lectura del comando por el DevKit. La app móvil Flutter mostró la sesión activa `ABC-123` y el "Ingreso confirmado" consumiendo el mismo backend.
 
-- **Paso 1:** Un vehículo llega a la barrera de entrada y el sensor IR de entrada (GPIO 13) detecta su presencia (`LOW`).
-- **Paso 2:** El ESP32-CAM enciende el LED flash y captura la imagen de la placa.
-- **Paso 3:** El nodo envía la imagen a `POST /api/v1/access/entries` (o, en el modo sin cámara, crea la sesión con `POST /api/v1/parking-sessions` usando la placa registrada).
-- **Paso 4:** El backend reconoce la placa vía Plate Recognizer, crea la `VehicleSession` y responde `201 Created`.
-- **Paso 5:** El nodo abre la barrera (servo a 90°), espera a que el IR de salida confirme el paso del vehículo y cierra la barrera (servo a 0°).
+**5. Flujo de Salida Vehicular con Verificación de Pago (diseño; Unhappy Path incluido):**
 
-**7. Flujo de Salida Vehicular con Verificación de Pago (Unhappy Path incluido):**
-
-- **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 15) detecta su presencia.
-- **Paso 2:** El nodo consulta el estado de la sesión vía `GET /api/v1/parking-sessions/{id}` y lee `paymentStatus`.
-- **Paso 3 (Happy Path):** Si el estado es `PAID`, el nodo invoca `PATCH /api/v1/parking-sessions/{id}/end`, abre la barrera y cierra la sesión.
+- **Paso 1:** El vehículo llega a la barrera de salida y el sensor IR de salida (GPIO 27) detecta su presencia.
+- **Paso 2:** Se consulta el estado de la sesión (`GET /api/v1/parking-sessions/{id}`) y se lee `paymentStatus`.
+- **Paso 3 (Happy Path):** Si el estado es `PAID`, se cierra la sesión (`PATCH /api/v1/parking-sessions/{id}/end`) y se abre la barrera.
 - **Paso 3 (Unhappy Path):** Si el estado es `PENDING`, la barrera **permanece cerrada** y el buzzer emite un tono de aviso; el conductor debe completar el pago desde la app móvil antes de reintentar la salida.
 
 ### Diagrama del Dispositivo (Embedded App)
@@ -5393,7 +5454,7 @@ Como herramientas SaaS y de colaboración se utilizará GitHub para el control d
 
 Como herramienta de diseño UX/UI se utilizará Figma para la creación de wireframes, mockups y prototipos interactivos de la aplicación móvil y dashboard web.
 
-Como herramienta de desarrollo para el componente IoT y Edge Computing se utilizará Visual Studio Code junto con Python/Flask y el protocolo MQTT para la comunicación con sensores y dispositivos IoT.
+Como herramienta de desarrollo para el componente IoT y Edge Computing se utilizará Visual Studio Code junto con Python/Flask y comunicación **HTTP/REST** con los sensores y dispositivos IoT.
 
 Para el desarrollo de la landing page se utilizarán HTML5, CSS3 y JavaScript, debido a la facilidad de implementación y compatibilidad con despliegues estáticos modernos.
 
@@ -5546,7 +5607,7 @@ Para la base de datos MySQL se utilizará **Railway** o **Aiven for MySQL** como
 
 Para el despliegue de la aplicación móvil se utilizará **Android Studio** para generación de builds APK y **Google Play Console** para distribución futura.
 
-Para los servicios IoT y Edge Processing se utilizarán servidores Linux o servicios cloud compatibles con MQTT y Flask.
+Para los servicios IoT y Edge Processing se utilizarán servidores Linux o servicios cloud compatibles con HTTP/REST y Flask.
 
 El despliegue seguirá los siguientes pasos:
 
@@ -6249,7 +6310,7 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 | **Prepared by** | Roman Esteban, Henry Kalet |
 | **Attendees (to planning meeting)** | Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington; Roman Esteban, Henry Kalet |
 | **Sprint 1 Review Summary** | El Sprint 1 entregó la primera versión funcional del ecosistema SpotFinder: el backend basado en bounded contexts con los endpoints principales (monitoreo de estacionamiento, control de acceso, sesiones, autenticación y analítica) desplegado y verificable vía Swagger, junto con la Landing Page institucional. Se completaron 76 story points sin incidencias críticas. |
-| **Sprint 2 Goal** | **Our focus is on** delivering the administrative web dashboard (Angular) and the first version of the driver mobile application (Flutter), both consuming the SpotFinder REST API; completing the remaining REST endpoints (payments, notifications, analytics and emergencies); incorporating the missing **Reservation Management Bounded Context** together with its driver-facing UI; enabling **Premium driver features** (Google Wallet pass and on-demand premium services like car wash); replacing the five placeholder pages of the admin dashboard (Access Control, Emergency, Reports, Users, Settings) with their real implementations; and aligning the documented database engine to the real one (MySQL 8, schema `spotfinder`) including the regeneration of the C4 Container and Deployment diagrams.<br><br>**We believe it delivers** a complete end-to-end experience for drivers (browse, reserve, enter via ALPR, pay, get a Google Wallet pass, locate the vehicle, request premium add-ons) and administrators (real-time monitoring, access control, emergency response, reports, user and facility management) from web and mobile, plus a documentation set that matches the implemented code base.<br><br>**This will be confirmed when** every flow is reachable from the web dashboard and the mobile app, verifiable through Swagger and the emulator without critical issues, and the report (TOC, 4.1.3.3, 4.1.3.4, 6.1.1 and 6.1.4) describes the same engine, schema name and diagrams that the deployed code uses. |
+| **Sprint 2 Goal** | Nuestro enfoque está en entregar el dashboard administrativo web (Angular) y la primera versión de la aplicación móvil para conductores (Flutter), ambas consumiendo la REST API de SpotFinder; completar los endpoints REST restantes (pagos, notificaciones, analítica y emergencias); incorporar el **Bounded Context de Reservation Management** faltante junto con su UI orientada al conductor; habilitar las funcionalidades Premium para conductores (pase digital Google Wallet y servicios premium bajo demanda como lavado de autos); reemplazar las cinco páginas placeholder del dashboard administrativo (Access Control, Emergency, Reports, Users, Settings) por sus implementaciones reales; y alinear el motor de base de datos documentado con el real (MySQL 8, esquema `spotfinder`), incluyendo la regeneración de los diagramas C4 de Container y Deployment.<br><br> Creemos que esto entrega una experiencia completa de extremo a extremo para conductores (explorar, reservar, ingresar vía ALPR, pagar, obtener un pase de Google Wallet, localizar el vehículo, solicitar servicios premium adicionales) y para administradores (monitoreo en tiempo real, control de acceso, respuesta a emergencias, reportes, gestión de usuarios y del establecimiento) desde la web y el móvil, además de un conjunto de documentación que coincide con el código implementado.<br><br> Esto se confirmará cuando cada flujo sea accesible desde el dashboard web y la aplicación móvil, verificable a través de Swagger y el emulador sin incidencias críticas, y el informe (TOC, 4.1.3.3, 4.1.3.4, 6.1.1 y 6.1.4) describa el mismo motor, nombre de esquema y diagramas que utiliza el código desplegado. |
 | **Sprint 2 Velocity** | 136 story points |
 | **Sum of Story Points** | 136 story points |
 
@@ -6257,7 +6318,17 @@ En esta sección se presentan los aspectos principales abordados durante la reun
 
 ### 6.2.2.2. Aspect Leaders and Collaborators
 
-*Pendiente — se documentará en AV2.*
+En esta sección se presenta la matriz de liderazgo y colaboración correspondiente al Sprint 2. El objetivo de esta matriz es identificar los principales aspectos funcionales y técnicos abordados durante el Sprint, así como definir qué integrantes del equipo asumieron roles de liderazgo y cuáles participaron como colaboradores en cada aspecto. Esta organización permite mejorar la coordinación, distribución de responsabilidades y comunicación interna del equipo durante el desarrollo del Sprint.
+
+Los aspectos considerados para este Sprint incluyen el desarrollo del backend (REST API, Reservation Management BC, endpoints de pagos, notificaciones, analítica y emergencias), el frontend web (dashboard administrativo Angular), la aplicación móvil (Flutter para conductores), la integración IoT y Edge (Edge Gateway, simulación Wokwi) y la documentación técnica (regeneración de diagramas C4, alineación MySQL 8, actualización del informe).
+
+| Team Member (Last Name, First Name) | GitHub Username | Backend Development | Frontend Web Development | Mobile Development | IoT & Edge Integration | Documentation & Deployment |
+|---|---|---|---|---|---|---|
+| Esteban Román, Henry Kalet | kalet123-commit | L | C | C | C | L |
+| Dueñas Canales, Leonardo Manuel | Insonnio | C | L | L | C | C |
+| Vidal Castro, Miguel Angel | Gossk | C | L | C | C | C |
+| Allcca Guerrero, Irving Washington | eviterno17 | C | C | C | L | C |
+| Cruz Ibarra, Victor Andrés | Elandrehss | L | C | C | C | C | 
 
 ### 6.2.2.3. Sprint Backlog 2
 
@@ -6608,7 +6679,245 @@ La aplicación móvil se desarrolló en **Flutter/Dart** y se ejecuta en emulado
 
 ### 6.2.2.9. Team Collaboration Insights during Sprint
 
-*Pendiente — se documentará en AV2.*
+Durante el Sprint 2, el equipo mantuvo el flujo de trabajo *GitFlow* con ramas `feature/<nombre>` para cada contribución individual dentro de los tres repositorios activos de la organización [ParkSenseIoT](https://github.com/ParkSenseIoT):
+
+- **SpotFinder-Backend** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Backend)): endpoints REST de pagos, notificaciones push (FCM), analítica (ocupación e ingresos), gestión de emergencias y el nuevo Bounded Context *Reservation Management*.
+- **SpotFinder-Frontend** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Frontend)): dashboard administrativo web en Angular con las cinco páginas reales (Access Control, Emergency Center, Reports, Users, Facility Settings) y el refactoring con lazy loading.
+- **SpotFinder-Flutter** ([repo](https://github.com/ParkSenseIoT/SpotFinder-Flutter)): primera versión funcional de la aplicación móvil para conductores con flujos de pago, localización de vehículo, reservas, pase digital Google Wallet y servicios premium.
+
+La gestión del Sprint se realizó mediante **Trello**, con un tablero que refleja 75 tarjetas distribuidas en las columnas "Lista de tareas", "En proceso" y "Hecho". El equipo llevó a cabo **Daily Standups** a través de Discord para sincronizar avances e identificar bloqueos, y una *Sprint Review* al final del período donde se validaron los flujos end-to-end desde el dashboard web y la app móvil contra la REST API desplegada en Render.
+
+*Gráfico de commits por integrante (Sprint 2):*
+
+![Commits Graph Sprint 2](./assets/images/screenshots/commitsgraph-tb2.png)
+
+*Gráfico de red (network graph) de ramas durante el Sprint 2:*
+
+![Network Graph Sprint 2](./assets/images/screenshots/networkgraph-tb2.png)
+
+*Contribuciones de los integrantes durante el Sprint 2:*
+
+![Contributors Image Sprint 2](./assets/images/screenshots/contributorsimage-tb2.png)
+
+<div style="page-break-after: always;"></div>
+
+---
+
+## 6.2.3. Sprint 3
+
+### 6.2.3.1. Sprint Planning 3
+
+| Campo | Detalle |
+|---|---|
+| **Sprint #** | Sprint 3 |
+| **Date** | 2026-06-05 |
+| **Time** | 10:00 PM |
+| **Location** | Reunión virtual a través de Discord |
+| **Prepared by** | Roman Esteban, Henry Kalet |
+| **Attendees (to planning meeting)** | Cruz Ibarra, Victor Andres; Dueñas Canales, Leonardo Manuel; Vidal Castro, Miguel Angel; Allcca Guerrero, Irving Washington; Roman Esteban, Henry Kalet |
+| **Sprint 2 Review Summary** | El Sprint 2 entregó el dashboard administrativo web (Angular) y la primera versión de la app móvil del conductor (Flutter), ambos consumiendo la REST API; se completaron los endpoints REST restantes (pagos, notificaciones, analítica y emergencias), el Bounded Context Reservation Management (backend + UI), las funcionalidades Premium (Google Wallet y servicios premium), el registro de vehículos y las cinco páginas reales del dashboard; además se alineó la base de datos a MySQL 8 y se regeneraron los diagramas C4. Se completaron **136 story points** sin incidencias críticas. |
+| **Sprint 3 Goal** | Nuestro enfoque está en cerrar la **capa IoT y Edge Computing** de SpotFinder, la única capa que quedaba por implementar de extremo a extremo. En concreto: (1) construir el **Edge Gateway** (Flask con arquitectura DDD: bounded contexts IAM, Monitoring y Access) que autentica a los nodos por `device_id` + `X-API-Key`, aplica el debounce de ocupación y el umbral de gas, y reenvía al backend; (2) implementar el **firmware embebido** de los dos nodos físicos del diseño "Opción A" — el **Parking Spot + Barrier Node** (ESP32 DevKit: HC-SR04, MQ-2, 2 LEDs, buzzer, 2× IR y servo de barrera) y el **Plate Camera Node** (ESP32-CAM, sensor OV3660, solo cámara); (3) integrar el **ALPR real** con Plate Recognizer en el backend; (4) **validar el flujo completo en hardware físico** (cámara → Edge → backend → sesión → comando de barrera → servo); y (5) **conectar la app móvil Android** al backend mostrando los datos reales del IoT.<br><br> Creemos que esto entrega, por primera vez, el circuito físico completo del producto: un vehículo detectado por la cámara genera una sesión vía ALPR en el backend, el Edge levanta el comando de apertura y el nodo embebido abre la barrera, mientras la app del conductor refleja la sesión activa en tiempo real.<br><br> Esto se confirmará cuando el nodo embebido y el Edge se comuniquen por HTTP/REST sin incidencias, el flujo de barrera sea verificable de extremo a extremo con los dos ESP32 físicos, el ALPR real devuelva placas desde Plate Recognizer, y la app Android muestre la sesión y el ingreso generados por el hardware. |
+| **Sprint 3 Velocity** | 84 story points |
+| **Sum of Story Points** | 84 story points |
+
+<div style="page-break-after: always;"></div>
+
+### 6.2.3.2. Aspect Leaders and Collaborators
+
+En esta sección se presenta la matriz de liderazgo y colaboración correspondiente al Sprint 3. Dado que el Sprint 3 se centró en la capa IoT y Edge Computing, los aspectos considerados incluyen el desarrollo del **Edge Gateway** (Flask/DDD), el **firmware embebido** de los dos nodos ESP32 (Opción A), el **ALPR real y los endpoints de acceso del backend**, la **validación del flujo completo en hardware** y la **documentación** (actualización del §5.6, diagramas C4 y alineación del informe con el build real).
+
+| Team Member (Last Name, First Name) | GitHub Username | Edge Gateway | Embedded Firmware (ESP32) | ALPR & Backend Access | Hardware Validation | Documentation |
+|---|---|---|---|---|---|---|
+| Esteban Román, Henry Kalet | kalet123-commit | L | C | C | L | L |
+| Allcca Guerrero, Irving Washington | eviterno17 | C | L | C | L | C |
+| Cruz Ibarra, Victor Andrés | Elandrehss | C | C | L | C | C |
+| Dueñas Canales, Leonardo Manuel | Insonnio | C | C | C | C | L |
+| Vidal Castro, Miguel Angel | Gossk | C | C | C | C | C |
+
+### 6.2.3.3. Sprint Backlog 3
+
+En esta sección se presenta el Sprint Backlog correspondiente al Sprint 3 del proyecto SpotFinder. Durante este Sprint el equipo construyó el **Edge Gateway** (Flask/DDD) con los bounded contexts IAM, Monitoring y Access; implementó el **firmware embebido** de los dos nodos del diseño "Opción A" (Parking Spot + Barrier Node en ESP32 DevKit y Plate Camera Node en ESP32-CAM); integró el **ALPR real** con Plate Recognizer (con fallback a stub); **validó el flujo completo en hardware físico**; y **conectó la app Android** al backend mostrando datos reales del IoT. El Sprint comprometió un total de **84 story points**.
+
+Atendiendo la observación de mejora del Sprint 2 ("los User Stories deben descomponerse en Engineering Tasks estimadas en horas, en el rango de 4 a 8 horas como máximo" y "el user goal debe incluir el embebido y EDGE"), en este Sprint **cada User/Technical Story se descompone en Engineering Tasks estimadas entre 4 y 8 horas**, y el seguimiento del tablero usa los estados **To Do → In Process → To Review → Done**. El *Sprint Goal* (sección 6.2.3.1) fue redactado explícitamente alrededor del **componente embebido y el Edge Gateway**.
+
+A continuación, se muestra el tablero de trabajo utilizado para la gestión de tareas del Sprint:
+
+![Sprint Backlog 3 in Trello](assets/images/screenshots/sprint3_trello.png)
+
+Link Trello: [SpotFinder - Trello]()
+
+| Epic / US | Título | Item | Work Item | Descripción | Est. (h) | Asignado a | Estado | SP |
+|---|---|---|---|---|---|---|---|---|
+| US26 | Detección de ocupación del Parking Spot Node | US26a | Firmware de ocupación + LEDs | Lectura HC-SR04 con suavizado/debounce local y control de los 2 LEDs (verde GPIO32 / rojo GPIO33) según ocupación. | 6 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US26 | Detección de ocupación del Parking Spot Node | US26b | Envío de lecturas al Edge | `EdgeClient.postOccupancy()` → `POST /api/v1/monitoring/sensor-readings` con cabecera `X-API-Key`. | 5 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US27 | Detección de emergencia por gas | US27a | Firmware MQ-2 + buzzer | Lectura analógica del MQ-2 (GPIO34) con umbral local y activación de buzzer + LED rojo en emergencia. | 5 | Allcca Guerrero, Irving Washington | Done | 5 |
+| US27 | Detección de emergencia por gas | US27b | Envío de gas al Edge | `EdgeClient.postGas()` → `POST /api/v1/monitoring/gas-analysis` y reacción al flag de emergencia del Edge. | 4 | Roman Esteban, Henry Kalet | Done | 5 |
+| US28 | Control de barrera vehicular (Opción A) | US28a | Firmware DevKit: IR + servo + polling | 2× IR (entrada GPIO14 / salida GPIO27) + servo (GPIO26) y `EdgeClient.barrierShouldOpen()` → `GET /api/v1/access/barrier`. | 7 | Allcca Guerrero, Irving Washington | Done | 13 |
+| US28 | Control de barrera vehicular (Opción A) | US28b | Firmware Plate Camera Node (ESP32-CAM) | Captura JPEG (OV3660, xclk 10 MHz, Huge APP) y `POST /api/v1/access/plate` (base64, `X-API-Key`) cada ~2.5 s. | 6 | Allcca Guerrero, Irving Washington | Done | 13 |
+| TS47 | Edge Gateway — Bounded Context IAM | TS47a | Autenticación de nodos | BC IAM (DDD) con validación `device_id` + `X-API-Key`, seed del nodo de prueba y respuesta 401 ante credenciales inválidas. | 5 | Roman Esteban, Henry Kalet | Done | 3 |
+| TS48 | Edge Gateway — Bounded Context Monitoring | TS48a | Ocupación + debounce | `POST /monitoring/sensor-readings` y `GET /monitoring/occupancy` con debounce "sostenido > 2 s". | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS48 | Edge Gateway — Bounded Context Monitoring | TS48b | Análisis de gas | `POST /monitoring/gas-analysis` con evaluación de umbral y marca de emergencia. | 4 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS49 | Edge Gateway — Bounded Context Access (Opción A) | TS49a | Relay de placa | `POST /api/v1/access/plate` que reenvía la imagen de la cámara al backend (`/access/entries`). | 5 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS49 | Edge Gateway — Bounded Context Access (Opción A) | TS49b | Comando de barrera | `GET /api/v1/access/barrier` con comando `OPEN`/`IDLE` y ventana de validez de 8 s tras el reconocimiento. | 5 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS50 | Edge Gateway — Reenvío al backend | TS50a | BackendClient | Reenvío condicionado a `SPOTFINDER_BACKEND_URL`; modo offline (solo LED local) cuando la env no está seteada. | 5 | Cruz Ibarra, Victor Andres | Done | 5 |
+| TS51 | ALPR real con Plate Recognizer | TS51a | Cliente multipart | `PlateRecognizerClient` con `RestClient`: POST multipart a Snapshot Cloud (`Authorization: Token`) y parseo de `results[0].plate/score`. | 6 | Cruz Ibarra, Victor Andres | Done | 8 |
+| TS51 | ALPR real con Plate Recognizer | TS51b | Fallback y configuración | Fallback determinista al stub cuando no hay token o falla la API; config `PLATE_RECOGNIZER_TOKEN/URL/REGIONS/STUB_FALLBACK`. | 4 | Cruz Ibarra, Victor Andres | Done | 8 |
+| TS52 | Backend — Endpoints de acceso + fixes de arranque | TS52a | Endpoints públicos | Habilitar `/access/entries` y `/access/exits` sin JWT en `WebSecurityConfiguration` para el Edge/IoT. | 4 | Cruz Ibarra, Victor Andres | Done | 5 |
+| TS52 | Backend — Endpoints de acceso + fixes de arranque | TS52b | Fixes MySQL 8 + RestClient | `allowPublicKeyRetrieval=true` (caching_sha2) y construcción del `RestClient` con `RestClient.create()`. | 4 | Roman Esteban, Henry Kalet | Done | 5 |
+| US29 | Validación del flujo completo en hardware | US29a | Autotest de componentes | Firmware de autotest que valida HC-SR04, MQ-2, botón, buzzer, 2 LEDs, 2 IR y servo por separado desde el monitor serial. | 5 | Allcca Guerrero, Irving Washington | Done | 8 |
+| US29 | Validación del flujo completo en hardware | US29b | Prueba E2E CAM+DevKit+Edge+Backend | Los dos ESP32 en la misma red 2.4 GHz → `POST /access/plate → 200`, sesión creada y `GET /access/barrier → OPEN` verificado en vivo. | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| US29 | Validación del flujo completo en hardware | US29c | Apertura física del servo | Tapar el IR de entrada del DevKit dentro de la ventana `OPEN` y confirmar la apertura del servo de la barrera. | 4 | Allcca Guerrero, Irving Washington | To Review | 8 |
+| US30 | Conexión de la app Android con el backend | US30a | Build y login real | Configurar `SPOTFINDER_API_URL`, generar el APK y validar login/registro contra el backend desplegado. | 4 | Dueñas Canales, Leonardo Manuel | Done | 5 |
+| US30 | Conexión de la app Android con el backend | US30b | Dashboard con datos reales | Verificar que el dashboard del conductor muestre la sesión activa (`ABC-123`) y el "Ingreso confirmado" generados por el flujo del IoT. | 4 | Dueñas Canales, Leonardo Manuel | Done | 5 |
+| TS53 | Documentación — §5.6 Opción A + C4 + build real | TS53a | §5.6 y diagramas C4 | Reescribir §5.6 a Opción A, corregir OV2640→OV3660 y regenerar los C4 Container y Component. | 6 | Roman Esteban, Henry Kalet | Done | 8 |
+| TS53 | Documentación — §5.6 Opción A + C4 + build real | TS53b | Alineación al build real | Reemplazar MQTT→HTTP/REST y WS2812B→2 LEDs, ajustar flujos y actualizar el workspace DSL de Structurizr. | 5 | Dueñas Canales, Leonardo Manuel | Done | 8 |
+
+### 6.2.3.4. Development Evidence for Sprint Review
+
+Durante el Sprint 3, el equipo concentró sus esfuerzos en la capa IoT y Edge Computing, completando el circuito físico de extremo a extremo del producto. Se construyó el **Edge Gateway** en Flask con arquitectura DDD (bounded contexts IAM, Monitoring y Access), que autentica a los nodos por `device_id` + `X-API-Key`, aplica el debounce de ocupación ("sostenido > 2 s") y el umbral de gas, y reenvía los eventos consolidados al backend en la nube.
+
+En el **firmware embebido** se implementaron los dos nodos del diseño "Opción A": el **Parking Spot + Barrier Node** (ESP32 DevKit) que integra HC-SR04, MQ-2, dos LEDs de guiado, buzzer, dos sensores IR y el servo de la barrera, consultando al Edge el comando de apertura (`GET /access/barrier`); y el **Plate Camera Node** (ESP32-CAM, sensor OV3660) dedicado exclusivamente a capturar la placa y enviarla al Edge (`POST /access/plate`).
+
+En el **backend** se integró el ALPR real con **Plate Recognizer** (cliente multipart con fallback a stub) y se habilitaron los endpoints de acceso (`/access/entries`, `/access/exits`) sin JWT para el Edge, además de resolver los fixes de arranque necesarios para MySQL 8. Finalmente se **validó el flujo completo en hardware físico** y se **conectó la app Android** al backend, verificando que el dashboard del conductor refleja la sesión y el ingreso generados por la cámara.
+
+La siguiente tabla presenta la evidencia de desarrollo correspondiente al Sprint 3, con los principales commits realizados en cada repositorio.
+
+| Repository | Branch | Commit ID | Commit Message | Committed on (Date) |
+|---|---|---|---|---|
+| SpotFinder-EdgeGateway | main | 63320cb | Merge branch 'feature/access-barrier-cmd' into main | 2026-07-03 |
+| SpotFinder-EdgeGateway | feature/access-barrier-cmd | e504ef5 | feat(access): add GET /access/barrier command for the DevKit to poll (Option A) | 2026-07-03 |
+| SpotFinder-EdgeGateway | feature/access-plate | 012e3f0 | feat(access): add /api/v1/access/plate to relay ESP32-CAM plate image to backend | 2026-07-03 |
+| SpotFinder-EdgeGateway | main | eb4deea | feat(forwarding): forward consolidated events to the cloud backend | 2026-06-18 |
+| SpotFinder-EdgeGateway | main | 04dc14c | feat: scaffold SpotFinder Edge Gateway (Flask DDD, IAM + Monitoring) | 2026-06-18 |
+| SpotFinder-EmbeddedApp | main | 26b52fc | Merge branch 'feature/split-cam-devkit' into main | 2026-07-03 |
+| SpotFinder-EmbeddedApp | feature/split-cam-devkit | 4e9aa2e | refactor(split): CAM = camera-only (PlateCameraNode); DevKit polls edge for barrier | 2026-07-03 |
+| SpotFinder-EmbeddedApp | feature/esp32cam-barrier | ac46be7 | feat(cam): add Access Barrier Node firmware (ESP32-CAM) | 2026-07-03 |
+| SpotFinder-EmbeddedApp | main | bc9d215 | feat: scaffold SpotFinder Embedded App (ESP32 firmware + EdgeClient) | 2026-06-18 |
+| SpotFinder-Backend | develop | 209a7a3 | fix(backend): startup fixes for ALPR client and MySQL 8 connection | 2026-07-06 |
+| SpotFinder-Backend | feature/alpr-platerecognizer-real | 517d7c3 | feat(alpr): real Plate Recognizer multipart client with stub fallback | 2026-07-03 |
+| SpotFinder-Backend | feature/open-access-endpoints | 5b9aa47 | chore(security): allow /access/entries and /access/exits without JWT (edge/IoT) | 2026-07-03 |
+| SpotFinder-Report | develop | 02f2787 | docs(report): align IoT sections to real build (HTTP/REST, 2 LEDs, Opcion A) | 2026-07-07 |
+| SpotFinder-Report | develop | c2c7c8a | docs(report): update IoT section to Opcion A (split camera/barrier nodes) | 2026-07-07 |
+
+### 6.2.3.5. Testing Suite Evidence for Sprint Review
+
+Durante el Sprint 3, dado que la capa validada fue la de IoT/Edge (firmware embebido + gateway + integración con el backend), la estrategia de pruebas se basó en **pruebas funcionales y de integración de extremo a extremo sobre hardware y servicios reales**, complementadas con un **firmware de autotest** que valida cada componente electrónico por separado.
+
+#### Pruebas funcionales del Edge Gateway (locales)
+
+Se ejecutó la batería de pruebas del Edge Gateway levantando el servicio Flask en `0.0.0.0:5000` y usando `curl` sobre cada endpoint:
+
+| Escenario | Endpoint | Resultado esperado | Estado |
+|---|---|---|---|
+| Health check | `GET /status` | `200 {status: ok}` | ✅ |
+| Auth sin API key | `POST /monitoring/sensor-readings` (sin `X-API-Key`) | `401 Unauthorized` | ✅ |
+| Auth con API key válida | `POST /monitoring/sensor-readings` (con `X-API-Key`) | `201 Created` con la lectura | ✅ |
+| Análisis de gas | `POST /monitoring/gas-analysis` | `200` con evaluación de umbral | ✅ |
+| Relay de placa | `POST /access/plate` | `200 FORWARDED` (con backend) / `202 RECEIVED` (offline) | ✅ |
+| Comando de barrera | `GET /access/barrier` | `OPEN` tras reconocimiento / `IDLE` en reposo | ✅ |
+
+#### Autotest de hardware (componentes del Parking Spot + Barrier Node)
+
+Se flasheó un firmware de autotest independiente que lee en vivo y acciona cada componente desde el monitor serial (115200 baud):
+
+| Componente | Pin | Prueba | Resultado |
+|---|---|---|---|
+| HC-SR04 (ultrasónico) | Trig 5 / Echo 18 | Variación de distancia | ✅ |
+| MQ-2 (gas) | AO 34 | Aumento de lectura ante gas | ✅ |
+| Botón | 13 | Detección de pulsación | ✅ |
+| Buzzer | 25 | Emisión de tono | ✅ |
+| LED verde / rojo | 32 / 33 | Encendido por comando | ✅ |
+| IR entrada / salida | 14 / 27 | Detección de obstáculo | ✅ |
+| Servo SG90 (barrera) | 26 | Apertura/cierre (0°/90°) | ✅ |
+
+#### Pruebas de integración End-to-End
+
+| Escenario | Descripción | Resultado |
+|---|---|---|
+| ALPR real | `POST` multipart a Plate Recognizer con token válido | `HTTP 201`, respuesta `results` de la API |
+| Flujo de barrera (software) | CAM → Edge (`/access/plate`) → Backend (`/access/entries`) → sesión `ABC-123` → Edge `OPEN` | ✅ verificado en vivo |
+| Nodos en red estable | DevKit y CAM conectados al hotspot (IP fija `192.168.137.1`) publicando al Edge (`200`) | ✅ |
+| App Android ↔ Backend | Login del conductor y dashboard mostrando la sesión `ABC-123` e "Ingreso confirmado" reales | ✅ |
+| Apertura física del servo | Tapar el IR de entrada dentro de la ventana `OPEN` para abrir la barrera | 🔄 En revisión (prueba presencial final) |
+
+### 6.2.3.6. Execution Evidence for Sprint Review
+
+Durante el Sprint 3 se ejecutó y verificó el circuito físico completo del producto, desde la captura de la placa por la cámara hasta la apertura de la barrera y el reflejo de la sesión en la app del conductor.
+
+#### Componentes Desarrollados
+* **Edge Gateway (Flask/DDD):** IAM (auth de nodos), Monitoring (ocupación + gas) y Access (placa + comando de barrera).
+* **Embedded App (Opción A):** Parking Spot + Barrier Node (ESP32 DevKit) y Plate Camera Node (ESP32-CAM, OV3660).
+* **Backend — ALPR real:** integración con Plate Recognizer y endpoints de acceso abiertos al Edge.
+* **App móvil (Flutter):** conectada al backend, mostrando datos reales del IoT.
+
+A continuación se presentan las capturas de las principales evidencias de ejecución del Sprint.
+
+#### 6.2.3.6.1. App móvil conectada al backend (datos reales del IoT)
+
+Login del conductor contra el backend:
+
+<img src="assets/images/screenshots/sprint3-app-login.png" width="320">
+
+Dashboard del conductor mostrando la **sesión activa `ABC-123`** (generada por la cámara vía ALPR) y el **"Ingreso confirmado"** en la actividad reciente:
+
+<img src="assets/images/screenshots/sprint3-app-dashboard.png" width="320">
+
+#### 6.2.3.6.2. Diagrama C4 de Componentes — Nodos IoT y Edge (Opción A)
+
+<img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y el Edge Gateway de SpotFinder (Opción A)" width="800">
+
+#### 6.2.3.6.3. Prototipo físico y Edge Gateway
+
+Prototipo físico con los dos nodos del diseño "Opción A": el **Parking Spot + Barrier Node** (ESP32 DevKit) y el **Plate Camera Node** (ESP32-CAM):
+
+<img src="assets/images/screenshots/sprint3-prototype.jpeg" alt="Prototipo físico de SpotFinder: ESP32 DevKit y ESP32-CAM cableados" width="600">
+
+**Edge Gateway** (Flask) corriendo en la laptop y recibiendo por HTTP/REST las peticiones de los nodos (`sensor-readings`, `gas-analysis`, `access/plate`, `access/barrier`):
+
+<img src="assets/images/screenshots/sprint3-edge.png" alt="Edge Gateway corriendo en la laptop con las peticiones de los nodos ESP32" width="800">
+
+Monitor serial del **Parking Spot + Barrier Node** (ESP32 DevKit): conexión Wi-Fi, envío de lecturas al Edge y consulta del comando de barrera:
+
+<img src="assets/images/screenshots/sprint3-serial-devkit.png" alt="Monitor serial del ESP32 DevKit durante el flujo de ocupación, gas y barrera" width="700">
+
+Monitor serial del **Plate Camera Node** (ESP32-CAM): captura de la placa y envío al Edge (`POST /access/plate`):
+
+<img src="assets/images/screenshots/sprint3-serial-cam.png" alt="Monitor serial del ESP32-CAM enviando la imagen de la placa al Edge" width="700">
+
+### 6.2.3.7. Services Documentation Evidence for Sprint Review
+
+El Edge Gateway expone una API REST propia (consumida por los nodos ESP32) que actúa como fachada hacia el backend. Los contratos principales documentados en este Sprint son:
+
+| Método | Endpoint | Auth | Descripción |
+|---|---|---|---|
+| GET | `/status` | — | Health check del gateway |
+| POST | `/api/v1/monitoring/sensor-readings` | `X-API-Key` | Lectura de ocupación (`device_id`, `slot_id`, `distance_cm`) |
+| GET | `/api/v1/monitoring/occupancy` | `X-API-Key` | Estado de ocupación con debounce ("sostenido > 2 s") |
+| POST | `/api/v1/monitoring/gas-analysis` | `X-API-Key` | Lectura de gas (`device_id`, `gas_level`) y evaluación de umbral |
+| POST | `/api/v1/access/plate` | `X-API-Key` | La cámara envía la imagen de la placa (`image_data` base64) |
+| GET | `/api/v1/access/barrier` | — | El DevKit consulta el comando `{command: OPEN\|IDLE, plate}` |
+
+En el backend, el Bounded Context de Access Control expone `POST /api/v1/access/entries` (ALPR + creación de sesión) y `POST /api/v1/access/exits`, abiertos sin JWT para el Edge. El ALPR se integra con la API externa **Plate Recognizer** (Snapshot Cloud) mediante `Authorization: Token`. La documentación viva del backend permanece disponible vía Swagger UI.
+
+### 6.2.3.8. Software Deployment Evidence for Sprint Review
+
+El Sprint 3 incorporó el despliegue de la **capa de borde y los nodos embebidos**, que por su naturaleza se ejecutan en la red local del estacionamiento (no en la nube).
+
+| Componente | Plataforma / Entorno | Tipo de despliegue | Notas |
+|---|---|---|---|
+| Edge Gateway | Laptop (Windows) en la red local | Servicio Flask en `0.0.0.0:5000` | Reenvía al backend si `SPOTFINDER_BACKEND_URL` está seteada |
+| Parking Spot + Barrier Node | ESP32 DevKit (CP2102) | Firmware PlatformIO (`esp32_hw`, `upload_speed=115200`) | Flasheado por COM4 |
+| Plate Camera Node | ESP32-CAM (CH340, sensor OV3660) | Firmware Arduino IDE (partición "Huge APP") | Flasheado con base MB, auto-reset |
+| Backend + MySQL 8 | Local (validación) / Render + Railway (nube) | Spring Boot + MySQL 8 | ALPR real vía token de Plate Recognizer |
+| Red del demo | Windows Mobile Hotspot 2.4 GHz | AP local con **IP fija `192.168.137.1`** | Desacopla los nodos del roaming de internet |
+
+Para la demostración se estabilizó la red mediante el **Mobile Hotspot de Windows** (banda 2.4 GHz), de modo que la laptop siempre expone la IP fija `192.168.137.1`; así los dos ESP32 apuntan a una dirección constante independientemente de la red por la que la laptop obtenga internet. Se verificó que ambos nodos publican al Edge con respuesta `200` y que el backend, con el token de Plate Recognizer configurado, ejecuta el ALPR real.
+
+### 6.2.3.9. Team Collaboration Insights during Sprint
+
+Durante el Sprint 3 el trabajo se distribuyó en cuatro repositorios en paralelo (**SpotFinder-EdgeGateway**, **SpotFinder-EmbeddedApp**, **SpotFinder-Backend** y **SpotFinder-Report**), manteniendo el flujo de ramas `feature/*` integradas mediante *merges* `--no-ff` hacia las ramas de integración (`main` para Edge y Embedded; `develop` para Backend y Report). El liderazgo técnico de la capa IoT/Edge recayó en Allcca Guerrero (firmware) y Henry Kalet (Edge Gateway y validación de hardware), con Cruz Ibarra en el ALPR y los endpoints de acceso del backend, y Dueñas Canales en la conexión de la app móvil y la documentación.
+
+Las principales lecciones aprendidas del Sprint fueron: (1) la importancia de **estabilizar la red** antes de una demo de hardware — el *roaming* automático de la laptop entre redes Wi-Fi rompía la comunicación con los nodos, lo que se resolvió con un hotspot de IP fija; (2) la conveniencia de **bajar la velocidad de flasheo** (115200) para cables/USB de calidad variable; y (3) el valor de un **fallback determinista** (stub del ALPR) para poder ejercitar el flujo completo aun sin conectividad o token, separando la validación mecánica de la del reconocimiento real.
 
 <div style="page-break-after: always;"></div>
 
@@ -6698,21 +7007,22 @@ Web Dashboard para administradores).
 ## Segmento Objetivo 1: Conductores frecuentes de centros comerciales
 
 #### **Entrevista 1**
+
 | Atributo | **Datos Personales** |
 | :--- | :--- |
-| **Nombres** | Carlos |
-| **Apellidos** | Anofre |
-| **Distrito** | San Borja |
-| **Edad** | 31 años |
-| **Fecha de entrevista** | 13/06/2026 |
-| **Timing**              | Duración: 10:09 |
-| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 00:00) |
+| **Nombres** | Fabricio |
+| **Apellidos** | Morales |
+| **Distrito** | Surco |
+| **Edad** | 22 años |
+| **Fecha de entrevista** | 05/07/2026 |
+| **Timing** | Duración: 10:04 |
+| **Enlace** | [🔗 Entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQAd_LVJ-91TTakoxnI9w73LAXtQW4A8dFKiBWNS-a0wcg4?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=egCL6I) |
 
-**Evidencia**
-![Captura de la entrevista 1](./assets/images/screenshots/conductores_entrevista1.png)
+**Evidencia**  
+![Captura de la entrevista de Fabricio](https://imgur.com/th0cb74.png)
 
-**Resumen**
-Carlos, ingeniero de software de 31 años, comentó que suele visitar centros comerciales entre 2 y 3 veces por semana, principalmente para realizar compras, comer o asistir a reuniones. Durante la entrevista manifestó que una de sus principales molestias es el tiempo que pierde buscando estacionamiento, especialmente en horarios de alta afluencia. Considera que una solución como SpotFinder sería útil si muestra disponibilidad en tiempo real, permite ubicar espacios libres de manera rápida y reduce la incertidumbre al ingresar al estacionamiento. Por su perfil tecnológico, se mostró familiarizado con el uso de aplicaciones móviles y valoró positivamente funciones como guiado dentro del estacionamiento, reserva de espacios y pagos digitales.
+**Resumen**  
+Fabricio, un joven de 22 años, evaluó la *landing page* de SpotFinder desde su perspectiva como conductor. Destacó que la propuesta principal de la aplicación le resulta sumamente atractiva, ya que automatizar el ingreso sin tickets y pagos móviles le ahorra tiempo valioso. Señaló que la funcionalidad que más le aliviaría el estrés diario es el "mapa de ocupación", ya que le evitaría la frustración de recorrer distintos pisos a ciegas buscando un lugar disponible. Indicó que la plataforma, tal como se le presentó, ya cuenta con todo lo necesario para solucionar su problema y no le agregaría ninguna función adicional. Por último, confirmó que el diseño en modo oscuro con textos claros ofrece un contraste adecuado, permitiéndole una lectura cómoda y fluida sin tener que forzar la vista.
 
 ---
 
@@ -6758,18 +7068,19 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 
 **Segmento Administradores de Estacionamientos: Entrevistado 1**
 
+
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | Dana |
-| **Edad**                | 28 |
-| **Sexo**                | Femenino |
-| **Distrito**            | Lima |
-| **Ocupación**           | Supervisión de Estacionamiento |
-| **Fecha de entrevista** | 08/06/2026 |
-| **Timing**              | Duración: 13:10 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 29:06) |
-| **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/administrador_entrevista1.png) |
-| **Resumen**             | Dana, supervisora de estacionamiento en un centro comercial de Lima, comentó que la gestión diaria del estacionamiento requiere coordinación constante con el personal operativo, especialmente en horas punta. Señaló que los principales problemas se relacionan con la congestión vehicular, la falta de visibilidad exacta sobre los espacios disponibles y los reclamos de usuarios por demoras o desorientación dentro del estacionamiento. Considera que una solución tecnológica como SpotFinder podría mejorar la operación mediante un panel de control con información en tiempo real, reportes automáticos, guiado visual para conductores y mejor distribución del flujo vehicular. También destacó que la implementación debería ser progresiva, fácil de usar para el personal y demostrar beneficios claros en eficiencia y satisfacción del cliente.|
+| **Nombre**              | Washington Alija Rojas |
+| **Edad**                | 55 años |
+| **Sexo**                | Masculino |
+| **Distrito**            | Ate |
+| **Ocupación**           | Administrador / Personal técnico de estacionamientos |
+| **Fecha de entrevista** | Por definir |
+| **Timing**              | Duración: 11.34 |
+| **Video**               | [🔗 Entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQBspePyL1VHSbnHcR3k08zYAXkeXr0zWM6c9UPYReLUYNE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=95s7OC) |
+| **Captura**             | ![Captura entrevista de Washington](https://imgur.com/0NMtv1Y.png) |
+| **Resumen**             | Washington, de 55 años, evaluó la plataforma desde la perspectiva de la administración y operación de estacionamientos. Identificó como problemas críticos actuales la falta de comunicación eficiente con el personal en campo, la pérdida de ingresos por reportes manuales (como el uso de *vouchers*) y la distribución no homogénea de los vehículos que impide conocer los espacios copados. Destacó que el sistema de SpotFinder facilitaría la visión en vivo de la entrada y correcta distribución de los autos, agilizando el flujo comercial. Considera que el software es robusto, especialmente al contar con soporte de red local en caso de caídas de internet. Su principal recomendación de mejora es adaptar el lenguaje técnico de la interfaz para que los botones y opciones sean más "familiares", intuitivos y asequibles para todo el personal operativo. Finalmente, indicó que el diseño oscuro de la plataforma le resulta cómodo de leer en cualquier dispositivo. |
 
 ---
 
@@ -6780,28 +7091,58 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 | **Nombre**              | Washington Alija |
 | **Edad**                | 50 años |
 | **Sexo**                | Masculino |
-| **Distrito**            | San Isidro |
+| **Distrito**            | Ate |
 | **Fecha de entrevista** | 18/06/2026 |
-| **Timing**              | Duración: 8:43 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 42:16) |
-| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
-| **Resumen**             | Washington, administrador con amplia experiencia en estacionamientos, señaló que uno de los principales desafíos en su trabajo es la falta de control preciso sobre la ocupación en tiempo real, lo que dificulta la toma de decisiones durante horas de alta demanda. Comentó que frecuentemente recibe quejas de usuarios por la demora en encontrar espacios disponibles y por la desorganización en el flujo vehicular. Considera que una solución como SpotFinder podría aportar valor mediante herramientas de monitoreo en tiempo real, alertas de saturación y análisis de datos para optimizar la distribución de vehículos. También destacó la importancia de que el sistema sea confiable, fácil de integrar con los procesos actuales y que reduzca la carga operativa del personal. |
+| **Timing**              ## 6.3. Validation Interviews
+
+En esta sección se presentan las entrevistas de validación realizadas con los representantes de los
+segmentos objetivo del proyecto **SpotFinder**: conductores que visitan centros comerciales de Lima
+y administradores de estacionamientos de centros comerciales. El propósito de esta fase es evaluar
+la claridad de la propuesta de valor expuesta en el Landing Page, la usabilidad de los prototipos
+de software (Mobile App para conductores y Web Dashboard para administradores) y la aceptación de
+las funcionalidades planteadas, contrastando las hipótesis del Lean UX con la percepción real de los
+usuarios.Ninguna función adicional. Por último, confirmó que el diseño en modo oscuro con textos claros ofrece un contraste adecuado, permitiéndole una lectura cómoda y fluida sin tener que forzar la vista.
 
 ---
 
-**Segmento Administradores de Estacionamientos: Entrevistado 3**
+#### **Entrevista 2**
+|Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Fabio |
+| **Apellidos** | Alfaro |
+| **Distrito** | Santiago de Surco |
+| **Edad** | 28 años |
+| **Fecha de entrevista** | 15/06/2026 |
+| **Timing**              | Duración: 08:33 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 10:09) |
 
-| Atributo                | Detalle |
-|-------------------------|--------|
-| **Nombre**              | Fabrizio Morales |
-| **Edad**                | 26 años |
-| **Sexo**                | Masculino |
-| **Distrito**            | San Borja |
-| **Fecha de entrevista** | 18/06/2026 |
-| **Timing**              | Duración: 9:18 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 50:59) |
-| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
-| **Resumen**             | Fabrizio, joven administrador de estacionamientos, indicó que uno de los problemas más recurrentes en su gestión es la desorientación de los usuarios dentro del estacionamiento y la falta de señalización clara sobre espacios disponibles. Mencionó que esto genera congestión interna y retrasa la rotación de vehículos. Mostró interés en SpotFinder, especialmente en funcionalidades como el guiado inteligente hacia espacios libres y la visualización en tiempo real de la ocupación. Además, resaltó que una plataforma digital podría mejorar la experiencia del cliente y facilitar la supervisión general del estacionamiento, siempre que sea intuitiva y requiera una capacitación mínima para el personal. |
+**Evidencia**
+![Captura de la entrevista 2](./assets/images/screenshots/conductores_entrevista2.png)
+
+**Resumen**
+Fabio, ingeniero de software de 28 años, indicó que visita centros comerciales de 2 a 3 veces por semana y que suele utilizar estacionamientos privados por comodidad y seguridad. Señaló que el principal problema en estos espacios es la falta de información clara sobre los lugares disponibles, lo que genera recorridos innecesarios y pérdida de tiempo. Durante la validación, mostró interés en una aplicación que permita consultar la disponibilidad antes de llegar, recibir indicaciones hacia un espacio libre y realizar el pago desde el celular. Además, destacó que la interfaz debe ser simple, rápida y confiable, ya que los usuarios buscan resolver el problema del estacionamiento en pocos pasos.
+
+---
+
+#### **Entrevista 3**
+| Atributo | **Datos Personales** |
+| :--- | :--- |
+| **Nombres** | Samuel |
+| **Apellidos** | De Luque |
+| **Distrito** | La Molina |
+| **Edad** | 27 años |
+| **Fecha de entrevista** | 08/06/2026 |
+| **Timing**              | Duración: 10:24 |
+| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 18:42) |
+
+**Evidencia**
+![Captura de la entrevista 3](./assets/images/screenshots/conductores_entrevista3.png)
+
+**Resumen**
+Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros comerciales entre 2 y 3 veces por semana. Comentó que, en su experiencia, encontrar estacionamiento puede ser complicado durante fines de semana o en horarios concurridos, lo que genera estrés y demoras antes de realizar sus actividades. Valoró positivamente la propuesta de SpotFinder, especialmente las funciones relacionadas con disponibilidad en tiempo real, guiado hacia espacios libres y recordatorio de ubicación del vehículo. También consideró importante que la aplicación sea intuitiva y que brinde información clara sobre el estado del estacionamiento para evitar confusiones al momento de ingresar.
+
+---
+
 
 ### 6.3.3. Evaluaciones según heurísticas
 
@@ -6877,8 +7218,6 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 - **Recomendación:** Aumentar el contraste del texto secundario (relación mínima 4.5:1 para texto normal) y verificar todas las tarjetas con una herramienta de contraste; evitar grises por debajo del umbral sobre fondos oscuros.
 - **📸 Captura:** Sección "Ventajas del sistema" mostrando tarjetas de funcionalidad con texto gris de muy bajo contraste. → `landing-p1-contraste.png`
 
-![Landing - Problema 1](./assets/images/heuristics/landing-p1-contraste.png)
-
 **PROBLEMA #2: Contenido oculto tras animaciones de scroll**
 - **Severidad:** 2
 - **Heurística violada:** Visibility of system status
@@ -6886,7 +7225,6 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 - **Recomendación:** Garantizar que el contenido esté presente en el DOM y sea legible aun sin animación (respetar `prefers-reduced-motion`), usando las animaciones solo como mejora progresiva.
 - **📸 Captura:** Vista de la landing recién cargada (página completa) donde se observan secciones en blanco por las animaciones no disparadas. → `landing-p2-scroll-animaciones.png`
 
-![Landing - Problema 2](./assets/images/heuristics/landing-p2-scroll-animaciones.png)
 
 **PROBLEMA #3: La landing no muestra precios ni planes**
 - **Severidad:** 2
@@ -6895,7 +7233,6 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 - **Recomendación:** Incorporar una sección de Planes/Precios (diferenciando la oferta para conductores de la oferta para administradores/empresas) accesible desde el menú.
 - **📸 Captura:** Encabezado/menú de la landing donde se evidencia la ausencia de una sección de Precios/Planes. → `landing-p3-sin-planes.png`
 
-![Landing - Problema 3](./assets/images/heuristics/landing-p3-sin-planes.png)
 
 **PROBLEMA #4: Error "Security de Datos" en el footer**
 - **Severidad:** 1
@@ -6904,7 +7241,6 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 - **Recomendación:** Corregir el texto a "Seguridad de Datos" y revisar el resto de la interfaz para mantener un idioma consistente.
 - **📸 Captura:** Footer de la landing mostrando el enlace "Security de Datos". → `landing-p4-typo-seguridad.png`
 
-![Landing - Problema 4](./assets/images/heuristics/landing-p4-typo-seguridad.png)
 
 ---
 
@@ -6941,14 +7277,26 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 
 ---
 
+
 ## 6.4. Video About-the-Product
 
-> *Sección reservada para la entrega AV2 / TB2. Incluirá el resumen del Video About-the-Product
-> dirigido a los visitantes del Landing Page y a los usuarios finales (conductores y
-> administradores), con un screenshot representativo, el URL en Microsoft Stream/Clipchamp,
-> el URL en YouTube utilizado para incrustarse en el Landing Page, la duración total y al menos
-> un testimonio positivo extraído de las entrevistas de validación. La nomenclatura del archivo
-> será `upc-pre-202610-1asi0572-<NRC>-spotfinder-about-the-product-sprint-2.mp4`.*
+En esta sección se presentan los videos de presentación del proyecto **SpotFinder**: el **Video About-the-Product**, dirigido a los visitantes del Landing Page y a los usuarios finales (conductores y administradores), y el **Video About-the-Team**, que presenta al equipo de ParkSense IoT y su experiencia de trabajo colaborativo.
+
+### 6.4.1. Video About-the-Product
+
+El Video About-the-Product resume la propuesta de valor de SpotFinder: el problema de la búsqueda de estacionamiento en los centros comerciales de Lima y cómo la solución —app móvil para conductores, dashboard web para administradores, nodos IoT con ESP32 y reconocimiento automático de placas (ALPR)— permite encontrar, reservar, ingresar y pagar el estacionamiento de forma automática y sin fricciones.
+
+<img src="assets/images/screenshots/product.png" alt="Video About-the-Product de SpotFinder" width="700">
+
+**Enlace del video (About-the-Product):** [Ver en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQDawwH5XN8kRr8Ael1uCH8tAZ9BCzevwKDbwVGcJ_mMZbk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=s9N4HV)
+
+### 6.4.2. Video About-the-Team
+
+El Video About-the-Team presenta a los integrantes del equipo **ParkSense IoT**, sus roles y aportes en el desarrollo del proyecto SpotFinder, así como la experiencia de trabajo colaborativo a lo largo de los sprints.
+
+<img src="assets/images/screenshots/team.png" alt="Video About-the-Team de ParkSense IoT" width="700">
+
+**Enlace del video (About-the-Team):** [Ver en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQB14vHpGPCFRYKT2saUkNu4AWAymaWgJTtlWUWQ7MBZX_U?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=jw0Zmg)
 
 <div style="page-break-after: always;"></div>
 
@@ -6960,7 +7308,7 @@ En esta sección se presentan las conclusiones y recomendaciones derivadas del d
 ### Conclusiones
 
 * La revisión del informe evidencia que **SpotFinder** responde a una necesidad real y documentada en el contexto peruano: la ineficiencia en la gestión de estacionamientos de centros comerciales en Lima, donde los conductores pierden en promedio cinco horas semanales buscando espacio y la congestión vehicular genera pérdidas de S/ 23,300 millones anuales según el BCR. El problema está sustentado tanto por fuentes estadísticas oficiales (IPE, AAP, INEI, Lima Cómo Vamos) como por la investigación cualitativa con seis entrevistas a conductores y administradores, quienes confirmaron la frustración con los sistemas manuales actuales y la necesidad de automatización.
-* La propuesta de solución está correctamente orientada al integrar hardware IoT accesible (ESP32, sensores HC-SR04, LEDs WS2812B, ESP32-CAM, sensor MQ-2) con una arquitectura de software basada en Domain-Driven Design. El uso de Lean UX permitió conectar cinco hipótesis de valor con métricas concretas (reducción del 50% del tiempo de búsqueda, 90% de precisión ALPR, 50% de pagos digitales en tres meses), y la validación mediante entrevistas confirmó que las funcionalidades priorizadas coinciden con las necesidades de ambos segmentos.
+* La propuesta de solución está correctamente orientada al integrar hardware IoT accesible (ESP32, sensores HC-SR04, LEDs de guiado verde/rojo, ESP32-CAM, sensor MQ-2) con una arquitectura de software basada en Domain-Driven Design. El uso de Lean UX permitió conectar cinco hipótesis de valor con métricas concretas (reducción del 50% del tiempo de búsqueda, 90% de precisión ALPR, 50% de pagos digitales en tres meses), y la validación mediante entrevistas confirmó que las funcionalidades priorizadas coinciden con las necesidades de ambos segmentos.
 * El diseño técnico presenta una base sólida para escalar el producto, gracias a la identificación de ocho bounded contexts
 (tres Core, cuatro Supporting, uno Generic) y la definición de patrones de integración (OHS, Customer/Supplier, ACL, Published Language, Conformist). El Tactical DDD documenta siete bounded contexts completos con sus cuatro capas, class diagrams y database design, dejando una arquitectura consistente y lista para implementación.
 
@@ -7037,8 +7385,8 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
 - [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
-- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#)
-- [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
+- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spectacular-hummingbird-05afdc.netlify.app/)
+- [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](spot-finder-frontend-fkxp61gug-nwirving23-8136s-projects.vercel.app)
 - 
 ### Anexo B: Videos
  

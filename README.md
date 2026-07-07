@@ -7002,9 +7002,9 @@ Web Dashboard para administradores).
 | :--- | :--- |
 | **Nombres** | Fabricio |
 | **Apellidos** | Morales |
-| **Distrito** | No especificado |
+| **Distrito** | Surco |
 | **Edad** | 22 años |
-| **Fecha de entrevista** | Por definir |
+| **Fecha de entrevista** | 05/07/2026 |
 | **Timing** | Duración: 10:04 |
 | **Enlace** | [🔗 Entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQAd_LVJ-91TTakoxnI9w73LAXtQW4A8dFKiBWNS-a0wcg4?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=egCL6I) |
 
@@ -7058,18 +7058,19 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 
 **Segmento Administradores de Estacionamientos: Entrevistado 1**
 
+
 | Atributo                | Detalle |
 |-------------------------|--------|
-| **Nombre**              | Dana |
-| **Edad**                | 28 |
-| **Sexo**                | Femenino |
-| **Distrito**            | Lima |
-| **Ocupación**           | Supervisión de Estacionamiento |
-| **Fecha de entrevista** | 08/06/2026 |
-| **Timing**              | Duración: 13:10 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 29:06) |
-| **Captura**             | ![Captura entrevista 1](./assets/images/screenshots/administrador_entrevista1.png) |
-| **Resumen**             | Dana, supervisora de estacionamiento en un centro comercial de Lima, comentó que la gestión diaria del estacionamiento requiere coordinación constante con el personal operativo, especialmente en horas punta. Señaló que los principales problemas se relacionan con la congestión vehicular, la falta de visibilidad exacta sobre los espacios disponibles y los reclamos de usuarios por demoras o desorientación dentro del estacionamiento. Considera que una solución tecnológica como SpotFinder podría mejorar la operación mediante un panel de control con información en tiempo real, reportes automáticos, guiado visual para conductores y mejor distribución del flujo vehicular. También destacó que la implementación debería ser progresiva, fácil de usar para el personal y demostrar beneficios claros en eficiencia y satisfacción del cliente.|
+| **Nombre**              | Washington Alija Rojas |
+| **Edad**                | 55 años |
+| **Sexo**                | Masculino |
+| **Distrito**            | Ate |
+| **Ocupación**           | Administrador / Personal técnico de estacionamientos |
+| **Fecha de entrevista** | Por definir |
+| **Timing**              | Duración: 11.34 |
+| **Video**               | [🔗 Entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQBspePyL1VHSbnHcR3k08zYAXkeXr0zWM6c9UPYReLUYNE?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=95s7OC) |
+| **Captura**             | ![Captura entrevista de Washington](https://imgur.com/0NMtv1Y.png) |
+| **Resumen**             | Washington, de 55 años, evaluó la plataforma desde la perspectiva de la administración y operación de estacionamientos. Identificó como problemas críticos actuales la falta de comunicación eficiente con el personal en campo, la pérdida de ingresos por reportes manuales (como el uso de *vouchers*) y la distribución no homogénea de los vehículos que impide conocer los espacios copados. Destacó que el sistema de SpotFinder facilitaría la visión en vivo de la entrada y correcta distribución de los autos, agilizando el flujo comercial. Considera que el software es robusto, especialmente al contar con soporte de red local en caso de caídas de internet. Su principal recomendación de mejora es adaptar el lenguaje técnico de la interfaz para que los botones y opciones sean más "familiares", intuitivos y asequibles para todo el personal operativo. Finalmente, indicó que el diseño oscuro de la plataforma le resulta cómodo de leer en cualquier dispositivo. |
 
 ---
 
@@ -7080,7 +7081,7 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 | **Nombre**              | Washington Alija |
 | **Edad**                | 50 años |
 | **Sexo**                | Masculino |
-| **Distrito**            | San Isidro |
+| **Distrito**            | Ate |
 | **Fecha de entrevista** | 18/06/2026 |
 | **Timing**              ## 6.3. Validation Interviews
 
@@ -7090,98 +7091,8 @@ y administradores de estacionamientos de centros comerciales. El propósito de e
 la claridad de la propuesta de valor expuesta en el Landing Page, la usabilidad de los prototipos
 de software (Mobile App para conductores y Web Dashboard para administradores) y la aceptación de
 las funcionalidades planteadas, contrastando las hipótesis del Lean UX con la percepción real de los
-usuarios.
+usuarios.Ninguna función adicional. Por último, confirmó que el diseño en modo oscuro con textos claros ofrece un contraste adecuado, permitiéndole una lectura cómoda y fluida sin tener que forzar la vista.
 
-### 6.3.1. Diseño de Entrevistas
-
-Para el diseño de las entrevistas de validación se elaboraron guías diferenciadas por segmento. Las
-preguntas se agrupan en dos dimensiones principales: **propuesta de valor** (claridad del mensaje,
-relevancia, pricing, intención de adopción) y **usabilidad** (facilidad de navegación, claridad de
-los flujos, fricciones encontradas). Cada segmento responde un bloque de Landing Page seguido de
-dos bloques referidos a la aplicación que utilizará en producción (Mobile App para conductores,
-Web Dashboard para administradores).
-
-#### Segmento 1: Conductores que visitan centros comerciales
-
-##### A. Landing Page (Propuesta de valor)
-
-1. ¿Qué fue lo primero que entendiste al abrir la landing page de SpotFinder?
-2. ¿Te queda claro qué problema buscamos resolver para conductores que visitan centros comerciales?
-3. ¿El mensaje principal (ahorrar tiempo buscando estacionamiento y pagar sin colas) te parece relevante en tu día a día?
-4. ¿Te quedan claras las secciones de la página (Hero, Funcionalidades, Cómo funciona, Planes, FAQ, Contacto)? ¿Agregarías alguna?
-5. ¿Qué parte del contenido te pareció más útil o atractiva como conductor?
-6. ¿Te parece que los planes Free / Pro / Premium y sus precios son los adecuados para el valor ofrecido?
-7. ¿Qué mejorarías para que la información del Landing sea más clara o persuasiva antes de descargar la app?
-
-##### B. Mobile App (Interfaz)
-
-
-
-1. ¿Qué tan fácil fue navegar por la aplicación o entender las secciones desde la barra inferior (Dashboard / Map / Payments / Alerts / Settings)?
-2. ¿Lograste registrar tu placa y encontrarla luego en "Mis vehículos" sin perderte?
-3. ¿Te resultó intuitivo el mapa de espacios libres y ocupados, o tuviste que pensar demasiado para interpretar los colores y filtros?
-4. ¿Hay alguna función que esperabas encontrar y no viste durante el recorrido?
-5. ¿Qué te generó confianza o desconfianza al simular el pago (Yape o tarjeta) y al recibir la notificación?
-
-##### C. Mobile App (Propuesta de valor)
-
-1. ¿Qué tan útil consideras la app para ahorrarte tiempo y estrés en tus visitas a centros comerciales?
-2. ¿Qué funcionalidad sientes que te ahorraría más tiempo o esfuerzo: ver el mapa en tiempo real, ingreso automático con ALPR, pago digital, Find My Car o las reservas Pro/Premium?
-3. Si tuvieras que reemplazar tu forma actual de estacionar (ticket físico + pago en caja) por esta app, ¿qué necesitaría tener para convencerte al 100%?
-4. ¿Cuánto estarías dispuesto a pagar por el plan Pro (S/ 9.90/mes con reservas) o el plan Premium (con Google Wallet pass y servicios premium como lavado)?
-5. ¿Qué tan probable es que recomendaras SpotFinder a otro conductor que va seguido a un centro comercial? *(escala 0–10, NPS)*
-
-#### Segmento 2: Administradores de Estacionamientos
-
-##### A. Landing Page (Propuesta de valor)
-
-1. Desde tu rol de administrador, ¿qué entendiste al ver la landing? ¿Identificaste rápido la propuesta B2B?
-2. ¿Te queda claro qué problemas operativos del estacionamiento resuelve SpotFinder?
-3. ¿El mensaje principal y las funcionalidades destacadas (monitoreo IoT en tiempo real, ALPR, control de barreras, reportes ejecutivos, protocolo de emergencias) son relevantes para tu operación diaria?
-4. ¿Los planes Starter / Business / Enterprise y sus precios te parecen adecuados frente al ROI que ofrecemos (rotación, reducción de personal, mejor experiencia)?
-5. ¿Qué parte del contenido te pareció más convincente como tomador de decisiones del centro comercial?
-6. ¿Qué objeciones internas anticipas que tendría tu gerencia (inversión inicial, capacitación, integración con sistemas actuales) y cómo las despejarías desde esta landing?
-7. ¿Qué mejorarías en la landing para que sea más persuasiva en una reunión comercial?
-
-##### B. Web Dashboard (Interfaz)
-
-
-
-1. ¿Qué tan fácil fue iniciar sesión y ubicar la información que necesitabas en el dashboard?
-2. ¿Pudiste identificar rápido los KPIs operativos (ocupación actual, ingresos del día, alertas activas)?
-3. ¿Te resultó intuitivo el menú lateral (Dashboard, Parking Monitoring, Analytics, Payments, etc.) o tuviste que pensar dónde estaba cada cosa?
-4. ¿Hay alguna métrica o tablero que esperabas encontrar y no viste?
-5. ¿Qué te generó confianza o desconfianza sobre la precisión de los datos en tiempo real (mapa de espacios y revenue chart)?
-
-##### C. Web Dashboard (Propuesta de valor)
-
-1. ¿Qué tan útil consideras este dashboard para tomar decisiones operativas diarias (asignación de personal, tarificación, mantenimiento)?
-2. ¿Qué módulo crees que te ahorraría más tiempo o conflictos: monitoreo en tiempo real, control de barreras, reportes automatizados, gestión de emergencias o gestión de usuarios?
-3. Comparado con la forma en que gestionas el estacionamiento hoy, ¿qué ventaja concreta le encuentras?
-4. Para reemplazar tu sistema actual por SpotFinder, ¿qué funcionalidades indispensables tendría que incluir (integración con tu pasarela contable, exportación a SAP/ERP, multi-facility, etc.)?
-5. ¿Qué tan probable es que recomendaras SpotFinder a otro centro comercial? *(escala 0–10, NPS)*
-
-## 6.3.2. Registro de Entrevistas
-
-## Segmento Objetivo 1: Conductores frecuentes de centros comerciales
-
-#### **Entrevista 1**
-
-| Atributo | **Datos Personales** |
-| :--- | :--- |
-| **Nombres** | Fabricio |
-| **Apellidos** | Morales |
-| **Distrito** | Surco |
-| **Edad** | 22 años |
-| **Fecha de entrevista** | Por definir |
-| **Timing** | Duración: 10:04 |
-| **Enlace** | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQAd_LVJ-91TTakoxnI9w73LAZdrytR-buiSvzga9VFrZhc?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=Nevy5J) |
-
-**Evidencia**  
-![Captura de la entrevista de Fabricio](https://imgur.com/th0cb74.png)
-
-**Resumen**  
-Fabricio, un joven de 22 años, evaluó la *landing page* de SpotFinder desde su perspectiva como conductor. Destacó que la propuesta principal de la aplicación le resulta sumamente atractiva, ya que automatizar el ingreso sin tickets y pagos móviles le ahorra tiempo valioso. Señaló que la funcionalidad que más le aliviaría el estrés diario es el "mapa de ocupación", ya que le evitaría la frustración de recorrer distintos pisos a ciegas buscando un lugar disponible. Indicó que la plataforma, tal como se le presentó, ya cuenta con todo lo necesario para solucionar su problema y no le agregaría ninguna función adicional. Por último, confirmó que el diseño en modo oscuro con textos claros ofrece un contraste adecuado, permitiéndole una lectura cómoda y fluida sin tener que forzar la vista.
 ---
 
 #### **Entrevista 2**
@@ -7222,73 +7133,6 @@ Samuel, conductor frecuente de 27 años, mencionó que suele acudir a centros co
 
 ---
 
-## Segmento Objetivo 2: Administración de Estacionamientos
-
-**Segmento Administradores de Estacionamientos: Entrevistado 1**
-
-| Atributo                | Detalle |
-|-------------------------|--------|
-| **Nombre**              | Washington Alija Rojas |
-| **Edad**                | 55 años |
-| **Sexo**                | Masculino |
-| **Distrito**            | Ate |
-| **Ocupación**           | Administrador / Personal técnico de estacionamientos |
-| **Fecha de entrevista** | Por definir |
-| **Timing**              | 32:00 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQBspePyL1VHSbnHcR3k08zYASl-9c0Y-a8jaHx-V-Q3TDY?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=uRBmIA) |
-| **Captura**             | ![Captura entrevista de Washington](https://imgur.com/0NMtv1Y.png) |
-| **Resumen**             | Washington, de 55 años, evaluó la plataforma desde la perspectiva de la administración y operación de estacionamientos. Identificó como problemas críticos actuales la falta de comunicación eficiente con el personal en campo, la pérdida de ingresos por reportes manuales (como el uso de *vouchers*) y la distribución no homogénea de los vehículos que impide conocer los espacios copados. Destacó que el sistema de SpotFinder facilitaría la visión en vivo de la entrada y correcta distribución de los autos, agilizando el flujo comercial. Considera que el software es robusto, especialmente al contar con soporte de red local en caso de caídas de internet. Su principal recomendación de mejora es adaptar el lenguaje técnico de la interfaz para que los botones y opciones sean más "familiares", intuitivos y asequibles para todo el personal operativo. Finalmente, indicó que el diseño oscuro de la plataforma le resulta cómodo de leer en cualquier dispositivo. |
-
----
-
-**Segmento Administradores de Estacionamientos: Entrevistado 2**
-
-| Atributo                | Detalle |
-|-------------------------|--------|
-| **Nombre**              | Washington Allcca |
-| **Edad**                | 50 años |
-| **Sexo**                | Masculino |
-| **Distrito**            | Ate |
-| **Fecha de entrevista** | 18/06/2026 |
-| **Timing**              | Duración: 8:43 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 42:16) |
-| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
-| **Resumen**             | Washington, administrador con amplia experiencia en estacionamientos, señaló que uno de los principales desafíos en su trabajo es la falta de control preciso sobre la ocupación en tiempo real, lo que dificulta la toma de decisiones durante horas de alta demanda. Comentó que frecuentemente recibe quejas de usuarios por la demora en encontrar espacios disponibles y por la desorganización en el flujo vehicular. Considera que una solución como SpotFinder podría aportar valor mediante herramientas de monitoreo en tiempo real, alertas de saturación y análisis de datos para optimizar la distribución de vehículos. También destacó la importancia de que el sistema sea confiable, fácil de integrar con los procesos actuales y que reduzca la carga operativa del personal. |
-
----
-
-**Segmento Administradores de Estacionamientos: Entrevistado 3**
-
-| Atributo                | Detalle |
-|-------------------------|--------|
-| **Nombre**              | Fabrizio Morales |
-| **Edad**                | 26 años |
-| **Sexo**                | Masculino |
-| **Distrito**            | Surco |
-| **Fecha de entrevista** | 18/06/2026 |
-| **Timing**              | Duración: 9:18 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 50:59) |
-| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
-| **Resumen**             | Fabrizio, joven administrador de estacionamientos, indicó que uno de los problemas más recurrentes en su gestión es la desorientación de los usuarios dentro del estacionamiento y la falta de señalización clara sobre espacios disponibles. Mencionó que esto genera congestión interna y retrasa la rotación de vehículos. Mostró interés en SpotFinder, especialmente en funcionalidades como el guiado inteligente hacia espacios libres y la visualización en tiempo real de la ocupación. Además, resaltó que una plataforma digital podría mejorar la experiencia del cliente y facilitar la supervisión general del estacionamiento, siempre que sea intuitiva y requiera una capacitación mínima para el personal. || Duración: 8:43 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 42:16) |
-| **Captura**             | ![Captura entrevista 2](./assets/images/screenshots/administrador_entrevista2.png) |
-| **Resumen**             | Washington, administrador con amplia experiencia en estacionamientos, señaló que uno de los principales desafíos en su trabajo es la falta de control preciso sobre la ocupación en tiempo real, lo que dificulta la toma de decisiones durante horas de alta demanda. Comentó que frecuentemente recibe quejas de usuarios por la demora en encontrar espacios disponibles y por la desorganización en el flujo vehicular. Considera que una solución como SpotFinder podría aportar valor mediante herramientas de monitoreo en tiempo real, alertas de saturación y análisis de datos para optimizar la distribución de vehículos. También destacó la importancia de que el sistema sea confiable, fácil de integrar con los procesos actuales y que reduzca la carga operativa del personal. |
-
----
-
-**Segmento Administradores de Estacionamientos: Entrevistado 3**
-
-| Atributo                | Detalle |
-|-------------------------|--------|
-| **Nombre**              | Fabrizio Morales |
-| **Edad**                | 26 años |
-| **Sexo**                | Masculino |
-| **Distrito**            | Surco |
-| **Fecha de entrevista** | 18/06/2026 |
-| **Timing**              | Duración: 9:18 |
-| **Video**               | [🔗 Ver grabación de la entrevista](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202314186_upc_edu_pe/IQAjFxJLXMhlTazmH7BAPLcrAe2YfvyWfQDbA7xWrU5fLuo?e=fmPoGx) (Minuto 50:59) |
-| **Captura**             | ![Captura entrevista 3](./assets/images/screenshots/administrador_entrevista3.png) |
-| **Resumen**             | Fabrizio, joven administrador de estacionamientos, indicó que uno de los problemas más recurrentes en su gestión es la desorientación de los usuarios dentro del estacionamiento y la falta de señalización clara sobre espacios disponibles. Mencionó que esto genera congestión interna y retrasa la rotación de vehículos. Mostró interés en SpotFinder, especialmente en funcionalidades como el guiado inteligente hacia espacios libres y la visualización en tiempo real de la ocupación. Además, resaltó que una plataforma digital podría mejorar la experiencia del cliente y facilitar la supervisión general del estacionamiento, siempre que sea intuitiva y requiera una capacitación mínima para el personal. |
 
 ### 6.3.3. Evaluaciones según heurísticas
 
@@ -7423,6 +7267,7 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 
 ---
 
+
 ## 6.4. Video About-the-Product
 
 > *Sección reservada para la entrega AV2 / TB2. Incluirá el resumen del Video About-the-Product
@@ -7519,8 +7364,8 @@ Urbiotica. (2024). *Smart parking: the pollution solution*. https://urbiotica.co
 - **Repositorio del reporte:** https://github.com/ParkSenseIoT/SpotFinder-Report
 - **Backend (Spring Boot):** https://github.com/ParkSenseIoT/SpotFinder-Backend
 - [Enlace Backend desplegado: https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/](https://spotfinder-backend-ozsh.onrender.com/swagger-ui/index.html#/)
-- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spotfinder-landing.netlify.app/#)
-- [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](https://spotfinder-nu.vercel.app/auth/login)
+- [Enlace Landing Page desplegado: https://spotfinder-landing.netlify.app/#](https://spectacular-hummingbird-05afdc.netlify.app/)
+- [Enlace Frontend desplegado: https://spotfinder-nu.vercel.app/auth/login](spot-finder-frontend-fkxp61gug-nwirving23-8136s-projects.vercel.app)
 - 
 ### Anexo B: Videos
  

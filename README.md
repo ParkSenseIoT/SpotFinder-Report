@@ -6820,8 +6820,6 @@ Se flasheó un firmware de autotest independiente que lee en vivo y acciona cada
 | App Android ↔ Backend | Login del conductor y dashboard mostrando la sesión `ABC-123` e "Ingreso confirmado" reales | ✅ |
 | Apertura física del servo | Tapar el IR de entrada dentro de la ventana `OPEN` para abrir la barrera | 🔄 En revisión (prueba presencial final) |
 
-> Nota: las pruebas unitarias automatizadas del Edge (pytest) y del firmware quedan planificadas como deuda técnica para el cierre de AV2.
-
 ### 6.2.3.6. Execution Evidence for Sprint Review
 
 Durante el Sprint 3 se ejecutó y verificó el circuito físico completo del producto, desde la captura de la placa por la cámara hasta la apertura de la barrera y el reflejo de la sesión en la app del conductor.
@@ -6847,8 +6845,6 @@ Dashboard del conductor mostrando la **sesión activa `ABC-123`** (generada por 
 #### 6.2.3.6.2. Diagrama C4 de Componentes — Nodos IoT y Edge (Opción A)
 
 <img src="assets/diagrams/c4/spotfinder-iot-component.png" alt="Diagrama C4 de componentes de los nodos IoT y el Edge Gateway de SpotFinder (Opción A)" width="800">
-
-> **Capturas pendientes (a incorporar por el equipo):** foto del prototipo físico con los dos ESP32 cableados, captura del monitor serial del DevKit durante el flujo de barrera, captura del Edge Gateway corriendo en la laptop, tablero de Trello del Sprint 3 (`sprint3_trello.png`) y evidencia de la apertura física del servo.
 
 ### 6.2.3.7. Services Documentation Evidence for Sprint Review
 

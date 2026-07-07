@@ -1,0 +1,24 @@
+Card Name,List Name,Description,Labels,Members,Estimation (Hours),Story Points
+US26a - Ocupacion Parking Spot Node | Firmware ocupacion + LEDs,Done,Lectura HC-SR04 con suavizado y debounce local y control de los 2 LEDs verde 32 y rojo 33 segun ocupacion.,Embebido,Irving,6,8
+US26b - Ocupacion Parking Spot Node | Envio al Edge,Done,EdgeClient.postOccupancy hacia POST /api/v1/monitoring/sensor-readings con cabecera X-API-Key.,Embebido,Irving,5,8
+US27a - Emergencia por gas | Firmware MQ-2 + buzzer,Done,Lectura analogica del MQ-2 GPIO34 con umbral local y activacion de buzzer y LED rojo en emergencia.,Embebido,Irving,5,5
+US27b - Emergencia por gas | Envio de gas al Edge,Done,EdgeClient.postGas hacia POST /api/v1/monitoring/gas-analysis y reaccion al flag de emergencia del Edge.,Embebido,Henry,4,5
+US28a - Barrera Opcion A | Firmware DevKit IR + servo + polling,Done,Dos IR entrada 14 y salida 27 mas servo 26 y EdgeClient.barrierShouldOpen hacia GET /api/v1/access/barrier.,Embebido,Irving,7,13
+US28b - Barrera Opcion A | Firmware Plate Camera Node,Done,Captura JPEG OV3660 con xclk 10 MHz y Huge APP y POST /api/v1/access/plate base64 cada 2.5 s.,Embebido,Irving,6,13
+TS47a - Edge Gateway IAM | Autenticacion de nodos,Done,Bounded Context IAM con validacion device_id y X-API-Key seed del nodo de prueba y respuesta 401.,Edge,Henry,5,3
+TS48a - Edge Gateway Monitoring | Ocupacion + debounce,Done,POST /monitoring/sensor-readings y GET /monitoring/occupancy con debounce sostenido mayor a 2 s.,Edge,Henry,6,8
+TS48b - Edge Gateway Monitoring | Analisis de gas,Done,POST /monitoring/gas-analysis con evaluacion de umbral y marca de emergencia.,Edge,Henry,4,8
+TS49a - Edge Gateway Access | Relay de placa,Done,POST /api/v1/access/plate que reenvia la imagen de la camara al backend access entries.,Edge,Henry,5,8
+TS49b - Edge Gateway Access | Comando de barrera,Done,GET /api/v1/access/barrier con comando OPEN o IDLE y ventana de validez de 8 s tras el reconocimiento.,Edge,Henry,5,8
+TS50a - Edge Gateway Reenvio | BackendClient,Done,Reenvio condicionado a SPOTFINDER_BACKEND_URL y modo offline con solo LED local cuando la env no esta seteada.,Edge,Victor,5,5
+TS51a - ALPR real Plate Recognizer | Cliente multipart,Done,PlateRecognizerClient con RestClient POST multipart a Snapshot Cloud con Authorization Token y parseo de results.,Backend,Victor,6,8
+TS51b - ALPR real Plate Recognizer | Fallback y configuracion,Done,Fallback determinista al stub cuando no hay token o falla la API y config PLATE_RECOGNIZER_TOKEN URL REGIONS STUB_FALLBACK.,Backend,Victor,4,8
+TS52a - Backend acceso | Endpoints publicos,Done,Habilitar access entries y access exits sin JWT en WebSecurityConfiguration para el Edge.,Backend,Victor,4,5
+TS52b - Backend acceso | Fixes MySQL 8 + RestClient,Done,allowPublicKeyRetrieval true para caching_sha2 y construccion del RestClient con RestClient.create.,Backend,Henry,4,5
+US29a - Validacion en hardware | Autotest de componentes,Done,Firmware de autotest que valida HC-SR04 MQ-2 boton buzzer 2 LEDs 2 IR y servo por separado desde el serial.,Embebido,Irving,5,8
+US29b - Validacion en hardware | Prueba E2E,Done,Los dos ESP32 en la misma red 2.4 GHz con POST access plate 200 sesion creada y GET access barrier OPEN verificado.,Embebido,Henry,6,8
+US29c - Validacion en hardware | Apertura fisica del servo,To Review,Tapar el IR de entrada del DevKit dentro de la ventana OPEN y confirmar la apertura del servo de la barrera.,Embebido,Irving,4,8
+US30a - App Android con backend | Build y login real,Done,Configurar SPOTFINDER_API_URL generar el APK y validar login y registro contra el backend desplegado.,Movil,Leonardo,4,5
+US30b - App Android con backend | Dashboard con datos reales,Done,Verificar que el dashboard muestre la sesion activa ABC-123 y el Ingreso confirmado generados por el IoT.,Movil,Leonardo,4,5
+TS53a - Documentacion | Seccion 5.6 Opcion A + C4,Done,Reescribir 5.6 a Opcion A corregir OV2640 a OV3660 y regenerar los C4 Container y Component.,Documentacion,Henry,6,8
+TS53b - Documentacion | Alineacion al build real,Done,Reemplazar MQTT por HTTP REST y WS2812B por 2 LEDs ajustar flujos y actualizar el workspace DSL de Structurizr.,Documentacion,Leonardo,5,8

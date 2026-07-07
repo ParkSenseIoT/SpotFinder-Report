@@ -315,6 +315,8 @@ Para el TB2 el equipo, ya conformado por 4 integrantes, continuó trabajando en 
     - [6.3.2. Registro de Entrevistas](#632-registro-de-entrevistas)
     - [6.3.3. Evaluaciones según heurísticas](#633-evaluaciones-según-heurísticas)
   - [6.4. Video About-the-Product](#64-video-about-the-product)
+    - [6.4.1. Video About-the-Product](#641-video-about-the-product)
+    - [6.4.2. Video About-the-Team](#642-video-about-the-team)
 
 - [Conclusiones](#conclusiones)
 
@@ -7278,12 +7280,23 @@ Esta evaluación heurística parte de los hallazgos recogidos en las entrevistas
 
 ## 6.4. Video About-the-Product
 
-> *Sección reservada para la entrega AV2 / TB2. Incluirá el resumen del Video About-the-Product
-> dirigido a los visitantes del Landing Page y a los usuarios finales (conductores y
-> administradores), con un screenshot representativo, el URL en Microsoft Stream/Clipchamp,
-> el URL en YouTube utilizado para incrustarse en el Landing Page, la duración total y al menos
-> un testimonio positivo extraído de las entrevistas de validación. La nomenclatura del archivo
-> será `upc-pre-202610-1asi0572-<NRC>-spotfinder-about-the-product-sprint-2.mp4`.*
+En esta sección se presentan los videos de presentación del proyecto **SpotFinder**: el **Video About-the-Product**, dirigido a los visitantes del Landing Page y a los usuarios finales (conductores y administradores), y el **Video About-the-Team**, que presenta al equipo de ParkSense IoT y su experiencia de trabajo colaborativo.
+
+### 6.4.1. Video About-the-Product
+
+El Video About-the-Product resume la propuesta de valor de SpotFinder: el problema de la búsqueda de estacionamiento en los centros comerciales de Lima y cómo la solución —app móvil para conductores, dashboard web para administradores, nodos IoT con ESP32 y reconocimiento automático de placas (ALPR)— permite encontrar, reservar, ingresar y pagar el estacionamiento de forma automática y sin fricciones.
+
+<img src="assets/images/screenshots/product.png" alt="Video About-the-Product de SpotFinder" width="700">
+
+**Enlace del video (About-the-Product):** [Ver en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQDawwH5XN8kRr8Ael1uCH8tAZ9BCzevwKDbwVGcJ_mMZbk?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=s9N4HV)
+
+### 6.4.2. Video About-the-Team
+
+El Video About-the-Team presenta a los integrantes del equipo **ParkSense IoT**, sus roles y aportes en el desarrollo del proyecto SpotFinder, así como la experiencia de trabajo colaborativo a lo largo de los sprints.
+
+<img src="assets/images/screenshots/team.png" alt="Video About-the-Team de ParkSense IoT" width="700">
+
+**Enlace del video (About-the-Team):** [Ver en SharePoint](https://upcedupe-my.sharepoint.com/:v:/g/personal/u202213241_upc_edu_pe/IQB14vHpGPCFRYKT2saUkNu4AWAymaWgJTtlWUWQ7MBZX_U?nav=eyJyZWZlcnJhbEluZm8iOnsicmVmZXJyYWxBcHAiOiJPbmVEcml2ZUZvckJ1c2luZXNzIiwicmVmZXJyYWxBcHBQbGF0Zm9ybSI6IldlYiIsInJlZmVycmFsTW9kZSI6InZpZXciLCJyZWZlcnJhbFZpZXciOiJNeUZpbGVzTGlua0NvcHkifX0&e=jw0Zmg)
 
 <div style="page-break-after: always;"></div>
 
